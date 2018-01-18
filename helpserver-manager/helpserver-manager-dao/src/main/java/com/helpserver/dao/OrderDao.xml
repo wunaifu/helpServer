@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helpserver.dao.OrderDao" >
+  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Order" >
+    <id column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="senderId" property="senderid" jdbcType="INTEGER" />
+    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="commission" property="commission" jdbcType="INTEGER" />
+    <result column="menAccount" property="menaccount" jdbcType="INTEGER" />
+    <result column="detailTime" property="detailtime" jdbcType="VARCHAR" />
+    <result column="expendTime" property="expendtime" jdbcType="VARCHAR" />
+    <result column="serverInfo" property="serverinfo" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="startPoint" property="startpoint" jdbcType="VARCHAR" />
+    <result column="endPoint" property="endpoint" jdbcType="VARCHAR" />
+    <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
+    <result column="repealTime" property="repealtime" jdbcType="VARCHAR" />
+    <result column="repealReason" property="repealreason" jdbcType="VARCHAR" />
+    <result column="orderState" property="orderstate" jdbcType="INTEGER" />
+    <result column="callName" property="callname" jdbcType="VARCHAR" />
+    <result column="callPhone" property="callphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      orderId, senderId, typeId, title, commission, menAccount, detailTime, expendTime, 
+      serverInfo, area, startPoint, endPoint, sendTime, repealTime, repealReason, orderState, 
+      callName, callPhone
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    orderId,senderId,typeId,title,commission,menAccount,detailTime,expendTime,serverInfo,area,startPoint,endPoint,sendTime,repealTime,repealReason,orderState,callName,callPhone
+    from order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.helpserver.pojo.OrderExample" >
+    delete from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.helpserver.pojo.Order" >
+    insert into order (orderId, senderId, typeId, 
+      title, commission, menAccount, 
+      detailTime, expendTime, serverInfo, 
+      area, startPoint, endPoint, 
+      sendTime, repealTime, repealReason, 
+      orderState, callName, callPhone
+      )
+    values (#{orderid,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{commission,jdbcType=INTEGER}, #{menaccount,jdbcType=INTEGER}, 
+      #{detailtime,jdbcType=VARCHAR}, #{expendtime,jdbcType=VARCHAR}, #{serverinfo,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{startpoint,jdbcType=VARCHAR}, #{endpoint,jdbcType=VARCHAR}, 
+      #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, #{repealreason,jdbcType=VARCHAR}, 
+      #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, #{callphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="senderid != null" >
+        senderId,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="commission != null" >
+        commission,
+      </if>
+      <if test="menaccount != null" >
+        menAccount,
+      </if>
+      <if test="detailtime != null" >
+        detailTime,
+      </if>
+      <if test="expendtime != null" >
+        expendTime,
+      </if>
+      <if test="serverinfo != null" >
+        serverInfo,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="startpoint != null" >
+        startPoint,
+      </if>
+      <if test="endpoint != null" >
+        endPoint,
+      </if>
+      <if test="sendtime != null" >
+        sendTime,
+      </if>
+      <if test="repealtime != null" >
+        repealTime,
+      </if>
+      <if test="repealreason != null" >
+        repealReason,
+      </if>
+      <if test="orderstate != null" >
+        orderState,
+      </if>
+      <if test="callname != null" >
+        callName,
+      </if>
+      <if test="callphone != null" >
+        callPhone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="senderid != null" >
+        #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=INTEGER},
+      </if>
+      <if test="menaccount != null" >
+        #{menaccount,jdbcType=INTEGER},
+      </if>
+      <if test="detailtime != null" >
+        #{detailtime,jdbcType=VARCHAR},
+      </if>
+      <if test="expendtime != null" >
+        #{expendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="serverinfo != null" >
+        #{serverinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="startpoint != null" >
+        #{startpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="endpoint != null" >
+        #{endpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="repealtime != null" >
+        #{repealtime,jdbcType=VARCHAR},
+      </if>
+      <if test="repealreason != null" >
+        #{repealreason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstate != null" >
+        #{orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="callname != null" >
+        #{callname,jdbcType=VARCHAR},
+      </if>
+      <if test="callphone != null" >
+        #{callphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.helpserver.pojo.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order
+    <set >
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.senderid != null" >
+        senderId = #{record.senderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        typeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commission != null" >
+        commission = #{record.commission,jdbcType=INTEGER},
+      </if>
+      <if test="record.menaccount != null" >
+        menAccount = #{record.menaccount,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailtime != null" >
+        detailTime = #{record.detailtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expendtime != null" >
+        expendTime = #{record.expendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverinfo != null" >
+        serverInfo = #{record.serverinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startpoint != null" >
+        startPoint = #{record.startpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endpoint != null" >
+        endPoint = #{record.endpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendtime != null" >
+        sendTime = #{record.sendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repealtime != null" >
+        repealTime = #{record.repealtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repealreason != null" >
+        repealReason = #{record.repealreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderstate != null" >
+        orderState = #{record.orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.callname != null" >
+        callName = #{record.callname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callphone != null" >
+        callPhone = #{record.callphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order
+    set orderId = #{record.orderid,jdbcType=INTEGER},
+      senderId = #{record.senderid,jdbcType=INTEGER},
+      typeId = #{record.typeid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      commission = #{record.commission,jdbcType=INTEGER},
+      menAccount = #{record.menaccount,jdbcType=INTEGER},
+      detailTime = #{record.detailtime,jdbcType=VARCHAR},
+      expendTime = #{record.expendtime,jdbcType=VARCHAR},
+      serverInfo = #{record.serverinfo,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      startPoint = #{record.startpoint,jdbcType=VARCHAR},
+      endPoint = #{record.endpoint,jdbcType=VARCHAR},
+      sendTime = #{record.sendtime,jdbcType=VARCHAR},
+      repealTime = #{record.repealtime,jdbcType=VARCHAR},
+      repealReason = #{record.repealreason,jdbcType=VARCHAR},
+      orderState = #{record.orderstate,jdbcType=INTEGER},
+      callName = #{record.callname,jdbcType=VARCHAR},
+      callPhone = #{record.callphone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Order" >
+    update order
+    <set >
+      <if test="senderid != null" >
+        senderId = #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        commission = #{commission,jdbcType=INTEGER},
+      </if>
+      <if test="menaccount != null" >
+        menAccount = #{menaccount,jdbcType=INTEGER},
+      </if>
+      <if test="detailtime != null" >
+        detailTime = #{detailtime,jdbcType=VARCHAR},
+      </if>
+      <if test="expendtime != null" >
+        expendTime = #{expendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="serverinfo != null" >
+        serverInfo = #{serverinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="startpoint != null" >
+        startPoint = #{startpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="endpoint != null" >
+        endPoint = #{endpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendTime = #{sendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="repealtime != null" >
+        repealTime = #{repealtime,jdbcType=VARCHAR},
+      </if>
+      <if test="repealreason != null" >
+        repealReason = #{repealreason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstate != null" >
+        orderState = #{orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="callname != null" >
+        callName = #{callname,jdbcType=VARCHAR},
+      </if>
+      <if test="callphone != null" >
+        callPhone = #{callphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Order" >
+    update order
+    set senderId = #{senderid,jdbcType=INTEGER},
+      typeId = #{typeid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      commission = #{commission,jdbcType=INTEGER},
+      menAccount = #{menaccount,jdbcType=INTEGER},
+      detailTime = #{detailtime,jdbcType=VARCHAR},
+      expendTime = #{expendtime,jdbcType=VARCHAR},
+      serverInfo = #{serverinfo,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      startPoint = #{startpoint,jdbcType=VARCHAR},
+      endPoint = #{endpoint,jdbcType=VARCHAR},
+      sendTime = #{sendtime,jdbcType=VARCHAR},
+      repealTime = #{repealtime,jdbcType=VARCHAR},
+      repealReason = #{repealreason,jdbcType=VARCHAR},
+      orderState = #{orderstate,jdbcType=INTEGER},
+      callName = #{callname,jdbcType=VARCHAR},
+      callPhone = #{callphone,jdbcType=VARCHAR}
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+</mapper>

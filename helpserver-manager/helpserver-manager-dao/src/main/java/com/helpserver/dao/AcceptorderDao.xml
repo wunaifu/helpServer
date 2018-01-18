@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helpserver.dao.AcceptorderDao" >
+  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Acceptorder" >
+    <id column="acceptorderId" property="acceptorderid" jdbcType="INTEGER" />
+    <result column="accepterId" property="accepterid" jdbcType="INTEGER" />
+    <result column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="acceptTime" property="accepttime" jdbcType="VARCHAR" />
+    <result column="backReason" property="backreason" jdbcType="VARCHAR" />
+    <result column="backTime" property="backtime" jdbcType="VARCHAR" />
+    <result column="acceptState" property="acceptstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      acceptorderId, accepterId, orderId, acceptTime, backReason, backTime, acceptState
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.AcceptorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from acceptorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    acceptorderId,accepterId,orderId,acceptTime,backReason,backTime,acceptState
+    from acceptorder
+    where acceptorderId = #{acceptorderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from acceptorder
+    where acceptorderId = #{acceptorderid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.helpserver.pojo.AcceptorderExample" >
+    delete from acceptorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.helpserver.pojo.Acceptorder" >
+    insert into acceptorder (acceptorderId, accepterId, orderId, 
+      acceptTime, backReason, backTime, 
+      acceptState)
+    values (#{acceptorderid,jdbcType=INTEGER}, #{accepterid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
+      #{accepttime,jdbcType=VARCHAR}, #{backreason,jdbcType=VARCHAR}, #{backtime,jdbcType=VARCHAR}, 
+      #{acceptstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.Acceptorder" >
+    insert into acceptorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acceptorderid != null" >
+        acceptorderId,
+      </if>
+      <if test="accepterid != null" >
+        accepterId,
+      </if>
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="accepttime != null" >
+        acceptTime,
+      </if>
+      <if test="backreason != null" >
+        backReason,
+      </if>
+      <if test="backtime != null" >
+        backTime,
+      </if>
+      <if test="acceptstate != null" >
+        acceptState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acceptorderid != null" >
+        #{acceptorderid,jdbcType=INTEGER},
+      </if>
+      <if test="accepterid != null" >
+        #{accepterid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="accepttime != null" >
+        #{accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="backreason != null" >
+        #{backreason,jdbcType=VARCHAR},
+      </if>
+      <if test="backtime != null" >
+        #{backtime,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptstate != null" >
+        #{acceptstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.helpserver.pojo.AcceptorderExample" resultType="java.lang.Integer" >
+    select count(*) from acceptorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update acceptorder
+    <set >
+      <if test="record.acceptorderid != null" >
+        acceptorderId = #{record.acceptorderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.accepterid != null" >
+        accepterId = #{record.accepterid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.accepttime != null" >
+        acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backreason != null" >
+        backReason = #{record.backreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backtime != null" >
+        backTime = #{record.backtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptstate != null" >
+        acceptState = #{record.acceptstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update acceptorder
+    set acceptorderId = #{record.acceptorderid,jdbcType=INTEGER},
+      accepterId = #{record.accepterid,jdbcType=INTEGER},
+      orderId = #{record.orderid,jdbcType=INTEGER},
+      acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      backReason = #{record.backreason,jdbcType=VARCHAR},
+      backTime = #{record.backtime,jdbcType=VARCHAR},
+      acceptState = #{record.acceptstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Acceptorder" >
+    update acceptorder
+    <set >
+      <if test="accepterid != null" >
+        accepterId = #{accepterid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        orderId = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="accepttime != null" >
+        acceptTime = #{accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="backreason != null" >
+        backReason = #{backreason,jdbcType=VARCHAR},
+      </if>
+      <if test="backtime != null" >
+        backTime = #{backtime,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptstate != null" >
+        acceptState = #{acceptstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where acceptorderId = #{acceptorderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Acceptorder" >
+    update acceptorder
+    set accepterId = #{accepterid,jdbcType=INTEGER},
+      orderId = #{orderid,jdbcType=INTEGER},
+      acceptTime = #{accepttime,jdbcType=VARCHAR},
+      backReason = #{backreason,jdbcType=VARCHAR},
+      backTime = #{backtime,jdbcType=VARCHAR},
+      acceptState = #{acceptstate,jdbcType=INTEGER}
+    where acceptorderId = #{acceptorderid,jdbcType=INTEGER}
+  </update>
+</mapper>

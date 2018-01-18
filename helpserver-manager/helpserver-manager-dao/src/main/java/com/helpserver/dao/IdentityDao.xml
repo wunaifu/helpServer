@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helpserver.dao.IdentityDao" >
+  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Identity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="frontPhoto" property="frontphoto" jdbcType="VARCHAR" />
+    <result column="backPhoto" property="backphoto" jdbcType="VARCHAR" />
+    <result column="askTime" property="asktime" jdbcType="VARCHAR" />
+    <result column="checkTime" property="checktime" jdbcType="VARCHAR" />
+    <result column="failureReason" property="failurereason" jdbcType="VARCHAR" />
+    <result column="checkState" property="checkstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, userId, frontPhoto, backPhoto, askTime, checkTime, failureReason, checkState
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.IdentityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from identity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,userId,frontPhoto,backPhoto,askTime,checkTime,failureReason,checkState
+    from identity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from identity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.helpserver.pojo.IdentityExample" >
+    delete from identity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.helpserver.pojo.Identity" >
+    insert into identity (id, userId, frontPhoto, 
+      backPhoto, askTime, checkTime, 
+      failureReason, checkState)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{frontphoto,jdbcType=VARCHAR}, 
+      #{backphoto,jdbcType=VARCHAR}, #{asktime,jdbcType=VARCHAR}, #{checktime,jdbcType=VARCHAR}, 
+      #{failurereason,jdbcType=VARCHAR}, #{checkstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.Identity" >
+    insert into identity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="frontphoto != null" >
+        frontPhoto,
+      </if>
+      <if test="backphoto != null" >
+        backPhoto,
+      </if>
+      <if test="asktime != null" >
+        askTime,
+      </if>
+      <if test="checktime != null" >
+        checkTime,
+      </if>
+      <if test="failurereason != null" >
+        failureReason,
+      </if>
+      <if test="checkstate != null" >
+        checkState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="frontphoto != null" >
+        #{frontphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backphoto != null" >
+        #{backphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="asktime != null" >
+        #{asktime,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="failurereason != null" >
+        #{failurereason,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstate != null" >
+        #{checkstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.helpserver.pojo.IdentityExample" resultType="java.lang.Integer" >
+    select count(*) from identity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update identity
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.frontphoto != null" >
+        frontPhoto = #{record.frontphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backphoto != null" >
+        backPhoto = #{record.backphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.asktime != null" >
+        askTime = #{record.asktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checktime != null" >
+        checkTime = #{record.checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failurereason != null" >
+        failureReason = #{record.failurereason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkstate != null" >
+        checkState = #{record.checkstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update identity
+    set id = #{record.id,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      frontPhoto = #{record.frontphoto,jdbcType=VARCHAR},
+      backPhoto = #{record.backphoto,jdbcType=VARCHAR},
+      askTime = #{record.asktime,jdbcType=VARCHAR},
+      checkTime = #{record.checktime,jdbcType=VARCHAR},
+      failureReason = #{record.failurereason,jdbcType=VARCHAR},
+      checkState = #{record.checkstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Identity" >
+    update identity
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="frontphoto != null" >
+        frontPhoto = #{frontphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="backphoto != null" >
+        backPhoto = #{backphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="asktime != null" >
+        askTime = #{asktime,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        checkTime = #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="failurereason != null" >
+        failureReason = #{failurereason,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstate != null" >
+        checkState = #{checkstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Identity" >
+    update identity
+    set userId = #{userid,jdbcType=INTEGER},
+      frontPhoto = #{frontphoto,jdbcType=VARCHAR},
+      backPhoto = #{backphoto,jdbcType=VARCHAR},
+      askTime = #{asktime,jdbcType=VARCHAR},
+      checkTime = #{checktime,jdbcType=VARCHAR},
+      failureReason = #{failurereason,jdbcType=VARCHAR},
+      checkState = #{checkstate,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
