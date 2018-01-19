@@ -2,6 +2,7 @@ package com.helpserver.service.impl;
 
 import com.helpserver.dao.UserDao;
 import com.helpserver.pojo.UserExample;
+import com.helpserver.utils.DESUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.helpserver.pojo.User;
@@ -82,12 +83,36 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User selectByPhoneAndPsw(String phone, String password) {
-        return null;
+    public String loginByPhoneAndPsw(String phone, String password) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria=userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null && userList.size() > 0) {
+            if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
+                return "sure_login";
+            }else {
+                return "password_error";
+            }
+        } else {
+            return "phone_error";
+        }
     }
 
     @Override
     public boolean updateUser(User user) {
         return false;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

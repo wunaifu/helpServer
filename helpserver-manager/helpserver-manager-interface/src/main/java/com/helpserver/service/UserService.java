@@ -21,7 +21,8 @@ public interface UserService {
 
     boolean insertUser(User user);
 
-    User selectByPhoneAndPsw(String phone,String password);
+    String loginByPhoneAndPsw(String phone,String password);
 
     boolean updateUser(User user);
+
 }
