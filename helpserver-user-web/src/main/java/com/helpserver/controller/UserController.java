@@ -25,21 +25,46 @@ public class UserController {
     UserService userService;
 
     /**
-     *
+     * 登录接口，返回登录信息，
+     * 1.login_success
+     * 2.password_error
+     * 3.phone_error
      * @param request
      */
     @RequestMapping(value = "/dologin")
     public void dologin(HttpServletRequest request,HttpServletResponse response) {
-        String phone = request.getParameter("phone");
-        String password = request.getParameter("password");
+        String phone = "";
+        String password = "";
+        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
+            ResponseUtils.renderJson(response,"not_param");
+        }
+        phone = request.getParameter("phone");
+        password = request.getParameter("password");
         //获取phone和psw的验证情况
         String result = userService.loginByPhoneAndPsw(phone, password);
-        User user = new User();
-        user.setUserid(1);
-        user.setAddress("iuiji");
-        user.setAge(12);
-        System.out.println("ddddddd" + JsonUtils.objectToJson(user));
-        ResponseUtils.renderJson(response,JsonUtils.objectToJson(user));
+        ResponseUtils.renderJson(response,result);
+//        ResponseUtils.renderJson(response,JsonUtils.objectToJson(user));
+    }
+
+    /**
+     * 注册接口，返回注册信息
+     * 1、user_exist
+     * 2、register_success
+     * 3、register_failure
+     * @param request
+     */
+    @RequestMapping(value = "/doregister")
+    public void register(HttpServletRequest request,HttpServletResponse response) {
+        String phone = "";
+        String password = "";
+        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
+            ResponseUtils.renderJson(response,"not_param");
+        }
+        phone = request.getParameter("phone");
+        password = request.getParameter("password");
+        //获取phone和psw的验证情况
+        String result = userService.registerByPhoneAndPsw(phone, password);
+        ResponseUtils.renderJson(response,result);
     }
 }
 

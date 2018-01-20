@@ -1,14 +1,19 @@
 package com.helpserver.service.impl;
 
+import com.alibaba.druid.support.logging.Log;
 import com.helpserver.dao.UserDao;
 import com.helpserver.pojo.UserExample;
 import com.helpserver.utils.DESUtils;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
 
+import java.util.Date;
 import java.util.List;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Created by wunaifu on 2018/1/11.
@@ -82,6 +87,14 @@ public class UserServiceImpl implements UserService{
         return false;
     }
 
+    /**
+     * 登录
+     * 1、先验证是否存在手机账号
+     * 2、返回信息
+     * @param phone
+     * @param password
+     * @return
+     */
     @Override
     public String loginByPhoneAndPsw(String phone, String password) {
         UserExample userExample = new UserExample();
@@ -90,12 +103,44 @@ public class UserServiceImpl implements UserService{
         List<User> userList = userDao.selectByExample(userExample);
         if (userList != null && userList.size() > 0) {
             if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
-                return "sure_login";
+                return "login_success";
             }else {
                 return "password_error";
             }
         } else {
             return "phone_error";
+        }
+    }
+
+    /**
+     * 注册
+     * 1、先验证是否存在手机账号
+     * 2、插入账号密码、权限为0、注册时间
+     * @param phone
+     * @param password
+     * @return
+     */
+    @Override
+    public String registerByPhoneAndPsw(String phone, String password) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria=userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null && userList.size() > 0) {
+            return "user_exist";
+        } else {
+            User user = new User();
+            user.setPhone(phone);
+            user.setPassword(DESUtils.encode(password));
+            user.setPermission(0);
+            user.setRegistertime(TimeUtil.dateToString(new Date()));
+            user.setName(phone);
+            user.setNickname(phone);
+            int result = userDao.insertSelective(user);
+            if (result==1) {
+                return "register_success";
+            }
+            return "register_failure";
         }
     }
 

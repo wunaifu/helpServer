@@ -21,6 +21,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  * ninsdfakajsdf
  */
 @Controller
+@RequestMapping(value = "/manager/user")
 public class UserController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/user/banlist")
+    @RequestMapping("/banlist")
     public String fineAllBanUser(Model model) throws Exception {
         List<User> userList = userService.getUserListByPermission(2);
 //        System.out.println("userList===" + userList.toString());
@@ -53,7 +54,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/user/uselist")
+    @RequestMapping("/uselist")
     public String fineAllUsingUser(Model model) throws Exception {
         List<User> userList = userService.getAllUseingUserList();
 //        System.out.println("userList===" + userList.toString());
@@ -62,7 +63,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/{userId}/detail")
+    @RequestMapping(value = "/{userId}/detail")
     public String getUserByUserId(@PathVariable("userId") int userId,Model model) throws Exception {
         User user = userService.selectByPrimaryKey(userId);
         System.out.println("user===" + user.getName());

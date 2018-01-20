@@ -17,11 +17,6 @@ public class PageController {
 
     @RequestMapping("/")
     public String showIndex1() {
-        return "index";
-    }
-
-    @RequestMapping("/userinfo")
-    public String showIndex11() {
-        return "userinfo";
+        return "/images/index.jsp";
     }
 }

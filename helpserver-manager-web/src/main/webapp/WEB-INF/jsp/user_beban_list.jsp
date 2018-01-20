@@ -92,7 +92,7 @@
                                                     <td class="manager-border2 manager-hidden1">${item.bantime}</td>
                                                     <td class="manager-border2" style="color: red">被禁用</td>
                                                     <td class="manager-border2" style="font-size: 17px">
-                                                        <a href="/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
+                                                        <a href="/manager/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
                                                         <a href="/user_info"><span class="label label-success">取消禁用</span></a>
                                                     </td>
 
