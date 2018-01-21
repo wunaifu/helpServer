@@ -17,6 +17,16 @@ public class PageController {
 
     @RequestMapping("/")
     public String showIndex1() {
-        return "/images/index.jsp";
+        return "index";
+    }
+
+    @RequestMapping(value = "/login")
+    public String login() throws Exception {
+        return "login";
+    }
+
+    @RequestMapping(value = "/register")
+    public String register() throws Exception {
+        return "register";
     }
 }

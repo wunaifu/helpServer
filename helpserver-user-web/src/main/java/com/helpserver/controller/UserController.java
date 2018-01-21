@@ -6,6 +6,7 @@ import com.helpserver.utils.JsonUtils;
 import com.helpserver.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,15 +32,16 @@ public class UserController {
      * 3.phone_error
      * @param request
      */
-    @RequestMapping(value = "/dologin")
-    public void dologin(HttpServletRequest request,HttpServletResponse response) {
-        String phone = "";
-        String password = "";
-        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
-            ResponseUtils.renderJson(response,"not_param");
-        }
-        phone = request.getParameter("phone");
-        password = request.getParameter("password");
+    @RequestMapping(value = "/dologin/{phone}/{password}")
+    public void dologin(@PathVariable("phone") String phone,@PathVariable("password") String password,
+            HttpServletRequest request,HttpServletResponse response) {
+//        String phone = "";
+//        String password = "";
+//        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
+//            ResponseUtils.renderJson(response,"not_param");
+//        }
+//        phone = request.getParameter("phone");
+//        password = request.getParameter("password");
         //获取phone和psw的验证情况
         String result = userService.loginByPhoneAndPsw(phone, password);
         ResponseUtils.renderJson(response,result);
@@ -53,13 +55,14 @@ public class UserController {
      * 3、register_failure
      * @param request
      */
-    @RequestMapping(value = "/doregister")
-    public void register(HttpServletRequest request,HttpServletResponse response) {
-        String phone = "";
-        String password = "";
-        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
-            ResponseUtils.renderJson(response,"not_param");
-        }
+    @RequestMapping(value = "/doregister/{phone}/{password}")
+    public void register(@PathVariable("phone") String phone,@PathVariable("password") String password,
+            HttpServletRequest request,HttpServletResponse response) {
+//        String phone = "";
+//        String password = "";
+//        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
+//            ResponseUtils.renderJson(response,"not_param");
+//        }
         phone = request.getParameter("phone");
         password = request.getParameter("password");
         //获取phone和psw的验证情况
