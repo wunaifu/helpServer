@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService{
         } else {
             User user = new User();
             user.setPhone(phone);
-            user.setPassword(DESUtils.encode(password));
+            user.setPassword(DESUtils.getMD5Str(password));
             user.setPermission(0);
             user.setRegistertime(TimeUtil.dateToString(new Date()));
             user.setName(phone);

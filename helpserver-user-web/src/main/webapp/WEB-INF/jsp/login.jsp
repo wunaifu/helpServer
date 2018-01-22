@@ -21,12 +21,13 @@
 
     <link rel="stylesheet" href="../../AmazeUI-2.4.2/assets/css/amazeui.css"/>
     <link href="../../css/dlstyle.css" rel="stylesheet" type="text/css">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
 <div class="login-boxtitle">
-    <a href="home.html"><img alt="logo" src="../../images/logobig.png"/></a>
+    <a href="#"><img alt="logo" src="../../images/logobig.png"/></a>
 </div>
 
 <div class="login-banner">
@@ -34,12 +35,12 @@
         <div class="login-banner-bg"><span></span><img src="../../images/big.jpg"/></div>
         <div class="login-box">
 
-            <h3 class="title">登录商城</h3>
-
+            <h3 class="title">登录服务平台</h3>
             <div class="clear"></div>
+            <span id="killPhoneMessage" class="glyphicon"></span>
 
             <div class="login-form">
-                <form>
+                <form style="margin-top: 5px;">
                     <div class="user-name">
                         <label for="user"><i class="am-icon-user"></i></label>
                         <input type="text" name="phone" id="user" placeholder="手机号"
@@ -76,32 +77,6 @@
         </div>
     </div>
 </div>
-<script src="../../js/jquery-1.7.2.min.js"></script>
-<script>
-    function fun() {
-        var phone = $("#user").val();
-        var password = $("#password").val();
-        console.log(phone+"jj"+password);
-        $.ajax({
-            type: "POST",
-            url: "/user/dologin/" + phone + "/" + password,
-            contentType:"application/json;charset=utf-8",
-            dataType : "json",
-            error : function() {
-                alert("请求失败，请重试！error")
-            },
-            success:function (data) {
-                if (data!=null) {
-                    console.log(data);
-                    alert("数据请求成功！")
-                }else {
-                    alert("请求失败，请重试！")
-                }
-            }
-        });
-    }
-
-</script>
 
 <div class="footer ">
     <div class="footer-hd ">
@@ -126,6 +101,53 @@
         </p>
     </div>
 </div>
+
+<script src="../../js/jquery-1.7.2.min.js"></script>
+<script src="../../js/jquery.ajaxchimp.min.js"></script>
+<script src="../../js/script.js"></script>
+<script>
+    function fun() {
+        var phone = $("#user").val().replace(" ","");
+        var password = $("#password").val().replace(" ","");
+        console.log(phone+"password="+password);
+        if (phone==""||password==""){
+//            alert("内容不能为空！");
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">内容不能为空！</label>').show(300);
+            return;
+        }
+        $.ajax({
+            type : "POST",
+            url: "/user/dologin/" + phone + "/" + password,
+            contentType : "application/json;charset=utf-8",
+            dataType : "text",
+            error : function() {
+                $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
+//                alert("请求失败，请重试！");
+            },
+            success:function (data) {
+                if (data!=null) {
+                    console.log(data);
+                    if (data=="login_success"){
+                        window.location.href="/index";
+//                        alert("登录成功成功！");
+                    }
+                    if (data=="phone_error"){
+                        $('#killPhoneMessage').hide().html('<label style="color: red">手机号错误!</label>').show(300);
+//                        alert("账号错误，请确认！");
+                    }
+                    if (data=="password_error"){
+                        $('#killPhoneMessage').hide().html('<label style="color: red">密码错误!</label>').show(300);
+//                        alert("密码错误，请确认！");
+                    }
+                }else {
+//                    alert("请求失败，请重试！");
+                    $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
+                }
+            }
+        });
+    }
+
+</script>
 </body>
 
 </html>
