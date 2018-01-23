@@ -35,17 +35,8 @@ public class UserController {
     @RequestMapping(value = "/dologin/{phone}/{password}")
     public void dologin(@PathVariable("phone") String phone,@PathVariable("password") String password,
             HttpServletRequest request,HttpServletResponse response) {
-//        String phone = "";
-//        String password = "
-//        if (request.getParameter("phone") == null || req";uest.getParameter("password") == null) {
-//            ResponseUtils.renderJson(response,"not_param");
-//        }
-//        phone = request.getParameter("phone");
-//        password = request.getParameter("password");
-        //获取phone和psw的验证情况
         String result = userService.loginByPhoneAndPsw(phone, password);
         ResponseUtils.renderJson(response,result);
-//        ResponseUtils.renderJson(response,JsonUtils.objectToJson(user));
     }
 
     /**
@@ -58,14 +49,6 @@ public class UserController {
     @RequestMapping(value = "/doregister/{phone}/{password}")
     public void register(@PathVariable("phone") String phone,@PathVariable("password") String password,
             HttpServletRequest request,HttpServletResponse response) {
-//        String phone = "";
-//        String password = "";
-//        if (request.getParameter("phone") == null || request.getParameter("password") == null) {
-//            ResponseUtils.renderJson(response,"not_param");
-//        }
-//        phone = request.getParameter("phone");
-//        password = request.getParameter("password");
-        //获取phone和psw的验证情况
         String result = userService.registerByPhoneAndPsw(phone, password);
         ResponseUtils.renderJson(response,result);
     }
