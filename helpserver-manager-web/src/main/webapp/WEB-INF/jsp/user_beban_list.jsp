@@ -77,11 +77,11 @@
                                                     <c:choose>
                                                         <c:when test="${item.headicon==null||item.headicon==''}">
                                                             <td class="manager-border2">
-                                                                <img width="40px" height="30px"title="头像" alt="无图"></td>
+                                                                <img src="../../img/profile/profile-1.jpg" width="40px" height="30px"title="头像" alt="无图"></td>
                                                         </c:when>
                                                         <c:otherwise>
                                                             <td class="manager-border2" style="width: 60px;height: 30px">
-                                                                <img width="40px" height="30px" src="../../img/icon1.png"title="头像"></td>
+                                                                <img width="40px" height="30px" src="../../img/profile/profile-1.jpg"title="头像"></td>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2">${item.name}</td>
@@ -92,7 +92,7 @@
                                                     <td class="manager-border2 manager-hidden1">${item.bantime}</td>
                                                     <td class="manager-border2" style="color: red">被禁用</td>
                                                     <td class="manager-border2" style="font-size: 17px">
-                                                        <a href="/manager/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
+                                                        <a href="/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
                                                         <a href="/user_info"><span class="label label-success">取消禁用</span></a>
                                                     </td>
 

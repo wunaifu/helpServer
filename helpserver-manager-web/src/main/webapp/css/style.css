@@ -475,6 +475,35 @@ a:hover {
   .panel .panel-heading {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px; }
+/*提交按钮*/
+.bottom-up {
+  width: 100%;
+  border: none;
+  font-size: 1.2em;
+  font-weight: 400;
+  padding: .5em 1.2em;
+  width: 100%;
+  margin-top: 1.0em;
+  outline: none;
+  display:block;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  border-radius: 5px;
+
+}
+.bottom-up:hover {
+  background:#45aeee;
+  /*background: -webkit-linear-gradient(#F0F0F0,#45aeee); /* Safari 5.1 - 6.0 */
+  /*background: -o-linear-gradient(#F0F0F0,#45aeee); /* Opera 11.1 - 12.0 */
+  /*background: -moz-linear-gradient(#F0F0F0,#45aeee); /* Firefox 3.6 - 15 */
+  /*background: linear-gradient(#F0F0F0,#45aeee); /* 标准的 */
+}
+.bottom-up:active{
+  background-color: #3d74bb;
+}
 
 .chart {
   padding: 15px; }

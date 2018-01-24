@@ -88,7 +88,33 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 登录
+     * 管理员登录
+     * 1、先验证是否存在手机账号
+     * 2、返回信息
+     * @param phone
+     * @param password
+     * @return
+     */
+    @Override
+    public String managerLoginByPhoneAndPsw(String phone, String password) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria=userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+        criteria.andPermissionEqualTo(-1);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null && userList.size() > 0) {
+            if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
+                return "login_success";
+            }else {
+                return "password_error";
+            }
+        } else {
+            return "phone_error";
+        }
+    }
+
+    /**
+     * 普通用户登录
      * 1、先验证是否存在手机账号
      * 2、返回信息
      * @param phone
@@ -149,15 +175,20 @@ public class UserServiceImpl implements UserService{
         return false;
     }
 
+    @Override
+    public boolean updateUser(int permission,int userId) {
+        User user = new User();
+        user.setUserid(userId);
+        user.setPermission(0);
+        if (userDao.updateByPrimaryKeySelective(user) == 1) {
+            return true;
+        }
+        return false;
+    }
 
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public String managerUnBanUser(int userId) {
+//        User
+        return null;
+    }
 }

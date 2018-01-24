@@ -2,6 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import com.helpserver.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
@@ -21,14 +23,14 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  * ninsdfakajsdf
  */
 @Controller
-@RequestMapping(value = "/manager/user")
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     /**
-     * 查看已被禁用用户列表
+     * 管理员查看已被禁用用户列表
      * 1、可以查看用户详情
      * 2、可以取消禁用
      *
@@ -36,7 +38,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/banlist")
+    @RequestMapping(value = "/banlist",method = RequestMethod.GET)
     public String fineAllBanUser(Model model) throws Exception {
         List<User> userList = userService.getUserListByPermission(2);
 //        System.out.println("userList===" + userList.toString());
@@ -45,7 +47,7 @@ public class UserController {
     }
 
     /**
-     * 查看已被禁用用户列表
+     * 管理员查看已被禁用用户列表
      * 1、可以查看用户详情
      * 2、重置密码
      * 3、禁用
@@ -54,7 +56,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/uselist")
+    @RequestMapping(value = "/uselist",method = RequestMethod.GET)
     public String fineAllUsingUser(Model model) throws Exception {
         List<User> userList = userService.getAllUseingUserList();
 //        System.out.println("userList===" + userList.toString());
@@ -62,12 +64,18 @@ public class UserController {
         return "user_using_list";
     }
 
-
-    @RequestMapping(value = "/{userId}/detail")
+    /**
+     * 管理员查看用户详细信息
+     * @param userId
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/detail",method = RequestMethod.GET)
     public String getUserByUserId(@PathVariable("userId") int userId,Model model) throws Exception {
         User user = userService.selectByPrimaryKey(userId);
         System.out.println("user===" + user.getName());
-        System.out.println("userList===" + user.toString());
+//        System.out.println("page===" +page);
 //        String pageStr = "";
 //        if (permission == 2) {
 //            pageStr = "banlist";
@@ -79,7 +87,20 @@ public class UserController {
         return "user_info";
     }
 
-
+    /**
+     * 管理员取消禁用用户
+     * 1.login_success
+     * 2.password_error
+     * 3.phone_error
+     * @param request
+     */
+    @RequestMapping(value = "/unban/{userId}/")
+    public void unbanUser(@PathVariable("userId") String userId,
+                        HttpServletRequest request, HttpServletResponse response) {
+        int userIdINT = Integer.parseInt(userId);
+        String result = userService.managerUnBanUser(userIdINT);
+        ResponseUtils.renderJson(response,result);
+    }
 
 
 

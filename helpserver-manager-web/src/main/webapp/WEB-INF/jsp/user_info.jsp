@@ -31,88 +31,44 @@
 </head>
 
 <body class="flat-blue">
-    <div class="app-container">
-        <div class="row content-container">
+<div class="app-container">
+    <div class="row content-container">
 
-            <!-- 头部 start -->
-            <jsp:include page="head.jsp"/>
-            <!-- 头部 end -->
-            <%--<jsp:useBean id="user" class="com.helpserver.pojo.User" scope="page"></jsp:useBean>--%>
-            <!-- Main Content start-->
-            <div class="container-fluid">
-                <div class="side-body">
-                    <div class="page-title">
-                        <span class="title">账号${userinfo.phone}的信息</span>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="tables">
-                                        <div class="bs-example widget-shadow"
-                                             data-example-id="hoverable-table">
-                                            <div>
-                                                <h3>
-                                                    <a href="#"><span class="label label-success">修改信息</span></a>
-                                                </h3>
+        <!-- 头部 start -->
+        <jsp:include page="head.jsp"/>
+        <!-- 头部 end -->
+        <%--<jsp:useBean id="user" class="com.helpserver.pojo.User" scope="page"></jsp:useBean>--%>
+        <!-- Main Content start-->
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="page-title">
+                    <span class="title">账号${userinfo.phone}的信息</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tables">
+                                    <div class="bs-example widget-shadow"
+                                         data-example-id="hoverable-table">
+                                        <div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="item-title">
+                                                <c:choose>
+                                                    <c:when test="${userinfo.headicon==null||userinfo.headicon==''}">
+                                                        <h4 class="text-center"><img src="../../img/profile/profile-1.jpg" width="70px" height="80px"></h4>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <h4 class="text-center"><img src="../../img/profile/profile-1.jpg" width="70px" height="80px"></h4>
+                                                    </c:otherwise>
+                                                </c:choose>
+
                                             </div>
-                                            <div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="item-title">
-                                                    <h4 class="text-center"></h4>
-                                                </div>
-                                                <div class="form-body">
-                                                    <div id="page-wrapper">
-                                                        <div style="padding: 30px;">
-                                                            <div class="tables">
-                                                                <div class="bs-example widget-shadow"
-                                                                     data-example-id="hoverable-table">
-                                                                    <div class="row">
-                                                                        <div class="form-body">
-                                                                            <form action="addClient" method="post" enctype="multipart/form-data"
-                                                                                  class="bs-example bs-example-form" role="form" name="touxiangform">
-                                                                                <input type="text" class="hidden"
-                                                                                       id="userUserGradeId" name="userUserGradeId" value="">
-                                                                                <div class=" form-group-lg">
-                                                                                    <label><i class="fa fa-user fa-fw"></i>账号：</label>
-                                                                                    <input type="text" class="form-control" maxlength="16"
-                                                                                           onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')"
-                                                                                           id="inputUserAccount" name="inputUserAccount" placeholder="登录账号" required>
-                                                                                </div>
-                                                                                <div class=" form-group-lg">
-                                                                                    <label><i class="fa fa-user fa-fw"></i>姓名：</label>
-                                                                                    <input type="text" class="form-control" maxlength="16"
-                                                                                           id="inputName" name="inputName" placeholder="姓名" required>
-                                                                                </div>
-                                                                                <div class=" form-group-lg">
-                                                                                    <label><i class="fa fa-user fa-fw"></i>密码：</label>
-                                                                                    <input type="text" class="form-control" readonly="true" maxlength="16" value="123456"
-                                                                                           id="inputPassword" name="inputPassword" placeholder="密码" required>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <button type="submit" class="btn bottom-up">提交</button>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="clearfix"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row calender widget-shadow" style="display: none">
-                                                                <h4 class="title">Calender</h4>
-                                                                <div class="cal1"></div>
-                                                            </div>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item">头像：${userinfo.headicon}</li>
-                                                        <li class="list-group-item">账号：${userinfo.phone}</li>
+                                            <div class="form-body">
+                                                    <ul class="list-group text-center">
                                                         <li class="list-group-item">姓名：${userinfo.name}</li>
                                                         <li class="list-group-item">手机：${userinfo.phone}</li>
                                                         <li class="list-group-item">昵称：${userinfo.nickname}</li>
@@ -136,17 +92,15 @@
                                                                 <li class="list-group-item">权限：可接单用户</li>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <li class="list-group-item">权限：被禁用用户</li>
-                                                                <li class="list-group-item">禁用时间：${userinfo.bantime}</li>
+                                                                <li class="list-group-item" style="color: red">权限：被禁用用户</li>
+                                                                <li class="list-group-item" style="color: red">禁用时间：${userinfo.bantime}</li>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </ul>
-                                                    -->
-                                                </div>
                                             </div>
-
-                                            <div class="clearfix"></div>
                                         </div>
+
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
@@ -154,29 +108,30 @@
                     </div>
                 </div>
             </div>
-			<!-- Main Content end-->
         </div>
-        <footer class="app-footer">
-            <div class="wrapper">
-                <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright.
-            </div>
-        </footer>
+        <!-- Main Content end-->
+    </div>
+    <footer class="app-footer">
+        <div class="wrapper">
+            <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright.
         </div>
-            <!-- Javascript Libs -->
-            <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
-            <script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/ace.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/mode-html.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/theme-github.js"></script>
-            <!-- Javascript -->
-            <script type="text/javascript" src="../../js/app.js"></script>
-            <script type="text/javascript" src="../../js/index.js"></script>
+    </footer>
+</div>
+<!-- Javascript Libs -->
+<script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
+<script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
+<script type="text/javascript" src="../../lib/js/ace/ace.js"></script>
+<script type="text/javascript" src="../../lib/js/ace/mode-html.js"></script>
+<script type="text/javascript" src="../../lib/js/ace/theme-github.js"></script>
+<!-- Javascript -->
+<script type="text/javascript" src="../../js/app.js"></script>
+<script type="text/javascript" src="../../js/index.js"></script>
 </body>
 
 </html>

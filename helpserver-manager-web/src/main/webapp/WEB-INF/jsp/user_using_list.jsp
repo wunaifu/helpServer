@@ -60,7 +60,7 @@
                                     <table class="datatable table table-striped" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th class="manager-border2">头像</th>
+                                            <th class="manager-border2 manager-hidden1">头像</th>
                                             <th class="manager-border2">姓名</th>
                                             <th class="manager-border2 manager-hidden1">手机</th>
                                             <th class="manager-border2 manager-hidden1">昵称</th>
@@ -75,19 +75,19 @@
                                                 <tr class="manager-bg input-lg">
                                                     <c:choose>
                                                         <c:when test="${item.headicon==null||item.headicon==''}">
-                                                            <td class="manager-border2">
-                                                                <img width="40px" height="30px"title="头像" alt="无图"></td>
+                                                            <td class="manager-border2 manager-hidden1">
+                                                                <img src="../../img/profile/profile-1.jpg" width="40px" height="30px"title="头像" alt="无图"></td>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <td class="manager-border2" style="width: 60px;height: 30px">
-                                                                <img width="40px" height="30px" src="../../img/icon1.png"title="头像"></td>
+                                                            <td class="manager-border2  manager-hidden1" style="width: 60px;height: 30px">
+                                                                <img width="40px" height="30px" src="../../img/profile/profile-1.jpg"title="头像"></td>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2">${item.name}</td>
-                                                    <td class="manager-border2">${item.phone}</td>
+                                                    <td class="manager-border2 manager-hidden1">${item.phone}</td>
                                                     <td class="manager-border2 manager-hidden1">${item.nickname}</td>
-                                                    <td class="manager-border2 manager-hidden1">${item.address}</td>
-                                                    <td class="manager-border2 manager-hidden3">${item.registertime}</td>
+                                                    <td class="manager-border2 manager-hidden3">${item.address}</td>
+                                                    <td class="manager-border2 manager-hidden2">${item.registertime}</td>
                                                     <c:choose>
                                                         <c:when test="${item.permission==0}">
                                                             <td class="manager-border2"style="color: red"><b>未实名认证</b></td>
@@ -100,9 +100,9 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/manager/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
-                                                        <a href="/manager/user/${item.userid}/resetpsw"><span class="label label-default">重置密码</span></a>
-                                                        <a href="/manager/user/${item.userid}/ban"><span class="label label-danger">禁用</span></a>
+                                                        <a href="/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
+                                                        <a href="/user/${item.userid}/resetpsw"><span class="label label-default">重置密码</span></a>
+                                                        <a href="/user/${item.userid}/ban"><span class="label label-danger">禁用</span></a>
                                                     </td>
 
                                                 </tr>

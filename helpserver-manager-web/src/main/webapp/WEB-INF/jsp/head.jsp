@@ -112,9 +112,9 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/fineAllUnCheckUser">申请身份认证列表</a>
                                 </li>
-                                <li><a href="/manager/user/uselist">用户列表</a>
+                                <li><a href="/user/uselist">用户列表</a>
                                 </li>
-                                <li><a href="/manager/user/banlist">已被禁用用户列表</a>
+                                <li><a href="/user/banlist">已被禁用用户列表</a>
                                 </li>
                             </ul>
                         </div>
