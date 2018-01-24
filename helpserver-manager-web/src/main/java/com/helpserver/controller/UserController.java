@@ -2,7 +2,9 @@ package com.helpserver.controller;
 
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import com.helpserver.utils.DESUtils;
 import com.helpserver.utils.ResponseUtils;
+import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -33,13 +35,15 @@ public class UserController {
      * 管理员查看已被禁用用户列表
      * 1、可以查看用户详情
      * 2、可以取消禁用
-     *
      * @param model
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/banlist",method = RequestMethod.GET)
-    public String fineAllBanUser(Model model) throws Exception {
+    public String fineAllBanUser(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
         List<User> userList = userService.getUserListByPermission(2);
 //        System.out.println("userList===" + userList.toString());
         model.addAttribute("userList", userList);
@@ -51,13 +55,15 @@ public class UserController {
      * 1、可以查看用户详情
      * 2、重置密码
      * 3、禁用
-     *
      * @param model
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/uselist",method = RequestMethod.GET)
-    public String fineAllUsingUser(Model model) throws Exception {
+    public String fineAllUsingUser(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
         List<User> userList = userService.getAllUseingUserList();
 //        System.out.println("userList===" + userList.toString());
         model.addAttribute("userList", userList);
@@ -72,7 +78,10 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping(value = "/{userId}/detail",method = RequestMethod.GET)
-    public String getUserByUserId(@PathVariable("userId") int userId,Model model) throws Exception {
+    public String getUserByUserId(@PathVariable("userId") int userId,HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
         User user = userService.selectByPrimaryKey(userId);
         System.out.println("user===" + user.getName());
 //        System.out.println("page===" +page);
@@ -89,19 +98,55 @@ public class UserController {
 
     /**
      * 管理员取消禁用用户
-     * 1.login_success
-     * 2.password_error
-     * 3.phone_error
      * @param request
      */
-    @RequestMapping(value = "/unban/{userId}/")
-    public void unbanUser(@PathVariable("userId") String userId,
-                        HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/unban/{userId}")
+    public String unbanUser(@PathVariable("userId") String userId,
+                        HttpServletRequest request) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
         int userIdINT = Integer.parseInt(userId);
-        String result = userService.managerUnBanUser(userIdINT);
-        ResponseUtils.renderJson(response,result);
+        if (userService.managerUnBanUser(userIdINT,0)) {
+            return "redirect:/user/banlist";
+        }
+        return "page_400";
+//        ResponseUtils.renderJson(response,result);
     }
 
+    /**
+     * 管理员禁用用户
+     * @param request
+     */
+    @RequestMapping(value = "/ban/{userId}")
+    public String banUser(@PathVariable("userId") String userId,
+                            HttpServletRequest request, HttpServletResponse response) {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        int userIdINT = Integer.parseInt(userId);
+        if (userService.managerBanUser(userIdINT,2)) {
+            return "redirect:/user/uselist";
+        }
+        return "page_400";
+    }
 
+    /**
+     * 管理员重置用户密码为123456
+     * @param request
+     */
+    @RequestMapping(value = "/resetpsw/{userId}")
+    public String resetUserPsw(@PathVariable("userId") String userId,
+                          HttpServletRequest request, HttpServletResponse response) {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        int userIdINT = Integer.parseInt(userId);
+        String psw = DESUtils.getMD5Str("123456");
+        if (userService.managerResetUserPsw(userIdINT,psw)) {
+            return "redirect:/user/uselist";
+        }
+        return "page_400";
+    }
 
 }

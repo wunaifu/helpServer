@@ -17,7 +17,7 @@ public interface UserService {
 
     User selectByPrimaryKey(Integer userid);
 
-    User selectByExample(String phone);
+    User getUserByPhone(String phone);
 
     boolean insertUser(User user);
 
@@ -29,8 +29,12 @@ public interface UserService {
 
     boolean updateUser(User user);
 
-    String managerUnBanUser(int userId);
+    boolean managerUnBanUser(int userId,int permission);
 
-    boolean updateUser(int permission,int userId);
+    boolean managerBanUser(int userId,int permission);
+
+    boolean managerResetUserPsw(int userId,String psw);
+
+    boolean updateUserPermission(int userId,int permission);
 
 }

@@ -101,8 +101,8 @@
                                                     </c:choose>
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
-                                                        <a href="/user/${item.userid}/resetpsw"><span class="label label-default">重置密码</span></a>
-                                                        <a href="/user/${item.userid}/ban"><span class="label label-danger">禁用</span></a>
+                                                        <a href="/user/resetpsw/${item.userid}"><span class="label label-default">重置密码</span></a>
+                                                        <a href="/user/ban/${item.userid}"><span class="label label-danger">禁用</span></a>
                                                     </td>
 
                                                 </tr>

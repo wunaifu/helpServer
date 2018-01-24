@@ -93,7 +93,7 @@
                                                     <td class="manager-border2" style="color: red">被禁用</td>
                                                     <td class="manager-border2" style="font-size: 17px">
                                                         <a href="/user/${item.userid}/detail"><span class="label label-success">详情</span></a>
-                                                        <a href="/user_info"><span class="label label-success">取消禁用</span></a>
+                                                        <a href="/user/unban/${item.userid}"><span class="label label-success">取消禁用</span></a>
                                                     </td>
 
                                                 </tr>
@@ -130,5 +130,47 @@
     <!-- Javascript -->
     <script type="text/javascript" src="../../js/app.js"></script>
 </body>
+<script>
+    function fun() {
+        var phone = $("#user").val().replace(" ","");
 
+        var password = $("#password").val().replace(" ","");
+        console.log(phone+"password="+password);
+        if (phone==""||password==""){
+            alert("内容不能为空！");
+            return;
+        }
+        $.ajax({
+            type : "POST",
+            url: "/manager/dologin/" + phone + "/" + password,
+            contentType : "application/json;charset=utf-8",
+            dataType : "text",
+            error : function() {
+//                $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
+                alert("请求失败，请重试！");
+            },
+            success:function (data) {
+                if (data!=null) {
+                    console.log(data);
+                    if (data=="login_success"){
+                        window.location.href="/manager/index";
+                        alert("登录成功！");
+                    }
+                    if (data=="phone_error"){
+//                        $('#killPhoneMessage').hide().html('<label style="color: red">手机号错误!</label>').show(300);
+                        alert("账号错误，请确认！");
+                    }
+                    if (data=="password_error"){
+//                        $('#killPhoneMessage').hide().html('<label style="color: red">密码错误!</label>').show(300);
+                        alert("密码错误，请确认！");
+                    }
+                }else {
+                    alert("请求失败，请重试！");
+//                    $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
+                }
+            }
+        });
+    }
+
+</script>
 </html>

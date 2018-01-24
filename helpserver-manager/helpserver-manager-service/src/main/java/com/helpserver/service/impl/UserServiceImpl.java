@@ -78,7 +78,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User selectByExample(String phone) {
+    public User getUserByPhone(String phone) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null) {
+            return userList.get(0);
+        }
         return null;
     }
 
@@ -176,19 +183,66 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean updateUser(int permission,int userId) {
+    public boolean updateUserPermission(int userId,int permission) {
         User user = new User();
         user.setUserid(userId);
-        user.setPermission(0);
+        user.setPermission(permission);
         if (userDao.updateByPrimaryKeySelective(user) == 1) {
             return true;
         }
         return false;
     }
 
+    /**
+     * 管理员取消禁用用户，禁用时间置为空
+     * @param userId
+     * @param permission
+     * @return
+     */
     @Override
-    public String managerUnBanUser(int userId) {
-//        User
-        return null;
+    public boolean managerUnBanUser(int userId,int permission) {
+        User user = new User();
+        user.setUserid(userId);
+        user.setPermission(permission);
+        user.setBantime("");
+        if (userDao.updateByPrimaryKeySelective(user) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 管理员禁用用户，设置禁用时间
+     * @param userId
+     * @param permission
+     * @return
+     */
+    @Override
+    public boolean managerBanUser(int userId,int permission) {
+        User user = new User();
+        user.setUserid(userId);
+        user.setPermission(permission);
+        user.setBantime(TimeUtil.dateToString(new Date()));
+        if (userDao.updateByPrimaryKeySelective(user) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 管理员重置密码
+     * @param userId
+     * @param psw
+     * @return
+     */
+    @Override
+    public boolean managerResetUserPsw(int userId, String psw) {
+        User user = new User();
+        user.setUserid(userId);
+        user.setPassword(psw);
+        if (userDao.updateByPrimaryKeySelective(user) == 1) {
+            return true;
+        }
+        return false;
     }
 }
