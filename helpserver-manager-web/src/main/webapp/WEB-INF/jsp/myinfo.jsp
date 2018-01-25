@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>后台管理首页</title>
+    <title>服务平台后台管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
@@ -42,7 +42,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">账号${userinfo.phone}的信息</span>
+                    <span class="title">我的信息</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -85,15 +85,11 @@
                                                         <li class="list-group-item">简介：${userinfo.userinfo}</li>
                                                         <li class="list-group-item">注册时间：${userinfo.registertime}</li>
                                                         <c:choose>
-                                                            <c:when test="${userinfo.permission==0}">
-                                                                <li class="list-group-item">权限：普通用户</li>
-                                                            </c:when>
-                                                            <c:when test="${userinfo.permission==1}">
-                                                                <li class="list-group-item">权限：可接单用户</li>
+                                                            <c:when test="${userinfo.permission==-1}">
+                                                                <li class="list-group-item">权限：管理员</li>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <li class="list-group-item" style="color: red">权限：被禁用用户</li>
-                                                                <li class="list-group-item" style="color: red">禁用时间：${userinfo.bantime}</li>
+                                                                <li class="list-group-item">权限：用户</li>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </ul>

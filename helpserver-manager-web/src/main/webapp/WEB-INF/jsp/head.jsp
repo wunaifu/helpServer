@@ -64,15 +64,15 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">管理员 <span class="caret"></span></a>
                 <ul class="dropdown-menu animated fadeInDown">
                     <li class="profile-img">
-                        <img src="../../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
+                        <img src="/img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
                     </li>
                     <li>
                         <div class="profile-info">
                             <h4 class="username">管理员</h4>
                             <p>emily_hart@email.com</p>
                             <div class="btn-group margin-bottom-2x" role="group">
-                                <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
+                                <a type="button" class="btn btn-default" href="/manager/myinfo"><i class="fa fa-user"></i> Profile</a>
+                                <a type="button" class="btn btn-default" href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>
                     </li>

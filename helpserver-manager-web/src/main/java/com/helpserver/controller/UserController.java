@@ -77,14 +77,14 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{userId}/detail",method = RequestMethod.GET)
-    public String getUserByUserId(@PathVariable("userId") int userId,HttpServletRequest request,Model model) throws Exception {
+    @RequestMapping(value = "/{page}/{userId}/detail",method = RequestMethod.GET)
+    public String getUserByUserId(@PathVariable("userId") int userId,@PathVariable("page") String page,HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         User user = userService.selectByPrimaryKey(userId);
         System.out.println("user===" + user.getName());
-//        System.out.println("page===" +page);
+        System.out.println("page===" +page);
 //        String pageStr = "";
 //        if (permission == 2) {
 //            pageStr = "banlist";

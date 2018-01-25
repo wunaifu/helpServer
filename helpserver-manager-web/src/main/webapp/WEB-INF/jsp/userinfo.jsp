@@ -15,13 +15,13 @@
 
     <title>个人资料</title>
 
-    <link href="../../css/admin.css" rel="stylesheet" type="text/css">
-    <link href="../../css/amazeui.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="/css/amazeui.css" rel="stylesheet" type="text/css">
 
-    <link href="../../css/personal.css" rel="stylesheet" type="text/css">
-    <link href="../../css/infstyle.css" rel="stylesheet" type="text/css">
-    <script src="../../js/jquery.min.js" type="text/javascript"></script>
-    <script src="../..js/amazeui.js" type="text/javascript"></script>
+    <link href="/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="/css/infstyle.css" rel="stylesheet" type="text/css">
+    <script src=/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/amazeui.js" type="text/javascript"></script>
 
 </head>
 

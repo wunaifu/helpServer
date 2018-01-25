@@ -19,9 +19,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
-    <link rel="stylesheet" href="../../AmazeUI-2.4.2/assets/css/amazeui.css"/>
-    <link href="../../css/dlstyle.css" rel="stylesheet" type="text/css">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/AmazeUI-2.4.2/assets/css/amazeui.css"/>
+    <link href="/css/dlstyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -102,9 +102,9 @@
     </div>
 </div>
 
-<script src="../../js/jquery-1.7.2.min.js"></script>
-<script src="../../js/jquery.ajaxchimp.min.js"></script>
-<script src="../../js/script.js"></script>
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script src="/js/jquery.ajaxchimp.min.js"></script>
+<script src="/js/script.js"></script>
 <script>
     function fun() {
         var phone = $("#user").val().replace(" ","");

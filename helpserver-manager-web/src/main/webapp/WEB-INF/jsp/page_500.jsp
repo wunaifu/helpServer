@@ -13,8 +13,8 @@
     <title>500</title>
 	
 	<!-- num -->
-    <link href="../../css/num.css" rel="stylesheet">
-	  <script src="../../js/jquery-1.7.2.min.js"></script>
+    <link href="/css/num.css" rel="stylesheet">
+	  <script src="/js/jquery-1.7.2.min.js"></script>
 
 <!--注意 -->
 <%--这个东东只在这里调用而已 --%>
@@ -54,7 +54,7 @@
 </head>
 <body>
 <div class="mianBox">
-	<img src="../../img/yx500.png" alt=""  class="num403"/>
+	<img src="/img/yx500.png" alt=""  class="num403"/>
 	<div class="tipInfo tiao">
 		<div class="in">
 			<div class="textThis">
