@@ -48,6 +48,14 @@ public class PageController {
         return "index";
     }
 
+    @RequestMapping("/user_index")
+    public String userindex(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_index";
+    }
+
     @RequestMapping(value = "/register")
     public String register(){
         return "register";

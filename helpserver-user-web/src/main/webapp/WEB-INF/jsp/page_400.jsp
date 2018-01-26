@@ -14,7 +14,7 @@
 	
 	<!-- num -->
     <link href="/css/num.css" rel="stylesheet">
-	<script src="/js/jquery-1.11.1.min.js"></script>
+	<%--<script src="/js/jquery-1.11.1.min.js"></script>--%>
     
 <!--注意 -->
 <%--这个东东只在这里调用而已 --%>
