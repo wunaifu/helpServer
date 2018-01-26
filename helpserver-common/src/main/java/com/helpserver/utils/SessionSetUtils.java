@@ -14,4 +14,12 @@ public class SessionSetUtils {
         }
         return false;
     }
+
+    public static boolean isUserLogin(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") != null) {
+//            System.out.println("phone=="+request.getSession().getAttribute("user"));
+            return true;
+        }
+        return false;
+    }
 }

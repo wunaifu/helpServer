@@ -33,7 +33,7 @@
 <div class="login-banner">
     <div class="login-main">
         <div class="login-banner-bg"><span></span><img src="../../images/big.jpg"/></div>
-        <div class="login-box">
+        <div class="login-box" style="padding: 20px;">
 
             <h3 class="title">登录服务平台</h3>
             <div class="clear"></div>
@@ -105,14 +105,20 @@
 <script src="/js/jquery-1.7.2.min.js"></script>
 <script src="/js/jquery.ajaxchimp.min.js"></script>
 <script src="/js/script.js"></script>
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
 <script>
     function fun() {
         var phone = $("#user").val().replace(" ","");
         var password = $("#password").val().replace(" ","");
-        console.log(phone+"password="+password);
-        if (phone==""||password==""){
-//            alert("内容不能为空！");
-            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">内容不能为空！</label>').show(300);
+        if (phone==""){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号不能为空！</label>').show(300);
+            $("#user").focus();
+            return;
+        }
+        if (password==""){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">密码不能为空！</label>').show(300);
+            $("#password").focus();
             return;
         }
         $.ajax({
@@ -122,21 +128,24 @@
             dataType : "text",
             error : function() {
                 $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
-//                alert("请求失败，请重试！");
             },
             success:function (data) {
                 if (data!=null) {
                     console.log(data);
                     if (data=="login_success"){
+                        $.myAlert('注册成功，请登录！');
                         window.location.href="/index";
-//                        alert("登录成功成功！");
                     }
                     if (data=="phone_error"){
                         $('#killPhoneMessage').hide().html('<label style="color: red">手机号错误!</label>').show(300);
+                        $("#user").select();
+                        $("#user").focus();
 //                        alert("账号错误，请确认！");
                     }
                     if (data=="password_error"){
                         $('#killPhoneMessage').hide().html('<label style="color: red">密码错误!</label>').show(300);
+                        $("#password").select();
+                        $("#password").focus();
 //                        alert("密码错误，请确认！");
                     }
                 }else {

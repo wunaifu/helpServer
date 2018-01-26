@@ -29,13 +29,13 @@
 <body>
 
 <div class="login-boxtitle">
-    <a href="home/demo.html"><img alt="" src="../../images/logobig.png"/></a>
+    <a href="home/demo.html"><img alt="" src="/images/logobig.png"/></a>
 </div>
 
 <div class="res-banner">
     <div class="res-main">
         <div class="login-banner-bg"><span></span><img src="../../images/big.jpg"/></div>
-        <div class="login-box">
+        <div class="login-box"  style="padding: 20px;">
             <div class="am-tabs" id="doc-my-tabs">
 
                 <h3 class="title">手机号注册</h3>
@@ -68,14 +68,14 @@
                         </div>
                     </form>
                     <div class="login-links">
-                        <label for="reader-me">
-                            <input id="reader-me" type="checkbox"> 点击表示您同意服务平台《服务协议》
+                        <label for="readerme">
+                            <input id="readerme" onclick="agree();" type="checkbox"> 点击表示您同意服务平台《服务协议》
                         </label>
                         <a href="/login" class="zcnext am-fr am-btn-default">登录</a>
                         <br/>
                     </div>
                     <div class="am-cf">
-                        <input type="submit" name="" value="注册" onclick="register();" class="am-btn am-btn-primary am-btn-sm am-fl">
+                        <input disabled="disabled" type="submit" name="" value="注册" id="registerbutton" class="am-btn am-btn-primary am-btn-sm am-fl">
                     </div>
 
                     <hr>
@@ -111,20 +111,23 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
 <script>
 //    var mobile_code =  Math.ceil((Math.random()*9+1)*1000);
     var mobile_code =  "1234";
     function get_mobile_code(){
         var phone = $("#phone").val().replace(" ","");
         if(phone==""){
-//            alert("手机号不能为空！");
             $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号不能为空！</label>').show(300);
+            $("#phone").focus();
             return;
         }
         if(phone.length!=11) {
-//            alert("手机号格式不对！");
-            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号格式不对！</label>').show(300);
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号格式不正确！</label>').show(300);
+            $("#phone").select();
+            $("#phone").focus();
             return;
         }
 //        mobile_code = mobile_code.substring(0, 3);
@@ -181,26 +184,58 @@
         }
         $("#dyMobileButton").text(sTime);
     }
-
+    //点击协议的同意按钮
+    function agree() {
+        //如果同意协议，则可以点击注册按钮
+        if($("#readerme").attr("checked") == "checked") {
+            $("#registerbutton").removeAttr("disabled");
+            $("#registerbutton").attr("onclick", "register();");
+        }
+        else {
+            $("#registerbutton").attr("disabled", "disabled");
+        }
+    }
     function register() {
         var code = $("#code").val().replace(" ","");
         var phone = $("#phone").val().replace(" ","");
         var password = $("#password").val().replace(" ","");
         var passwordRepeat = $("#passwordRepeat").val().replace(" ","");
-        if (code=="" || phone=="" || password== "" || passwordRepeat == ""){
-//            alert("内容不能为空！");
-            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">内容不能为空！</label>').show(300);
+        if (phone==""){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号不能为空！</label>').show(300);
+            $("#phone").focus();
+            return;
+        }
+        if (phone.length!=11){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">手机号格式不正确！</label>').show(300);
+            $("#phone").select();
+            $("#phone").focus();
+            return;
+        }
+        if (code==""){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">验证码不能为空！</label>').show(300);
+            $("#code").focus();
+            return;
+        }
+        if (password== "" ){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">密码不能为空！</label>').show(300);
+            $("#password").focus();
+            return;
+        }
+        if (passwordRepeat == ""){
+            $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">密码不能为空！</label>').show(300);
+            $("#passwordRepeat").focus();
             return;
         }
         if (code==mobile_code) {
             if (password.length<6){
-//            alert("内容不能为空！");
                 $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">密码长度不能少于6位！</label>').show(300);
+                $("#password").select();
+                $("#password").focus();
                 return;
             }
             if (password != passwordRepeat){
-//            alert("内容不能为空！");
                 $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">两次输入密码不一致！</label>').show(300);
+                $("#password").focus();
                 return;
             }
             $.ajax({
@@ -210,33 +245,34 @@
                 dataType : "text",
                 error : function() {
                     $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
-//                alert("请求失败，请重试！");
                 },
                 success:function (data) {
                     if (data!=null) {
                         console.log(data);
                         if (data=="register_success"){
-                            window.location.href="/login";
-//                        alert("注册成功！");
+                            //alert("注册成功，请登录！");
+                            //$.myToast('注册成功，请登录！');
+                            $.myAlert('注册成功，请登录！');
+                            //window.location.href="/login";
                         }
                         if (data=="register_failure"){
                             $('#killPhoneMessage').hide().html('<label style="color: red">注册失败，请重试！</label>').show(300);
-//                        alert("注册失败，请确认！");
                         }
                         if (data=="user_exist"){
                             $('#killPhoneMessage').hide().html('<label style="color: red">已存在该手机用户!</label>').show(300);
-//                        alert("已存在该手机用户！");
+                            $("#phone").select();
+                            $("#phone").focus();
                         }
                     }else {
-//                    alert("请求失败，请重试！");
                         $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);
                     }
                 }
             });
         }else {
             $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">验证码错误!</label>').show(300);
+            $("#code").select();
+            $("#code").focus();
             return;
-//            alert("验证码错误，请确认您输入的验证码是否正确？")
         }
 
     }

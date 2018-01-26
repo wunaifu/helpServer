@@ -4,8 +4,10 @@ import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
 import com.helpserver.utils.JsonUtils;
 import com.helpserver.utils.ResponseUtils;
+import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +38,10 @@ public class UserController {
     public void dologin(@PathVariable("phone") String phone,@PathVariable("password") String password,
             HttpServletRequest request,HttpServletResponse response) {
         String result = userService.loginByPhoneAndPsw(phone, password);
+        //登录成功，session保存当前用户数据
+        if (result.equals("login_success")) {
+            request.getSession().setAttribute("user", userService.getUserByPhone(phone));
+        }
         ResponseUtils.renderJson(response,result);
     }
 
@@ -47,10 +53,25 @@ public class UserController {
      * @param request
      */
     @RequestMapping(value = "/doregister/{phone}/{password}")
-    public void register(@PathVariable("phone") String phone,@PathVariable("password") String password,
+    public void doregister(@PathVariable("phone") String phone,@PathVariable("password") String password,
             HttpServletRequest request,HttpServletResponse response) {
         String result = userService.registerByPhoneAndPsw(phone, password);
         ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 查看自己信息
+     * @param request
+     */
+    @RequestMapping(value = "/myinfo")
+    public String myinfo(HttpServletRequest request, Model model) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        User user1= (User) request.getSession().getAttribute("user");
+        User user= userService.getUserByPhone(user1.getPhone());
+        model.addAttribute("userinfo", user);
+        return "myinfo";
     }
 }
 
