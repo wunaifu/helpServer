@@ -69,7 +69,7 @@
 
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
-            <form action="search.html">
+            <form action="/searchserver">
                 <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
                 <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
             </form>
@@ -775,28 +775,9 @@
         <div class="clear "></div>
     </div>
 
-    <div class="footer ">
-        <div class="footer-hd ">
-            <p>
-                <a href="# ">恒望科技</a>
-                <b>|</b>
-                <a href="# ">商城首页</a>
-                <b>|</b>
-                <a href="# ">支付宝</a>
-                <b>|</b>
-                <a href="# ">物流</a>
-            </p>
-        </div>
-        <div class="footer-bd ">
-            <p>
-                <a href="# ">关于恒望</a>
-                <a href="# ">合作伙伴</a>
-                <a href="# ">联系我们</a>
-                <a href="# ">网站地图</a>
-                <em>© 2015-2025 wunaifu 版权所有.</em>
-            </p>
-        </div>
-    </div>
+    <!--底部 start-->
+    <jsp:include page="footer.jsp"></jsp:include>
+    <!--底部 end-->
 </div>
 </div>
 </div>

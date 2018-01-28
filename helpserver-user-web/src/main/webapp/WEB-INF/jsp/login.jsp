@@ -43,13 +43,13 @@
                 <form style="margin-top: 5px;">
                     <div class="user-name">
                         <label for="user"><i class="am-icon-user"></i></label>
-                        <input type="text" name="phone" id="user" placeholder="手机号"
+                        <input type="text" name="phone" id="user" placeholder="手机号" value="18219111621"
                                onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11" minlength="11"
                                required>
                     </div>
                     <div class="user-pass" style="margin-top: 2px;">
                         <label for="password"><i class="am-icon-lock"></i></label>
-                        <input type="password" name="password" id="password" placeholder="请输入密码"
+                        <input type="password" name="password" id="password" placeholder="请输入密码" value="123456"
                                onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6"
                                required>
                     </div>
@@ -78,29 +78,9 @@
     </div>
 </div>
 
-<div class="footer ">
-    <div class="footer-hd ">
-        <p>
-            <a href="# ">恒望科技</a>
-            <b>|</b>
-            <a href="# ">商城首页</a>
-            <b>|</b>
-            <a href="# ">支付宝</a>
-            <b>|</b>
-            <a href="# ">物流</a>
-        </p>
-    </div>
-    <div class="footer-bd ">
-        <p>
-            <a href="# ">关于恒望</a>
-            <a href="# ">合作伙伴</a>
-            <a href="# ">联系我们</a>
-            <a href="# ">网站地图</a>
-            <em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="#" target="_blank" title="模板之家">模板之家</a> - Collect from <a
-                    href="#" title="网页模板" target="_blank">网页模板</a></em>
-        </p>
-    </div>
-</div>
+<!--底部 start-->
+<jsp:include page="footer.jsp"></jsp:include>
+<!--底部 end-->
 
 <script src="/js/jquery-1.7.2.min.js"></script>
 <script src="/js/jquery.ajaxchimp.min.js"></script>
@@ -133,7 +113,7 @@
                 if (data!=null) {
                     console.log(data);
                     if (data=="login_success"){
-                        $.myAlert('注册成功，请登录！');
+                        $.myAlert('登录成功');
                         window.location.href="/index";
                     }
                     if (data=="phone_error"){

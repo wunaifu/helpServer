@@ -1,6 +1,6 @@
-@charset "utf-8";
+@charset "gb2312";
 
-/* å…±ç”¨css */
+/* ¹²ÓÃcss */
 
 * {
 	margin: 0;
@@ -8,8 +8,8 @@
 }
 
 body {
-	font: 12px "å®‹ä½“", Arial, Helvetica, sans-serif;
-	background: #FFFFFF
+	font: 12px "ËÎÌå", Arial, Helvetica, sans-serif;
+	background: #f5f5f5
 }
 
 img {
@@ -57,7 +57,7 @@ a:hover {
 }
 
 
-/* å¤´éƒ¨ä¿¡æ¯ */
+/* Í·²¿ĞÅÏ¢ */
 
 .ibody {
 	background: url(../images/bg.png) repeat-y;
@@ -85,7 +85,7 @@ header h2 {
 
 /* logo */
 
-/*.logo {
+.logo {
 	background: url(../images/logo.png) no-repeat #000 center;
 	width: 145px;
 	height: 145px;
@@ -104,10 +104,10 @@ header h2 {
 	width: 100%;
 	height: 100%;
 	display: block
-}*/
+}
 
 
-/* å¯¼èˆª */
+/* µ¼º½ */
 
 nav {
 	background: rgba(0, 0, 0, 0.8);
@@ -118,7 +118,7 @@ nav {
 }
 
 
-/* å…¼å®¹IE6 é€æ˜ */
+/* ¼æÈİIE6 Í¸Ã÷ */
 
 nav a {
 	display: inline-block;
@@ -141,7 +141,7 @@ nav a:hover {
 }
 
 
-/* é«˜äº®é€‰ä¸­é¢œè‰² */
+/* ¸ßÁÁÑ¡ÖĞÑÕÉ« */
 
 article {
 	width: 73%;
@@ -150,7 +150,7 @@ article {
 }
 
 
-/* å·¦ä¾§æ  */
+/* ×ó²àÀ¸ */
 
 aside {
 	width: 27%;
@@ -159,11 +159,10 @@ aside {
 }
 
 
+/* ÓÒ²àÀ¸ */
 
-/* å³ä¾§æ  */
 
-
-/* ç‰ˆæƒä¿¡æ¯ */
+/* °æÈ¨ĞÅÏ¢ */
 
 .copyright {
 	background: #0d0d0d;
@@ -185,5 +184,5 @@ aside {
 }
 
 p {
-	color: #000
+	color: #F90
 }

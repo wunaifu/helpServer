@@ -28,6 +28,71 @@ public class UserController {
     UserService userService;
 
     /**
+     * 个人信息页面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/info")
+    public String userInfo(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_info";
+    }
+
+    /**
+     * 安全设置页面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/safety")
+    public String userSafety(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_safety";
+    }
+
+    /**
+     * 修改密码页面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/resetpsw")
+    public String userResetPsw(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_resetpsw";
+    }
+
+    /**
+     * 修改密码页面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/bindphone")
+    public String userBindPhone(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_bindphone";
+    }
+
+    /**
+     * 身份验证页面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/idcard")
+    public String userIDcard(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_idcard";
+    }
+
+    /**
      * 登录接口，返回登录信息，
      * 1.login_success
      * 2.password_error

@@ -15,12 +15,12 @@
 
     <title>个人中心</title>
 
-    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
-    <link href="../css/personal.css" rel="stylesheet" type="text/css">
-    <link href="../css/vipstyle.css" rel="stylesheet" type="text/css">
-    <script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-    <script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+    <link href="/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="/css/vipstyle.css" rel="stylesheet" type="text/css">
+    <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 </head>
 
 <body>
@@ -59,7 +59,7 @@
 
             <div class="nav white">
                 <div class="logoBig">
-                    <li><img src="../images/logobig.png" /></li>
+                    <li><img src="/images/logobig.png" /></li>
                 </div>
 
                 <div class="search-bar pr">
@@ -105,7 +105,7 @@
                             </a>
                             <div class="m-baseinfo">
                                 <a class="m-pic" href="information.html">
-                                    <img src="../images/getAvatar.do.jpg">
+                                    <img src="/images/getAvatar.do.jpg">
                                 </a>
                                 <div class="m-info">
                                     <em class="s-name">小叮当</em>
@@ -158,19 +158,19 @@
                             </div>
                             <p class="m-big squareS">
                                 <a href="#">
-                                    <i><img src="../images/shopping.png"/></i>
+                                    <i><img src="/images/shopping.png"/></i>
                                     <span class="m-title">能互助</span>
                                 </a>
                             </p>
                             <p class="m-big squareA">
                                 <a href="#">
-                                    <i><img src="../images/safe.png"/></i>
+                                    <i><img src="/images/safe.png"/></i>
                                     <span class="m-title">够安全</span>
                                 </a>
                             </p>
                             <p class="m-big squareL">
                                 <a href="#">
-                                    <i><img src="../images/profit.png"/></i>
+                                    <i><img src="/images/profit.png"/></i>
                                     <span class="m-title">能赚钱</span>
                                 </a>
                             </p>
@@ -186,17 +186,17 @@
                             <a class="i-load-more-item-shadow" href="order.html">全部订单</a>
                         </div>
                         <ul>
-                            <li><a href="order.html"><i><img src="../images/pay.png"/></i><span>已发布</span></a></li>
-                            <li><a href="order.html"><i><img src="../images/send.png"/></i><span>已接单<em class="m-num">1</em></span></a></li>
-                            <li><a href="order.html"><i><img src="../images/comment.png"/></i><span>待评价<em class="m-num">3</em></span></a></li>
-                            <li><a href="order.html"><i><img src="../images/receive.png"/></i><span>已完成</span></a></li>
-                            <li><a href="change.html"><i><img src="../images/refund.png"/></i><span>草稿箱</span></a></li>
+                            <li><a href="order.html"><i><img src="/images/pay.png"/></i><span>已发布</span></a></li>
+                            <li><a href="order.html"><i><img src="/images/send.png"/></i><span>已接单<em class="m-num">1</em></span></a></li>
+                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>待评价<em class="m-num">3</em></span></a></li>
+                            <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>已完成</span></a></li>
+                            <li><a href="change.html"><i><img src="/images/refund.png"/></i><span>草稿箱</span></a></li>
                         </ul>
                         <div class="orderContentBox">
                             <div class="orderContent">
                                 <div class="orderContentpic">
                                     <div class="imgBox">
-                                        <a href="orderinfo.html"><img src="../images/youzi.jpg"></a>
+                                        <a href="orderinfo.html"><img src="/images/youzi.jpg"></a>
                                     </div>
                                 </div>
                                 <div class="detailContent">
@@ -221,7 +221,7 @@
                             <div class="orderContent">
                                 <div class="orderContentpic">
                                     <div class="imgBox">
-                                        <a href="orderinfo.html"><img src="../images/heart.jpg"></a>
+                                        <a href="orderinfo.html"><img src="/images/heart.jpg"></a>
                                     </div>
                                 </div>
                                 <div class="detailContent">
@@ -273,7 +273,7 @@
                                     <p>我的分享</p>
                                 </li>
                             </a>
-                            <a href="../home/home2.html">
+                            <a href="/home/home2.html">
                                 <li class="am-u-sm-4"><i class="am-icon-clock-o am-icon-md"></i>
                                     <p>趣事活动</p>
                                 </li>
@@ -287,42 +287,9 @@
                             <i class="s-icon"></i>会员中心
                         </div>
                         <div class="s-bar">
-                            <a href="suggest.html"><i class="s-icon"></i>意见反馈</a>
+                            <a href="/user_feedback"><i class="s-icon"></i>意见反馈</a>
                         </div>
                     </div>
-
-                    <!--优惠券积分-->
-                    <!--<div class="twoTab">
-                        <div class="twoTabModel Coupon">
-                            <h5 class="squareTitle"><a href="#"><span class="splitBorder"></span>优惠券<i class="am-icon-angle-right"></i></a></h5>
-                            <div class="Box">
-                                <div class="CouponList">
-                                    <span class="price">¥<strong class="num">50</strong></span>
-                                    <p class="brandName"><a href="#">ABC品牌499减50</a></p>
-                                    <p class="discount">满<span>499</span>元抵扣</p>
-                                    <a  href="#" class="btnReceive">立即领取</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="twoTabModel credit">
-                            <h5 class="squareTitle"><a href="#"><span class="splitBorder"></span>积分商城<i class="am-icon-angle-right"></i></a></h5>
-                            <div class="Box">
-                                <p class="countDown">
-                                    <span class="hour">12</span>：<span class="minute">09</span>：<span class="second">02</span><em class="txtStart">即将开始</em>
-                                </p>
-                                <div class="am-slider am-slider-default am-slider-carousel" data-am-flexslider="{itemWidth:108, itemMargin:3, slideshow: false}">
-                                    <ul class="am-slides">
-                                        <li><a href="#"><img src="../images/333.jpg" /></a></li>
-                                        <li><a href="#"><img src="../images/222.jpg" /></a></li>
-                                        <li><a href="#"><img src="../images/111.jpg" /></a></li>
-                                        <li><a href="#"><img src="../images/333.jpg" /></a></li>
-                                        <li><a href="#"><img src="../images/222.jpg" /></a></li>
-                                        <li><a href="#"><img src="../images/111.jpg" /></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
 
                 </div>
             </div>
@@ -344,209 +311,19 @@
                         </ul>
                     </div>
                 </div>
-                <!--新品 -->
-                <!--<div class="new-goods">
-                    <div class="s-bar">
-                        <i class="s-icon"></i>今日新品
-                        <a class="i-load-more-item-shadow">15款新品</a>
-                    </div>
-                    <div class="new-goods-info">
-                        <a class="shop-info" href="#">
-                            <div class="face-img-panel">
-                                <img src="../images/imgsearch1.jpg" alt="">
-                            </div>
-                            <span class="new-goods-num ">4</span>
-                            <span class="shop-title">剥壳松子</span>
-                        </a>
-                        <a class="follow">收藏</a>
-                    </div>
-                </div>-->
-
-                <!--热卖推荐 -->
-                <!--<div class="new-goods">
-                    <div class="s-bar">
-                        <i class="s-icon"></i>热卖推荐
-                    </div>
-                    <div class="new-goods-info">
-                        <a class="shop-info" href="#" target="_blank">
-                            <div >
-                                <img src="../images/666.jpg" alt="">
-                            </div>
-                            <span class="one-hot-goods">￥189.60</span>
-                        </a>
-                    </div>
-                </div>	-->
             </div>
             <div class="clear"></div>
 
-            <!--收藏和足迹-->
-            <!-- <div data-am-widget="tabs" class="am-tabs collection">
-                <ul class="am-tabs-nav am-cf">
-                    <li class="am-active"><a href="[data-tab-panel-0]"><i class="am-icon-heart"></i>商品收藏</a></li>
-                   <li class=""><a href="[data-tab-panel-1]"><i class="am-icon-paw"></i>购物足迹</a></li>
-               </ul>
-               <div class="am-tabs-bd">
-
-                   <div data-tab-panel-0 class="am-tab-panel am-active">
-                       <div class="am-slider am-slider-default am-slider-carousel" data-am-flexslider="{itemWidth:155,slideshow: false}">
-                           <ul class="am-slides">
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-
-                           </ul>
-                       </div>
-                   </div>
-                   <div data-tab-panel-1 class="am-tab-panel ">
-                       <div class="am-slider am-slider-default am-slider-carousel" data-am-flexslider="{itemWidth:155, slideshow: false}">
-                           <ul class="am-slides">
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                              <li>
-                                    <a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
-                                    <strong class="price">¥32.9</strong>
-                              </li>
-                           </ul>
-                       </div>
-                   </div>
-               </div>
-            </div>-->
-
-
         </div>
-        <!--底部-->
-        <div class="footer">
-            <div class="footer-hd">
-                <p>
-                    <a href="#">互助服务平台</a>
-                    <b>|</b>
-                    <a href="#">平台首页</a>
-                    <b>|</b>
-                    <a href="#">支付宝</a>
-                    <b>|</b>
-                    <a href="#">帮助</a>
-                </p>
-            </div>
-            <div class="footer-bd">
-                <p>
-                    <a href="#">关于我们</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 wunaifu 版权所有. </em>
-                </p>
-            </div>
-        </div>
-
+        <!--底部 start-->
+        <jsp:include page="footer.jsp"></jsp:include>
+        <!--底部 end-->
     </div>
 
-    <aside class="menu">
-        <ul>
-            <li class="person active">
-                <a href="index.html"><i class="am-icon-user"></i>个人中心</a>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-newspaper-o"></i>个人资料</p>
-                <ul>
-                    <li> <a href="information.html">个人信息</a></li>
-                    <li> <a href="safety.html">安全设置</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-balance-scale"></i>我的服务</p>
-                <ul>
-                    <li><a href="order.html">已发布</a></li>
-                    <li> <a href="change.html">已接单</a></li>
-                    <li> <a href="change.html">待评价</a></li>
-                    <li> <a href="comment.html">已完成</a></li>
-                    <li><a href="order.html">草稿箱</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-dollar"></i>我的资产</p>
-                <ul>
-                    <li> <a href="points.html">我的金币</a></li>
-                    <li> <a href="walletlist.html">账户余额</a></li>
-                    <li> <a href="coupon.html">我的充值 </a></li>
-                    <li> <a href="bonus.html">我的提现</a></li>
-                </ul>
-            </li>
+    <!--侧边菜单 start-->
+    <jsp:include page="user_menu.jsp"></jsp:include>
+    <!--侧边菜单 end-->
 
-            <li class="person">
-                <p><i class="am-icon-tags"></i>我的收藏</p>
-                <ul>
-                    <li> <a href="collection.html">收藏</a></li>
-                    <li> <a href="foot.html">足迹</a></li>
-                </ul>
-            </li>
-
-            <li class="person">
-                <p><i class="am-icon-qq"></i>在线客服</p>
-                <ul>
-                    <li> <a href="consultation.html">平台咨询</a></li>
-                    <li> <a href="suggest.html">意见反馈</a></li>
-
-                    <li> <a href="news.html">我的消息</a></li>
-                </ul>
-            </li>
-        </ul>
-
-    </aside>
 </div>
 <!--引导 -->
 <div class="navCir">
