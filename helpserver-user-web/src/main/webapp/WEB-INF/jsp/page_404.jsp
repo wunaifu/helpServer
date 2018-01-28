@@ -1,69 +1,84 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.HashMap"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2018-01-28
+  Time: 18:52
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- Meta, title, CSS, favicons, etc. -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>404</title>
+	<link rel="stylesheet"  type="text/css" href="/AmazeUI-2.4.2/assets/css/amazeui.css"/>
+	<link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+	<link href="/basic/css/demo.css" rel="stylesheet" type="text/css" />
 
-	<title>400</title>
+	<link href="/css/errorstyle.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
 
-	<!-- num -->
-	<link href="/css/num.css" rel="stylesheet">
-	<%--<script src="/js/jquery-1.11.1.min.js"></script>--%>
+</head>
 
-	<!--注意 -->
-	<%--这个东东只在这里调用而已 --%>
-	<script type="text/javascript">
-		$(function() {
-			var h = $(window).height();
-			$('body').height(h);
-			$('.mianBox').height(h);
-			centerWindow(".tipInfo");
-		});
-		//2.将盒子方法放入这个方，方便法统一调用<%--这个东东只在这里调用而已 --%>
-		function centerWindow(a) {
-			center(a);
-			//自适应窗口
-			$(window).bind('scroll resize',
-					function() {
-						center(a);
-					});
-		}
-		//1.居中方法，传入需要剧中的标签<%--这个东东只在这里调用而已 --%>
-		function center(a) {
-			var wWidth = $(window).width();
-			var wHeight = $(window).height();
-			var boxWidth = $(a).width();
-			var boxHeight = $(a).height();
-			var scrollTop = $(window).scrollTop();
-			var scrollLeft = $(window).scrollLeft();
-			var top = scrollTop + (wHeight - boxHeight) / 2;
-			var left = scrollLeft + (wWidth - boxWidth) / 2;
-			$(a).css({
-				"top": top,
-				"left": left
-			});
-		}
-	</script>
 <body>
-<div class="mianBox">
-	<img src="/images/yx404.png" alt=""  class="num403"/>
-	<div class="tipInfo tiao">
-		<div class="in">
-			<div class="textThis">
-				<h2>不小心出错了，程序员正在加班中！！！</h2>
-				<!--  <h2>Sorry but we couldn't find this page</h2> -->
-				<p><span>Go<a href="/index">首页</a></span></p>
-			</div>
+
+<!--悬浮搜索框-->
+
+<div class="nav white">
+	<div class="logo"><img src="/images/logo.png" /></div>
+	<div class="logoBig">
+		<li><img src="/images/logobig.png" /></li>
+	</div>
+
+	<div class="search-bar pr">
+		<a name="index_none_header_sysc" href="#"></a>
+		<form>
+			<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+			<input id="ai-topsearch" class="submit" value="搜索" index="1" type="submit"></form>
+	</div>
+</div>
+
+<div class="clear"></div>
+<div class="take-delivery" >
+	<div class="status">
+		<h2 style="font-size: 20px;">出错了，正在修复中！前往<a style="font-size: 20px;color: #0c80ba" href="/index">首页</a></h2>
+		<div class="successInfo">
+			<ul>
+				<%--<li>操作失败，请检查您的操作！</li>--%>
+
+				感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！前往<a href="/index"style="font-size: 17px;color: #0c80ba">首页</a>
+
+			</ul>
+
 		</div>
 	</div>
 </div>
-  </body>
+
+
+<div class="footer" >
+	<div class="footer-hd">
+		<p>
+			<a href="#">恒望科技</a>
+			<b>|</b>
+			<a href="#">商城首页</a>
+			<b>|</b>
+			<a href="#">支付宝</a>
+			<b>|</b>
+			<a href="#">物流</a>
+		</p>
+	</div>
+	<div class="footer-bd">
+		<p>
+			<a href="#">关于恒望</a>
+			<a href="#">合作伙伴</a>
+			<a href="#">联系我们</a>
+			<a href="#">网站地图</a>
+			<em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></em>
+		</p>
+	</div>
+</div>
+</body>
 </html>
-             
-              
+

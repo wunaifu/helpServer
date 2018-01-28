@@ -321,6 +321,7 @@ a.i-trigger { cursor: pointer;position: relative; z-index: 2;display: block;colo
 /*订单*/
 .m-order ul{display: none;} 
 .m-order .orderContentBox{display:block;position: relative;height:115px;border-top: 1px solid #e7e7e7;margin: 0px 10px;}
+.m-order .orderContentBoxindex{display:block;position: relative;height:115px;border-top: 1px solid #e7e7e7;margin: 0px 10px;}
 .orderContent{width:85%;height:90px ;margin-top:20px ;}
 .orderContentpic{width:24% ;height:90px ;padding: 5px;float: left;}
 .orderContentpic .imgBox{width: 72px;height: 72px;padding-top:6px ;background:url(../images/imgBox.png);}

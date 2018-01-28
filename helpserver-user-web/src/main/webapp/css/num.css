@@ -1,27 +1,34 @@
 *{margin:0;padding:0;list-style-type:none;}
 a,img{border:0;}
-body,html{background: #d2f5f1;width:100%;}
-
+body{background: #d2f5f1}
 .mianBox{width: 100%;margin: 0 auto;position: relative;overflow: hidden;}
 .mianBox >img{position: absolute}
+.yun0{right: -140px;top: 30px;webkit-animation: cloudLarge 105s infinite;-moz-animation: cloudLarge 105s infinite;-o-animation: cloudLarge 105s infinite;animation: cloudLarge 105s infinite;}
+.yun1{left: 5%;top: 48%;-webkit-animation: cloudSmall 105s infinite;-moz-animation: cloudSmall 105s infinite;-o-animation: cloudSmall 105s infinite;animation: cloudSmall 105s infinite;}
+.yun2{left: 16%;top: 35%;-webkit-animation: cloudMedium 105s infinite;-moz-animation: cloudMedium 105s infinite;-o-animation: cloudMedium 105s infinite;animation: cloudMedium 105s infinite;}
+.san{left: 10%;top: 20%;-webkit-animation:dn400 3s 0s ease both;-moz-animation:dn400 3s 0s ease both;animation:dn400 3s 0s ease both;}
+.bird{left: 27%;top: 15%;-webkit-animation: flying 3s infinite;-moz-animation: flying 3s infinite;-o-animation: flying 3s infinite;animation: flying 3s infinite;}
+.disk{left: 234px;top: 98px;z-index: 9;-webkit-animation: flying 2s infinite;-moz-animation: flying 2s infinite;-o-animation: flying 2s infinite;animation: flying 2s infinite;}
+.light{left: 330px;top: 188px;z-index: 8;-webkit-animation: light 1s infinite;-moz-animation: light 1s infinite;-o-animation: light 1s infinite;animation: light 1s infinite;}
+.man{left: 400px;top: 310px;z-index: 7;-webkit-animation: hide 2s 0.5s infinite;-moz-animation: hide 2s 0.5s infinite;-o-animation: hide 2s 0.5s infinite;animation: hide 2s 0.5s infinite;}
 .picv{left: 15%;top: 390px;}
 .img-with{
-    position:absolute;
-    padding:0 auto;
-    background:red;
-    border:solid #fff;
+	position:absolute;
+	padding:0 auto;
+	background:red;
+	border:solid #fff;
 }
-.mianBox img{margin:0 20vw;width:60vw}
-.tiao{margin: 20vh 0 0 0;}
-.num403{position:release;-webkit-animation: flying 3s infinite;-moz-animation: flying 3s infinite;-o-animation: flying 3s infinite;animation: flying 3s infinite;}
 
-.tipInfo{margin:70vh auto;z-index:99;border: 4px solid #c0ece7;border-color: rgba(192,237,232,07);border-radius:5px;derbackground:#c0ece7;background: rgba(192,237,232,07);width: 70vw}
+.tiao{margin: 300px 0 0 0;}
+.num403{left: 27%;-webkit-animation: flying 3s infinite;-moz-animation: flying 3s infinite;-o-animation: flying 3s infinite;animation: flying 3s infinite;}
+
+.tipInfo{position:absolute;z-index:99;border: 4px solid #c0ece7;border-color: rgba(192,237,232,07);border-radius:5px;derbackground:#c0ece7;background: rgba(192,237,232,07);width: 650px}
 .tipInfo .in{background: #fff;padding: 0 10%}
-.textThis h2{text-align:center;line-height:5vh;font-size: 4vmin;color: #e94c3c;border-bottom: 1px dashed #aacdd5;padding: 18px 0}
-.tipInfo .in p{padding:5vh 0 10vh 0;text-align: center;color: #289575}
+.tipInfo .in h2{line-height:50px;font-size: 30px;color: #e94c3c;border-bottom: 1px dashed #aacdd5;padding: 18px 0}
+.tipInfo .in p{padding:30px 0 50px 0;text-align: center;color: #289575}
 .tipInfo .in p span{margin:0 20px}
 .tipInfo .in p span a{color:#e94c3c;margin: 0 10px}
-.tipInfo .in .desc{font-size: 14px;color: #2b2b2b;padding: 0 10%}
+.tipInfo .in .desc{overflow: hidden;font-size: 14px;color: #2b2b2b;padding: 0 10%}
 .tipInfo .in .desc h3{font-weight: normal;padding: 20px 0 5px 0}
 .tipInfo .in .desc li{background: url("../images/404/dot.png") no-repeat left center;margin-left: 5px;padding: 5px 0;padding-left: 8px;*padding-left: 20px;}
 @-webkit-keyframes cloudLarge{0%{right: -140px;}
