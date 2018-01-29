@@ -6,6 +6,12 @@ import com.helpserver.service.UserService;
 import com.helpserver.utils.JsonUtils;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.SessionSetUtils;
+import org.apache.commons.fileupload.FileUploadBase;
+import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.ProgressListener;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +19,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
@@ -35,15 +44,16 @@ public class UserController {
 
     /**
      * 个人信息页面
+     *
      * @param request
      * @return
      */
     @RequestMapping("/info")
-    public String userInfo(HttpServletRequest request,Model model) {
+    public String userInfo(HttpServletRequest request, Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-        NowUser nowUser= (NowUser) request.getSession().getAttribute("nowUser");
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         User user = userService.selectByPrimaryKey(nowUser.getUserid());
         user.setPassword("******");
         model.addAttribute("userinfo", user);
@@ -52,43 +62,50 @@ public class UserController {
 
     /**
      * 修改个人信息
+     *
      * @param request
      * @return
      */
     @RequestMapping("/update")
     public String userUpdate(@RequestParam(value = "file", required = false)
-                                         MultipartFile file, HttpServletRequest request, Model model) {
+                                     MultipartFile file, HttpServletRequest request, Model model)
+            throws ServletException, IOException,FileSizeLimitExceededException {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         String fileName = null;
-//        if (request.getParameter("file") != null) {
-//            return "page_success";
-//        }
-        if (file != null) {
-            String picture  = file.getOriginalFilename();
-            System.out.println("picture==**********"+picture);
-            if (picture.equals("")) {
-            } else {
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/user/";
-                fileName = UUID.randomUUID() + picture.substring(picture.lastIndexOf("."));
-                System.out.println("**********"+filePath);
-                System.out.println("**********"+fileName);
-                File targetFile = new File(filePath,fileName); // 新建文件
-                if (!targetFile.exists()) { // 判断文件的路径是否存在
-                    targetFile.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
-                }
-                // 保存
-                try {
+        try {
+            if (file != null) {
+                String picture = file.getOriginalFilename();
+                System.out.println("picture==**********" + picture);
+                if (picture.equals("")) {
+                } else {// 保存
+                    String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/user/";
+                    fileName = UUID.randomUUID() + picture.substring(picture.lastIndexOf("."));
+                    System.out.println("**********" + filePath);
+                    System.out.println("**********" + fileName);
+                    File targetFile = new File(filePath, fileName); // 新建文件
+                    if (targetFile.length() > 512000) {
+                        model.addAttribute("message", "单个文件超出最大值！！！");
+                        return "page_400";
+                    }
+                    if (!targetFile.exists()) { // 判断文件的路径是否存在
+                        targetFile.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
                     file.transferTo(targetFile); // 传送 失败就抛异常
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    // 执行更新图片在服务器的地址
                 }
-                // 执行更新图片在服务器的地址
             }
+//        }catch (FileSizeLimitExceededException e){
+//                e.printStackTrace();
+//                model.addAttribute("message", "单个文件超出最大值！！！");
+//                return "page_400";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "传送失败，请重试！");
+            return "page_400";
         }
-        String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/product/";
-        System.out.println("filePath=================="+filePath);
         String nickname = request.getParameter("nickname");
         int userid = Integer.parseInt(request.getParameter("userid"));
         String sexStr = request.getParameter("sex");
@@ -115,10 +132,12 @@ public class UserController {
             return "page_success";
         }
         return "page_400";
+
     }
 
     /**
      * 安全设置页面
+     *
      * @param request
      * @return
      */
@@ -132,6 +151,7 @@ public class UserController {
 
     /**
      * 修改密码页面
+     *
      * @param request
      * @return
      */
@@ -145,6 +165,7 @@ public class UserController {
 
     /**
      * 修改密码页面
+     *
      * @param request
      * @return
      */
@@ -158,6 +179,7 @@ public class UserController {
 
     /**
      * 身份验证页面
+     *
      * @param request
      * @return
      */
@@ -175,11 +197,12 @@ public class UserController {
      * 2.password_error
      * 3.phone_error
      * 4.phone_ban
+     *
      * @param request
      */
     @RequestMapping(value = "/dologin/{phone}/{password}")
-    public void dologin(@PathVariable("phone") String phone,@PathVariable("password") String password,
-            HttpServletRequest request,HttpServletResponse response) {
+    public void dologin(@PathVariable("phone") String phone, @PathVariable("password") String password,
+                        HttpServletRequest request, HttpServletResponse response) {
         String result = userService.loginByPhoneAndPsw(phone, password);
         //登录成功，session保存当前用户数据
         if (result.equals("login_success")) {
@@ -194,7 +217,7 @@ public class UserController {
                 request.getSession().setAttribute("nowUser", nowUser);
             }
         }
-        ResponseUtils.renderJson(response,result);
+        ResponseUtils.renderJson(response, result);
     }
 
     /**
@@ -202,13 +225,14 @@ public class UserController {
      * 1、user_exist
      * 2、register_success
      * 3、register_failure
+     *
      * @param request
      */
     @RequestMapping(value = "/doregister/{phone}/{password}")
-    public void doregister(@PathVariable("phone") String phone,@PathVariable("password") String password,
-            HttpServletRequest request,HttpServletResponse response) {
+    public void doregister(@PathVariable("phone") String phone, @PathVariable("password") String password,
+                           HttpServletRequest request, HttpServletResponse response) {
         String result = userService.registerByPhoneAndPsw(phone, password);
-        ResponseUtils.renderJson(response,result);
+        ResponseUtils.renderJson(response, result);
     }
 
 }
