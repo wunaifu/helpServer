@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wunaifu
@@ -14,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
     <title>个人资料</title>
-
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
@@ -29,46 +30,9 @@
 <header>
     <article>
         <div class="mt-logo">
-            <!--顶部导航条 -->
-            <div class="am-container header">
-                <ul class="message-l">
-                    <div class="topMessage">
-                        <div class="menu-hd">
-                            <a href="#" target="_top" class="h">亲，请登录</a>
-                            <a href="#" target="_top">免费注册</a>
-                        </div>
-                    </div>
-                </ul>
-                <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage mini-cart">
-                        <div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                </ul>
-            </div>
-
-            <!--悬浮搜索框-->
-
-            <div class="nav white">
-                <div class="logoBig">
-                    <li><img src="/images/logobig.png" /></li>
-                </div>
-
-                <div class="search-bar pr">
-                    <a name="index_none_header_sysc" href="#"></a>
-                    <form>
-                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                        <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-                    </form>
-                </div>
-            </div>
+            <!-- top start -->
+            <jsp:include page="topuser.jsp"></jsp:include>
+            <!-- top end -->
 
             <div class="clear"></div>
         </div>
@@ -99,135 +63,127 @@
             <div class="user-info">
                 <!--标题 -->
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> / <small>Personal&nbsp;information</small></div>
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> /
+                        <small>Personal&nbsp;information</small>
+                    </div>
                 </div>
                 <hr/>
+                <form action="/user/update" enctype="multipart/form-data" method="post">
+                    <!--头像 -->
+                    <div class="user-infoPic">
 
-                <!--头像 -->
-                <div class="user-infoPic">
+                        <div class="filePic">
+                            <input id="file" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
+                                   name="file" onchange="c()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
+                            <c:if test="${userinfo.headicon==null||userinfo.headicon==''}">
 
-                    <div class="filePic">
-                        <input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-                        <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt="" />
+                            </c:if>
+                            <c:choose>
+                                <c:when test="${userinfo.headicon!=null||userinfo.headicon!=''}">
+                                    <img style="min-height: 50px;min-height: 50px;" id="show" class="am-circle am-img-thumbnail"
+                                         src="/resources/img/user/${userinfo.headicon}" alt=""/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img id="show" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+
+                        <%--<p class="am-form-help">头像</p>--%>
+
+                        <div class="info-m">
+                            <div><b>手机号：<i>${userinfo.phone}</i></b></div>
+                            <div><b>注册时间：<i>${userinfo.registertime}</i></b></div>
+                            <div class="vip">
+                                <c:choose>
+                                    <c:when test="${userinfo.permission==0}">
+                                        <span></span><a href="/user/idcard" style="color: red;">未实名认证</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span></span><a href="/user/idcard" style="color: green;">已实名认证</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
                     </div>
-
-                    <p class="am-form-help">头像</p>
-
-                    <div class="info-m">
-                        <div><b>用户名：<i>小叮当</i></b></div>
-                        <div class="vip">
-                            <span></span><a href="#">会员专享</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!--个人信息 -->
-                <div class="info-main">
-                    <form class="am-form am-form-horizontal">
-
-                        <div class="am-form-group">
-                            <label for="user-name2" class="am-form-label">昵称</label>
-                            <div class="am-form-content">
-                                <input type="text" id="user-name2" placeholder="nickname">
-                                <small>昵称长度不能超过40个汉字</small>
-                            </div>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label for="user-name" class="am-form-label">姓名</label>
-                            <div class="am-form-content">
-                                <input type="text" id="user-name2" placeholder="name">
-
-                            </div>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label class="am-form-label">性别</label>
-                            <div class="am-form-content sex">
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="male" data-am-ucheck> 男
-                                </label>
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="female" data-am-ucheck> 女
-                                </label>
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="secret" data-am-ucheck> 保密
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label for="user-birth" class="am-form-label">生日</label>
-                            <div class="am-form-content birth">
-                                <div class="birth-select">
-                                    <select data-am-selected>
-                                        <option value="a">2015</option>
-                                        <option value="b">1987</option>
-                                    </select>
-                                    <em>年</em>
+                        <input class="hidden" name="userid" value="${userinfo.userid}">
+                    <!--个人信息 -->
+                    <div class="info-main">
+                        <div class="am-form am-form-horizontal">
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">昵称</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="user-name1" placeholder="昵称" value="${userinfo.nickname}"
+                                           maxlength="12" name="nickname" required>
+                                    <small>昵称长度不能超过12个汉字</small>
                                 </div>
-                                <div class="birth-select2">
-                                    <select data-am-selected>
-                                        <option value="a">12</option>
-                                        <option value="b">8</option>
-                                    </select>
-                                    <em>月</em></div>
-                                <div class="birth-select2">
-                                    <select data-am-selected>
-                                        <option value="a">21</option>
-                                        <option value="b">23</option>
-                                    </select>
-                                    <em>日</em></div>
                             </div>
 
-                        </div>
-                        <div class="am-form-group">
-                            <label for="user-phone" class="am-form-label">电话</label>
-                            <div class="am-form-content">
-                                <input id="user-phone" placeholder="telephonenumber" type="tel">
-
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">姓名</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="user-name2" placeholder="姓名" value="${userinfo.name}"
+                                           maxlength="12" name="name" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="am-form-group">
-                            <label for="user-email" class="am-form-label">电子邮件</label>
-                            <div class="am-form-content">
-                                <input id="user-email" placeholder="Email" type="email">
 
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">性别</label>
+                                <div class="am-form-content">
+                                    <c:choose>
+                                        <c:when test="${userinfo.sex==0}">
+                                            <input type="text" id="user-name3" placeholder="性别（男/女）" value="女"
+                                                   onkeyup="this.value=this.value.replace(/[^男女]/g,'')" maxlength="1"
+                                                   name="sex" required>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="text" id="user-name3" placeholder="性别（男/女）" value="男"
+                                                   onkeyup="this.value=this.value.replace(/[^男女]/g,'')" maxlength="1"
+                                                   name="sex" required>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="am-form-group address">
-                            <label for="user-address" class="am-form-label">收货地址</label>
-                            <div class="am-form-content address">
-                                <a href="address.html">
-                                    <p class="new-mu_l2cw">
-                                        <span class="province">湖北</span>省
-                                        <span class="city">武汉</span>市
-                                        <span class="dist">洪山</span>区
-                                        <span class="street">雄楚大道666号(中南财经政法大学)</span>
+
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">年龄</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="user-name0" placeholder="年龄" value="${userinfo.age}"
+                                           onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="2"
+                                           name="age" required>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">地址</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="user-name4" placeholder="地址" value="${userinfo.address}"
+                                           maxlength="50" name="address" required>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="user-name2" class="am-form-label">简介</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="user-name5" placeholder="简介" value="${userinfo.userinfo}"
+                                           maxlength="50" name="userinfo" required>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group safety">
+                                <label class="am-form-label">账号安全</label>
+                                <div class="am-form-content safety">
+                                    <a href="/user/safety">
                                         <span class="am-icon-angle-right"></span>
-                                    </p>
-                                </a>
-
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="info-btn">
+                                <input value="保存修改" class="am-btn am-btn-danger" type="submit">
                             </div>
                         </div>
-                        <div class="am-form-group safety">
-                            <label for="user-safety" class="am-form-label">账号安全</label>
-                            <div class="am-form-content safety">
-                                <a href="safety.html">
 
-                                    <span class="am-icon-angle-right"></span>
-
-                                </a>
-
-                            </div>
-                        </div>
-                        <div class="info-btn">
-                            <div class="am-btn am-btn-danger">保存修改</div>
-                        </div>
-
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
 
         </div>
@@ -240,7 +196,16 @@
     <jsp:include page="user_menu.jsp"></jsp:include>
     <!--侧边菜单 end-->
 </div>
-
+<script type="text/javascript">
+    function c() {
+        var r = new FileReader();
+        f = document.getElementById('file').files[0];
+        r.readAsDataURL(f);
+        r.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
+</script>
 </body>
 
 </html>

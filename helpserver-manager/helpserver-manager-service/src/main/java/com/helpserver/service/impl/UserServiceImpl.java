@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 普通用户登录
-     * 1、先验证是否存在手机账号
+     * 1、先验证是否存在手机账号,是否已被禁用
      * 2、返回信息
      * @param phone
      * @param password
@@ -133,8 +133,12 @@ public class UserServiceImpl implements UserService{
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria=userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
+//        criteria.andPermissionNotEqualTo(2);
         List<User> userList = userDao.selectByExample(userExample);
         if (userList != null && userList.size() > 0) {
+            if (userList.get(0).getPermission() == 2) {
+                return "phone_ban";
+            }
             if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
                 return "login_success";
             }else {
@@ -179,6 +183,30 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updateUser(User user) {
+//        UserExample userExample = new UserExample();
+//        UserExample.Criteria criteria=userExample.createCriteria();
+//        if (user.getName() != null) {
+//            criteria.andNameEqualTo(user.getName());
+//        }
+//        if (user.getNickname() != null) {
+//            criteria.andNicknameEqualTo(user.getNickname());
+//        }
+//        if (user.getAddress() != null) {
+//            criteria.andAddressEqualTo(user.getAddress());
+//        }
+//        if (user.getAge()!=null){
+//            criteria.andAgeEqualTo(user.getAge());
+//        }
+//        if (user.getSex() != null) {
+//            criteria.andSexEqualTo(user.getSex());
+//        }
+//        if (user.getUserinfo()!=null){
+//            criteria.andUserinfoEqualTo(user.getUserinfo());
+//        }
+//        criteria.andUseridEqualTo(user.getUserid());
+        if (userDao.updateByPrimaryKeySelective(user) == 1) {
+            return true;
+        }
         return false;
     }
 

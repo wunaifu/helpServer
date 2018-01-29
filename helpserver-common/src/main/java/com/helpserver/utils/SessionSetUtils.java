@@ -16,7 +16,7 @@ public class SessionSetUtils {
     }
 
     public static boolean isUserLogin(HttpServletRequest request) {
-        if (request.getSession().getAttribute("user") != null) {
+        if (request.getSession().getAttribute("nowUser") != null) {
 //            System.out.println("phone=="+request.getSession().getAttribute("user"));
             return true;
         }

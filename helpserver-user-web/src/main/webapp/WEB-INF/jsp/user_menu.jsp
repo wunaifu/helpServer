@@ -9,7 +9,7 @@
 <aside class="menu">
     <ul>
         <li class="person active">
-            <a href="index.html"><i class="am-icon-user"></i>个人中心</a>
+            <a href="/index_user"><i class="am-icon-user"></i>个人中心</a>
         </li>
         <li class="person">
             <p><i class="am-icon-newspaper-o"></i>个人资料</p>

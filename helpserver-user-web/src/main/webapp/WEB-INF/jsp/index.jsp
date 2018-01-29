@@ -10,18 +10,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>首页</title>
 
-    <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
-    <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
+    <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="/basic/css/demo.css" rel="stylesheet" type="text/css"/>
     <link href="/css/personal.css" rel="stylesheet" type="text/css">
     <link href="/css/vipstyle.css" rel="stylesheet" type="text/css">
-    <link href="/css/hmstyle.css" rel="stylesheet" type="text/css" />
+    <link href="/css/hmstyle.css" rel="stylesheet" type="text/css"/>
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
     <link href="/css/media.css" rel="stylesheet">
@@ -33,49 +34,9 @@
 
 <body>
 <div class="hmtop">
-    <!--顶部导航条 -->
-    <div class="am-container header">
-        <ul class="message-l">
-            <div class="topMessage">
-                <div class="menu-hd">
-                    <a href="#" target="_top" class="h">请定位您所在的区域</a>
-                    <!--<a href="#" target="_top">免费注册</a>-->
-                </div>
-            </div>
-        </ul>
-        <ul class="message-r">
-            <div class="topMessage home">
-                <div class="menu-hd"><a href="/index" target="_top" class="h">平台首页</a></div>
-            </div>
-            <div class="topMessage my-shangcheng">
-                <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-            </div>
-            <div class="topMessage mini-cart">
-                <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span><!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
-            </div>
-            <div class="topMessage favorite">
-                <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a></div>
-                </div>
-        </ul>
-    </div>
-
-    <!--悬浮搜索框-->
-
-    <div class="nav white">
-        <div class="logo"><img src="/images/logo1.png" /></div>
-        <div class="logoBig">
-            <li><img src="/images/logobig.png" /></li>
-        </div>
-
-        <div class="search-bar pr">
-            <a name="index_none_header_sysc" href="#"></a>
-            <form action="/searchserver">
-                <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-            </form>
-        </div>
-    </div>
-
+    <!-- top start -->
+    <jsp:include page="top.jsp"></jsp:include>
+    <!-- top end -->
     <div class="clear"></div>
 </div>
 <b class="line"></b>
@@ -101,16 +62,16 @@
             <div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
                 <ul class="am-slides">
                     <li class="banner1">
-                        <a href="introduction.html"><img src="/images/ad5.jpg" /></a>
+                        <a href="introduction.html"><img src="/images/ad5.jpg"/></a>
                     </li>
                     <li class="banner2">
-                        <a><img src="/images/ad6.jpg" /></a>
+                        <a><img src="/images/ad6.jpg"/></a>
                     </li>
                     <li class="banner3">
-                        <a><img src="/images/ad7.jpg" /></a>
+                        <a><img src="/images/ad7.jpg"/></a>
                     </li>
                     <li class="banner4">
-                        <a><img src="/images/ad8.jpg" /></a>
+                        <a><img src="/images/ad8.jpg"/></a>
                     </li>
                 </ul>
             </div>
@@ -126,7 +87,8 @@
                         <ul class="category-list navTwo" id="js_climit_li">
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -160,13 +122,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -177,7 +146,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -211,13 +181,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -228,7 +205,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -262,13 +240,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -279,7 +264,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -313,13 +299,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -330,7 +323,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -364,13 +358,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -381,7 +382,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -415,13 +417,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -432,7 +441,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -466,13 +476,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -483,7 +500,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -517,13 +535,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -534,7 +559,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -568,13 +594,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -585,7 +618,8 @@
                             </li>
                             <li>
                                 <div class="category-info">
-                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a class="ml-22" title="点心">点心/蛋糕</a></h3>
+                                    <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
+                                            class="ml-22" title="点心">点心/蛋糕</a></h3>
                                     <em>&gt;</em></div>
                                 <div class="menu-item menu-in top">
                                     <div class="area-in">
@@ -619,13 +653,20 @@
 
                                                 </div>
                                                 <div class="brand-side">
-                                                    <dl class="dl-sort"><dt><span>实力商家</span></dt>
-                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >呵官方旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#" rel="nofollow"><span >格瑞旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#" rel="nofollow"><span  class="red" >飞彦大厂直供</span></a></dd>
-                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#" rel="nofollow"><span >红e·艾菲妮</span></a></dd>
-                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#" rel="nofollow"><span  class="red" >本真旗舰店</span></a></dd>
-                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#" rel="nofollow"><span  class="red" >杭派女装批发网</span></a></dd>
+                                                    <dl class="dl-sort">
+                                                        <dt><span>实力商家</span></dt>
+                                                        <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="格瑞旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span>格瑞旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="飞彦大厂直供" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">飞彦大厂直供</span></a></dd>
+                                                        <dd><a rel="nofollow" title="红e·艾菲妮" target="_blank" href="#"
+                                                               rel="nofollow"><span>红e·艾菲妮</span></a></dd>
+                                                        <dd><a rel="nofollow" title="本真旗舰店" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">本真旗舰店</span></a></dd>
+                                                        <dd><a rel="nofollow" title="杭派女装批发网" target="_blank" href="#"
+                                                               rel="nofollow"><span class="red">杭派女装批发网</span></a></dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -642,16 +683,16 @@
         </div>
         <!--导航 -->
         <script type="text/javascript">
-            (function() {
+            (function () {
                 $('.am-slider').flexslider();
             });
-            $(document).ready(function() {
-                $("li").hover(function() {
+            $(document).ready(function () {
+                $("li").hover(function () {
                     $(".category-content .category-list li.first .menu-in").css("display", "none");
                     $(".category-content .category-list li.first").removeClass("hover");
                     $(this).addClass("hover");
                     $(this).children("div.menu-in").css("display", "block")
-                }, function() {
+                }, function () {
                     $(this).removeClass("hover")
                     $(this).children("div.menu-in").css("display", "none")
                 });
@@ -661,7 +702,8 @@
         <!--走马灯 -->
 
         <div class="marqueenTwo">
-            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>平台头条<em class="am-icon-angle-double-right"></em></span>
+            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>平台头条<em
+                    class="am-icon-angle-double-right"></em></span>
             <div class="demo">
 
                 <ul>
@@ -685,13 +727,14 @@
             function autoScroll(obj) {
                 $(obj).find("ul").animate({
                     marginTop: "-39px"
-                }, 500, function() {
+                }, 500, function () {
                     $(this).css({
                         marginTop: "0px"
                     }).find("li:first").appendTo(this);
                 })
             }
-            $(function() {
+
+            $(function () {
                 setInterval('autoScroll(".demo")', 3000);
             })
         }
@@ -708,16 +751,17 @@
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2>
                     <!--<p style="float:left;">互助服务</p>-->
-                    <p  style="float:right;"><a href="/sendserver"><span>发起服务</span></a></p>
+                    <p style="float:right;"><a href="/sendserver"><span>发起服务</span></a></p>
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">
                     <h3><a href="/serverdetail">犯错了怎么办？</a></h3>
-                    <figure><a href="/serveruserinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a></figure>
+                    <figure><a href="/serveruserinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
+                    </figure>
                     <ul>
                         <a href="/serverdetail">
                             <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                            感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
+                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
                                 人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
                                 不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
                             </p>
@@ -756,7 +800,8 @@
                     <h3><a href="/">犯错了怎么办？</a></h3>
                     <figure><img style="width: 72px;height: 72px;" src="/images/01.jpg"></figure>
                     <ul>
-                        <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。</p>
+                        <p>
+                            看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。</p>
                         <div class="autor1">
                             <span>额外佣金：￥100</span>
                             <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
@@ -800,7 +845,7 @@
                 </a>
                 <div class="ibar_login_box status_login ">
                     <div class="avatar_box ">
-                        <p class="avatar_imgbox "><img src="/images/no-img_mid_.jpg " /></p>
+                        <p class="avatar_imgbox "><img src="/images/no-img_mid_.jpg "/></p>
                         <ul class="user_info ">
                             <li>用户名：sl1903</li>
                             <li>级&nbsp;别：普通会员</li>
@@ -845,7 +890,7 @@
 
             <div id="brand " class="item ">
                 <a href="#">
-                    <span class="wdsc "><img src="/images/wdsc.png " /></span>
+                    <span class="wdsc "><img src="/images/wdsc.png "/></span>
                 </a>
                 <div class="mp_tooltip ">
                     我的收藏
@@ -855,7 +900,7 @@
 
             <div id="broadcast " class="item ">
                 <a href="# ">
-                    <span class="chongzhi "><img src="/images/chongzhi.png " /></span>
+                    <span class="chongzhi "><img src="/images/chongzhi.png "/></span>
                 </a>
                 <div class="mp_tooltip ">
                     我要充值
@@ -871,7 +916,8 @@
                 <!--二维码 -->
                 <li class="qtitem ">
                     <a href="#none "><span class="mpbtn_qrcode "></span></a>
-                    <div class="mp_qrcode " style="display:none; "><img src="/images/weixin_code_145.png " /><i class="icon_arrow_white "></i></div>
+                    <div class="mp_qrcode " style="display:none; "><img src="/images/weixin_code_145.png "/><i
+                            class="icon_arrow_white "></i></div>
                 </li>
                 <li class="qtitem ">
                     <a href="#top " class="return_top "><span class="top "></span></a>

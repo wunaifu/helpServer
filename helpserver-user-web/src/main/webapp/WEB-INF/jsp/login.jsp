@@ -122,6 +122,12 @@
                         $("#user").focus();
 //                        alert("账号错误，请确认！");
                     }
+                    if (data=="phone_ban"){
+                        $('#killPhoneMessage').hide().html('<label style="color: red">手机号已被禁用!</label>').show(300);
+                        $("#user").select();
+                        $("#user").focus();
+//                        alert("账号错误，请确认！");
+                    }
                     if (data=="password_error"){
                         $('#killPhoneMessage').hide().html('<label style="color: red">密码错误!</label>').show(300);
                         $("#password").select();

@@ -35,7 +35,7 @@ public class PageController {
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
-        request.getSession().removeAttribute("user");
+        request.getSession().removeAttribute("nowUser");
         return "login";
     }
 
