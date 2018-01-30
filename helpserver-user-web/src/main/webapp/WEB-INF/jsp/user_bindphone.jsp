@@ -15,12 +15,12 @@
 
     <title>绑定手机</title>
 
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
     <link href="/css/personal.css" rel="stylesheet" type="text/css">
     <link href="/css/stepstyle.css" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
@@ -125,7 +125,7 @@
                     <label for="user-new-code" class="am-form-label">验证码</label>
                     <div class="am-form-content">
                         <input type="tel" id="user-new-code" placeholder="短信验证码"
-                               onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11" required>>
+                               onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11" required>
                     </div>
                     <a class="btn" href="javascript:void(0);" onclick="get_new_code();" id="sendNewCode">
                         <div class="am-btn am-btn-danger" id="dyMobileButtonNew">验证码</div>
