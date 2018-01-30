@@ -84,27 +84,33 @@
                     <div class="u-progress-bar-inner"></div>
                 </div>
             </div>
-            <form class="am-form am-form-horizontal">
+            <form class="am-form am-form-horizontal" action="/user/doresetpsw" onsubmit="return suborder()" method="post">
                 <div class="am-form-group">
                     <label for="user-old-password" class="am-form-label">原密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-old-password" placeholder="请输入原登录密码">
+                        <input type="password" id="user-old-password" placeholder="请输入原登录密码"
+                                name="oldpsw" required
+                               onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-new-password" class="am-form-label">新密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-new-password" placeholder="由数字、字母组合">
+                        <input type="password" id="user-new-password" placeholder="由数字、字母组合"
+                                name="newpsw" required
+                               onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-confirm-password" class="am-form-label">确认密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码">
+                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码"
+                                name="reppsw" required
+                               onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6">
                     </div>
                 </div>
                 <div class="info-btn">
-                    <div class="am-btn am-btn-danger">保存修改</div>
+                    <input type="submit" class="am-btn am-btn-danger" value="保存修改">
                 </div>
 
             </form>
@@ -121,5 +127,46 @@
 </div>
 
 </body>
-
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
+<script>
+    function suborder(){
+        var oldPassword = $("#user-old-password").val().replace(" ","");
+        var newPassword = $("#user-new-password").val().replace(" ","");
+        var repPassword = $("#user-confirm-password").val().replace(" ","");
+        if(oldPassword==""){
+            $.myToast("原密码不能为空");
+            return false;
+        }
+        if(oldPassword.length<6){
+            $.myToast("原密码不能少于6位");
+            return false;
+        }
+        if(newPassword==""){
+            $.myToast("新密码不能为空");
+            return false;
+        }
+        if(newPassword.length<6){
+            $.myToast("新密码不能少于6位");
+            return false;
+        }
+        if(newPassword==oldPassword){
+            $.myToast("新旧密码不能一样");
+            return false;
+        }
+        if(repPassword==""){
+            $.myToast("确认密码不能为空");
+            return false;
+        }
+        if(repPassword.length<6){
+            $.myToast("确认密码不能少于6位");
+            return false;
+        }
+        if(repPassword!=newPassword) {
+            $.myToast("两次输入密码不一样！");
+            return false;
+        }
+        return true;
+    }
+</script>
 </html>

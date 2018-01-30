@@ -38,12 +38,16 @@
 		<!-- 设定文件上传的最大值5MB，5*1024*1024 500*1024==500k-->
 		<property name="maxUploadSize" value="512000"></property>
 		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadController 中捕获文件大小异常-->
-		<property name="resolveLazily" value="true"/>
+		<!--<property name="resolveLazily" value="true"/>-->
 	</bean>
+	<!--捕获异常并跳转到相应的错误页面-->
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">page_error</prop>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">page_error_filesize</prop>
+				<prop key="java.lang.NumberFormatException">page_error_number</prop>
+				<prop key="java.lang.NullPointerException">page_500</prop>
+				<!--<prop key="javax.servlet.ServletException">page_404</prop>-->
 			</props>
 		</property>
 	</bean>

@@ -75,13 +75,10 @@
                         <div class="filePic">
                             <input id="file" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
                                    name="file" onchange="c()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                            <c:if test="${userinfo.headicon==null||userinfo.headicon==''}">
-
-                            </c:if>
                             <c:choose>
                                 <c:when test="${userinfo.headicon!=null||userinfo.headicon!=''}">
-                                    <img style="min-height: 50px;min-height: 50px;" id="show" class="am-circle am-img-thumbnail"
-                                         src="/resources/img/user/${userinfo.headicon}" alt=""/>
+                                    <img id="show" class="userheadicon am-circle am-img-thumbnail"
+                                         src="/resources/img/${userinfo.headicon}" alt=""/>
                                 </c:when>
                                 <c:otherwise>
                                     <img id="show" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>

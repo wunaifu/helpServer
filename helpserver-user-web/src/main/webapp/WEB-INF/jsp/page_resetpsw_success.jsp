@@ -12,22 +12,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>出错页面</title>
+    <title>操作成功页面</title>
     <link rel="stylesheet"  type="text/css" href="/AmazeUI-2.4.2/assets/css/amazeui.css"/>
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/basic/css/demo.css" rel="stylesheet" type="text/css" />
 
-    <link href="/css/errorstyle.css" rel="stylesheet" type="text/css" />
+    <link href="/css/sustyle.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
 
 </head>
 
-<body>
+<body onload="RemainTime();">
 
 
 <!--顶部导航条 -->
 <div class="am-container header">
-
     <ul class="message-r">
         <div class="topMessage home">
             <div class="menu-hd"><a href="/index" target="_top" class="h">平台首页</a></div>
@@ -66,12 +65,15 @@
 
 <div class="take-delivery">
     <div class="status">
-        <h2 style="font-size: 20px;">对不起，文件上传失败！<a style="font-size: 20px;color: #0c80ba" href="javascript:history.back();">返回</a></h2>
+        <h2 style="font-size: 20px;">您的密码修改成功，请重新登录！还有&nbsp;
+            <span id="timess" style="font-size: 23px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
+            <a href="/login" style="font-size: 23px;color: #0c80ba">登录</a></h2>
         <div class="successInfo">
             <ul>
-                <li style="color: red;font-size: 18px;margin: 10px 0 10px 0;">文件过大，文件大小不能超过500k！</li>
+                <li>定期更改密码可以保护账户安全。</li>
 
-                感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！前往<a href="/index"style="font-size: 17px;color: #0c80ba">首页</a>
+
+                感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！
 
             </ul>
 
@@ -80,28 +82,43 @@
 </div>
 
 
-<div class="footer" >
-    <div class="footer-hd">
-        <p>
-            <a href="#">恒望科技</a>
-            <b>|</b>
-            <a href="#">商城首页</a>
-            <b>|</b>
-            <a href="#">支付宝</a>
-            <b>|</b>
-            <a href="#">物流</a>
-        </p>
-    </div>
-    <div class="footer-bd">
-        <p>
-            <a href="#">关于恒望</a>
-            <a href="#">合作伙伴</a>
-            <a href="#">联系我们</a>
-            <a href="#">网站地图</a>
-            <em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></em>
-        </p>
-    </div>
-</div>
+<!--底部 start-->
+<jsp:include page="footer.jsp"></jsp:include>
+<!--底部 end-->
+<script>
+    var iTime = 8;
+    var Account;
+    //时间60秒倒数
+    function RemainTime(){
+        var iSecond,sSecond="",sTime="";
+        if (iTime >= 0){
+            iSecond = parseInt(iTime);
+            iMinute = 0;//parseInt(iTime/5)
+            if (iSecond >= 0){
+                if(iMinute>0){
+                    sSecond = iMinute + "分" + iSecond + "秒";
+                }else{
+                    sSecond = iSecond + " 秒";
+                }
+            }
+            sTime=sSecond;
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime='0';
+                iTime = 0;
+                //前往首页
+                window.location.href="/login";
+            }else{
+                Account = setTimeout("RemainTime()",1000);
+                iTime=iTime-1;
+            }
+        }else{
+            sTime='nothing';
+        }
+        $("#timess").text(sTime);
+    }
+</script>
+
 </body>
 </html>
 

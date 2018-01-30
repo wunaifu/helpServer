@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wunaifu
@@ -68,16 +69,31 @@
                 <div class="user-infoPic">
 
                     <div class="filePic">
-                        <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt="" />
+                        <c:choose>
+                            <c:when test="${userinfo.headicon!=null||userinfo.headicon!=''}">
+                                <img id="show" class="userheadicon am-circle am-img-thumbnail"
+                                     src="/resources/img/${userinfo.headicon}" alt=""/>
+                            </c:when>
+                            <c:otherwise>
+                                <img id="show" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
-                    <p class="am-form-help">头像</p>
+                    <%--<p class="am-form-help">头像</p>--%>
 
                     <div class="info-m">
-                        <div><b>用户名：<i>小叮当</i></b></div>
-                        <div class="safeText">
-                            <a href="safety.html">账户安全:<em style="margin-left:20px ;">60</em>分</a>
-                            <div class="progressBar"><span style="left: -95px;" class="progress"></span></div>
+                        <div><b>手机号：<i>${userinfo.phone}</i></b></div>
+                        <div><b>注册时间：<i>${userinfo.registertime}</i></b></div>
+                        <div class="vip">
+                            <c:choose>
+                                <c:when test="${userinfo.permission==0}">
+                                    <span></span><a href="/user/idcard" style="color: red;">未实名认证</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <span></span><a href="/user/idcard" style="color: green;">已实名认证</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -88,7 +104,7 @@
                             <i class="i-safety-lock"></i>
                             <div class="m-left">
                                 <div class="fore1">登录密码</div>
-                                <div class="fore2"><small>为保证您购物安全，建议您定期更改密码以保护账户安全。</small></div>
+                                <div class="fore2"><small>为保证您账号安全，建议您定期更改密码以保护账户安全。</small></div>
                             </div>
                             <div class="fore3">
                                 <a href="/user/resetpsw">
@@ -96,7 +112,7 @@
                                 </a>
                             </div>
                         </li>
-                        <li>
+                        <%--<li>
                             <i class="i-safety-wallet"></i>
                             <div class="m-left">
                                 <div class="fore1">支付密码</div>
@@ -107,12 +123,12 @@
                                     <div class="am-btn am-btn-secondary">立即启用</div>
                                 </a>
                             </div>
-                        </li>
+                        </li>--%>
                         <li>
                             <i class="i-safety-iphone"></i>
                             <div class="m-left">
                                 <div class="fore1">手机验证</div>
-                                <div class="fore2"><small>您验证的手机：186XXXXXXXX 若已丢失或停用，请立即更换</small></div>
+                                <div class="fore2"><small>您验证的手机：${userinfo.phone} 若已丢失或停用，请立即更换</small></div>
                             </div>
                             <div class="fore3">
                                 <a href="/user/bindphone">
@@ -120,7 +136,7 @@
                                 </a>
                             </div>
                         </li>
-                        <li>
+                        <%--<li>
                             <i class="i-safety-mail"></i>
                             <div class="m-left">
                                 <div class="fore1">邮箱验证</div>
@@ -131,7 +147,7 @@
                                     <div class="am-btn am-btn-secondary">换绑</div>
                                 </a>
                             </div>
-                        </li>
+                        </li>--%>
                         <li>
                             <i class="i-safety-idcard"></i>
                             <div class="m-left">

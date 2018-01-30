@@ -150,6 +150,33 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
+     * 更新密码
+     * @param userId
+     * @param oldPsw
+     * @param newPsw
+     * @return
+     */
+    @Override
+    public String doResetPsw(int userId, String oldPsw, String newPsw) {
+        User user = userDao.selectByPrimaryKey(userId);
+        if (user != null) {
+            if (user.getPassword().equals(oldPsw)) {
+                //密码验证成功
+                User user1 = new User();
+                user1.setUserid(userId);
+                user1.setPassword(newPsw);
+                if (userDao.updateByPrimaryKeySelective(user1) == 1) {
+                    return "resetpsw_success";
+                }
+            } else {
+                //旧密码错误
+                return "oldpsw_error";
+            }
+        }
+        return "resetpsw_error";
+    }
+
+    /**
      * 注册
      * 1、先验证是否存在手机账号
      * 2、插入账号密码、权限为0、注册时间

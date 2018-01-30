@@ -7,6 +7,7 @@
 p.am-form-help{ font-size:14px;font-weight: 600; margin:0px auto; position:absolute; top:25px;color: #000000;}
 .am-selected-list {font-size:14px; }
 .am-img-thumbnail {padding:0px;margin:2px ;}
+.userheadicon{width:60px;height:60px;}
 /*.info-m{ display:none;}*/
 
 /*修改信息*/
@@ -90,7 +91,8 @@ input {text-align: left;}
 .birth .am-selected-status{padding-top:3px;}
 /*头像、安全评分*/
 .user-infoPic{position: relative;margin:20px 5% 50px ;height:130px;border-bottom:1px solid #eee ;}
-.filePic{width:100px; float:left;margin-left:15px;margin-top:15px ;}	
+.filePic{width:72px; float:left;margin-left:15px;margin-top:15px ;}
+.userheadicon{width:75px;height:75px;}
 .info-m{ display:block;float:left;overflow: hidden;line-height: 24px;position: absolute;left:6%;top:25px;margin-left: 120px;}
 .safeText{display: block;color: #fff;position: relative;text-align:left ;}
 .progressBar{width: 190px;height: 8px;background:url(../images/icon_bar.png) no-repeat;position: relative;overflow: hidden;border-radius: 5px;margin-top:5px ;}

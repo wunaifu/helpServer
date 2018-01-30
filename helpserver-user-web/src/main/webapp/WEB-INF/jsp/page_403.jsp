@@ -24,23 +24,9 @@
 
 <body>
 
-<!--悬浮搜索框-->
-
-<div class="nav white">
-	<div class="logo"><img src="/images/logo.png" /></div>
-	<div class="logoBig">
-		<li><img src="/images/logobig.png" /></li>
-	</div>
-
-	<div class="search-bar pr">
-		<a name="index_none_header_sysc" href="#"></a>
-		<form>
-			<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-			<input id="ai-topsearch" class="submit" value="搜索" index="1" type="submit"></form>
-	</div>
-</div>
-
-<div class="clear"></div>
+<!-- top start -->
+<jsp:include page="toperror.jsp"></jsp:include>
+<!-- top end -->
 <div class="take-delivery" >
 	<div class="status">
 		<h2 style="font-size: 20px;">没有访问权限！请先<a style="font-size: 20px;color: #0c80ba" href="/login">登录</a></h2>

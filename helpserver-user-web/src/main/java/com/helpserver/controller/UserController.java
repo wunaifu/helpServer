@@ -3,6 +3,7 @@ package com.helpserver.controller;
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import com.helpserver.utils.DESUtils;
 import com.helpserver.utils.JsonUtils;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.SessionSetUtils;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.jstl.sql.Result;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,39 +70,30 @@ public class UserController {
      */
     @RequestMapping("/update")
     public String userUpdate(@RequestParam(value = "file", required = false)
-                                     MultipartFile file, HttpServletRequest request, Model model)
-            throws ServletException, IOException,FileSizeLimitExceededException {
+                                     MultipartFile file, HttpServletRequest request, Model model){
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         String fileName = null;
         try {
             if (file != null) {
                 String picture = file.getOriginalFilename();
-                System.out.println("picture==**********" + picture);
                 if (picture.equals("")) {
                 } else {// 保存
-                    String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/user/";
+                    String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/"+nowUser.getUserid()+"/";
                     fileName = UUID.randomUUID() + picture.substring(picture.lastIndexOf("."));
                     System.out.println("**********" + filePath);
                     System.out.println("**********" + fileName);
                     File targetFile = new File(filePath, fileName); // 新建文件
-                    if (targetFile.length() > 512000) {
-                        model.addAttribute("message", "单个文件超出最大值！！！");
-                        return "page_400";
-                    }
                     if (!targetFile.exists()) { // 判断文件的路径是否存在
                         targetFile.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
                     }
                     file.transferTo(targetFile); // 传送 失败就抛异常
                     // 执行更新图片在服务器的地址
+                    fileName=nowUser.getUserid()+"/"+fileName;
                 }
             }
-//        }catch (FileSizeLimitExceededException e){
-//                e.printStackTrace();
-//                model.addAttribute("message", "单个文件超出最大值！！！");
-//                return "page_400";
-
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "传送失败，请重试！");
@@ -142,10 +135,14 @@ public class UserController {
      * @return
      */
     @RequestMapping("/safety")
-    public String userSafety(HttpServletRequest request) {
+    public String userSafety(HttpServletRequest request,Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        User user = userService.selectByPrimaryKey(nowUser.getUserid());
+        user.setPassword("******");
+        model.addAttribute("userinfo", user);
         return "user_safety";
     }
 
@@ -161,6 +158,35 @@ public class UserController {
             return "page_403";
         }
         return "user_resetpsw";
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/doresetpsw")
+    public String doresetpsw(HttpServletRequest request,Model model) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String oldPsw = request.getParameter("oldpsw");
+        String newPsw = request.getParameter("newpsw");
+        oldPsw = DESUtils.getMD5Str(oldPsw);
+        newPsw = DESUtils.getMD5Str(newPsw);
+
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        String result = userService.doResetPsw(nowUser.getUserid(), oldPsw, newPsw);
+        if (result.equals("oldpsw_error")) {
+            model.addAttribute("message", "旧密码错误，请确认密码！");
+            return "page_400";
+        } else if (result.equals("resetpsw_error")) {
+            model.addAttribute("message", "重设密码失败，请稍后再试！");
+            return "page_400";
+        }
+        request.getSession().removeAttribute("nowUser");
+        return "page_resetpsw_success";
     }
 
     /**

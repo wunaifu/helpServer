@@ -72,7 +72,7 @@
             <ul>
                 <c:choose>
                     <c:when test="${message!=null||message!=''}">
-                        <li>${message}</li>
+                        <li><h2>${message}</h2></li>
                     </c:when>
                     <c:otherwise>
                         <li>您的操作成功，谢谢！</li>

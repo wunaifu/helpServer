@@ -27,6 +27,8 @@ public interface UserService {
 
     String registerByPhoneAndPsw(String phone,String password);
 
+    String doResetPsw(int userId,String oldPsw,String newPsw);
+
     boolean updateUser(User user);
 
     boolean managerUnBanUser(int userId,int permission);
