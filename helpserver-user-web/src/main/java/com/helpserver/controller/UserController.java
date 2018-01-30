@@ -204,6 +204,35 @@ public class UserController {
     }
 
     /**
+     * 修改手机号，修改成功，则重新登录
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dobindphone")
+    public String dobindphone(HttpServletRequest request,Model model) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+//        String oldPsw = request.getParameter("oldpsw");
+//        String newPsw = request.getParameter("newpsw");
+//        oldPsw = DESUtils.getMD5Str(oldPsw);
+//        newPsw = DESUtils.getMD5Str(newPsw);
+//
+//        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+//        String result = userService.doResetPsw(nowUser.getUserid(), oldPsw, newPsw);
+//        if (result.equals("oldpsw_error")) {
+//            model.addAttribute("message", "旧密码错误，请确认密码！");
+//            return "page_400";
+//        } else if (result.equals("resetpsw_error")) {
+//            model.addAttribute("message", "重设密码失败，请稍后再试！");
+//            return "page_400";
+//        }
+        request.getSession().removeAttribute("nowUser");
+        return "page_resetpsw_success";
+    }
+
+    /**
      * 身份验证页面
      *
      * @param request
