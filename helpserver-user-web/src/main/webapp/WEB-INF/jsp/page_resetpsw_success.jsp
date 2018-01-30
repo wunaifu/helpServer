@@ -70,7 +70,7 @@
             <a href="/login" style="font-size: 23px;color: #0c80ba">登录</a></h2>
         <div class="successInfo">
             <ul>
-                <li>定期更改密码可以保护账户安全。</li>
+                <li style="font-size: 18px;margin: 10px 0 10px 0;">定期更改密码可以保护账户安全。</li>
 
 
                 感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！

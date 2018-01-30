@@ -65,11 +65,11 @@
                                 <div class="tipsBox"><i class="am-icon-envelope"></i></div>
                             </a>
                             <div class="m-baseinfo">
-                                <a class="m-pic" href="information.html">
+                                <a class="m-pic" href="/user/info">
                                     <img src="/images/getAvatar.do.jpg">
                                 </a>
                                 <div class="m-info">
-                                    <em class="s-name">小叮当</em>
+                                    <a href="/user/info" ><em class="s-name">小叮当</em></a>
                                     <div class="vip1"><a href="#"><span></span><em>未实名</em></a></div>
                                     <div class="safeText"><a href="safety.html">账户安全:<em style="margin-left:20px ;">60</em>分</a>
                                         <div class="progressBar"><span style="left: -95px;" class="progress"></span></div>
@@ -83,7 +83,6 @@
                                 <div class="m-new">
                                     <a href="news.html"><i class="am-icon-dropbox  am-icon-md" style="padding-right:5px ;"></i>消息盒子</a>
                                 </div>
-
                             </div>
                         </div>
 
@@ -148,8 +147,8 @@
                         </div>
                         <ul>
                             <li><a href="order.html"><i><img src="/images/pay.png"/></i><span>已发布</span></a></li>
-                            <li><a href="order.html"><i><img src="/images/send.png"/></i><span>已接单<em class="m-num">1</em></span></a></li>
-                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>待评价<em class="m-num">3</em></span></a></li>
+                            <li><a href="order.html"><i><img src="/images/send.png"/></i><span>已接单</span></a></li>
+                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>待评价</span></a></li>
                             <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>已完成</span></a></li>
                             <li><a href="change.html"><i><img src="/images/refund.png"/></i><span>草稿箱</span></a></li>
                         </ul>
@@ -245,10 +244,13 @@
 
                     <div class="user-suggestion">
                         <div class="s-bar">
-                            <i class="s-icon"></i>会员中心
+                            <i class="s-icon"></i>&nbsp;
                         </div>
                         <div class="s-bar">
-                            <a href="/user_feedback"><i class="s-icon"></i>意见反馈</a>
+                            <a href="/user/feedback"><i class="s-icon"></i>意见反馈</a>
+                        </div>
+                        <div class="s-bar">
+                            <a href="/logout"><i class="s-icon"></i>退出登录</a>
                         </div>
                     </div>
 

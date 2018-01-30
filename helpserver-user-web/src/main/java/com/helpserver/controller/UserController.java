@@ -161,7 +161,7 @@ public class UserController {
     }
 
     /**
-     * 修改密码
+     * 修改密码，修改成功，则重新登录
      *
      * @param request
      * @return
@@ -190,7 +190,7 @@ public class UserController {
     }
 
     /**
-     * 修改密码页面
+     * 修改手机页面
      *
      * @param request
      * @return
@@ -261,5 +261,13 @@ public class UserController {
         ResponseUtils.renderJson(response, result);
     }
 
+
+    @RequestMapping("/feedback")
+    public String feedback(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_feedback";
+    }
 }
 
