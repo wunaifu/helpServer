@@ -77,20 +77,24 @@ CREATE TABLE `feedback` (
 DROP TABLE IF EXISTS `identity`;
 
 CREATE TABLE `identity` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长',
   `userId` int(11) NOT NULL COMMENT '用户id',
+  `name` varchar(15) DEFAULT NULL COMMENT '真实姓名',
+  `idcard` varchar(30) DEFAULT NULL COMMENT '身份证号',
   `frontPhoto` varchar(150) DEFAULT NULL COMMENT '身份证正面',
   `backPhoto` varchar(150) DEFAULT NULL COMMENT '身份证反面',
   `askTime` varchar(32) DEFAULT NULL COMMENT '请求时间',
   `checkTime` varchar(32) DEFAULT NULL COMMENT '验证时间（通过或失败时间）',
   `failureReason` varchar(100) DEFAULT NULL COMMENT '失败原因',
-  `checkState` int(11) NOT NULL DEFAULT '0' COMMENT '验证状态（0请求验证，1已通过）',
+  `checkState` int(11) NOT NULL DEFAULT '0' COMMENT '验证状态（0请求验证，1已通过，-1不通过）',
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `identity` */
+
+insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,48,'吴乃福','440881199501171815','48/a8bf7188-6aff-4cb3-9b7a-3ae5ae462c52.jpeg','48/9800d0d5-558a-411e-977e-e1179223b79d4430e2223de3790ec4f229ded500f.jpeg','2018-01-31 23:09:43',NULL,NULL,0);
 
 /*Table structure for table `order` */
 
@@ -158,11 +162,11 @@ CREATE TABLE `user` (
   `permission` int(11) NOT NULL DEFAULT '0' COMMENT '权限（0普通用户，1可接单用户，2被禁用用户）',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (48,'18219111621','e10adc3949ba59abbe56e057f20f883e','18219111621','18219111621',NULL,0,1,NULL,NULL,'2018-01-22 23:14:39',NULL,NULL,0),(49,'18219111622','e10adc3949ba59abbe56e057f20f883e','18219111622','18219111622',NULL,0,1,NULL,NULL,'2018-01-22 23:15:41',NULL,NULL,0),(50,'18219111623','e10adc3949ba59abbe56e057f20f883e','18219111623','18219111623',NULL,0,1,NULL,NULL,'2018-01-22 23:18:58',NULL,NULL,0);
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (48,'18219111621','e10adc3949ba59abbe56e057f20f883e','18219111621','18219111621','中山横栏',0,1,'123','48/eedc9884-1cc8-43e9-9888-2e8f1d980a43.jpeg','2018-01-22 23:14:39','',NULL,0),(49,'18219111622','e10adc3949ba59abbe56e057f20f883e','18219111622','18219111622',NULL,0,1,NULL,NULL,'2018-01-22 23:15:41','',NULL,0),(50,'18219111623','e10adc3949ba59abbe56e057f20f883e','18219111623','18219111623',NULL,0,1,NULL,NULL,'2018-01-22 23:18:58','',NULL,0),(51,'admin','e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,0,1,NULL,NULL,'2018-01-22 23:18:58',NULL,NULL,-1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
