@@ -19,13 +19,14 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  * Created by wunaifu on 2018/1/11.
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
 
     /**
      * 根据用户权限获取用户数据，并根据注册时间排序好
+     *
      * @param permission
      * @return
      */
@@ -40,13 +41,14 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 获取使用中的用户列表，并根据注册时间排序
+     *
      * @return
      */
     @Override
     public List<User> getAllUseingUserList() {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andPermissionBetween(0,1);
+        criteria.andPermissionBetween(0, 1);
         userExample.setOrderByClause("registertime desc");
         return userDao.selectByExample(userExample);
     }
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService{
     public List<User> getUserList(User user) {
 
         UserExample userExample = new UserExample();
-        UserExample.Criteria criteria=userExample.createCriteria();
+        UserExample.Criteria criteria = userExample.createCriteria();
         if (user.getName() != null) {
             criteria.andNameEqualTo(user.getName());
         }
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService{
         if (user.getAddress() != null) {
             criteria.andAddressEqualTo(user.getAddress());
         }
-        if (user.getAge()!=null){
+        if (user.getAge() != null) {
             criteria.andAgeEqualTo(user.getAge());
         }
 
@@ -83,7 +85,8 @@ public class UserServiceImpl implements UserService{
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
         List<User> userList = userDao.selectByExample(userExample);
-        if (userList != null) {
+        if (userList.size()>0) {
+            System.out.println(userList.toString());
             return userList.get(0);
         }
         return null;
@@ -98,6 +101,7 @@ public class UserServiceImpl implements UserService{
      * 管理员登录
      * 1、先验证是否存在手机账号
      * 2、返回信息
+     *
      * @param phone
      * @param password
      * @return
@@ -105,14 +109,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public String managerLoginByPhoneAndPsw(String phone, String password) {
         UserExample userExample = new UserExample();
-        UserExample.Criteria criteria=userExample.createCriteria();
+        UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
         criteria.andPermissionEqualTo(-1);
         List<User> userList = userDao.selectByExample(userExample);
         if (userList != null && userList.size() > 0) {
             if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
                 return "login_success";
-            }else {
+            } else {
                 return "password_error";
             }
         } else {
@@ -124,6 +128,7 @@ public class UserServiceImpl implements UserService{
      * 普通用户登录
      * 1、先验证是否存在手机账号,是否已被禁用
      * 2、返回信息
+     *
      * @param phone
      * @param password
      * @return
@@ -131,7 +136,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String loginByPhoneAndPsw(String phone, String password) {
         UserExample userExample = new UserExample();
-        UserExample.Criteria criteria=userExample.createCriteria();
+        UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
 //        criteria.andPermissionNotEqualTo(2);
         List<User> userList = userDao.selectByExample(userExample);
@@ -141,7 +146,7 @@ public class UserServiceImpl implements UserService{
             }
             if (DESUtils.getMD5Str(password).equals(userList.get(0).getPassword())) {
                 return "login_success";
-            }else {
+            } else {
                 return "password_error";
             }
         } else {
@@ -151,6 +156,7 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 更新密码
+     *
      * @param userId
      * @param oldPsw
      * @param newPsw
@@ -177,9 +183,38 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
+     * 更新手机号
+     *
+     * @param userId
+     * @param newPhone
+     * @return
+     */
+    @Override
+    public String doBindPhone(int userId, String newPhone) {
+//        UserExample userExample = new UserExample();
+//        UserExample.Criteria criteria = userExample.createCriteria();
+//        criteria.andPhoneEqualTo(newPhone);
+//        List<User> userList = userDao.selectByExample(userExample);
+        User user = this.getUserByPhone(newPhone);
+        if (user!=null) {
+            //手机号存在
+            return "phone_exist";
+        }
+
+        User user1 = new User();
+        user1.setUserid(userId);
+        user1.setPhone(newPhone);
+        if (userDao.updateByPrimaryKeySelective(user1) == 1) {
+            return "bindphone_success";
+        }
+        return "bindphone_error";
+    }
+
+    /**
      * 注册
      * 1、先验证是否存在手机账号
      * 2、插入账号密码、权限为0、注册时间
+     *
      * @param phone
      * @param password
      * @return
@@ -187,7 +222,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String registerByPhoneAndPsw(String phone, String password) {
         UserExample userExample = new UserExample();
-        UserExample.Criteria criteria=userExample.createCriteria();
+        UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
         List<User> userList = userDao.selectByExample(userExample);
         if (userList != null && userList.size() > 0) {
@@ -201,7 +236,7 @@ public class UserServiceImpl implements UserService{
             user.setName(phone);
             user.setNickname(phone);
             int result = userDao.insertSelective(user);
-            if (result==1) {
+            if (result == 1) {
                 return "register_success";
             }
             return "register_failure";
@@ -238,7 +273,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean updateUserPermission(int userId,int permission) {
+    public boolean updateUserPermission(int userId, int permission) {
         User user = new User();
         user.setUserid(userId);
         user.setPermission(permission);
@@ -250,12 +285,13 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 管理员取消禁用用户，禁用时间置为空
+     *
      * @param userId
      * @param permission
      * @return
      */
     @Override
-    public boolean managerUnBanUser(int userId,int permission) {
+    public boolean managerUnBanUser(int userId, int permission) {
         User user = new User();
         user.setUserid(userId);
         user.setPermission(permission);
@@ -268,12 +304,13 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 管理员禁用用户，设置禁用时间
+     *
      * @param userId
      * @param permission
      * @return
      */
     @Override
-    public boolean managerBanUser(int userId,int permission) {
+    public boolean managerBanUser(int userId, int permission) {
         User user = new User();
         user.setUserid(userId);
         user.setPermission(permission);
@@ -286,6 +323,7 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 管理员重置密码
+     *
      * @param userId
      * @param psw
      * @return

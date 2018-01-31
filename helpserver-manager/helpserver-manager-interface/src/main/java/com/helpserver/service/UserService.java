@@ -29,6 +29,8 @@ public interface UserService {
 
     String doResetPsw(int userId,String oldPsw,String newPsw);
 
+    public String doBindPhone(int userId, String newPhone);
+
     boolean updateUser(User user);
 
     boolean managerUnBanUser(int userId,int permission);

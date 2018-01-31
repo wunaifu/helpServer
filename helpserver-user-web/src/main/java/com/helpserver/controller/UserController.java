@@ -210,26 +210,24 @@ public class UserController {
      * @return
      */
     @RequestMapping("/dobindphone")
-    public String dobindphone(HttpServletRequest request,Model model) {
+    public String doBindPhone(HttpServletRequest request,Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-//        String oldPsw = request.getParameter("oldpsw");
-//        String newPsw = request.getParameter("newpsw");
-//        oldPsw = DESUtils.getMD5Str(oldPsw);
-//        newPsw = DESUtils.getMD5Str(newPsw);
-//
-//        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-//        String result = userService.doResetPsw(nowUser.getUserid(), oldPsw, newPsw);
-//        if (result.equals("oldpsw_error")) {
-//            model.addAttribute("message", "旧密码错误，请确认密码！");
-//            return "page_400";
-//        } else if (result.equals("resetpsw_error")) {
-//            model.addAttribute("message", "重设密码失败，请稍后再试！");
-//            return "page_400";
-//        }
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        String newphone = request.getParameter("newphone");
+        System.out.println(newphone);
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        String result = userService.doBindPhone(userId,newphone);
+        if (result.equals("phone_exist")) {
+            model.addAttribute("message", "已存在该手机号用户！");
+            return "page_400";
+        } else if (result.equals("bindphone_error")) {
+            model.addAttribute("message", "绑定手机失败，请稍后再试！");
+            return "page_400";
+        }
         request.getSession().removeAttribute("nowUser");
-        return "page_resetpsw_success";
+        return "page_bindphone_success";
     }
 
     /**

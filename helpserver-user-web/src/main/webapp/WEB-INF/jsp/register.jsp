@@ -93,8 +93,9 @@
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
 <script>
-//    var mobile_code =  Math.ceil((Math.random()*9+1)*1000);
-    var mobile_code =  "1234";
+    var mobile_code =  Math.ceil((Math.random()*9+1)*1000);
+//    mobile_code = mobile_code.substring(0, 3);
+//    var mobile_code =  "1234";
     function get_mobile_code(){
         var phone = $("#phone").val().replace(" ","");
         if(phone==""){
@@ -108,25 +109,24 @@
             $("#phone").focus();
             return;
         }
-//        mobile_code = mobile_code.substring(0, 3);
         console.log(mobile_code);
         content="您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
         account="C62138766";
         password="f2f3a56a1bd4de09fd0b4fb5c7f6ba4a";
         mobile= phone;
         RemainTime();
-//        $.ajax({
-//            type : "GET",
-//            url: "http://106.ihuyi.com/webservice/sms.php?method=Submit&account="+account+"&password="+password+"&content="+content+"&mobile="+mobile+"&format=json",
-//            contentType : "application/x-www-form-urlencoded",
-//            dataType : "json",
-//            error : function() {
-////                alert("请求失败，请重试！");
-//            },
-//            success:function (data,textStatus) {
-//                console.log(data.toString());
-//            }
-//        });
+        $.ajax({
+            type : "GET",
+            url: "http://106.ihuyi.com/webservice/sms.php?method=Submit&account="+account+"&password="+password+"&content="+content+"&mobile="+mobile+"&format=json",
+            contentType : "application/x-www-form-urlencoded",
+            dataType : "json",
+            error : function() {
+//                alert("请求失败，请重试！");
+            },
+            success:function (data,textStatus) {
+                console.log(data.toString());
+            }
+        });
     };
     var iTime = 59;
     var Account;
@@ -158,7 +158,7 @@
                 iTime=iTime-1;
             }
         }else{
-            sTime='nothing';
+            sTime='获取';
         }
         $("#dyMobileButton").text(sTime);
     }

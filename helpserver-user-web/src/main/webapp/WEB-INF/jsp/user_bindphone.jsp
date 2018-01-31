@@ -15,7 +15,7 @@
 
     <title>绑定手机</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <%--<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">--%>
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
@@ -95,24 +95,24 @@
             </div>
             <form class="am-form am-form-horizontal" action="/user/dobindphone" onsubmit="return suborder()"
                   method="post">
-                <input class="hidden" id="oldphone" value="<%=nowUser.getPhone()%>">
-                <input class="hidden" name="userId" value="<%=nowUser.getUserid()%>">
+                <input style="visibility: hidden;" id="oldphone" value="<%=nowUser.getPhone()%>">
+                <input style="visibility: hidden;" name="userId" value="<%=nowUser.getUserid()%>">
                 <div class="am-form-group bind">
                     <label for="user-phone" class="am-form-label">验证手机</label>
                     <div class="am-form-content">
                         <span id="user-phone"><%=nowUser.getPhone()%></span>
                     </div>
                 </div>
-                <div class="am-form-group code">
-                    <label for="user-code" class="am-form-label">验证码</label>
-                    <div class="am-form-content">
-                        <input type="tel" id="user-code" placeholder="短信验证码"
-                               onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11" required>
-                    </div>
-                    <a class="btn" href="javascript:void(0);" onclick="get_old_code();" id="sendOldCode">
-                        <div class="am-btn am-btn-danger" id="dyMobileButtonold">验证码</div>
-                    </a>
-                </div>
+                <%--<div class="am-form-group code">--%>
+                    <%--<label for="user-code" class="am-form-label">验证码</label>--%>
+                    <%--<div class="am-form-content">--%>
+                        <%--<input type="tel" id="user-code" placeholder="短信验证码"--%>
+                               <%--onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11" required>--%>
+                    <%--</div>--%>
+                    <%--<a class="btn" href="javascript:void(0);" onclick="get_old_code();" id="sendOldCode">--%>
+                        <%--<div class="am-btn am-btn-danger" id="dyMobileButtonold">验证码</div>--%>
+                    <%--</a>--%>
+                <%--</div>--%>
                 <div class="am-form-group">
                     <label for="newphone" class="am-form-label">验证手机</label>
                     <div class="am-form-content">
@@ -149,70 +149,16 @@
 </div>
 
 </body>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
 <script>
     //    var mobile_code =  Math.ceil((Math.random()*9+1)*1000);
-    var old_code = "4321";
-    var new_code = "1234";
-    //验证旧手机
-    function get_old_code() {
-
-        var phone = $("#oldphone").val().replace(" ", "");
-//        old_code = mobile_code.substring(0, 3);
-        content = "您的验证码是：" + old_code + "。请不要把验证码泄露给其他人。";
-        account = "C62138766";
-        password = "f2f3a56a1bd4de09fd0b4fb5c7f6ba4a";
-        mobile = phone;
-        RemainTimeOld();
-//        $.ajax({
-//            type : "GET",
-//            url: "http://106.ihuyi.com/webservice/sms.php?method=Submit&account="+account+"&password="+password+"&content="+content+"&mobile="+mobile+"&format=json",
-//            contentType : "application/x-www-form-urlencoded",
-//            dataType : "json",
-//            error : function() {
-////                alert("请求失败，请重试！");
-//            },
-//            success:function (data,textStatus) {
-//                console.log(data.toString());
-//            }
-//        });
-    }
-    var iTime1 = 59;
-    var Account1;
-    //时间60秒倒数
-    function RemainTimeOld() {
-        $("#sendOldCode").removeAttr('onclick');
-        var iSecond, sSecond = "", sTime = "";
-        if (iTime1 >= 0) {
-            iSecond = parseInt(iTime1 % 60);
-            iMinute = parseInt(iTime1 / 60)
-            if (iSecond >= 0) {
-                if (iMinute > 0) {
-                    sSecond = iMinute + "分" + iSecond + "秒";
-                } else {
-                    sSecond = iSecond + "秒";
-                }
-            }
-            sTime = sSecond;
-            if (iTime1 == 0) {
-                clearTimeout(Account1);
-                sTime = '验证码';
-                iTime1 = 59;
-                $("#sendOldCode").attr("onclick", "get_old_code()");
-            } else {
-                Account1 = setTimeout("RemainTimeOld()", 1000);
-                iTime1 = iTime1 - 1;
-            }
-        } else {
-            sTime = 'nothing';
-        }
-        $("#dyMobileButtonold").text(sTime);
-    }
+    var new_code = 1234;//Math.ceil((Math.random()*9+1)*1000);
 
     //验证新手机
     function get_new_code() {
-
+        var phone = $("#oldphone").val().replace(" ", "");
         var newphone = $("#newphone").val().replace(" ", "");
         if (newphone == "") {
             $.myToast("手机号不能为空");
@@ -221,31 +167,34 @@
         }
         if (newphone.length != 11) {
             $.myToast("手机号格式不正确");
-            $("#phone").select();
-            $("#phone").focus();
+            $("#newphone").select();
+            $("#newphone").focus();
             return;
         }
-
-//        new_code = mobile_code.substring(0, 3);
+        if (newphone== phone) {
+            $.myToast("不能和旧手机号相同");
+            $("#newphone").select();
+            $("#newphone").focus();
+            return;
+        }
         content = "您的验证码是：" + new_code + "。请不要把验证码泄露给其他人。";
         account = "C62138766";
         password = "f2f3a56a1bd4de09fd0b4fb5c7f6ba4a";
         mobile = newphone;
         RemainTimeNew();
-//        $.ajax({
-//            type : "GET",
-//            url: "http://106.ihuyi.com/webservice/sms.php?method=Submit&account="+account+"&password="+password+"&content="+content+"&mobile="+mobile+"&format=json",
-//            contentType : "application/x-www-form-urlencoded",
-//            dataType : "json",
-//            error : function() {
-////                alert("请求失败，请重试！");
-//            },
-//            success:function (data,textStatus) {
-//                console.log(data.toString());
-//            }
-//        });
+        $.ajax({
+            type : "GET",
+            url: "http://106.ihuyi.com/webservice/sms.php?method=Submit&account="+account+"&password="+password+"&content="+content+"&mobile="+mobile+"&format=json",
+            contentType : "application/x-www-form-urlencoded",
+            dataType : "json",
+            error : function() {
+//                alert("请求失败，请重试！");
+            },
+            success:function (data,textStatus) {
+                console.log(data.toString());
+            }
+        });
     }
-    ;
     var iTime2 = 59;
     var Account2;
     //时间60秒倒数
@@ -279,16 +228,18 @@
     }
 
     function suborder() {
-        var usercode = $("#user-code").val().replace(" ", "");
-        var newcode = $("#user-new-code").val().replace(" ", "");
-        if (usercode == "" || newcode == "") {
-            $.myToast("验证码不能为空");
-            return false;
+        var phone = $("#oldphone").val().replace(" ", "");
+        var newphone = $("#newphone").val().replace(" ", "");
+        if (newphone== phone) {
+            $.myToast("不能和旧手机号相同");
+            $("#newphone").select();
+            $("#newphone").focus();
+            return;
         }
-        if (usercode != old_code) {
-            $.myToast("旧手机验证码错误");
-            $("#user-code").select();
-            $("#user-code").focus();
+
+        var newcode = $("#user-new-code").val().replace(" ", "");
+        if (newcode == "") {
+            $.myToast("验证码不能为空");
             return false;
         }
         if (newcode != new_code) {
