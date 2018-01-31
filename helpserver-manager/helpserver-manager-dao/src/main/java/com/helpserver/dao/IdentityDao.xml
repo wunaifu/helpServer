@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.helpserver.pojo.Identity" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
     <result column="frontPhoto" property="frontphoto" jdbcType="VARCHAR" />
     <result column="backPhoto" property="backphoto" jdbcType="VARCHAR" />
     <result column="askTime" property="asktime" jdbcType="VARCHAR" />
@@ -71,7 +73,8 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, userId, frontPhoto, backPhoto, askTime, checkTime, failureReason, checkState
+      id, userId, name, idcard, frontPhoto, backPhoto, askTime, checkTime, failureReason,
+      checkState
     </if>
     <if test="fields != null" >
       ${fields}
@@ -95,8 +98,8 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    id,userId,frontPhoto,backPhoto,askTime,checkTime,failureReason,checkState
+    select
+    id,userId,name,idcard,frontPhoto,backPhoto,askTime,checkTime,failureReason,checkState
     from identity
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -111,12 +114,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Identity" >
-    insert into identity (id, userId, frontPhoto, 
-      backPhoto, askTime, checkTime, 
-      failureReason, checkState)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{frontphoto,jdbcType=VARCHAR}, 
-      #{backphoto,jdbcType=VARCHAR}, #{asktime,jdbcType=VARCHAR}, #{checktime,jdbcType=VARCHAR}, 
-      #{failurereason,jdbcType=VARCHAR}, #{checkstate,jdbcType=INTEGER})
+    insert into identity (id, userId, name,
+    idcard, frontPhoto, backPhoto,
+    askTime, checkTime, failureReason,
+    checkState)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    #{idcard,jdbcType=VARCHAR}, #{frontphoto,jdbcType=VARCHAR}, #{backphoto,jdbcType=VARCHAR},
+    #{asktime,jdbcType=VARCHAR}, #{checktime,jdbcType=VARCHAR}, #{failurereason,jdbcType=VARCHAR},
+    #{checkstate,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Identity" >
     insert into identity
@@ -126,6 +131,12 @@
       </if>
       <if test="userid != null" >
         userId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idcard != null" >
+        idcard,
       </if>
       <if test="frontphoto != null" >
         frontPhoto,
@@ -152,6 +163,12 @@
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
       </if>
       <if test="frontphoto != null" >
         #{frontphoto,jdbcType=VARCHAR},
@@ -188,6 +205,12 @@
       <if test="record.userid != null" >
         userId = #{record.userid,jdbcType=INTEGER},
       </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null" >
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
       <if test="record.frontphoto != null" >
         frontPhoto = #{record.frontphoto,jdbcType=VARCHAR},
       </if>
@@ -214,13 +237,15 @@
   <update id="updateByExample" parameterType="map" >
     update identity
     set id = #{record.id,jdbcType=INTEGER},
-      userId = #{record.userid,jdbcType=INTEGER},
-      frontPhoto = #{record.frontphoto,jdbcType=VARCHAR},
-      backPhoto = #{record.backphoto,jdbcType=VARCHAR},
-      askTime = #{record.asktime,jdbcType=VARCHAR},
-      checkTime = #{record.checktime,jdbcType=VARCHAR},
-      failureReason = #{record.failurereason,jdbcType=VARCHAR},
-      checkState = #{record.checkstate,jdbcType=INTEGER}
+    userId = #{record.userid,jdbcType=INTEGER},
+    name = #{record.name,jdbcType=VARCHAR},
+    idcard = #{record.idcard,jdbcType=VARCHAR},
+    frontPhoto = #{record.frontphoto,jdbcType=VARCHAR},
+    backPhoto = #{record.backphoto,jdbcType=VARCHAR},
+    askTime = #{record.asktime,jdbcType=VARCHAR},
+    checkTime = #{record.checktime,jdbcType=VARCHAR},
+    failureReason = #{record.failurereason,jdbcType=VARCHAR},
+    checkState = #{record.checkstate,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -230,6 +255,12 @@
     <set >
       <if test="userid != null" >
         userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
       </if>
       <if test="frontphoto != null" >
         frontPhoto = #{frontphoto,jdbcType=VARCHAR},
@@ -255,6 +286,8 @@
   <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Identity" >
     update identity
     set userId = #{userid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
       frontPhoto = #{frontphoto,jdbcType=VARCHAR},
       backPhoto = #{backphoto,jdbcType=VARCHAR},
       askTime = #{asktime,jdbcType=VARCHAR},

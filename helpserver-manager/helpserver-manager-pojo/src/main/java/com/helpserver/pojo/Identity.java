@@ -3,12 +3,25 @@ package com.helpserver.pojo;
 import java.io.Serializable;
 
 public class Identity implements Serializable {
+    /**
+     * 自增长
+     */
     private Integer id;
 
     /**
      * 用户id
      */
     private Integer userid;
+
+    /**
+     * 真实姓名
+     */
+    private String name;
+
+    /**
+     * 身份证号
+     */
+    private String idcard;
 
     /**
      * 身份证正面
@@ -36,7 +49,7 @@ public class Identity implements Serializable {
     private String failurereason;
 
     /**
-     * 验证状态（0请求验证，1已通过）
+     * 验证状态（0请求验证，1已通过，-1不通过）
      */
     private Integer checkstate;
 
@@ -56,6 +69,22 @@ public class Identity implements Serializable {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard == null ? null : idcard.trim();
     }
 
     public String getFrontphoto() {
@@ -114,6 +143,8 @@ public class Identity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userid=").append(userid);
+        sb.append(", name=").append(name);
+        sb.append(", idcard=").append(idcard);
         sb.append(", frontphoto=").append(frontphoto);
         sb.append(", backphoto=").append(backphoto);
         sb.append(", asktime=").append(asktime);

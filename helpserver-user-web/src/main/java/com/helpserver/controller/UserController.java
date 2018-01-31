@@ -1,12 +1,11 @@
 package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
+import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.User;
+import com.helpserver.service.IdentityService;
 import com.helpserver.service.UserService;
-import com.helpserver.utils.DESUtils;
-import com.helpserver.utils.JsonUtils;
-import com.helpserver.utils.ResponseUtils;
-import com.helpserver.utils.SessionSetUtils;
+import com.helpserver.utils.*;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.apache.commons.fileupload.FileUploadException;
@@ -30,6 +29,7 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
@@ -43,6 +43,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    IdentityService identityService;
 
     /**
      * 个人信息页面
@@ -236,10 +238,23 @@ public class UserController {
      * @return
      */
     @RequestMapping("/idcard")
-    public String userIDcard(HttpServletRequest request) {
+    public String userIDcard(HttpServletRequest request,Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        int userId = nowUser.getUserid();
+        Identity identity = new Identity();
+        identity = identityService.getIdentityByUserId(userId);
+//        if (identity != null) {
+//            model.addAttribute("identity", identity);
+//            return "user_idcard";
+//        }
+//        identity.setId(0);
+//        identity.setCheckstate(0);
+//        identity.setFrontphoto("cardbg.jpg");
+//        identity.setBackphoto("cardbg.jpg");
+        model.addAttribute("identity", identity);
         return "user_idcard";
     }
 
@@ -257,6 +272,7 @@ public class UserController {
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
 
+        Identity identity = new Identity();
         String fileName1 = null;
         String fileName2 = null;
         try {
@@ -264,6 +280,7 @@ public class UserController {
                 String picture1 = file[0].getOriginalFilename();
                 String picture2 = file[1].getOriginalFilename();
                 if (picture1.equals("")||picture2.equals("")) {
+
                 } else {// 保存
                     String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/"+nowUser.getUserid()+"/";
                     fileName1 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
@@ -284,6 +301,8 @@ public class UserController {
                     // 执行更新图片在服务器的地址
                     fileName1=nowUser.getUserid()+"/"+fileName1;
                     fileName2=nowUser.getUserid()+"/"+fileName2;
+                    identity.setFrontphoto(fileName1);
+                    identity.setBackphoto(fileName2);
                 }
             }
         } catch (Exception e) {
@@ -292,18 +311,28 @@ public class UserController {
             return "page_400";
         }
         int userId = nowUser.getUserid();
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String idcard = request.getParameter("idcard");
-//        String result = userService.doBindPhone(userId,name);
-//        if (result.equals("phone_exist")) {
-//            model.addAttribute("message", "已存在该手机号用户！");
-//            return "page_400";
-//        } else if (result.equals("bindphone_error")) {
-//            model.addAttribute("message", "绑定手机失败，请稍后再试！");
-//            return "page_400";
-//        }
-        model.addAttribute("message", "身份证验证请求提交成功，管理员将在24小时内处理，请等待！");
-        return "page_success";
+        identity.setUserid(userId);
+        identity.setName(name);
+        identity.setIdcard(idcard);
+        identity.setAsktime(TimeUtil.dateToString(new Date()));
+        identity.setCheckstate(0);
+        String result = "";
+        if (id != 0) {
+            identity.setId(id);
+            result = identityService.updateIdenty(identity);
+        } else {
+            result = identityService.insertIdenty(identity);
+        }
+        if (result.equals("update_success")) {
+            model.addAttribute("message", "身份证验证请求提交成功，管理员将在24小时内处理，请等待！");
+            return "page_success";
+        } else{
+            model.addAttribute("message", "绑定手机失败，请稍后再试！");
+            return "page_400";
+        }
     }
 
     /**

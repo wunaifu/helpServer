@@ -2,9 +2,8 @@ package com.helpserver.dao;
 
 import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.IdentityExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface IdentityDao {
     int countByExample(IdentityExample example);
