@@ -65,12 +65,12 @@
 
 <div class="take-delivery">
     <div class="status">
-        <h2 style="font-size: 20px;">绑定手机成功，请重新登录！还有&nbsp;
-            <span id="timess" style="font-size: 23px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
-            <a href="/login" style="font-size: 23px;color: #0c80ba">登录</a></h2>
+        <h2 style="font-size: 18px;">绑定手机成功,还有&nbsp;
+            <span id="timess" style="font-size: 18px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
+            <a href="/login" style="font-size: 19px;color: #0c80ba">登录</a></h2>
         <div class="successInfo">
             <ul>
-                <li style="font-size: 18px;margin: 10px 0 10px 0;">若手机已丢失或停用，请立即更换。</li>
+                <li style="font-size: 18px;margin: 20px 0 10px 0;">绑定手机成功，请重新登录！若手机已丢失或停用，请立即更换。</li>
 
 
                 感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！

@@ -65,17 +65,17 @@
 
 <div class="take-delivery">
     <div class="status">
-        <h2 style="font-size: 20px;">您的操作成功，谢谢！还有&nbsp;
-            <span id="timess" style="font-size: 23px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
-            <a href="/index" style="font-size: 23px;color: #0c80ba">首页</a></h2>
+        <h2 style="font-size: 18px;">操作成功！还有&nbsp;
+            <span id="timess" style="font-size: 18px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
+            <a href="/index" style="font-size: 19px;color: #0c80ba">首页</a></h2>
         <div class="successInfo">
             <ul>
                 <c:choose>
                     <c:when test="${message!=null||message!=''}">
-                        <li style="font-size: 18px;margin: 10px 0 10px 0;"><h2>${message}</h2></li>
+                        <li style="font-size: 18px;margin: 20px 0 10px 0;"><h2>${message}</h2></li>
                     </c:when>
                     <c:otherwise>
-                        <li style="font-size: 18px;margin: 10px 0 10px 0;">您的操作成功，谢谢！</li>
+                        <li style="font-size: 18px;margin: 20px 0 10px 0;">您的操作成功，谢谢！</li>
                     </c:otherwise>
                 </c:choose>
 

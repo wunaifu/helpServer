@@ -216,7 +216,6 @@ public class UserController {
         }
         int userId = Integer.parseInt(request.getParameter("userId"));
         String newphone = request.getParameter("newphone");
-        System.out.println(newphone);
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         String result = userService.doBindPhone(userId,newphone);
         if (result.equals("phone_exist")) {
@@ -242,6 +241,69 @@ public class UserController {
             return "page_403";
         }
         return "user_idcard";
+    }
+
+    /**
+     * 身份验证页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/doidcard")
+    public String doIDcard(@RequestParam(value = "file", required = false)
+             MultipartFile file[], HttpServletRequest request,Model model) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+
+        String fileName1 = null;
+        String fileName2 = null;
+        try {
+            if (file != null) {
+                String picture1 = file[0].getOriginalFilename();
+                String picture2 = file[1].getOriginalFilename();
+                if (picture1.equals("")||picture2.equals("")) {
+                } else {// 保存
+                    String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/"+nowUser.getUserid()+"/";
+                    fileName1 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    fileName2 = UUID.randomUUID() + picture1.substring(picture2.lastIndexOf("."));
+                    System.out.println("**********" + filePath);
+                    System.out.println("fileName1**********" + fileName1);
+                    System.out.println("fileName2**********" + fileName2);
+                    File targetFile1 = new File(filePath, fileName1); // 新建文件
+                    File targetFile2 = new File(filePath, fileName2); // 新建文件
+                    if (!targetFile1.exists()) { // 判断文件的路径是否存在
+                        targetFile1.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    if (!targetFile2.exists()) { // 判断文件的路径是否存在
+                        targetFile2.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[0].transferTo(targetFile1); // 传送 失败就抛异常
+                    file[1].transferTo(targetFile2); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName1=nowUser.getUserid()+"/"+fileName1;
+                    fileName2=nowUser.getUserid()+"/"+fileName2;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "传送失败，请重试！");
+            return "page_400";
+        }
+        int userId = nowUser.getUserid();
+        String name = request.getParameter("name");
+        String idcard = request.getParameter("idcard");
+//        String result = userService.doBindPhone(userId,name);
+//        if (result.equals("phone_exist")) {
+//            model.addAttribute("message", "已存在该手机号用户！");
+//            return "page_400";
+//        } else if (result.equals("bindphone_error")) {
+//            model.addAttribute("message", "绑定手机失败，请稍后再试！");
+//            return "page_400";
+//        }
+        model.addAttribute("message", "身份证验证请求提交成功，管理员将在24小时内处理，请等待！");
+        return "page_success";
     }
 
     /**
