@@ -154,7 +154,7 @@
 <script src="/js/alert.js"></script>
 <script>
     //    var mobile_code =  Math.ceil((Math.random()*9+1)*1000);
-    var new_code = 1234;//Math.ceil((Math.random()*9+1)*1000);
+    var new_code = Math.ceil((Math.random()*9+1)*1000);
 
     //验证新手机
     function get_new_code() {
@@ -222,7 +222,7 @@
                 iTime2 = iTime2 - 1;
             }
         } else {
-            sTime = 'nothing';
+            sTime = '验证码';
         }
         $("#dyMobileButtonNew").text(sTime);
     }
