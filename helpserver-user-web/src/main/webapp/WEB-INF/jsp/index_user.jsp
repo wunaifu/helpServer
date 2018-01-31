@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -61,17 +62,35 @@
                         <!--个人信息 -->
 
                         <div class="m-userinfo">
-                            <a href="news.html">
+                            <a href="#">
                                 <div class="tipsBox"><i class="am-icon-envelope"></i></div>
                             </a>
                             <div class="m-baseinfo">
                                 <a class="m-pic" href="/user/info">
-                                    <img src="/images/getAvatar.do.jpg">
+
+                                    <c:choose>
+                                        <c:when test="${userinfo.headicon!=''||userinfo.headicon!=null}">
+                                            <img id="show" class="userheadicon am-circle am-img-thumbnail"
+                                                 src="/resources/img/${userinfo.headicon}" alt=""/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img id="show" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </a>
                                 <div class="m-info">
-                                    <a href="/user/info" ><em class="s-name">小叮当</em></a>
-                                    <div class="vip1"><a href="#"><span></span><em>未实名</em></a></div>
-                                    <div class="safeText"><a href="safety.html">账户安全:<em style="margin-left:20px ;">60</em>分</a>
+                                    <a href="/user/info" ><em class="s-name">${userinfo.phone}</em></a>
+                                    <div class="vip1">
+                                        <c:choose>
+                                            <c:when test="${userinfo.permission==0}">
+                                                <a href="/user/idcard"><span></span><em>未实名</em></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="/user/idcard"><span></span><em>已实名</em></a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="safeText"><a><em style="margin-left:20px ;">${userinfo.registertime}</em>注册</a>
                                         <div class="progressBar"><span style="left: -95px;" class="progress"></span></div>
                                     </div>
                                     <div class="m-address">
@@ -81,7 +100,7 @@
                             </div>
                             <div class="m-right">
                                 <div class="m-new">
-                                    <a href="news.html"><i class="am-icon-dropbox  am-icon-md" style="padding-right:5px ;"></i>消息盒子</a>
+                                    <a href="#"><i class="am-icon-dropbox  am-icon-md" style="padding-right:5px ;"></i>消息盒子</a>
                                 </div>
                             </div>
                         </div>

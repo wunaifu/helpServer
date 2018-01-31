@@ -235,6 +235,7 @@ public class UserServiceImpl implements UserService {
             user.setRegistertime(TimeUtil.dateToString(new Date()));
             user.setName(phone);
             user.setNickname(phone);
+            user.setHeadicon("icon001.png");
             int result = userDao.insertSelective(user);
             if (result == 1) {
                 return "register_success";

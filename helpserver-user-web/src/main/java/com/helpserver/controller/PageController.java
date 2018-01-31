@@ -1,9 +1,12 @@
 package com.helpserver.controller;
 
+import com.helpserver.dto.NowUser;
+import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
 import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,10 +59,15 @@ public class PageController {
     }
 
     @RequestMapping("/index_user")
-    public String index_user(HttpServletRequest request) {
+    public String index_user(HttpServletRequest request, Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        User user = userService.selectByPrimaryKey(nowUser.getUserid());
+        user.setPassword("******");
+        System.out.println(user.toString()+"         "+user.getHeadicon());
+        model.addAttribute("userinfo", user);
         return "index_user";
     }
 
