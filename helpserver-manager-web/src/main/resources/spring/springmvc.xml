@@ -23,11 +23,11 @@
 	<context:component-scan base-package="com.helpserver.controller"/>
 	<!-- 配置资源映射 -->
 	<!--  静态资源交给默认的Servlet-->
-	<!--<mvc:default-servlet-handler/>-->
-	<mvc:resources location="/css/" mapping="/css/**"/>
-	<mvc:resources location="/img/" mapping="/img/**"/>
-	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/lib/" mapping="/lib/**"/>
+	<mvc:default-servlet-handler/>
+	<!--<mvc:resources location="/css/" mapping="/css/**"/>-->
+	<!--<mvc:resources location="/img/" mapping="/img/**"/>-->
+	<!--<mvc:resources location="/js/" mapping="/js/**"/>-->
+	<!--<mvc:resources location="/lib/" mapping="/lib/**"/>-->
 	<!-- 多媒体解析器 -->
 	<!-- 配置文件上传解析器 -->
 	<bean id="multipartResolver"
@@ -37,10 +37,23 @@
 		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
+	<!--捕获异常并跳转到相应的错误页面-->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">page_error_filesize</prop>
+				<!--<prop key="java.lang.NumberFormatException">page_error_number</prop>-->
+				<!--<prop key="java.lang.NullPointerException">page_500</prop>-->
+				<!--<prop key="java.lang.IndexOutOfBoundsException">page_500</prop>-->
+				<!--<prop key="java.lang.RuntimeException">page_500</prop>-->
+			</props>
+		</property>
+	</bean>
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="helpserver-manager-web"/>
 	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 	<dubbo:reference interface="com.helpserver.service.UserService" id="userService" />
+	<dubbo:reference interface="com.helpserver.service.IdentityService" id="identityService" />
 	<!--<dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService" />-->
 	<!--<dubbo:reference interface="com.taotao.content.service.ContentCategoryService" id="contentCategoryService" />-->
 	<!--<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService" />-->

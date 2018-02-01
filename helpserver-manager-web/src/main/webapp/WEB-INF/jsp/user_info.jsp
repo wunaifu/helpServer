@@ -62,7 +62,7 @@
                                                         <h4 class="text-center"><img src="/img/profile/profile-1.jpg" width="70px" height="80px"></h4>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <h4 class="text-center"><img src="/img/profile/profile-1.jpg" width="70px" height="80px"></h4>
+                                                        <h4 class="text-center"><img src="http://localhost:8083/resources/img/${userinfo.headicon}" width="70px" height="80px"></h4>
                                                     </c:otherwise>
                                                 </c:choose>
 

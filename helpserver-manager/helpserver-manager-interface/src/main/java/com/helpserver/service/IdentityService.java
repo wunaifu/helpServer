@@ -2,6 +2,7 @@ package com.helpserver.service;
 
 import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.User;
+import com.helpserver.pojo.UserInfoDto;
 
 import java.util.List;
 
@@ -15,5 +16,9 @@ public interface IdentityService {
     String updateIdenty(Identity identity);
 
     Identity getIdentityByUserId(int userId);
+
+    List<UserInfoDto> getUserInfoDtoListByCheckState(int checkState);
+
+    UserInfoDto getUserInfoDtoByUserId(int userId);
 
 }

@@ -1,6 +1,9 @@
 package com.helpserver.controller;
 
+import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.User;
+import com.helpserver.pojo.UserInfoDto;
+import com.helpserver.service.IdentityService;
 import com.helpserver.service.UserService;
 import com.helpserver.utils.DESUtils;
 import com.helpserver.utils.ResponseUtils;
@@ -30,6 +33,82 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    IdentityService identityService;
+
+    /**
+     * 管理员查看实名认证审核列表
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/unidentitylist")
+    public String unIdentityList(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        List<UserInfoDto> userInfoDtoList = identityService.getUserInfoDtoListByCheckState(0);
+        model.addAttribute("identityList", userInfoDtoList);
+        return "user_unidentity_list";
+    }
+
+    /**
+     * 管理员查看实名认证者详情
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{page}/{userId}/detail")
+    public String unIdentityDetail(@PathVariable("userId") int userId,@PathVariable("page") String page,
+                                   HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
+        model.addAttribute("userInfoDto", userInfoDto);
+        model.addAttribute("pageF", page);
+        return "user_identity_detail";
+    }
+
+    /**
+     * 管理员通过审核
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agree/{userId}/{page}")
+    public String agreeIdentity(@PathVariable("userId") int userId,@PathVariable("page") String page,
+                                   HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
+        model.addAttribute("userInfoDto", userInfoDto);
+        model.addAttribute("pageF", page);
+        return "user_identity_detail";
+    }
+
+    /**
+     * 管理员不通过审核
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/disagree/{userId}/{page}")
+    public String disagreeIdentity(@PathVariable("userId") int userId,@PathVariable("page") String page,
+                                HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
+        model.addAttribute("userInfoDto", userInfoDto);
+        model.addAttribute("pageF", page);
+        return "user_identity_detail";
+    }
 
     /**
      * 管理员查看已被禁用用户列表
@@ -39,7 +118,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/banlist",method = RequestMethod.GET)
+    @RequestMapping(value = "/banlist")
     public String fineAllBanUser(HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
@@ -59,7 +138,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/uselist",method = RequestMethod.GET)
+    @RequestMapping(value = "/uselist")
     public String fineAllUsingUser(HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
@@ -77,8 +156,9 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{page}/{userId}/detail",method = RequestMethod.GET)
-    public String getUserByUserId(@PathVariable("userId") int userId,@PathVariable("page") String page,HttpServletRequest request,Model model) throws Exception {
+    @RequestMapping(value = "/{page}/{userId}/detail")
+    public String getUserByUserId(@PathVariable("userId") int userId,@PathVariable("page") String page,
+                                  HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }

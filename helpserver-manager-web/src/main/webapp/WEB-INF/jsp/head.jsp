@@ -110,7 +110,7 @@
                     <div id="dropdown-element" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="/fineAllUnCheckUser">申请身份认证列表</a>
+                                <li><a href="/user/unidentitylist">申请身份认证列表</a>
                                 </li>
                                 <li><a href="/user/uselist">用户列表</a>
                                 </li>
