@@ -15,6 +15,10 @@ public interface IdentityService {
 
     String updateIdenty(Identity identity);
 
+    String agreeUserIdentity(int userId);
+
+    String disagreeUserIdentity(int userId,String reason);
+
     Identity getIdentityByUserId(int userId);
 
     List<UserInfoDto> getUserInfoDtoListByCheckState(int checkState);

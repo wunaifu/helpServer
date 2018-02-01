@@ -92,7 +92,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/user/uncheck/unidentity/${item.user.userid}/detail">
+                                                        <a href="/user/unidentity/${item.user.userid}/detail">
                                                             <span class="label label-default">详情</span></a>
                                                         <a href="/user/uselist/${item.user.userid}/detail">
                                                             <span class="label label-success">通过</span></a>

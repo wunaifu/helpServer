@@ -104,11 +104,12 @@
                                                         </span>
                                                     </li>
                                                     <li class="list-group-item">
-                                                    <a href="#">
+                                                    <a href="/user/agreeIdentity/${userInfoDto.user.userid}">
                                                         <span class="label label-success" style="font-size: 14px;width: 120px;">通过</span></a>
                                                     <a href="#" onclick="suborder()">
                                                         <span class="label label-danger"  style="margin-left:50px;font-size: 14px;width: 120px;">不通过</span></a>
                                                     </li>
+                                                    <input value="${userInfoDto.user.userid}" style="visibility: hidden" id="userId">
                                                     <li class="list-group-item" disabled="disabled" style="margin-bottom: 30px;">
                                                         不通过理由：<input placeholder="请填写认证不通过的理由" maxlength="50"
                                                                      id="reason" name="reason" style="width: 100%;height: 38px;">
@@ -149,11 +150,13 @@
 <!-- Javascript -->
 <script type="text/javascript" src="/js/app.js"></script>
 <script type="text/javascript" src="/js/index.js"></script>
-<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<%--<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>--%>
+<%--<script src="/js/jquery.ajaxchimp.min.js"></script>--%>
 </body>
 <script>
     function suborder() {
         var reason=$("#reason").val().replace(" ", "");
+        var userId=$("#userId").val().replace(" ", "");
         if(reason==''){
             alert("请填写验证不通过的理由！");
             $("#reason").focus();
@@ -161,7 +164,7 @@
         }
         $.ajax({
             type : "POST",
-            url: "/user/dologin/" + phone + "/" + password,
+            url: "/user/disagreeIdentity/"+userId+"/"+reason,
             contentType : "application/json;charset=utf-8",
             dataType : "text",
             error : function() {
@@ -169,6 +172,9 @@
             },
             success:function (data) {
                 console.log(data.toString());
+                if (data=="update_success"){
+                    window.location.href="/user/unidentitylist";
+                }
             }
         });
     }

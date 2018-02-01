@@ -105,4 +105,61 @@ public class IdentityServiceImpl implements IdentityService {
         }
         return userInfoDtos;
     }
+
+    /**
+     * 通过身份认证
+     * @param userId
+     * @return
+     */
+    @Override
+    public String agreeUserIdentity(int userId) {
+        Identity identity = new Identity();
+        identity.setCheckstate(1);
+        identity.setUserid(userId);
+        identity.setChecktime(TimeUtil.dateToString(new Date()));
+        User user = new User();
+        user.setUserid(userId);
+        user.setPermission(1);
+
+        IdentityExample identityExample = new IdentityExample();
+        IdentityExample.Criteria criteria = identityExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+
+
+        if (identityDao.updateByExample(identity, identityExample) == 1) {
+            if (userDao.updateByPrimaryKeySelective(user) == 1) {
+                return "update_success";
+            }
+        }
+        return "update_error";
+    }
+
+    /**
+     * 不通过身份认证
+     * @param userId
+     * @return
+     */
+    @Override
+    public String disagreeUserIdentity(int userId, String reason) {
+        Identity identity = new Identity();
+        identity.setCheckstate(-1);
+        identity.setUserid(userId);
+        identity.setChecktime(TimeUtil.dateToString(new Date()));
+        identity.setFailurereason(reason);
+        User user = new User();
+        user.setUserid(userId);
+        user.setPermission(0);
+
+        IdentityExample identityExample = new IdentityExample();
+        IdentityExample.Criteria criteria = identityExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+
+
+        if (identityDao.updateByExample(identity, identityExample) == 1) {
+            if (userDao.updateByPrimaryKeySelective(user) == 1) {
+                return "update_success";
+            }
+        }
+        return "update_error";
+    }
 }

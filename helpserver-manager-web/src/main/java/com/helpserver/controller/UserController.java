@@ -59,8 +59,8 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{page}/{userId}/detail")
-    public String unIdentityDetail(@PathVariable("userId") int userId,@PathVariable("page") String page,
+    @RequestMapping(value = "/unidentity/{userId}/detail")
+    public String unIdentityDetail(@PathVariable("userId") int userId,
                                    HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
@@ -68,7 +68,6 @@ public class UserController {
         //获取待审核列表
         UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
         model.addAttribute("userInfoDto", userInfoDto);
-        model.addAttribute("pageF", page);
         return "user_identity_detail";
     }
 
@@ -78,36 +77,31 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/agree/{userId}/{page}")
-    public String agreeIdentity(@PathVariable("userId") int userId,@PathVariable("page") String page,
+    @RequestMapping(value = "/agreeIdentity/{userId}")
+    public String agreeIdentity(@PathVariable("userId") int userId,
                                    HttpServletRequest request,Model model) throws Exception {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        //获取待审核列表
-        UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
-        model.addAttribute("userInfoDto", userInfoDto);
-        model.addAttribute("pageF", page);
-        return "user_identity_detail";
+        String result = identityService.agreeUserIdentity(userId);
+        if (result.equals("update_success")) {
+            return "redirect:/user/unidentitylist";
+        }
+        model.addAttribute("message", "通过认证失败，请稍后再试！");
+        return "page_400";
     }
 
     /**
      * 管理员不通过审核
-     * @param model
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/disagree/{userId}/{page}")
-    public String disagreeIdentity(@PathVariable("userId") int userId,@PathVariable("page") String page,
-                                HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
-            return "page_403";
-        }
-        //获取待审核列表
-        UserInfoDto userInfoDto = identityService.getUserInfoDtoByUserId(userId);
-        model.addAttribute("userInfoDto", userInfoDto);
-        model.addAttribute("pageF", page);
-        return "user_identity_detail";
+    @RequestMapping(value = "/disagreeIdentity/{userId}/{reason}")
+    public void disagreeIdentity(@PathVariable("userId") int userId,@PathVariable("reason") String reason,
+                                HttpServletRequest request,HttpServletResponse response) throws Exception {
+
+        String result = identityService.disagreeUserIdentity(userId,reason);
+        ResponseUtils.renderJson(response, result);
     }
 
     /**
