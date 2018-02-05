@@ -213,8 +213,8 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/theming">
-                        <span class="icon fa fa-desktop"></span><span class="title">主题管理</span>
+                    <a href="/manager/mypayaccount">
+                        <span class="icon fa fa-desktop"></span><span class="title">我的支付宝</span>
                     </a>
                 </li>
             </ul>
