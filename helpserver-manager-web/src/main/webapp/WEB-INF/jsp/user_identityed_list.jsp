@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">申请身份认证列表</span>
-                        <div class="description">以下是申请身份认证的用户列表.</div>
+                        <span class="title">身份认证已通过列表</span>
+                        <div class="description">以下是身份认证已通过的用户列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -62,10 +62,11 @@
                                         <tr>
                                             <th class="manager-border2">账号</th>
                                             <th class="manager-border2">昵称</th>
-                                            <th class="manager-border2">地址</th>
+                                            <%--<th class="manager-border2">地址</th>--%>
                                             <th class="manager-border2">真实姓名</th>
                                             <th class="manager-border2">身份证号</th>
                                             <th class="manager-border2">申请时间</th>
+                                            <th class="manager-border2">认证时间</th>
                                             <th class="manager-border2">验证状态</th>
                                             <th hidden></th>
                                         </tr>
@@ -76,10 +77,11 @@
 
                                                     <td class="manager-border2">${item.user.phone}</td>
                                                     <td class="manager-border2">${item.user.nickname}</td>
-                                                    <td class="manager-border2">${item.user.address}</td>
+                                                    <%--<td class="manager-border2">${item.user.address}</td>--%>
                                                     <td class="manager-border2">${item.identity.name}</td>
                                                     <td class="manager-border2">${item.identity.idcard}</td>
                                                     <td class="manager-border2">${item.identity.asktime}</td>
+                                                    <td class="manager-border2">${item.identity.checktime}</td>
                                                     <c:choose>
                                                         <c:when test="${item.identity.checkstate==0}">
                                                             <td class="manager-border2"style="color: #ff721f"><b>待认证</b></td>

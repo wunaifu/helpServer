@@ -113,7 +113,7 @@
                     console.log(data);
                     if (data=="login_success"){
                         window.location.href="/manager/index";
-                        alert("登录成功！");
+//                        alert("登录成功！");
                     }
                     if (data=="phone_error"){
 //                        $('#killPhoneMessage').hide().html('<label style="color: red">手机号错误!</label>').show(300);

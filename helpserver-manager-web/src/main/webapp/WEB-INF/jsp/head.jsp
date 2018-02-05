@@ -112,6 +112,10 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/user/unidentitylist">申请身份认证列表</a>
                                 </li>
+                                <li><a href="/user/unagreelist">身份认证不通过列表</a>
+                                </li>
+                                <li><a href="/user/identityedlist">身份认证已通过列表</a>
+                                </li>
                                 <li><a href="/user/uselist">用户列表</a>
                                 </li>
                                 <li><a href="/user/banlist">已被禁用用户列表</a>

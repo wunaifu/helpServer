@@ -116,6 +116,7 @@ public class IdentityServiceImpl implements IdentityService {
         Identity identity = new Identity();
         identity.setCheckstate(1);
         identity.setUserid(userId);
+        identity.setFailurereason("认证通过");
         identity.setChecktime(TimeUtil.dateToString(new Date()));
         User user = new User();
         user.setUserid(userId);
@@ -125,10 +126,13 @@ public class IdentityServiceImpl implements IdentityService {
         IdentityExample.Criteria criteria = identityExample.createCriteria();
         criteria.andUseridEqualTo(userId);
 
-
-        if (identityDao.updateByExample(identity, identityExample) == 1) {
-            if (userDao.updateByPrimaryKeySelective(user) == 1) {
-                return "update_success";
+        List<Identity> identityList = identityDao.selectByExample(identityExample);
+        if (identityList != null && identityList.size() > 0) {
+            identity.setId(identityList.get(0).getId());
+            if (identityDao.updateByPrimaryKeySelective(identity) == 1) {
+                if (userDao.updateByPrimaryKeySelective(user) == 1) {
+                    return "update_success";
+                }
             }
         }
         return "update_error";
@@ -154,10 +158,13 @@ public class IdentityServiceImpl implements IdentityService {
         IdentityExample.Criteria criteria = identityExample.createCriteria();
         criteria.andUseridEqualTo(userId);
 
-
-        if (identityDao.updateByExample(identity, identityExample) == 1) {
-            if (userDao.updateByPrimaryKeySelective(user) == 1) {
-                return "update_success";
+        List<Identity> identityList = identityDao.selectByExample(identityExample);
+        if (identityList != null && identityList.size() > 0) {
+            identity.setId(identityList.get(0).getId());
+            if (identityDao.updateByPrimaryKeySelective(identity) == 1) {
+                if (userDao.updateByPrimaryKeySelective(user) == 1) {
+                    return "update_success";
+                }
             }
         }
         return "update_error";

@@ -54,6 +54,40 @@ public class UserController {
     }
 
     /**
+     * 管理员查看实名认证不通过列表
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/unagreelist")
+    public String unagreelist(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        List<UserInfoDto> userInfoDtoList = identityService.getUserInfoDtoListByCheckState(-1);
+        model.addAttribute("identityList", userInfoDtoList);
+        return "user_unagree_list";
+    }
+
+    /**
+     * 管理员查看实名认证已通过列表
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/identityedlist")
+    public String identityedlist(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取待审核列表
+        List<UserInfoDto> userInfoDtoList = identityService.getUserInfoDtoListByCheckState(1);
+        model.addAttribute("identityList", userInfoDtoList);
+        return "user_identityed_list";
+    }
+
+    /**
      * 管理员查看实名认证者详情
      * @param model
      * @return
@@ -96,12 +130,17 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/disagreeIdentity/{userId}/{reason}")
-    public void disagreeIdentity(@PathVariable("userId") int userId,@PathVariable("reason") String reason,
-                                HttpServletRequest request,HttpServletResponse response) throws Exception {
-
+    @RequestMapping(value = "/disagreeIdentity")
+    public String disagreeIdentity(HttpServletRequest request,Model model) throws Exception {
+        int userId= Integer.parseInt(request.getParameter("userId"));
+        String reason= request.getParameter("reason");
         String result = identityService.disagreeUserIdentity(userId,reason);
-        ResponseUtils.renderJson(response, result);
+//        ResponseUtils.renderJson(response, result);
+        if (result.equals("update_success")) {
+            return "redirect:/user/unidentitylist";
+        }
+        model.addAttribute("message", "通过认证失败，请稍后再试！");
+        return "page_400";
     }
 
     /**

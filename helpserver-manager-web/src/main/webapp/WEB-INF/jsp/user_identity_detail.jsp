@@ -64,11 +64,12 @@
                                                 <ul class="list-group text-left">
                                                     <c:choose>
                                                         <c:when test="${userInfoDto.user.headicon==null||userInfoDto.user.headicon==''}">
-                                                        <li class="list-group-item">
-                                                                <img src="/img/profile/profile-1.jpg" width="70px" height="80px"></li>
+                                                            <li class="list-group-item">
+                                                                <img src="/img/profile/profile-1.jpg" width="70px"
+                                                                     height="80px"></li>
                                                         </c:when>
                                                         <c:otherwise>
-                                                        <li class="list-group-item">
+                                                            <li class="list-group-item">
                                                                 <img src="http://localhost:8083/resources/img/${userInfoDto.user.headicon}"
                                                                      width="70px" height="80px"></li>
                                                         </c:otherwise>
@@ -79,41 +80,58 @@
                                                     <li class="list-group-item">身份证号：${userInfoDto.identity.idcard}</li>
                                                     <li class="list-group-item">地址：${userInfoDto.user.address}</li>
                                                     <li class="list-group-item">简介：${userInfoDto.user.userinfo}</li>
-                                                    <li class="list-group-item">注册时间：${userInfoDto.user.registertime}</li>
-                                                    <li class="list-group-item">认证请求时间：${userInfoDto.identity.asktime}</li>
+                                                    <li class="list-group-item">
+                                                        注册时间：${userInfoDto.user.registertime}</li>
+                                                    <li class="list-group-item">
+                                                        认证请求时间：${userInfoDto.identity.asktime}</li>
                                                     <c:choose>
                                                         <c:when test="${userInfoDto.identity.checkstate==0}">
                                                             <li class="list-group-item">实名认证：待审核</li>
                                                         </c:when>
-                                                        <c:when test="${userinfo.permission==1}">
+                                                        <c:when test="${userInfoDto.identity.checkstate==1}">
                                                             <li class="list-group-item">实名认证：已认证</li>
-                                                            <li class="list-group-item">认证时间：${userInfoDto.identity.checktime}</li>
+                                                            <li class="list-group-item">
+                                                                认证时间：${userInfoDto.identity.checktime}</li>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <li class="list-group-item" style="color: red">实名认证：认证不通过</li>
-                                                            <li class="list-group-item" style="color: red">认证时间：${userInfoDto.identity.checktime}</li>
-                                                            <li class="list-group-item" style="color: red">不通过理由：${userInfoDto.identity.failurereason}</li>
+                                                            <li class="list-group-item" style="color: red">实名认证：认证不通过
+                                                            </li>
+                                                            <li class="list-group-item" style="color: red">
+                                                                认证时间：${userInfoDto.identity.checktime}</li>
+                                                            <li class="list-group-item" style="color: red">
+                                                                不通过理由：${userInfoDto.identity.failurereason}</li>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <li class="list-group-item" style="text-align: left">
                                                         <span>身份证正面:<img style="max-width: 300px;max-height: 180px;"
                                                                          src="http://localhost:8083/resources/img/${userInfoDto.identity.frontphoto}">
                                                         </span>
-                                                        <span style="margin-left: 20px;">身份证反面:<img  style="max-width: 300px;max-height: 180px;"
-                                                                                                     src="http://localhost:8083/resources/img/${userInfoDto.identity.backphoto}">
+                                                        <span style="margin-left: 20px;">身份证反面:<img
+                                                                style="max-width: 300px;max-height: 180px;"
+                                                                src="http://localhost:8083/resources/img/${userInfoDto.identity.backphoto}">
                                                         </span>
                                                     </li>
-                                                    <li class="list-group-item">
-                                                    <a href="/user/agreeIdentity/${userInfoDto.user.userid}">
-                                                        <span class="label label-success" style="font-size: 14px;width: 120px;">通过</span></a>
-                                                    <a href="#" onclick="suborder()">
-                                                        <span class="label label-danger"  style="margin-left:50px;font-size: 14px;width: 120px;">不通过</span></a>
-                                                    </li>
-                                                    <input value="${userInfoDto.user.userid}" style="visibility: hidden" id="userId">
-                                                    <li class="list-group-item" disabled="disabled" style="margin-bottom: 30px;">
-                                                        不通过理由：<input placeholder="请填写认证不通过的理由" maxlength="50"
-                                                                     id="reason" name="reason" style="width: 100%;height: 38px;">
-                                                    </li>
+                                                    <form action="/user/disagreeIdentity" onsubmit="return suborder()"
+                                                          method="post">
+                                                        <li class="list-group-item">
+                                                            <a href="/user/agreeIdentity/${userInfoDto.user.userid}">
+                                                                <span class="label label-success"
+                                                                      style="font-size: 14px;width: 120px;">通过</span></a>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                        <span class="label label-danger"
+                                                              style="font-size: 14px;width: 120px;">
+                                                        <input type="submit" value="不通过"
+                                                               style="background: none;border: none"></span>
+                                                        </li>
+                                                        <input value="${userInfoDto.user.userid}"
+                                                               style="visibility: hidden" id="userId" name="userId">
+                                                        <li class="list-group-item" style="margin-bottom: 30px;">
+                                                            不通过理由：<input placeholder="请填写认证不通过的理由" maxlength="50"
+                                                                         id="reason" name="reason" value="${userInfoDto.identity.failurereason}"
+                                                                         style="width: 100%;height: 38px;">
+                                                        </li>
+                                                    </form>
                                                 </ul>
                                             </div>
                                         </div>
@@ -155,28 +173,14 @@
 </body>
 <script>
     function suborder() {
-        var reason=$("#reason").val().replace(" ", "");
-        var userId=$("#userId").val().replace(" ", "");
-        if(reason==''){
+        var reason = $("#reason").val().replace(" ", "");
+        var userId = $("#userId").val().replace(" ", "");
+        if (reason == '') {
             alert("请填写验证不通过的理由！");
             $("#reason").focus();
-            return;
+            return false;
         }
-        $.ajax({
-            type : "POST",
-            url: "/user/disagreeIdentity/"+userId+"/"+reason,
-            contentType : "application/json;charset=utf-8",
-            dataType : "text",
-            error : function() {
-                alert("请求失败，请稍后再试！");
-            },
-            success:function (data) {
-                console.log(data.toString());
-                if (data=="update_success"){
-                    window.location.href="/user/unidentitylist";
-                }
-            }
-        });
+        return true;
     }
 </script>
 </html>
