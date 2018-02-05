@@ -121,10 +121,21 @@
                         </c:when>
                         <c:otherwise>
                             <input value="${identity.id}" style="visibility: hidden" name="id">
-                            <p class="tip">请填写您身份证上的真实信息，以用于报关审核</p>
+                            <c:choose>
+                                <c:when test="${identity.checkstate==-1}">
+                                    <p class="tip" style="color: red;">认证失败，请重新填写您身份证上的真实信息</p>
+                                    <p class="tip" style="color: red;">失败原因：${identity.failurereason}</p>
+                                </c:when>
+                                <c:when test="${identity.checkstate==1}">
+                                    <p class="tip" style="color: green;">认证成功，可以承接平台的服务</p>
+                                    <p class="tip">也可以重新填写您身份证上的真实信息</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="tip">请填写您身份证上的真实信息，以用于报关审核</p>
+                                </c:otherwise>
+                            </c:choose>
                             <div class="authenticationInfo">
                                 <p class="title">填写个人信息</p>
-
                                 <div class="am-form-group">
                                     <label for="username" class="am-form-label">真实姓名</label>
                                     <div class="am-form-content">

@@ -319,6 +319,7 @@ public class UserController {
         identity.setIdcard(idcard);
         identity.setAsktime(TimeUtil.dateToString(new Date()));
         identity.setCheckstate(0);
+        identity.setFailurereason("请求认证");
         String result = "";
         if (id != 0) {
             identity.setId(id);
