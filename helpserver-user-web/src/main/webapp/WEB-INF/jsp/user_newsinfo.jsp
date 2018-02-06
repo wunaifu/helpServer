@@ -19,7 +19,11 @@
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
     <link href="/css/personal.css" rel="stylesheet" type="text/css">
+    <link type="text/css" href="/css/optstyle.css" rel="stylesheet" />
+    <link type="text/css" href="/css/style.css" rel="stylesheet" />
 
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/media.css" rel="stylesheet">
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
 
@@ -63,23 +67,33 @@
         <div class="main-wrap">
             <!--标题 -->
             <div class="am-cf am-padding">
-                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">意见反馈</strong> / <small>Suggest</small></div>
+                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">消息详情</strong> / <small>NewsInfo</small></div>
             </div>
             <hr/>
-            <div class="suggestmain">
-                <p>请留下您的宝贵意见：</p>
-                <form action="/user/pushfeedback" method="post">
-                <div class="suggestDetail">
-                    <p>描述问题：</p>
-                    <blockquote class="textArea">
-                        <textarea name="opinionContent" id="say_some" cols="60" rows="5" autocomplete="off"
-                                  required maxlength="180" placeholder="在此描述您的意见具体内容"></textarea>
-                        <div class="fontTip"><%--<i class="cur">0</i> / <i>200</i>--%></div>
-                    </blockquote>
+            <div class="am-tabs" data-am-tabs>
+
+                <div class="am-tabs-bd">
+
+                    <div class="am-container">
+                        <!--<hr />-->
+
+                        <div class="bloglistindex">
+                            <div class="blogs" style="width: 100%">
+                                <ul style="width: 100%">
+                                    <a href="/user/newsinfo">
+                                        <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+                                            感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
+                                        </p>
+                                    </a>
+                                </ul>
+                                <p class="autor"><span>回应时间：2018-01-01 10:10:10</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="clear "></div>
+                    </div>
                 </div>
-                <input class="am-btn am-btn-danger anniu" type="submit" value="提交">
-                </form>
-                <p class="suggestTel"><i class="am-icon-phone"></i>客服电话：400-007-1234</p>
             </div>
         </div>
         <!--底部 start-->

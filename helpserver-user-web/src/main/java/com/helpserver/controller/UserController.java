@@ -388,5 +388,13 @@ public class UserController {
         }
         return "user_feedback";
     }
+
+    @RequestMapping("/newslist")
+    public String newslist(HttpServletRequest request) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_mynews";
+    }
 }
 

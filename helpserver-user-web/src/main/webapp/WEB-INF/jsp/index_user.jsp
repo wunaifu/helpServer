@@ -100,7 +100,7 @@
                             </div>
                             <div class="m-right">
                                 <div class="m-new">
-                                    <a href="#"><i class="am-icon-dropbox  am-icon-md" style="padding-right:5px ;"></i>消息盒子</a>
+                                    <a href="/user/newslist"><i class="am-icon-dropbox  am-icon-md" style="padding-right:5px ;"></i>消息盒子</a>
                                 </div>
                             </div>
                         </div>

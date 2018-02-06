@@ -49,10 +49,8 @@
         <li class="person">
             <p><i class="am-icon-qq"></i>在线客服</p>
             <ul>
-                <li> <a href="consultation.html">平台咨询</a></li>
-                <li> <a href="suggest.html">意见反馈</a></li>
-
-                <li> <a href="news.html">我的消息</a></li>
+                <li> <a href="/user/feedback">意见反馈</a></li>
+                <li> <a href="/user/newslist">我的消息</a></li>
             </ul>
         </li>
     </ul>

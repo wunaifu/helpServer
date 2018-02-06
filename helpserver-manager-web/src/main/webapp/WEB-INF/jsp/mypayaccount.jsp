@@ -64,7 +64,6 @@
                                                         </li>
                                                         <form action="/user/disagreeIdentity" onsubmit="return suborder()"
                                                               method="post">
-                                                            <li class="list-group-item">
                                                         <span class="label label-success"
                                                               style="font-size: 14px;width: 120px;">
                                                         <input type="submit" value="保存"
