@@ -39,6 +39,24 @@ public class FeedbackServiceImpl implements FeedbackService {
         return null;
     }
 
+    /**
+     * 更新回复
+     * @param id
+     * @param reply
+     * @return
+     */
+    @Override
+    public String updateFeedback(int id, String reply) {
+        Feedback feedback = new Feedback();
+        feedback.setFeedbackid(id);
+        feedback.setReply(reply);
+        feedback.setReplytime(TimeUtil.dateToString(new Date()));
+        if (feedbackDao.updateByPrimaryKeySelective(feedback) == 1) {
+            return "update_success";
+        }
+        return "update_error";
+    }
+
     @Override
     public List<Feedback> getFeedbackListByUserId(int userId) {
         FeedbackExample feedbackExample = new FeedbackExample();
@@ -50,7 +68,28 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<Feedback> getFeedbackListByReplyTime(boolean isOrNotNull) {
-        return null;
+    public List<FeedbackDto> getFeedbackListByReplyTime(boolean isOrNotNull) {
+        FeedbackExample feedbackExample = new FeedbackExample();
+        FeedbackExample.Criteria criteria = feedbackExample.createCriteria();
+        if (isOrNotNull == true) {
+            criteria.andReplyIsNull();
+        } else {
+            criteria.andReplyIsNotNull();
+        }
+        feedbackExample.setOrderByClause("replytime desc");
+        feedbackExample.setOrderByClause("feedbacktime desc");
+        List<Feedback> feedbackList=feedbackDao.selectByExample(feedbackExample);
+        List<FeedbackDto> feedbackDtos = new ArrayList<>();
+        if (feedbackList != null&&feedbackList.size()>0) {
+            for (int i = 0; i < feedbackList.size(); i++) {
+                FeedbackDto feedbackDto = new FeedbackDto();
+                User user = userDao.selectByPrimaryKey(feedbackList.get(i).getUserid());
+                feedbackDto.setFeedback(feedbackList.get(i));
+                feedbackDto.setUser(user);
+                feedbackDtos.add(feedbackDto);
+            }
+        }
+
+        return feedbackDtos;
     }
 }

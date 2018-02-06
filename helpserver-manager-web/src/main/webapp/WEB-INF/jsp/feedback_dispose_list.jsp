@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">未处理反馈列表</span>
-                        <div class="description">以下是未处理反馈列表信息.</div>
+                        <span class="title">历史反馈列表</span>
+                        <div class="description">以下是已处理反馈列表信息.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -65,29 +65,20 @@
                                             <th class="manager-border2">反馈信息</th>
                                             <th class="manager-border2">申请时间</th>
                                             <th class="manager-border2">回复内容</th>
-                                            <th class="manager-border2">处理</th>
+                                            <th class="manager-border2">处理时间</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <form action="/feedback/dispose" method="post" onsubmit="checkReply(${item.feedback.feedbackid})">
                                             <c:forEach items="${feedbackDtoList}" var="item">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${item.user.phone}</td>
                                                     <td class="manager-border2">${item.user.nickname}</td>
                                                     <td class="manager-border2">${item.feedback.feedbackinfo}</td>
                                                     <td class="manager-border2">${item.feedback.feedbacktime}</td>
-                                                    <td class="manager-border2">
-                                                        <input name="reply${item.feedback.feedbackid}"  maxlength="50"
-                                                               placeholder="请填写回复内容" id="reply${item.feedback.feedbackid}">
-                                                        <input name="id" class="hidden" value="${item.feedback.feedbackid}">
-                                                    </td>
-                                                    <td class="manager-border2">
-                                                            <span class="label label-success" style="font-size: 14px;width: 120px;">
-                                                        <input type="submit" value="回复" style="background: none;border: none"></span>
-                                                    </td>
+                                                    <td class="manager-border2">${item.feedback.reply}</td>
+                                                    <td class="manager-border2">${item.feedback.replytime}</td>
                                                 </tr>
                                             </c:forEach>
-                                        </form>
                                         </tbody>
                                     </table>
                                 </div>
@@ -124,7 +115,6 @@
 <script src="/js/myalert.js"></script>
 <script>
     function checkReply(id) {
-        alert("ddddddd");
         var reply = $("#reply"+id).val();
         if (reply=='') {
             $.myAlert('请填写回复内容');

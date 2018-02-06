@@ -1,6 +1,7 @@
 package com.helpserver.service;
 
 import com.helpserver.pojo.Feedback;
+import com.helpserver.pojo.FeedbackDto;
 import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.UserInfoDto;
 
@@ -15,7 +16,9 @@ public interface FeedbackService {
 
     String deleteFeedback(Feedback feedback);
 
+    String updateFeedback(int id,String reply);
+
     List<Feedback> getFeedbackListByUserId(int userId);
 
-    List<Feedback> getFeedbackListByReplyTime(boolean isOrNotNull);
+    List<FeedbackDto> getFeedbackListByReplyTime(boolean isOrNotNull);
 }
