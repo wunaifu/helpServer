@@ -69,7 +69,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <form action="/feedback/dispose" method="post" onsubmit="checkReply(${item.feedback.feedbackid})">
                                             <c:forEach items="${feedbackDtoList}" var="item">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${item.user.phone}</td>
@@ -81,13 +80,11 @@
                                                                placeholder="请填写回复内容" id="reply${item.feedback.feedbackid}">
                                                         <input name="id" class="hidden" value="${item.feedback.feedbackid}">
                                                     </td>
-                                                    <td class="manager-border2">
-                                                            <span class="label label-success" style="font-size: 14px;width: 120px;">
-                                                        <input type="submit" value="回复" style="background: none;border: none"></span>
+                                                    <td class="manager-border2"  style="font-size: 17px">
+                                                        <a href="#" onclick="checkReply(${item.feedback.feedbackid})"><span class="label label-success">回复</span></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-                                        </form>
                                         </tbody>
                                     </table>
                                 </div>
