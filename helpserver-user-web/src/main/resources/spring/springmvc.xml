@@ -57,6 +57,6 @@
 	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 	<dubbo:reference interface="com.helpserver.service.UserService" id="userService" />
 	<dubbo:reference interface="com.helpserver.service.IdentityService" id="identityService" />
-	<!--<dubbo:reference interface="com.taotao.content.service.ContentCategoryService" id="contentCategoryService" />-->
+	<dubbo:reference interface="com.helpserver.service.FeedbackService" id="feedbackService" />
 	<!--<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService" />-->
 </beans>      

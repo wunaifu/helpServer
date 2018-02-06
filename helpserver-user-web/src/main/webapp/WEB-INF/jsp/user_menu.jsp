@@ -50,7 +50,7 @@
             <p><i class="am-icon-qq"></i>在线客服</p>
             <ul>
                 <li> <a href="/user/feedback">意见反馈</a></li>
-                <li> <a href="/user/newslist">我的消息</a></li>
+                <li> <a href="#">我的消息</a></li>
             </ul>
         </li>
     </ul>

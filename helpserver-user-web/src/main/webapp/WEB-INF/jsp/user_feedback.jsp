@@ -67,8 +67,13 @@
             </div>
             <hr/>
             <div class="suggestmain">
+                <p style="margin:20px 0 20px 0;">
+                    <a href="/user/feedbacklist"><strong style="margin:20px 0 20px 0;font-size: 16px;color: #22898f">
+                    历史反馈信息>>
+                    </strong></a>
+                </p>
                 <p>请留下您的宝贵意见：</p>
-                <form action="/user/pushfeedback" method="post">
+                <form action="/user/insertFeedback" method="post">
                 <div class="suggestDetail">
                     <p>描述问题：</p>
                     <blockquote class="textArea">

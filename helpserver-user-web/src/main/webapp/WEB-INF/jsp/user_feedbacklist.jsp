@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wunaifu
@@ -65,45 +66,38 @@
         <div class="main-wrap">
             <!--标题 -->
             <div class="am-cf am-padding">
-                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">我的消息</strong> / <small>News</small></div>
+                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">历史反馈信息</strong> / <small>FeedbackHistory</small></div>
             </div>
             <hr/>
             <div class="am-container">
                 <!--<hr />-->
 
                 <div class="bloglistindex">
-                    <div class="blogs">
-                        <ul style="width: 100%">
-                            <a href="#">
-                                <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                    感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                </p>
-                            </a>
-                            <div class="autor1">
-                                <span style="float: left;"><p>回应：看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                    感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。</p></span>
-                                <span style="float: left;">回应时间：2018-01-01 10:10:10</span>
-                            </div>
-                        </ul>
-                        <p class="autor"><span>反馈时间：2018-01-01 10:10:10</span>
-                        </p>
-                    </div>
-                    <div class="blogs">
-                        <ul style="width: 100%">
-                            <a href="#">
-                                <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                    感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                </p>
-                            </a>
-                            <div class="autor1">
-                                <span style="float: left;"><p>回应：看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                    感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。</p></span>
-                                <span style="float: left;">回应时间：2018-01-01 10:10:10</span>
-                            </div>
-                        </ul>
-                        <p class="autor"><span>反馈时间：2018-01-01 10:10:10</span>
-                        </p>
-                    </div>
+                    <c:forEach items="${feedbackList}" var="feedbackitem">
+                        <div class="blogs">
+                            <ul style="width: 100%">
+                                <a href="#">
+                                    <p>${feedbackitem.feedbackinfo}
+                                    </p>
+                                </a>
+                                <c:choose>
+                                    <c:when test="${feedbackitem.reply==null||feedbackitem.reply==''}">
+                                        <div class="autor1">
+                                            <span style="float: left;"><p>管理员未处理</p></span>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="autor1">
+                                            <span style="float: left;"><p>回复：${feedbackitem.reply}</p></span>
+                                            <span style="float: left;">处理时间：${feedbackitem.replytime}</span>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                            <p class="autor"><span>反馈时间：${feedbackitem.feedbacktime}</span>
+                            </p>
+                        </div>
+                    </c:forEach>
                 </div>
                 <div class="clear "></div>
             </div>

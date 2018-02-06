@@ -123,7 +123,7 @@ public class UserController {
         user.setUserinfo(userinfo);
         user.setHeadicon(fileName);
         if (userService.updateUser(user)) {
-            model.addAttribute("userinfo", user);
+            model.addAttribute("message", "修改个人信息成功！");
             return "page_success";
         }
         return "page_400";
@@ -381,20 +381,5 @@ public class UserController {
     }
 
 
-    @RequestMapping("/feedback")
-    public String feedback(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
-            return "page_403";
-        }
-        return "user_feedback";
-    }
-
-    @RequestMapping("/newslist")
-    public String newslist(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
-            return "page_403";
-        }
-        return "user_mynews";
-    }
 }
 

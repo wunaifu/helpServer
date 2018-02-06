@@ -40,7 +40,7 @@
 						<li style="color: red;font-size: 18px;margin: 10px 0 10px 0;">${message}</li>
 					</c:when>
 					<c:otherwise>
-						<li style="color: red;font-size: 18px;margin: 10px 0 10px 0;">操作失败，请检查您的操作！</li>
+						<li style="color: red;font-size: 18px;margin: 10px 0 10px 0;">操作失败，请稍后再试！</li>
 					</c:otherwise>
 				</c:choose>
 
