@@ -69,19 +69,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${feedbackDtoList}" var="item">
+                                            <c:forEach items="${feedbackDtoList}" var="item" varStatus="status">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${item.user.phone}</td>
                                                     <td class="manager-border2">${item.user.nickname}</td>
                                                     <td class="manager-border2">${item.feedback.feedbackinfo}</td>
                                                     <td class="manager-border2">${item.feedback.feedbacktime}</td>
                                                     <td class="manager-border2">
-                                                        <input name="reply${item.feedback.feedbackid}"  maxlength="50"
-                                                               placeholder="请填写回复内容" id="reply${item.feedback.feedbackid}">
-                                                        <input name="id" class="hidden" value="${item.feedback.feedbackid}">
+                                                        <input name="reply${status.index}"  maxlength="50"
+                                                               placeholder="请填写回复内容" id="reply${status.index}">
+                                                        <input id="id${status.index}" class="hidden" value="${item.feedback.feedbackid}">
                                                     </td>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="#" onclick="checkReply(${item.feedback.feedbackid})"><span class="label label-success">回复</span></a>
+                                                        <a href="#" onclick="checkReply(${item.feedback.feedbackid},${status.index})"><span class="label label-success">回复</span></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -120,12 +120,12 @@
 <link rel="stylesheet" href="/css/myalert.css"><!-- 弹窗  -->
 <script src="/js/myalert.js"></script>
 <script>
-    function checkReply(id) {
-        alert("ddddddd");
-        var reply = $("#reply"+id).val();
-        if (reply=='') {
-            $.myAlert('请填写回复内容');
-            $("#reply").focus();
+    function checkReply(id,index) {
+        var reply = $("#reply"+index).val();
+        var id = $("#id"+index).val();
+        if (reply==''){
+            $.myToast("回复内容不能为空");
+            $("#reply" + index).focus();
             return false;
         }
         return true;
