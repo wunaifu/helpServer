@@ -57,17 +57,22 @@
                                         <div class="row">
                                             <div class="form-body">
                                                     <ul class="list-group text-left">
-                                                        <li class="list-group-item">修改时间：</li>
+                                                        <form action="/manager/update/payaccount"
+                                                              enctype="multipart/form-data" method="post">
+                                                            <input name="id" class="hidden" value="${payaccount.id}">
+                                                        <li class="list-group-item">修改时间：${payaccount.time}</li>
                                                         <li class="list-group-item">支付宝支付码：
-                                                            <img style="max-width: 180px;max-height: 380px;"
-                                                                 src="http://localhost:8083/resources/img/${userInfoDto.identity.frontphoto}">
+                                                            <input id="file" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
+                                                                   name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
+                                                            <img style="width: 216px;height: 326px;" id="show"
+                                                                 src="/resources/img/${payaccount.payphoto}">
+
                                                         </li>
-                                                        <form action="/user/disagreeIdentity" onsubmit="return suborder()"
-                                                              method="post">
-                                                        <span class="label label-success"
-                                                              style="font-size: 14px;width: 120px;">
-                                                        <input type="submit" value="保存"
-                                                               style="background: none;border: none"></span>
+                                                        <li class="list-group-item">
+                                                            <span class="label label-success" style="font-size: 14px;width: 120px;">
+                                                                <input type="submit" value="保存" style="background: none;border: none">
+                                                            </span>
+                                                        </li>
                                                         </form>
                                                     </ul>
                                             </div>
@@ -106,5 +111,14 @@
 <script type="text/javascript" src="/js/app.js"></script>
 <script type="text/javascript" src="/js/index.js"></script>
 </body>
-
+<script>
+    function c1() {
+        var r = new FileReader();
+        f = document.getElementById('file').files[0];
+        r.readAsDataURL(f);
+        r.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
+</script>
 </html>

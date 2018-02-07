@@ -24,4 +24,5 @@
 	<dubbo:service interface="com.helpserver.service.UserService" ref="userServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.IdentityService" ref="identityServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.FeedbackService" ref="feedbackServiceImpl" timeout="300000"/>
+	<dubbo:service interface="com.helpserver.service.PayAccountService" ref="payAccountServiceImpl" timeout="300000"/>
 </beans>

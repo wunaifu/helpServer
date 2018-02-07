@@ -67,15 +67,6 @@ public class PageController {
         return "index";
     }
 
-    @RequestMapping("/manager/mypayaccount")
-    public String mypayaccount(HttpServletRequest request) {
-
-//        System.out.println("phone=="+request.getSession().getAttribute("phone"));
-        if (!SessionSetUtils.isManagerLogin(request)) {
-            return "page_403";
-        }
-        return "mypayaccount";
-    }
 
     /**
      * 管理员登录接口，返回登录信息，
