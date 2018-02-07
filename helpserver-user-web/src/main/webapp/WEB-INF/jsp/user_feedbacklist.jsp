@@ -82,14 +82,16 @@
                                 </a>
                                 <c:choose>
                                     <c:when test="${feedbackitem.reply==null||feedbackitem.reply==''}">
-                                        <div class="autor1">
+                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
                                             <span style="float: left;"><p>管理员未处理</p></span>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="autor1">
-                                            <span style="float: left;"><p>回复：${feedbackitem.reply}</p></span>
-                                            <span style="float: left;">处理时间：${feedbackitem.replytime}</span>
+                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
+                                            <div><p style="float: left;">处理情况：${feedbackitem.reply}</p></div>
+                                        </div>
+                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
+                                            <div><p style="float: left;">处理时间：${feedbackitem.replytime}</p></div>
                                         </div>
                                     </c:otherwise>
                                 </c:choose>

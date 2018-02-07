@@ -51,10 +51,6 @@ public class FeedbackController {
             e.printStackTrace();
         }
         String result = feedbackService.updateFeedback(id, reply);
-//        if (result.equals("update_error")) {
-//            return "page_400";
-//        }
-//        return "redirect:/feedback/undisposelist";
         ResponseUtils.renderJson(response, result);
     }
 
