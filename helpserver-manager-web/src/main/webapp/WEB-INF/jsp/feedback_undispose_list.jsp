@@ -128,7 +128,33 @@
             $("#reply" + index).focus();
             return false;
         }
-        return true;
+        $.ajax({
+            type : "POST",
+            url: "/feedback/dispose?id=" + id + "&reply=" + encodeURI(encodeURI(reply)),
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+//            contentType : "text/html; encoding=gb18030",
+            dataType : "text",
+//            data:{
+//                id:id,
+//                reply:reply
+//            },
+            error : function() {
+                $.myToast("请求失败，请重试");
+            },
+            success:function (data) {
+                if (data!=null) {
+                    console.log(data);
+                    if (data == "update_success") {
+                        $.myToast('已处理');
+                        window.location.href = "/feedback/undisposelist";
+                    }else {
+                        $.myToast('回复失败，请重试');
+                    }
+                }else{
+                    $.myToast('回复失败，请重试');
+                }
+            }
+        });
     }
 </script>
 </html>

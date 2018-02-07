@@ -62,8 +62,8 @@ public class FeedbackServiceImpl implements FeedbackService {
         FeedbackExample feedbackExample = new FeedbackExample();
         FeedbackExample.Criteria criteria = feedbackExample.createCriteria();
         criteria.andUseridEqualTo(userId);
-        feedbackExample.setOrderByClause("replytime desc");
-        feedbackExample.setOrderByClause("feedbacktime desc");
+        feedbackExample.setOrderByClause("replyTime desc,feedbackTime desc");
+//        feedbackExample.setOrderByClause("feedbackTime desc");
         return feedbackDao.selectByExample(feedbackExample);
     }
 
@@ -72,12 +72,12 @@ public class FeedbackServiceImpl implements FeedbackService {
         FeedbackExample feedbackExample = new FeedbackExample();
         FeedbackExample.Criteria criteria = feedbackExample.createCriteria();
         if (isOrNotNull == true) {
-            criteria.andReplyIsNull();
+            criteria.andReplytimeIsNull();
+            feedbackExample.setOrderByClause("feedbackTime desc");
         } else {
-            criteria.andReplyIsNotNull();
+            criteria.andReplytimeIsNotNull();
+            feedbackExample.setOrderByClause("replyTime desc");
         }
-        feedbackExample.setOrderByClause("replytime desc");
-        feedbackExample.setOrderByClause("feedbacktime desc");
         List<Feedback> feedbackList=feedbackDao.selectByExample(feedbackExample);
         List<FeedbackDto> feedbackDtos = new ArrayList<>();
         if (feedbackList != null&&feedbackList.size()>0) {

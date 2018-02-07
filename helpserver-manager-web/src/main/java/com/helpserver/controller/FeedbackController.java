@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
@@ -36,18 +38,24 @@ public class FeedbackController {
      * @param request
      * @return
      */
+//    @RequestMapping("/feedback/dispose/{id}/{reply}")
     @RequestMapping("/feedback/dispose")
-    public String disposeFeedback(HttpServletRequest request) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
-            return "page_403";
-        }
+    public void disposeFeedback(//@PathVariable("id") int id,@PathVariable("reply") String reply,
+            HttpServletRequest request,HttpServletResponse response) {
+
         int id = Integer.parseInt(request.getParameter("id"));
-        String reply = request.getParameter("reply"+id);
-        String result = feedbackService.updateFeedback(id, reply);
-        if (result.equals("update_error")) {
-            return "page_400";
+        String reply = request.getParameter("reply");
+        try {
+            reply = URLDecoder.decode(reply, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return "redirect:/feedback/undisposelist";
+        String result = feedbackService.updateFeedback(id, reply);
+//        if (result.equals("update_error")) {
+//            return "page_400";
+//        }
+//        return "redirect:/feedback/undisposelist";
+        ResponseUtils.renderJson(response, result);
     }
 
     /**
