@@ -180,23 +180,6 @@
                 </li>
                 <!-- Dropdown-->
                 <li class="panel panel-default dropdown">
-                    <a data-toggle="collapse" href="#dropdown-example">
-                        <span class="icon fa fa-slack"></span><span class="title">反馈管理</span>
-                    </a>
-                    <!-- Dropdown level 1 -->
-                    <div id="dropdown-example" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <ul class="nav navbar-nav">
-                                <li><a href="/feedback/undisposelist">未处理反馈列表</a>
-                                </li>
-                                <li><a href="/feedback/disposelist">历史反馈列表</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <!-- Dropdown-->
-                <li class="panel panel-default dropdown">
                     <a data-toggle="collapse" href="#dropdown-icon">
                         <span class="icon fa fa-thumbs-o-up"></span><span class="title">信誉分统计</span>
                     </a>
@@ -207,6 +190,23 @@
                                 <li><a href="#">Glyphicons</a>
                                 </li>
                                 <li><a href="#">Font Awesomes</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <!-- Dropdown-->
+                <li class="panel panel-default dropdown">
+                    <a data-toggle="collapse" href="#dropdown-example">
+                        <span class="icon fa fa-slack"></span><span class="title">反馈管理</span>
+                    </a>
+                    <!-- Dropdown level 1 -->
+                    <div id="dropdown-example" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/feedback/undisposelist">未处理反馈列表</a>
+                                </li>
+                                <li><a href="/feedback/disposelist">历史反馈列表</a>
                                 </li>
                             </ul>
                         </div>

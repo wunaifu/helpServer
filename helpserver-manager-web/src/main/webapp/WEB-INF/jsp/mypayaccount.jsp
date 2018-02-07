@@ -64,7 +64,7 @@
                                                         <li class="list-group-item">支付宝支付码：
                                                             <input id="file" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
                                                                    name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                                            <img style="width: 216px;height: 326px;" id="show"
+                                                            <img style="width: 251px;height: 380px;" id="show"
                                                                  src="/resources/img/${payaccount.payphoto}">
 
                                                         </li>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helpserver.dao.GoldaddDao" >
+  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Goldadd" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="addAmount" property="addamount" jdbcType="INTEGER" />
+    <result column="addTime" property="addtime" jdbcType="VARCHAR" />
+    <result column="addPhoto" property="addphoto" jdbcType="VARCHAR" />
+    <result column="getTime" property="gettime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, userId, addAmount, addTime, addPhoto, getTime
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.GoldaddExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goldadd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,userId,addAmount,addTime,addPhoto,getTime
+    from goldadd
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goldadd
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.helpserver.pojo.GoldaddExample" >
+    delete from goldadd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.helpserver.pojo.Goldadd" >
+    insert into goldadd (id, userId, addAmount, 
+      addTime, addPhoto, getTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{addamount,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=VARCHAR}, #{addphoto,jdbcType=VARCHAR}, #{gettime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.Goldadd" >
+    insert into goldadd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="addamount != null" >
+        addAmount,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="addphoto != null" >
+        addPhoto,
+      </if>
+      <if test="gettime != null" >
+        getTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addamount != null" >
+        #{addamount,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="addphoto != null" >
+        #{addphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.helpserver.pojo.GoldaddExample" resultType="java.lang.Integer" >
+    select count(*) from goldadd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goldadd
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.addamount != null" >
+        addAmount = #{record.addamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addphoto != null" >
+        addPhoto = #{record.addphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gettime != null" >
+        getTime = #{record.gettime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goldadd
+    set id = #{record.id,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      addAmount = #{record.addamount,jdbcType=INTEGER},
+      addTime = #{record.addtime,jdbcType=VARCHAR},
+      addPhoto = #{record.addphoto,jdbcType=VARCHAR},
+      getTime = #{record.gettime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Goldadd" >
+    update goldadd
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addamount != null" >
+        addAmount = #{addamount,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="addphoto != null" >
+        addPhoto = #{addphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="gettime != null" >
+        getTime = #{gettime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Goldadd" >
+    update goldadd
+    set userId = #{userid,jdbcType=INTEGER},
+      addAmount = #{addamount,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=VARCHAR},
+      addPhoto = #{addphoto,jdbcType=VARCHAR},
+      getTime = #{gettime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
