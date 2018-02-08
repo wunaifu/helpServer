@@ -20,7 +20,9 @@ import javax.crypto.spec.IvParameterSpec;
 public class DESUtils {
 
     public static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
-    public static String key = "wu8nai8fu";//加密私钥，长度不能够小于8位
+    public static final String key = "wu8nai8fu";//加密私钥，长度不能够小于8位
+    //加入一个混淆字符串(秒杀接口)的salt，为了我避免用户猜出我们的md5值，值任意给，越复杂越好
+    private static final String salt="fu888";
 
     /**
      * DES算法，加密
@@ -119,6 +121,7 @@ public class DESUtils {
         if (src == null) {
             return null;
         }
+        src = src + salt;
         String encodeStr = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
