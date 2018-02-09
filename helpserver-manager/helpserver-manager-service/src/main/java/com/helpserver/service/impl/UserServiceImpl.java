@@ -7,11 +7,13 @@ import com.helpserver.pojo.Gold;
 import com.helpserver.pojo.UserExample;
 import com.helpserver.service.GoldService;
 import com.helpserver.utils.DESUtils;
+import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -90,7 +92,7 @@ public class UserServiceImpl implements UserService {
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
         List<User> userList = userDao.selectByExample(userExample);
-        if (userList.size()>0) {
+        if (userList.size() > 0) {
             System.out.println(userList.toString());
             return userList.get(0);
         }
@@ -201,7 +203,7 @@ public class UserServiceImpl implements UserService {
 //        criteria.andPhoneEqualTo(newPhone);
 //        List<User> userList = userDao.selectByExample(userExample);
         User user = this.getUserByPhone(newPhone);
-        if (user!=null) {
+        if (user != null) {
             //手机号存在
             return "phone_exist";
         }
@@ -219,13 +221,15 @@ public class UserServiceImpl implements UserService {
      * 注册
      * 1、先验证是否存在手机账号
      * 2、插入账号密码、权限为0、注册时间
-     *
-     * @param phone
-     * @param password
-     * @return
+     * *
+     * 使用注解控制事务方法的优点:
+     * 1.开发团队达成一致约定，明确标注事务方法的编程风格
+     * 2.保证事务方法的执行时间尽可能短，不要穿插其他网络操作RPC/HTTP请求或者剥离到事务方法外部
+     * 3.不是所有的方法都需要事务，如只有一条修改操作、只读操作不要事务控制
      */
+    @Transactional
     @Override
-    public String registerByPhoneAndPsw(String phone, String password) {
+    public String addByPhoneAndPsw(String phone, String password) {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
@@ -233,28 +237,35 @@ public class UserServiceImpl implements UserService {
         if (userList != null && userList.size() > 0) {
             return "user_exist";
         } else {
-            User user = new User();
-            user.setPhone(phone);
-            user.setPassword(DESUtils.getMD5Str(password));
-            user.setPermission(0);
-            user.setRegistertime(TimeUtil.dateToString(new Date()));
-            user.setName(phone);
-            user.setNickname(phone);
-            user.setHeadicon("icon001.png");
-            int result = userDao.insertSelective(user);
-            int userId = user.getUserid();
-            System.out.println("1userId====================="+userId);
-            if (result == 1) {
-                Gold gold = new Gold();
-                gold.setUserid(user.getUserid());
-                gold.setTime(TimeUtil.dateToString(new Date()));
-                gold.setGoldamount(10);
-                gold.setState(0);
-                System.out.println("2userId====================="+user.getUserid());
-                goldDao.insertSelective(gold);
-                return "register_success";
+            try {
+                User user = new User();
+                user.setPhone(phone);
+                user.setPassword(DESUtils.getMD5Str(password));
+                user.setPermission(0);
+                user.setRegistertime(TimeUtil.dateToString(new Date()));
+                user.setName(phone);
+                user.setNickname(phone);
+                user.setHeadicon("icon001.png");
+                int result = userDao.insertSelective(user);
+                int userId = user.getUserid();
+                if (result == 1) {
+                    Gold gold = new Gold();
+                    gold.setUserid(user.getUserid());
+                    gold.setTime(TimeUtil.dateToString(new Date()));
+                    gold.setGoldamount(10);
+                    gold.setState(0);
+                    if (goldDao.insertSelective(gold) == 1) {
+                        return "register_success";
+                    } else {
+                        throw new MyThrowException("addgold_failure");
+                    }
+                } else {
+                    throw new MyThrowException("register_failure");
+                }
+            } catch (MyThrowException e) {
+                System.out.println("e========================" + e.getMessage());
+                throw e;
             }
-            return "register_failure";
         }
     }
 
@@ -352,5 +363,58 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 添加默认管理员
+     * 1、先验证是否存在手机账号
+     * 2、插入账号密码、权限为-1、注册时间
+     * *
+     * 使用注解控制事务方法的优点:
+     * 1.开发团队达成一致约定，明确标注事务方法的编程风格
+     * 2.保证事务方法的执行时间尽可能短，不要穿插其他网络操作RPC/HTTP请求或者剥离到事务方法外部
+     * 3.不是所有的方法都需要事务，如只有一条修改操作、只读操作不要事务控制
+     */
+    @Transactional
+    @Override
+    public String addAdmin(String phone, String password) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null && userList.size() > 0) {
+            return "user_exist";
+        } else {
+            try {
+                User user = new User();
+                user.setPhone(phone);
+                user.setPassword(DESUtils.getMD5Str(password));
+                user.setPermission(-1);
+                user.setRegistertime(TimeUtil.dateToString(new Date()));
+                user.setName(phone);
+                user.setNickname(phone);
+                user.setHeadicon("icon001.png");
+                int result = userDao.insertSelective(user);
+                int userId = user.getUserid();
+                if (result == 1) {
+                    Gold gold = new Gold();
+                    gold.setUserid(user.getUserid());
+                    gold.setTime(TimeUtil.dateToString(new Date()));
+                    gold.setGoldamount(10);
+                    gold.setState(0);
+                    if (goldDao.insertSelective(gold) == 1) {
+                        return "register_success";
+                        // throw new MyThrowException("register_success");
+                    } else {
+                        throw new MyThrowException("addgold_failure");
+                    }
+                } else {
+                    throw new MyThrowException("register_failure");
+                }
+            } catch (MyThrowException e) {
+                System.out.println("e========================" + e.getMessage());
+                throw e;
+            }
+        }
     }
 }

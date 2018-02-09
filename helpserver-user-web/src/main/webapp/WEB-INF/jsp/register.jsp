@@ -231,14 +231,12 @@
                             $.myToast('注册成功，请登录！');
                             //$.myAlert('注册成功，请登录！');
                             window.location.href="/login";
-                        }
-                        if (data=="register_failure"){
-                            $('#killPhoneMessage').hide().html('<label style="color: red">注册失败，请重试！</label>').show(300);
-                        }
-                        if (data=="user_exist"){
+                        }else if (data=="user_exist"){
                             $('#killPhoneMessage').hide().html('<label style="color: red">已存在该手机用户!</label>').show(300);
                             $("#phone").select();
                             $("#phone").focus();
+                        }else {
+                            $('#killPhoneMessage').hide().html('<label style="color: red">注册失败，请重试！</label>').show(300);
                         }
                     }else {
                         $('#killPhoneMessage').hide().html('<label style="color: red">请求失败，请重试！</label>').show(300);

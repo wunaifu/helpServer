@@ -25,7 +25,9 @@ public interface UserService {
 
     String managerLoginByPhoneAndPsw(String phone,String password);
 
-    String registerByPhoneAndPsw(String phone,String password);
+    String addByPhoneAndPsw(String phone,String password);
+
+    String addAdmin(String phone,String password);
 
     String doResetPsw(int userId,String oldPsw,String newPsw);
 

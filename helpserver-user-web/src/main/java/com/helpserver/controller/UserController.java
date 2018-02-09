@@ -376,8 +376,13 @@ public class UserController {
     @RequestMapping(value = "/doregister/{phone}/{password}")
     public void doregister(@PathVariable("phone") String phone, @PathVariable("password") String password,
                            HttpServletRequest request, HttpServletResponse response) {
-        String result = userService.registerByPhoneAndPsw(phone, password);
-        ResponseUtils.renderJson(response, result);
+        String result = "error";
+        try {
+            result = userService.addByPhoneAndPsw(phone, password);
+            ResponseUtils.renderJson(response, result);
+        } catch (MyThrowException e) {
+            e.printStackTrace();
+        }
     }
 
 

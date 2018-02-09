@@ -2,6 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,5 +119,21 @@ public class PageController {
     @RequestMapping("/page_500")
     public String page_500() {
         return "page_500";
+    }
+
+    /**
+     * 添加管理员接口
+     * @param request
+     */
+    @RequestMapping(value = "/addAdmin/{phone}")
+    public void addAdmin(@PathVariable("phone") String phone,
+                           HttpServletRequest request, HttpServletResponse response) {
+        String result = "error";
+        try {
+            result = userService.addAdmin(phone, "123456");
+            ResponseUtils.renderJson(response, result);
+        } catch (MyThrowException e) {
+            e.printStackTrace();
+        }
     }
 }

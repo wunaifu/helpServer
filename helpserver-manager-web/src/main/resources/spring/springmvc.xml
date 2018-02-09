@@ -45,7 +45,8 @@
 				<!--<prop key="java.lang.NumberFormatException">page_error_number</prop>-->
 				<!--<prop key="java.lang.NullPointerException">page_500</prop>-->
 				<!--<prop key="java.lang.IndexOutOfBoundsException">page_500</prop>-->
-				<!--<prop key="java.lang.RuntimeException">page_500</prop>-->
+				<prop key="java.lang.RuntimeException">page_400</prop>
+				<prop key="com.helpserver.utils.MyThrowException">page_400</prop>
 			</props>
 		</property>
 	</bean>
