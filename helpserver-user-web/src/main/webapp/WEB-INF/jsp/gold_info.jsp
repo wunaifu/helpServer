@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wunaifu
@@ -13,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-    <title>积分明细</title>
+    <title>金币明细</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
@@ -28,47 +29,9 @@
 <header>
     <article>
         <div class="mt-logo">
-            <!--顶部导航条 -->
-            <div class="am-container header">
-                <ul class="message-l">
-                    <div class="topMessage">
-                        <div class="menu-hd">
-                            <a href="#" target="_top" class="h">亲，请登录</a>
-                            <a href="#" target="_top">免费注册</a>
-                        </div>
-                    </div>
-                </ul>
-                <ul class="message-r">
-                    <div class="topMessage home">
-                        <div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-                    </div>
-                    <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-                    </div>
-                    <div class="topMessage mini-cart">
-                        <div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-                    </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-                </ul>
-            </div>
-
-            <!--悬浮搜索框-->
-
-            <div class="nav white">
-                <div class="logoBig">
-                    <li><img src="/images/logobig.png" /></li>
-                </div>
-
-                <div class="search-bar pr">
-                    <a name="index_none_header_sysc" href="#"></a>
-                    <form>
-                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                        <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-                    </form>
-                </div>
-            </div>
-
+            <!-- top start -->
+            <jsp:include page="topuser.jsp"></jsp:include>
+            <!-- top end -->
             <div class="clear"></div>
         </div>
         </div>
@@ -99,12 +62,12 @@
             <div class="points">
                 <!--标题 -->
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">我的积分</strong> / <small>My&nbsp;Point</small></div>
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">我的金币</strong> / <small>My&nbsp;Gold</small></div>
                 </div>
                 <hr/>
                 <div class="pointsTitle">
-                    <div class="usable">可用积分<span>120</span></div>
-                    <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>积分商城</a></div>
+                    <div class="usable">可用金币<span>${gold.goldamount}</span></div>
+                    <%--<div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>积分商城</a></div>--%>
                     <div class="signIn"><a href="#"><i class="am-icon-calendar"></i><em>+5</em>每日签到</a></div>
                 </div>
                 <div class="pointlist am-tabs" data-am-tabs>
@@ -125,36 +88,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="pointType">积分兑换</td>
-                                    <td class="pointNum">-80</td>
-                                    <td class="pointTime">2016-03-10&nbsp15:27</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">订单号7745926347132商品评论</td>
-                                    <td class="pointNum">+2</td>
-                                    <td class="pointTime">2016-03-12&nbsp09:32</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">每日签到</td>
-                                    <td class="pointNum">+5</td>
-                                    <td class="pointTime">2016-03-12&nbsp07:32</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">每日签到</td>
-                                    <td class="pointNum">+5</td>
-                                    <td class="pointTime">2016-03-11&nbsp12:24</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">邮箱验证</td>
-                                    <td class="pointNum">+50</td>
-                                    <td class="pointTime">2016-03-10&nbsp16:18</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">手机绑定</td>
-                                    <td class="pointNum">+100</td>
-                                    <td class="pointTime">2016-03-10&nbsp15:27</td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${goldHistoryListAll.size()>0}">
+                                        <c:forEach items="${goldHistoryListAll}" var="itemAll">
+                                            <tr>
+                                                <td class="pointType">${itemAll.info}</td>
+                                                <c:choose>
+                                                    <c:when test="${itemAll.state==1}">
+                                                        <td class="pointNum">+${itemAll.amount}</td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td class="pointNum">-${itemAll.amount}</td>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <td class="pointTime">${itemAll.time}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="pointType">无</td>
+                                            <td class="pointNum">0</td>
+                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>
@@ -169,31 +127,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="pointType">订单号7745926347132商品评论</td>
-                                    <td class="pointNum">+2</td>
-                                    <td class="pointTime">2016-03-12&nbsp09:32</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">每日签到</td>
-                                    <td class="pointNum">+5</td>
-                                    <td class="pointTime">2016-03-12&nbsp07:32</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">每日签到</td>
-                                    <td class="pointNum">+5</td>
-                                    <td class="pointTime">2016-03-11&nbsp12:24</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">邮箱验证</td>
-                                    <td class="pointNum">+50</td>
-                                    <td class="pointTime">2016-03-10&nbsp16:18</td>
-                                </tr>
-                                <tr>
-                                    <td class="pointType">手机绑定</td>
-                                    <td class="pointNum">+100</td>
-                                    <td class="pointTime">2016-03-10&nbsp15:27</td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${goldHistoryListGet.size()>0}">
+                                        <c:forEach items="${goldHistoryListGet}" var="itemGet">
+                                            <tr>
+                                                <td class="pointType">${itemGet.info}</td>
+                                                <td class="pointNum">+${itemGet.amount}</td>
+                                                <td class="pointTime">${itemGet.time}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="pointType">无</td>
+                                            <td class="pointNum">0</td>
+                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>
@@ -208,11 +159,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="pointType">积分兑换</td>
-                                    <td class="pointNum">-300</td>
-                                    <td class="pointTime">2016-03-10&nbsp15:27</td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${goldHistoryListPut.size()>0}">
+                                        <c:forEach items="${goldHistoryListPut}" var="itemPut">
+                                            <tr>
+                                                <td class="pointType">${itemPut.info}</td>
+                                                <td class="pointNum">-${itemPut.amount}</td>
+                                                <td class="pointTime">${itemPut.time}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="pointType">无</td>
+                                            <td class="pointNum">0</td>
+                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>
@@ -222,84 +186,14 @@
                 </div>
             </div>
         </div>
-        <!--底部-->
-        <div class="footer">
-            <div class="footer-hd">
-                <p>
-                    <a href="#">恒望科技</a>
-                    <b>|</b>
-                    <a href="#">商城首页</a>
-                    <b>|</b>
-                    <a href="#">支付宝</a>
-                    <b>|</b>
-                    <a href="#">物流</a>
-                </p>
-            </div>
-            <div class="footer-bd">
-                <p>
-                    <a href="#">关于恒望</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></em>
-                </p>
-            </div>
-        </div>
+        <!--底部 start-->
+        <jsp:include page="footer.jsp"></jsp:include>
+        <!--底部 end-->
     </div>
 
-    <aside class="menu">
-        <ul>
-            <li class="person active">
-                <a href="index.html"><i class="am-icon-user"></i>个人中心</a>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-newspaper-o"></i>个人资料</p>
-                <ul>
-                    <li> <a href="information.html">个人信息</a></li>
-                    <li> <a href="safety.html">安全设置</a></li>
-                    <li> <a href="address.html">地址管理</a></li>
-                    <li> <a href="cardlist.html">快捷支付</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-balance-scale"></i>我的交易</p>
-                <ul>
-                    <li><a href="order.html">订单管理</a></li>
-                    <li> <a href="change.html">退款售后</a></li>
-                    <li> <a href="comment.html">评价商品</a></li>
-                </ul>
-            </li>
-            <li class="person">
-                <p><i class="am-icon-dollar"></i>我的资产</p>
-                <ul>
-                    <li> <a href="points.html">我的积分</a></li>
-                    <li> <a href="coupon.html">优惠券 </a></li>
-                    <li> <a href="bonus.html">红包</a></li>
-                    <li> <a href="walletlist.html">账户余额</a></li>
-                    <li> <a href="bill.html">账单明细</a></li>
-                </ul>
-            </li>
-
-            <li class="person">
-                <p><i class="am-icon-tags"></i>我的收藏</p>
-                <ul>
-                    <li> <a href="collection.html">收藏</a></li>
-                    <li> <a href="foot.html">足迹</a></li>
-                </ul>
-            </li>
-
-            <li class="person">
-                <p><i class="am-icon-qq"></i>在线客服</p>
-                <ul>
-                    <li> <a href="consultation.html">商品咨询</a></li>
-                    <li> <a href="suggest.html">意见反馈</a></li>
-
-                    <li> <a href="news.html">我的消息</a></li>
-                </ul>
-            </li>
-        </ul>
-
-    </aside>
+    <!--侧边菜单 start-->
+    <jsp:include page="user_menu.jsp"></jsp:include>
+    <!--侧边菜单 end-->
 </div>
 
 </body>

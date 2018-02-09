@@ -94,7 +94,14 @@
                                         <div class="progressBar"><span style="left: -95px;" class="progress"></span></div>
                                     </div>
                                     <div class="m-address">
-                                        <a href="address.html" class="i-trigger">签到<i class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+                                        <c:choose>
+                                            <c:when test="${gold.state==0}">
+                                                <a href="address.html" class="i-trigger">签到<i class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" class="i-trigger">已签到<i class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -111,20 +118,20 @@
                                 <i class="s-icon"></i>个人资产
                             </div>
                             <p class="m-wallet">
-                                <a href="wallet.html">
+                                <a href="#">
                                     <em class="m-num">0.00</em>
                                     <span class="m-title">账户余额</span>
                                 </a>
                             </p>
                             <p class="m-bill">
-                                <a href="pointnew.html">
+                                <a href="/gold/info">
                                     <em class="m-num">${gold.goldamount}</em>
                                     <span class="m-title">总金币</span>
                                 </a>
                             </p>
                             <p class="m-coupon">
-                                <a href="coupon.html">
-                                    <em class="m-num">0</em>
+                                <a href="/gold/info">
+                                    <em class="m-num">${gold.payamount}</em>
                                     <span class="m-title">已充值</span>
                                 </a>
                             </p>

@@ -44,8 +44,14 @@ public class GoldServiceImpl implements GoldService {
         return false;
     }
 
+    /**
+     * 更新金币数量
+     * @param gold
+     * @return
+     */
     @Override
     public String updateGold(Gold gold) {
+
         return null;
     }
 
@@ -64,5 +70,19 @@ public class GoldServiceImpl implements GoldService {
             return goldList.get(0);
         }
         return null;
+    }
+
+    /**
+     * 获取金币情况
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Goldhistory> getGoldHistoryListByUserId(int userId) {
+        GoldhistoryExample goldhistoryExample = new GoldhistoryExample();
+        GoldhistoryExample.Criteria criteria = goldhistoryExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        List<Goldhistory> goldhistoryList = goldhistoryDao.selectByExample(goldhistoryExample);
+        return goldhistoryList;
     }
 }

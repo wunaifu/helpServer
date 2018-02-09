@@ -68,11 +68,9 @@ CREATE TABLE `feedback` (
   PRIMARY KEY (`feedbackId`),
   KEY `userId` (`userId`),
   CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `feedback` */
-
-insert  into `feedback`(`feedbackId`,`userId`,`feedbackInfo`,`feedbackTime`,`reply`,`replyTime`) values (1,48,'系统可以','2018-02-06 15:51:30','谢谢支持','2018-02-07 11:29:58'),(2,48,'嗯，不错','2018-02-06 18:48:01','谢谢支持','2018-02-07 11:29:50'),(3,48,'登录不了','2018-02-06 18:48:08','已处理','2018-02-07 11:29:42'),(4,48,'密码出错','2018-02-06 18:48:17','已处理','2018-02-07 11:29:37');
 
 /*Table structure for table `gold` */
 
@@ -81,11 +79,12 @@ DROP TABLE IF EXISTS `gold`;
 CREATE TABLE `gold` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL COMMENT '用户id',
-  `goldAmount` int(11) NOT NULL COMMENT '金币数',
+  `goldAmount` int(11) NOT NULL DEFAULT '0' COMMENT '目前金币总数',
   `time` varchar(30) DEFAULT NULL COMMENT '时间',
   `state` int(11) DEFAULT NULL COMMENT '签到（0未签，1已签，每日零点置为0）',
+  `payAmount` int(11) DEFAULT '0' COMMENT '历史充值总数',
   PRIMARY KEY (`id`),
-  KEY `userId` (`userId`),
+  UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -145,11 +144,9 @@ CREATE TABLE `identity` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `identity` */
-
-insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,48,'吴乃福','440881199501171815','48/e5fa3f64-3a83-4621-8f19-43e877c0668b.png','48/b9dfe27e-dcde-4906-88cc-bda8e4300792.png','2018-02-05 20:52:20','2018-02-05 20:56:22','认证通过',1);
 
 /*Table structure for table `order` */
 
@@ -205,11 +202,9 @@ CREATE TABLE `payaccount` (
   `time` varchar(30) DEFAULT NULL COMMENT '更新时间',
   `payphoto` varchar(200) DEFAULT NULL COMMENT '收款码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `payaccount` */
-
-insert  into `payaccount`(`id`,`time`,`payphoto`) values (1,'2018-02-07 13:56:46','d4d83218-5115-4eeb-93ea-ec4b06abcfad.jpg');
 
 /*Table structure for table `user` */
 
@@ -232,11 +227,9 @@ CREATE TABLE `user` (
   `permission` int(11) NOT NULL DEFAULT '0' COMMENT '权限（0普通用户，1可接单用户，2被禁用用户）',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
-
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (48,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','18219111621','18219111621','中山横栏',22,1,'123','48/14e6486a-4d20-44f5-a5c9-e6f09633eb50.jpg','2018-01-22 23:14:39','',NULL,1),(49,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,NULL,'2018-01-22 23:15:41','',NULL,0),(50,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,NULL,'2018-01-22 23:18:58','',NULL,0),(51,'admin','ea289daceb77cafc67ab21a64b9c77dd',NULL,NULL,NULL,0,1,NULL,NULL,'2018-01-22 23:18:58',NULL,NULL,-1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

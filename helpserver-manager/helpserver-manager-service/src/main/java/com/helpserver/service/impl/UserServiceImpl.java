@@ -2,10 +2,13 @@ package com.helpserver.service.impl;
 
 import com.alibaba.druid.support.logging.Log;
 import com.helpserver.dao.GoldDao;
+import com.helpserver.dao.GoldhistoryDao;
 import com.helpserver.dao.UserDao;
 import com.helpserver.pojo.Gold;
+import com.helpserver.pojo.Goldhistory;
 import com.helpserver.pojo.UserExample;
 import com.helpserver.service.GoldService;
+import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.DESUtils;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
@@ -30,6 +33,8 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     @Autowired
     GoldDao goldDao;
+    @Autowired
+    GoldhistoryDao goldhistoryDao;
 
     /**
      * 根据用户权限获取用户数据，并根据注册时间排序好
@@ -221,6 +226,8 @@ public class UserServiceImpl implements UserService {
      * 注册
      * 1、先验证是否存在手机账号
      * 2、插入账号密码、权限为0、注册时间
+     * 3、添加初始金币
+     * 4、添加金币收支历史
      * *
      * 使用注解控制事务方法的优点:
      * 1.开发团队达成一致约定，明确标注事务方法的编程风格
@@ -250,12 +257,22 @@ public class UserServiceImpl implements UserService {
                 int userId = user.getUserid();
                 if (result == 1) {
                     Gold gold = new Gold();
-                    gold.setUserid(user.getUserid());
+                    gold.setUserid(userId);
                     gold.setTime(TimeUtil.dateToString(new Date()));
                     gold.setGoldamount(10);
                     gold.setState(0);
                     if (goldDao.insertSelective(gold) == 1) {
-                        return "register_success";
+                        Goldhistory goldhistory = new Goldhistory();
+                        goldhistory.setUserid(userId);
+                        goldhistory.setInfo(CommonsUtil.goldInfoRegister);
+                        goldhistory.setAmount(10);
+                        goldhistory.setTime(gold.getTime());
+                        goldhistory.setState(1);
+                        if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                            return "register_success";
+                        } else {
+                            throw new MyThrowException("addgold_failure");
+                        }
                     } else {
                         throw new MyThrowException("addgold_failure");
                     }
@@ -391,8 +408,8 @@ public class UserServiceImpl implements UserService {
                 user.setPassword(DESUtils.getMD5Str(password));
                 user.setPermission(-1);
                 user.setRegistertime(TimeUtil.dateToString(new Date()));
-                user.setName(phone);
-                user.setNickname(phone);
+                user.setName("管理员");
+                user.setNickname("管理员");
                 user.setHeadicon("icon001.png");
                 int result = userDao.insertSelective(user);
                 int userId = user.getUserid();
@@ -403,8 +420,17 @@ public class UserServiceImpl implements UserService {
                     gold.setGoldamount(10);
                     gold.setState(0);
                     if (goldDao.insertSelective(gold) == 1) {
-                        return "register_success";
-                        // throw new MyThrowException("register_success");
+                        Goldhistory goldhistory = new Goldhistory();
+                        goldhistory.setUserid(userId);
+                        goldhistory.setInfo(CommonsUtil.goldInfoRegister);
+                        goldhistory.setAmount(10);
+                        goldhistory.setTime(gold.getTime());
+                        goldhistory.setState(1);
+                        if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                            return "register_success";
+                        } else {
+                            throw new MyThrowException("addgold_failure");
+                        }
                     } else {
                         throw new MyThrowException("addgold_failure");
                     }
