@@ -1,7 +1,9 @@
 package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
+import com.helpserver.pojo.Gold;
 import com.helpserver.pojo.User;
+import com.helpserver.service.GoldService;
 import com.helpserver.service.UserService;
 import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class PageController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    GoldService goldService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
@@ -65,9 +69,10 @@ public class PageController {
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         User user = userService.selectByPrimaryKey(nowUser.getUserid());
+        Gold gold = goldService.getGold(nowUser.getUserid());
         user.setPassword("******");
-        System.out.println(user.toString()+"         "+user.getHeadicon());
         model.addAttribute("userinfo", user);
+        model.addAttribute("gold", gold);
         return "index_user";
     }
 

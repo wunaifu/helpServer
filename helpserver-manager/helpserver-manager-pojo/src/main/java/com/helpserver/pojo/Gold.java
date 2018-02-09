@@ -11,7 +11,7 @@ public class Gold implements Serializable {
     private Integer userid;
 
     /**
-     * 金币数
+     * 目前金币总数
      */
     private Integer goldamount;
 
@@ -24,6 +24,11 @@ public class Gold implements Serializable {
      * 签到（0未签，1已签，每日零点置为0）
      */
     private Integer state;
+
+    /**
+     * 历史充值总数
+     */
+    private Integer payamount;
 
     private static final long serialVersionUID = 1L;
 
@@ -67,6 +72,14 @@ public class Gold implements Serializable {
         this.state = state;
     }
 
+    public Integer getPayamount() {
+        return payamount;
+    }
+
+    public void setPayamount(Integer payamount) {
+        this.payamount = payamount;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +91,7 @@ public class Gold implements Serializable {
         sb.append(", goldamount=").append(goldamount);
         sb.append(", time=").append(time);
         sb.append(", state=").append(state);
+        sb.append(", payamount=").append(payamount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

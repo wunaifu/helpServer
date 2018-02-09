@@ -7,6 +7,7 @@
     <result column="goldAmount" property="goldamount" jdbcType="INTEGER" />
     <result column="time" property="time" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="payAmount" property="payamount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, userId, goldAmount, time, state
+      id, userId, goldAmount, time, state, payAmount
     </if>
     <if test="fields != null" >
       ${fields}
@@ -93,7 +94,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,userId,goldAmount,time,state
+    id,userId,goldAmount,time,state,payAmount
     from gold
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -109,9 +110,11 @@
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Gold" >
     insert into gold (id, userId, goldAmount, 
-      time, state)
+      time, state, payAmount
+      )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{goldamount,jdbcType=INTEGER}, 
-      #{time,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+      #{time,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{payamount,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Gold" >
     insert into gold
@@ -131,6 +134,9 @@
       <if test="state != null" >
         state,
       </if>
+      <if test="payamount != null" >
+        payAmount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -147,6 +153,9 @@
       </if>
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
+      </if>
+      <if test="payamount != null" >
+        #{payamount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -174,6 +183,9 @@
       <if test="record.state != null" >
         state = #{record.state,jdbcType=INTEGER},
       </if>
+      <if test="record.payamount != null" >
+        payAmount = #{record.payamount,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -185,7 +197,8 @@
       userId = #{record.userid,jdbcType=INTEGER},
       goldAmount = #{record.goldamount,jdbcType=INTEGER},
       time = #{record.time,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER}
+      state = #{record.state,jdbcType=INTEGER},
+      payAmount = #{record.payamount,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,6 +218,9 @@
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},
       </if>
+      <if test="payamount != null" >
+        payAmount = #{payamount,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -213,7 +229,8 @@
     set userId = #{userid,jdbcType=INTEGER},
       goldAmount = #{goldamount,jdbcType=INTEGER},
       time = #{time,jdbcType=VARCHAR},
-      state = #{state,jdbcType=INTEGER}
+      state = #{state,jdbcType=INTEGER},
+      payAmount = #{payamount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

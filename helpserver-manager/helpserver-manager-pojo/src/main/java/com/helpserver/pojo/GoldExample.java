@@ -455,6 +455,66 @@ public class GoldExample {
             addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
+
+        public Criteria andPayamountIsNull() {
+            addCriterion("payAmount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountIsNotNull() {
+            addCriterion("payAmount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountEqualTo(Integer value) {
+            addCriterion("payAmount =", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountNotEqualTo(Integer value) {
+            addCriterion("payAmount <>", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountGreaterThan(Integer value) {
+            addCriterion("payAmount >", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("payAmount >=", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountLessThan(Integer value) {
+            addCriterion("payAmount <", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountLessThanOrEqualTo(Integer value) {
+            addCriterion("payAmount <=", value, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountIn(List<Integer> values) {
+            addCriterion("payAmount in", values, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountNotIn(List<Integer> values) {
+            addCriterion("payAmount not in", values, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountBetween(Integer value1, Integer value2) {
+            addCriterion("payAmount between", value1, value2, "payamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayamountNotBetween(Integer value1, Integer value2) {
+            addCriterion("payAmount not between", value1, value2, "payamount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

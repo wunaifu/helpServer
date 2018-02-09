@@ -118,13 +118,13 @@
                             </p>
                             <p class="m-bill">
                                 <a href="pointnew.html">
-                                    <em class="m-num">10</em>
+                                    <em class="m-num">${gold.goldamount}</em>
                                     <span class="m-title">总金币</span>
                                 </a>
                             </p>
                             <p class="m-coupon">
                                 <a href="coupon.html">
-                                    <em class="m-num">2</em>
+                                    <em class="m-num">0</em>
                                     <span class="m-title">已充值</span>
                                 </a>
                             </p>

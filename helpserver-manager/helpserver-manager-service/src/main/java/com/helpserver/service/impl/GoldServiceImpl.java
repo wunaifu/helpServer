@@ -1,10 +1,10 @@
 package com.helpserver.service.impl;
 
 import com.helpserver.dao.GoldDao;
+import com.helpserver.dao.GoldaddDao;
+import com.helpserver.dao.GoldhistoryDao;
 import com.helpserver.dao.PayaccountDao;
-import com.helpserver.pojo.Gold;
-import com.helpserver.pojo.Payaccount;
-import com.helpserver.pojo.PayaccountExample;
+import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.PayAccountService;
 import com.helpserver.utils.TimeUtil;
@@ -22,6 +22,8 @@ public class GoldServiceImpl implements GoldService {
 
     @Autowired
     GoldDao goldDao;
+    @Autowired
+    GoldhistoryDao goldhistoryDao;
 
     /**
      * 注册时初始化用户金币数为10
@@ -47,8 +49,20 @@ public class GoldServiceImpl implements GoldService {
         return null;
     }
 
+    /**
+     * 获取用户当前金币情况
+     * @param userId
+     * @return
+     */
     @Override
-    public Gold getGold() {
+    public Gold getGold(int userId) {
+        GoldExample goldExample = new GoldExample();
+        GoldExample.Criteria criteria = goldExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        List<Gold> goldList = goldDao.selectByExample(goldExample);
+        if (goldList != null && goldList.size()>0) {
+            return goldList.get(0);
+        }
         return null;
     }
 }

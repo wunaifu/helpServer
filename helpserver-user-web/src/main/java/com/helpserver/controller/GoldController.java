@@ -21,4 +21,5 @@ public class GoldController {
     @Autowired
     GoldService goldService;
 
+
 }

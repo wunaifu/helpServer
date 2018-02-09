@@ -12,6 +12,6 @@ public interface GoldService {
 
     String updateGold(Gold gold);
 
-    Gold getGold();
+    Gold getGold(int userId);
 
 }
