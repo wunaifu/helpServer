@@ -129,7 +129,7 @@
       #{headicon,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR}, #{bantime,jdbcType=VARCHAR}, 
       #{payaccount,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.helpserver.pojo.User" >
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.User" useGeneratedKeys="true" keyProperty="userid">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >

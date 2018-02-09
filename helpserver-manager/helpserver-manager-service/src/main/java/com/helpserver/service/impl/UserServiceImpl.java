@@ -1,8 +1,11 @@
 package com.helpserver.service.impl;
 
 import com.alibaba.druid.support.logging.Log;
+import com.helpserver.dao.GoldDao;
 import com.helpserver.dao.UserDao;
+import com.helpserver.pojo.Gold;
 import com.helpserver.pojo.UserExample;
+import com.helpserver.service.GoldService;
 import com.helpserver.utils.DESUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+    @Autowired
+    GoldDao goldDao;
 
     /**
      * 根据用户权限获取用户数据，并根据注册时间排序好
@@ -237,7 +242,16 @@ public class UserServiceImpl implements UserService {
             user.setNickname(phone);
             user.setHeadicon("icon001.png");
             int result = userDao.insertSelective(user);
+            int userId = user.getUserid();
+            System.out.println("1userId====================="+userId);
             if (result == 1) {
+                Gold gold = new Gold();
+                gold.setUserid(user.getUserid());
+                gold.setTime(TimeUtil.dateToString(new Date()));
+                gold.setGoldamount(10);
+                gold.setState(0);
+                System.out.println("2userId====================="+user.getUserid());
+                goldDao.insertSelective(gold);
                 return "register_success";
             }
             return "register_failure";
