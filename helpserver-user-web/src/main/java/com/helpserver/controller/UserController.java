@@ -246,14 +246,6 @@ public class UserController {
         int userId = nowUser.getUserid();
         Identity identity = new Identity();
         identity = identityService.getIdentityByUserId(userId);
-//        if (identity != null) {
-//            model.addAttribute("identity", identity);
-//            return "user_idcard";
-//        }
-//        identity.setId(0);
-//        identity.setCheckstate(0);
-//        identity.setFrontphoto("cardbg.jpg");
-//        identity.setBackphoto("cardbg.jpg");
         model.addAttribute("identity", identity);
         return "user_idcard";
     }
