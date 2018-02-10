@@ -13,7 +13,7 @@ public interface GoldService {
 
     boolean insertGold(int userId);
 
-    String updateGold(Gold gold);
+    boolean updateAllUserGoldState();
 
     String updateGoldSignIn(int userId);
 

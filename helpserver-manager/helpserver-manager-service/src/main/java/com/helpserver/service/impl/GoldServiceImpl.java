@@ -49,15 +49,27 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
-     * 更新金币数量
-     *
-     * @param gold
+     * 每日0点充值签到状态为0
+     * 更新签到状态
      * @return
      */
     @Override
-    public String updateGold(Gold gold) {
-
-        return null;
+    public boolean updateAllUserGoldState() {
+        GoldExample goldExample = new GoldExample();
+        GoldExample.Criteria criteria = goldExample.createCriteria();
+        criteria.andStateEqualTo(1);
+        //获取到所有已签到的goldList
+        List<Gold> goldList = goldDao.selectByExample(goldExample);
+        if (goldList != null && goldList.size() > 0) {
+            for (int i = 0; i < goldList.size(); i++) {
+                //更新每个已签到的goldList的state，置为0
+                Gold gold = new Gold();
+                gold.setId(goldList.get(i).getId());
+                gold.setState(0);
+                goldDao.updateByPrimaryKeySelective(gold);
+            }
+        }
+        return true;
     }
 
     /**
@@ -106,7 +118,7 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
-     * 获取用户当前金币基本情况
+     * 通过用户id获取用户当前金币基本情况
      *
      * @param userId
      * @return
