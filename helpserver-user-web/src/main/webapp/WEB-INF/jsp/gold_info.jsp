@@ -90,9 +90,9 @@
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th1">积分详情</th>
-                                    <th class="th2">积分变动</th>
-                                    <th class="th3">日期</th>
+                                    <th class="th1">金币详情</th>
+                                    <th class="th2">金币变动</th>
+                                    <th class="th3">时间</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -129,9 +129,9 @@
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th1">积分详情</th>
-                                    <th class="th2">获取积分</th>
-                                    <th class="th3">日期</th>
+                                    <th class="th1">金币详情</th>
+                                    <th class="th2">金币变动</th>
+                                    <th class="th3">时间</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -161,9 +161,9 @@
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th1">积分详情</th>
-                                    <th class="th2">消耗积分</th>
-                                    <th class="th3">日期</th>
+                                    <th class="th1">金币详情</th>
+                                    <th class="th2">金币变动</th>
+                                    <th class="th3">时间</th>
                                 </tr>
                                 </thead>
                                 <tbody>

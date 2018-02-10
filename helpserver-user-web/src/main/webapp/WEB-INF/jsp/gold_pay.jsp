@@ -69,7 +69,7 @@
             <div class="authentication">
                 <form action="/gold/dopay" onsubmit="return suborder()"
                       enctype="multipart/form-data" method="post">
-                    <p class="tip"><a href="#" style="color: #0a628f;font-size: 17px;">充值历史>></a></p>
+                    <p class="tip"><a href="/gold/payhistory" style="color: #0a628f;font-size: 17px;">充值历史>></a></p>
                     <div class="authenticationInfo">
                         <p class="title">填写充值信息</p>
                         <div class="am-form-group">

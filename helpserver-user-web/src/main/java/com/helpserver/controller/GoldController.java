@@ -169,4 +169,20 @@ public class GoldController {
         return "page_400";
     }
 
+    /**
+     * 查看我的金币充值历史
+     * @param request
+     * @return
+     */
+    @RequestMapping("/payhistory")
+    public String goldPayhistory(HttpServletRequest request,Model model) {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        List<Goldadd> goldaddList = goldService.getGoldaddListByUserId(nowUser.getUserid());
+        model.addAttribute("goldaddList", goldaddList);
+        return "gold_addhistory";
+    }
+
 }

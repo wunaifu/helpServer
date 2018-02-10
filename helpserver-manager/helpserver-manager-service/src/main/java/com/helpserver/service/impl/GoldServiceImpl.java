@@ -194,6 +194,22 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
+     * 获取我的金币充值历史情况
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Goldadd> getGoldaddListByUserId(int userId) {
+        GoldaddExample goldaddExample = new GoldaddExample();
+        GoldaddExample.Criteria criteria = goldaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNotNull();
+        List<Goldadd> goldaddList = goldAddDao.selectByExample(goldaddExample);
+        return goldaddList;
+    }
+
+    /**
      * 获取金币历史情况
      *
      * @param userId
