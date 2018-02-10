@@ -65,9 +65,10 @@
                 </div>
                 <hr/>
                 <div class="pointlist am-tabs" data-am-tabs>
-                    <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
-                        <li class="am-active"><a href="#tab1">充值历史</a></li>
+                    <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs" style="background-color: #dcdcdc;border: none;">
+                        <p align="center" style="margin: 10px 0 10px 0;">查看充值数目、申请时间及成功充值时间</p>
                     </ul>
+
                     <div class="am-tabs-bd">
                         <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                             <table>
@@ -84,7 +85,7 @@
                                     <c:when test="${goldaddList.size()>0}">
                                         <c:forEach items="${goldaddList}" var="item">
                                             <tr>
-                                                <td class="pointType">+${item.addamount}</td>
+                                                <td class="pointType">+${item.addamount*10}</td>
                                                 <td class="pointNum">${item.addtime}</td>
                                                 <td class="pointTime">${item.gettime}</td>
                                             </tr>
