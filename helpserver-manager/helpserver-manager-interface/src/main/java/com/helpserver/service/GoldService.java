@@ -1,9 +1,6 @@
 package com.helpserver.service;
 
-import com.helpserver.pojo.Gold;
-import com.helpserver.pojo.Goldadd;
-import com.helpserver.pojo.Goldhistory;
-import com.helpserver.pojo.Payaccount;
+import com.helpserver.pojo.*;
 
 import java.util.List;
 
@@ -18,10 +15,16 @@ public interface GoldService {
 
     String updateGoldSignIn(int userId);
 
+    String addPayGoldByGoldAddId(int goldAddId);
+
     String addGoldadd(Goldadd goldadd);
 
     Gold getGold(int userId);
 
     List<Goldhistory> getGoldHistoryListByUserId(int userId);
+
+    List<GoldAddDto> getGoldAddDtoListByGetTime(int getTimeState);
+
+    GoldAddDto getGoldAddDtoByGoldAddId(int addId);
 
 }

@@ -132,9 +132,11 @@
                     <div id="dropdown-table" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="#">金币列表</a>
+                                <li><a href="/gold/checkadd">用户金币列表</a>
                                 </li>
-                                <li><a href="#">充值金币列表</a>
+                                <li><a href="/gold/checkadd">金币充值申请列表</a>
+                                </li>
+                                <li><a href="/gold/havedcheck">金币充值历史列表</a>
                                 </li>
                                 <li><a href="#">提现金币列表</a>
                                 </li>

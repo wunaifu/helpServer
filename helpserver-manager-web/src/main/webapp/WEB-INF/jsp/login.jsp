@@ -50,7 +50,7 @@
                         <form>
                             <div class="control">
                                 <input type="text" class="form-control"
-                                       id="user" placeholder="手机号" value="admin"
+                                       id="user" placeholder="手机号" value="13531097736"
                                        onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="11"/>
                             </div>
                             <div class="control">

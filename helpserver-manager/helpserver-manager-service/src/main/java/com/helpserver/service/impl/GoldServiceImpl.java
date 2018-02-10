@@ -1,9 +1,6 @@
 package com.helpserver.service.impl;
 
-import com.helpserver.dao.GoldDao;
-import com.helpserver.dao.GoldaddDao;
-import com.helpserver.dao.GoldhistoryDao;
-import com.helpserver.dao.PayaccountDao;
+import com.helpserver.dao.*;
 import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.PayAccountService;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +27,8 @@ public class GoldServiceImpl implements GoldService {
     GoldhistoryDao goldhistoryDao;
     @Autowired
     GoldaddDao goldAddDao;
+    @Autowired
+    UserDao userDao;
 
     /**
      * 注册时初始化用户金币数为10
@@ -51,8 +51,62 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
+     * 充值金币
+     * 1、获取充值信息
+     * 2、添加审核时间
+     * 3、增加金币基本表的金币总数
+     * 4、添加金币收支历史
+     * @param goldAddId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String addPayGoldByGoldAddId(int goldAddId) {
+        //1、获取充值信息
+        Goldadd goldadd = goldAddDao.selectByPrimaryKey(goldAddId);
+        int payAmount=goldadd.getAddamount()*10;
+        try {
+            //2、添加审核时间
+            Goldadd goldaddADD = new Goldadd();
+            goldaddADD.setId(goldAddId);
+            goldaddADD.setGettime(TimeUtil.dateToString(new Date()));
+            if (goldAddDao.updateByPrimaryKeySelective(goldaddADD) == 1) {
+                //3、增加金币基本表的金币总数
+                Gold gold = this.getGold(goldadd.getUserid());
+                Gold goldInfoAdd = new Gold();
+                goldInfoAdd.setId(gold.getId());
+                gold.setGoldamount(gold.getGoldamount() + payAmount);
+                if (goldDao.updateByPrimaryKeySelective(gold) == 1) {
+                    //4、添加金币收支历史
+                    Goldhistory goldhistory = new Goldhistory();
+                    goldhistory.setUserid(goldadd.getUserid());
+                    goldhistory.setInfo(CommonsUtil.goldInfoPayGold);
+                    goldhistory.setAmount(payAmount);
+                    goldhistory.setTime(goldaddADD.getGettime());
+                    goldhistory.setState(1);
+                    if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                        return "pay_success";
+                    } else {
+                        throw new MyThrowException("addgoldinfo_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("updategettime_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("updategettime_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
      * 每日0点充值签到状态为0
      * 更新签到状态
+     *
      * @return
      */
     @Override
@@ -69,7 +123,7 @@ public class GoldServiceImpl implements GoldService {
                 gold.setId(goldList.get(i).getId());
                 gold.setState(0);
                 goldDao.updateByPrimaryKeySelective(gold);
-                System.out.println("重置 "+(i+1)+" gold="+gold.toString());
+                System.out.println("重置 " + (i + 1) + " gold=" + gold.toString());
             }
         }
         return true;
@@ -154,7 +208,58 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
+     * 获取金币充值历史，已审核或者未审核
+     *
+     * @param getTimeState
+     * @return
+     */
+    @Override
+    public List<GoldAddDto> getGoldAddDtoListByGetTime(int getTimeState) {
+        GoldaddExample goldaddExample = new GoldaddExample();
+        GoldaddExample.Criteria criteria = goldaddExample.createCriteria();
+        if (getTimeState == 0) {
+            criteria.andGettimeIsNull();
+            goldaddExample.setOrderByClause("addTime desc");
+        } else {
+            criteria.andGettimeIsNotNull();
+            goldaddExample.setOrderByClause("getTime desc");
+        }
+        List<Goldadd> goldaddList = goldAddDao.selectByExample(goldaddExample);
+        System.out.println("goldaddList============" + goldaddList.toString());
+        List<GoldAddDto> goldAddDtoList = new ArrayList<>();
+        if (goldaddList != null && goldaddList.size() > 0) {
+            for (int i = 0; i < goldaddList.size(); i++) {
+                GoldAddDto goldAddDto = new GoldAddDto();
+                User user = userDao.selectByPrimaryKey(goldaddList.get(i).getUserid());
+                goldAddDto.setGoldadd(goldaddList.get(i));
+                goldAddDto.setUser(user);
+                goldAddDtoList.add(goldAddDto);
+            }
+        }
+        return goldAddDtoList;
+    }
+
+    /**
+     * 通过用户id查看充值详情
+     *
+     * @param addId
+     * @return
+     */
+    @Override
+    public GoldAddDto getGoldAddDtoByGoldAddId(int addId) {
+        Goldadd goldadd = goldAddDao.selectByPrimaryKey(addId);
+        GoldAddDto goldAddDto = new GoldAddDto();
+        if (goldadd != null) {
+            User user = userDao.selectByPrimaryKey(goldadd.getUserid());
+            goldAddDto.setGoldadd(goldadd);
+            goldAddDto.setUser(user);
+        }
+        return goldAddDto;
+    }
+
+    /**
      * 充值金币
+     *
      * @param goldadd
      * @return
      */
