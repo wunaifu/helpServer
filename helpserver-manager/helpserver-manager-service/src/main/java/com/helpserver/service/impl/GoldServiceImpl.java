@@ -7,9 +7,12 @@ import com.helpserver.dao.PayaccountDao;
 import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.PayAccountService;
+import com.helpserver.utils.CommonsUtil;
+import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +30,7 @@ public class GoldServiceImpl implements GoldService {
 
     /**
      * 注册时初始化用户金币数为10
+     *
      * @param userId
      * @return
      */
@@ -38,7 +42,7 @@ public class GoldServiceImpl implements GoldService {
         gold.setGoldamount(10);
         gold.setState(0);
 
-        if (goldDao.insertSelective(gold)==1) {
+        if (goldDao.insertSelective(gold) == 1) {
             return true;
         }
         return false;
@@ -46,6 +50,7 @@ public class GoldServiceImpl implements GoldService {
 
     /**
      * 更新金币数量
+     *
      * @param gold
      * @return
      */
@@ -56,7 +61,53 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
-     * 获取用户当前金币情况
+     * 每日签到
+     * 更新金币数量+5
+     *
+     * @param userId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateGoldSignIn(int userId) {
+        Gold gold = this.getGold(userId);
+        if (gold.getState() == 0) {
+            //今日还未签到，开始签到
+            //更新gold.amount+5
+            //更新gold.state=1
+            try {
+                gold.setState(1);
+                gold.setGoldamount(gold.getGoldamount() + 5);
+                if (goldDao.updateByPrimaryKey(gold) == 1) {
+                    //添加goldhistory
+                    Goldhistory goldhistory = new Goldhistory();
+                    goldhistory.setUserid(userId);
+                    goldhistory.setInfo(CommonsUtil.goldInfoSignIN);
+                    goldhistory.setAmount(5);
+                    goldhistory.setTime(TimeUtil.dateToString(new Date()));
+                    goldhistory.setState(1);
+                    if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                        return "signin_success";
+                    } else {
+                        throw new MyThrowException("signin_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("signin_failure");
+                }
+            } catch (MyThrowException e) {
+                System.out.println("e========================" + e.getMessage());
+                throw e;
+            }
+        } else {
+            //今日已签到，返回
+            return "signin_haved";
+        }
+    }
+
+    /**
+     * 获取用户当前金币基本情况
+     *
      * @param userId
      * @return
      */
@@ -66,14 +117,15 @@ public class GoldServiceImpl implements GoldService {
         GoldExample.Criteria criteria = goldExample.createCriteria();
         criteria.andUseridEqualTo(userId);
         List<Gold> goldList = goldDao.selectByExample(goldExample);
-        if (goldList != null && goldList.size()>0) {
+        if (goldList != null && goldList.size() > 0) {
             return goldList.get(0);
         }
         return null;
     }
 
     /**
-     * 获取金币情况
+     * 获取金币历史情况
+     *
      * @param userId
      * @return
      */

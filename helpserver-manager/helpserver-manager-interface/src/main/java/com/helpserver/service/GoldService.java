@@ -15,6 +15,8 @@ public interface GoldService {
 
     String updateGold(Gold gold);
 
+    String updateGoldSignIn(int userId);
+
     Gold getGold(int userId);
 
     List<Goldhistory> getGoldHistoryListByUserId(int userId);

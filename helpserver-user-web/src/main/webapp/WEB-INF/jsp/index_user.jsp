@@ -22,6 +22,8 @@
     <link href="/css/vipstyle.css" rel="stylesheet" type="text/css">
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+    <script src="/js/alert.js"></script>
 </head>
 
 <body>
@@ -96,10 +98,10 @@
                                     <div class="m-address">
                                         <c:choose>
                                             <c:when test="${gold.state==0}">
-                                                <a href="address.html" class="i-trigger">签到<i class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+                                                <a href="/gold/dosignin" class="i-trigger">签到+5</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="#" class="i-trigger">已签到<i class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+                                                <a href="#"onclick="$.myToast('今日已签到');" class="i-trigger">已签到</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

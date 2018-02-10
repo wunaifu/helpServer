@@ -130,7 +130,7 @@ public class PageController {
                            HttpServletRequest request, HttpServletResponse response) {
         String result = "error";
         try {
-            result = userService.addAdmin("admin", "123456");
+            result = userService.addAdmin("13531097736", "123456");
             ResponseUtils.renderJson(response, result);
         } catch (MyThrowException e) {
             e.printStackTrace();

@@ -22,6 +22,8 @@
     <link href="/css/point.css" rel="stylesheet" type="text/css">
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+    <script src="/js/alert.js"></script>
 </head>
 
 <body>
@@ -68,7 +70,14 @@
                 <div class="pointsTitle">
                     <div class="usable">可用金币<span>${gold.goldamount}</span></div>
                     <%--<div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>积分商城</a></div>--%>
-                    <div class="signIn"><a href="#"><i class="am-icon-calendar"></i><em>+5</em>每日签到</a></div>
+                    <c:choose>
+                        <c:when test="${gold.state==0}">
+                            <div class="signIn"><a href="/gold/dosignin"><i class="am-icon-calendar"></i><em>+5</em>每日签到</a></div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="signIn"><a href="#" onclick="$.myToast('今日已签到');"><i class="am-icon-calendar"></i><em>&nbsp;</em>已签到</a></div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="pointlist am-tabs" data-am-tabs>
                     <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
