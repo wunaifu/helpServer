@@ -78,6 +78,7 @@
                                                     <li class="list-group-item">手机：${goldAddDto.user.phone}</li>
                                                     <li class="list-group-item">姓名：${goldAddDto.user.name}</li>
                                                     <li class="list-group-item">充值金额：${goldAddDto.goldadd.addamount}￥</li>
+                                                    <li class="list-group-item">可兑换金币数：${goldAddDto.goldadd.addamount*10}个</li>
                                                     <li class="list-group-item">申请时间：${goldAddDto.goldadd.addtime}</li>
                                                     <c:choose>
                                                         <c:when test="${goldAddDto.goldadd.gettime==null||goldAddDto.goldadd.gettime==''}">

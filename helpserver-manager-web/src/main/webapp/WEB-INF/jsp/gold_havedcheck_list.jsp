@@ -63,6 +63,7 @@
                                             <th class="manager-border2">账号</th>
                                             <th class="manager-border2">昵称</th>
                                             <th class="manager-border2">充值金额</th>
+                                            <th class="manager-border2">可兑换金币数</th>
                                             <th class="manager-border2">申请时间</th>
                                             <th class="manager-border2">通过时间</th>
                                             <th class="manager-border2">状态</th>
@@ -76,6 +77,7 @@
                                                     <td class="manager-border2">${item.user.phone}</td>
                                                     <td class="manager-border2">${item.user.nickname}</td>
                                                     <td class="manager-border2">${item.goldadd.addamount}￥</td>
+                                                    <td class="manager-border2">${item.goldadd.addamount*10}个</td>
                                                     <td class="manager-border2">${item.goldadd.addtime}</td>
                                                     <td class="manager-border2">${item.goldadd.gettime}</td>
                                                     <c:choose>
