@@ -86,11 +86,11 @@ CREATE TABLE `gold` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `gold` */
 
-insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-02-09 20:16:43',0,0),(2,2,10,'2018-02-09 20:23:42',0,0);
+insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,15,'2018-02-09 20:16:43',0,0),(2,2,35,'2018-02-09 20:23:42',0,10),(3,3,25,'2018-02-10 10:15:31',0,10),(4,4,10,'2018-02-10 10:44:04',0,0);
 
 /*Table structure for table `goldadd` */
 
@@ -106,9 +106,11 @@ CREATE TABLE `goldadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goldadd` */
+
+insert  into `goldadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,1,'2018-02-10 13:08:35','2/91137b8e-054c-4a15-b292-efbd42837956.png','2018-02-10 15:46:48'),(2,3,1,'2018-02-10 13:28:35','3/720de5f2-f53c-4988-9f7d-852629f0c399.png','2018-02-10 15:54:24');
 
 /*Table structure for table `goldhistory` */
 
@@ -124,11 +126,11 @@ CREATE TABLE `goldhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goldhistory` */
 
-insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-02-09 20:16:43',1),(2,2,10,'注册','2018-02-09 20:23:42',1);
+insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-02-09 20:16:43',1),(2,2,10,'注册','2018-02-09 20:23:42',1),(3,2,5,'每日签到','2018-02-10 09:22:24',1),(4,1,5,'每日签到','2018-02-10 09:30:57',1),(5,2,5,'每日签到','2018-02-10 10:00:02',1),(6,2,5,'每日签到','2018-02-10 10:10:07',1),(7,3,10,'注册','2018-02-10 10:15:31',1),(8,3,5,'每日签到','2018-02-10 10:15:38',1),(9,4,10,'注册','2018-02-10 10:44:04',1),(10,2,10,'金币充值','2018-02-10 15:46:48',1),(11,3,10,'金币充值','2018-02-10 15:54:24',1);
 
 /*Table structure for table `identity` */
 
@@ -148,11 +150,11 @@ CREATE TABLE `identity` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `identity` */
 
-insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,2,'白云飞','440881194101011815','2/b474c350-5876-4fef-834f-b5f2c2071c32.png','2/f0a0da97-b504-4391-a954-ff43d3278196.png','2018-02-09 20:27:21','2018-02-09 20:30:43','认证通过',1);
+insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,2,'白云飞','440881194101011815','2/b474c350-5876-4fef-834f-b5f2c2071c32.png','2/f0a0da97-b504-4391-a954-ff43d3278196.png','2018-02-09 20:27:21','2018-02-09 20:30:43','认证通过',1),(2,3,'张青','23414452314551122','3/373870b8-684a-4396-a75e-86fdd263ca53.png','3/ff4b9636-660d-4775-8d14-38f6259f7430.png','2018-02-10 10:40:26',NULL,'请求认证',0),(3,4,'李伟青','45541452134623','4/22d4dcca-a8ca-4ba8-ba1f-6dc387c1b261.png','4/625bc18b-09bb-4261-a6b4-bcd6cca54a11.png','2018-02-10 10:47:48','2018-02-10 16:45:46','认证通过',1);
 
 /*Table structure for table `order` */
 
@@ -235,11 +237,11 @@ CREATE TABLE `user` (
   `permission` int(11) NOT NULL DEFAULT '0' COMMENT '权限（0普通用户，1可接单用户，2被禁用用户）',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'admin','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-02-09 20:16:43',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','18219111621','18219111621','浙江',22,1,'我是一个摄影师','2/10068bf8-a264-4ef9-849b-82ccd6992aaf.jpg','2018-02-09 20:23:42',NULL,NULL,1);
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-02-09 20:16:43',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','18219111621','18219111621','浙江',22,1,'我是一个摄影师','2/10068bf8-a264-4ef9-849b-82ccd6992aaf.jpg','2018-02-09 20:23:42',NULL,NULL,1),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,'icon001.png','2018-02-10 10:15:31',NULL,NULL,0),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,'icon001.png','2018-02-10 10:44:04',NULL,NULL,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
