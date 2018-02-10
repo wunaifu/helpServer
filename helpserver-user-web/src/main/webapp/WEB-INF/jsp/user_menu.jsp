@@ -33,7 +33,7 @@
             <ul>
                 <li> <a href="/gold/info">我的金币</a></li>
                 <li> <a href="#">账户余额</a></li>
-                <li> <a href="coupon.html">充值金币 </a></li>
+                <li> <a href="/gold/pay">充值金币 </a></li>
                 <li> <a href="bonus.html">提现金币</a></li>
             </ul>
         </li>

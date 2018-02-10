@@ -1,6 +1,7 @@
 package com.helpserver.service;
 
 import com.helpserver.pojo.Gold;
+import com.helpserver.pojo.Goldadd;
 import com.helpserver.pojo.Goldhistory;
 import com.helpserver.pojo.Payaccount;
 
@@ -16,6 +17,8 @@ public interface GoldService {
     boolean updateAllUserGoldState();
 
     String updateGoldSignIn(int userId);
+
+    String addGoldadd(Goldadd goldadd);
 
     Gold getGold(int userId);
 

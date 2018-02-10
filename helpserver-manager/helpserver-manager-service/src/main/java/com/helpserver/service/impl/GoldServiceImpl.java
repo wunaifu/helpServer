@@ -27,6 +27,8 @@ public class GoldServiceImpl implements GoldService {
     GoldDao goldDao;
     @Autowired
     GoldhistoryDao goldhistoryDao;
+    @Autowired
+    GoldaddDao goldAddDao;
 
     /**
      * 注册时初始化用户金币数为10
@@ -149,5 +151,18 @@ public class GoldServiceImpl implements GoldService {
         criteria.andUseridEqualTo(userId);
         List<Goldhistory> goldhistoryList = goldhistoryDao.selectByExample(goldhistoryExample);
         return goldhistoryList;
+    }
+
+    /**
+     * 充值金币
+     * @param goldadd
+     * @return
+     */
+    @Override
+    public String addGoldadd(Goldadd goldadd) {
+        if (goldAddDao.insertSelective(goldadd) == 1) {
+            return "paygold_success";
+        }
+        return "paygold_error";
     }
 }
