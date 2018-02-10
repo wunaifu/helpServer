@@ -132,7 +132,7 @@
                                 </a>
                             </p>
                             <p class="m-coupon">
-                                <a href="/gold/payhistory">
+                                <a href="/gold/pay">
                                     <em class="m-num">${gold.payamount}</em>
                                     <span class="m-title">已充值</span>
                                 </a>
