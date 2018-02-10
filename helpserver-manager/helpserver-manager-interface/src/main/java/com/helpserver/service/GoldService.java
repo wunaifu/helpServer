@@ -23,6 +23,8 @@ public interface GoldService {
 
     List<Goldhistory> getGoldHistoryListByUserId(int userId);
 
+    List<GoldUserDto> getGoldUserDtoList();
+
     List<GoldAddDto> getGoldAddDtoListByGetTime(int getTimeState);
 
     GoldAddDto getGoldAddDtoByGoldAddId(int addId);

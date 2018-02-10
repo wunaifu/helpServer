@@ -75,8 +75,9 @@ public class GoldServiceImpl implements GoldService {
                 Gold gold = this.getGold(goldadd.getUserid());
                 Gold goldInfoAdd = new Gold();
                 goldInfoAdd.setId(gold.getId());
-                gold.setGoldamount(gold.getGoldamount() + payAmount);
-                if (goldDao.updateByPrimaryKeySelective(gold) == 1) {
+                goldInfoAdd.setPayamount(gold.getPayamount()+payAmount);
+                goldInfoAdd.setGoldamount(gold.getGoldamount() + payAmount);
+                if (goldDao.updateByPrimaryKeySelective(goldInfoAdd) == 1) {
                     //4、添加金币收支历史
                     Goldhistory goldhistory = new Goldhistory();
                     goldhistory.setUserid(goldadd.getUserid());
@@ -205,6 +206,30 @@ public class GoldServiceImpl implements GoldService {
         criteria.andUseridEqualTo(userId);
         List<Goldhistory> goldhistoryList = goldhistoryDao.selectByExample(goldhistoryExample);
         return goldhistoryList;
+    }
+
+    /**
+     * 获取用户金币列表信息
+     * @return
+     */
+    @Override
+    public List<GoldUserDto> getGoldUserDtoList() {
+        GoldExample goldExample = new GoldExample();
+        GoldExample.Criteria criteria = goldExample.createCriteria();
+        criteria.andIdIsNotNull();
+        goldExample.setOrderByClause("time desc");
+        List<Gold> goldList = goldDao.selectByExample(goldExample);
+        List<GoldUserDto> goldUserDtoList = new ArrayList<>();
+        if (goldList != null && goldList.size() > 0) {
+            for (int i = 0; i < goldList.size(); i++) {
+                GoldUserDto goldUserDto = new GoldUserDto();
+                User user = userDao.selectByPrimaryKey(goldList.get(i).getUserid());
+                goldUserDto.setGold(goldList.get(i));
+                goldUserDto.setUser(user);
+                goldUserDtoList.add(goldUserDto);
+            }
+        }
+        return goldUserDtoList;
     }
 
     /**

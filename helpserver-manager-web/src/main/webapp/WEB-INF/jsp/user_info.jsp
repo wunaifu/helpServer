@@ -91,6 +91,9 @@
                                                             <c:when test="${userinfo.permission==1}">
                                                                 <li class="list-group-item">权限：可接单用户</li>
                                                             </c:when>
+                                                            <c:when test="${userinfo.permission==-1}">
+                                                                <li class="list-group-item">权限：管理员</li>
+                                                            </c:when>
                                                             <c:otherwise>
                                                                 <li class="list-group-item" style="color: red">权限：被禁用用户</li>
                                                                 <li class="list-group-item" style="color: red">禁用时间：${userinfo.bantime}</li>

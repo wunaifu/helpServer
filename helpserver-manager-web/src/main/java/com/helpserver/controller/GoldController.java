@@ -34,6 +34,21 @@ public class GoldController {
     PayAccountService payAccountService;
 
     /**
+     * 用户金币列表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/usergold")
+    public String userGold(HttpServletRequest request,Model model) {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        List<GoldUserDto> goldUserDtoList = goldService.getGoldUserDtoList();
+        model.addAttribute("goldUserDtoList", goldUserDtoList);
+        return "gold_user_list";
+    }
+
+    /**
      * 金币充值审核列表
      * @param request
      * @return
