@@ -32,7 +32,7 @@
         <h2 style="font-size: 18px;">对不起，文件上传失败！<a style="font-size: 19px;color: #0c80ba" href="javascript:history.back();">返回</a></h2>
         <div class="successInfo">
             <ul>
-                <li style="color: red;font-size: 18px;margin: 20px 0 10px 0;">文件过大，文件大小不能超过500k！</li>
+                <li style="color: red;font-size: 18px;margin: 20px 0 10px 0;">文件过大，每次上传文件大小不能超过500k！</li>
 
                 感谢您对我们平台的支持，如有对平台更好的建议，请反馈给我们，谢谢！前往<a href="/index"style="font-size: 17px;color: #0c80ba">首页</a>
 

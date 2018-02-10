@@ -317,6 +317,10 @@ public class UserController {
             identity.setId(id);
             result = identityService.updateIdenty(identity);
         } else {
+            if (identity.getFrontphoto()==null && identity.getBackphoto()==null) {
+                model.addAttribute("message", "身份证图片不能为空！");
+                return "page_400";
+            }
             result = identityService.insertIdenty(identity);
         }
         if (result.equals("update_success")) {
