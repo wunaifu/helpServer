@@ -86,7 +86,7 @@
                         <ul class="cardlist">
                             <li>
                                 <div class="cardPic">
-                                    <img src="http://localhost:8082/resources/img/816e5ec9-bd84-4b11-b545-027f2ed4df14.jpg" width="100%" height="100%">
+                                    <img src="http://localhost:8082/resources/img/${payAccount.payphoto}" width="100%" height="100%">
                                     <p class="titleText">收款图</p>
                                 </div>
                             </li>

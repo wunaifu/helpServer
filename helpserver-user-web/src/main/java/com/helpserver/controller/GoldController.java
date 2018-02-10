@@ -4,7 +4,9 @@ import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.Gold;
 import com.helpserver.pojo.Goldadd;
 import com.helpserver.pojo.Goldhistory;
+import com.helpserver.pojo.Payaccount;
 import com.helpserver.service.GoldService;
+import com.helpserver.service.PayAccountService;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.SessionSetUtils;
 import com.helpserver.utils.TimeUtil;
@@ -31,6 +33,8 @@ public class GoldController {
 
     @Autowired
     GoldService goldService;
+    @Autowired
+    PayAccountService payAccountService;
 
     /**
      * 查看我的金币
@@ -74,6 +78,8 @@ public class GoldController {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        Payaccount payaccount=payAccountService.getPayAccoun();
+        model.addAttribute("payAccount", payaccount);
         return "gold_pay";
     }
 
