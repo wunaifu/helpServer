@@ -67,6 +67,7 @@ public class GoldServiceImpl implements GoldService {
                 gold.setId(goldList.get(i).getId());
                 gold.setState(0);
                 goldDao.updateByPrimaryKeySelective(gold);
+                System.out.println("重置 "+(i+1)+" gold="+gold.toString());
             }
         }
         return true;

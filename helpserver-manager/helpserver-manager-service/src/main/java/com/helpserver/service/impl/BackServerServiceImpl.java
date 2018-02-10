@@ -27,7 +27,7 @@ public class BackServerServiceImpl implements BackServerService{
      * 1、重置所有已签到的状态为未签到，即状态置为0
      *
      */
-    @Scheduled(cron="10 12 10 * * ?")
+    @Scheduled(cron="10 0 0 * * ?")
     public void backServerOne() {
         System.out.println("0:00:10已到，系统要开始装逼了。。。。。。");
         System.out.println("当前时间："+ TimeUtil.dateToString(new Date())+"开始重置签到状态！");
