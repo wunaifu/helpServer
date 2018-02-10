@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/AmazeUI-2.4.2/assets/css/amazeui.css"/>
     <link href="/css/dlstyle.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/js/jquery-1.7.2.min.js"></script>
 </head>
 
 <body>
@@ -82,7 +83,7 @@
 <jsp:include page="footer.jsp"></jsp:include>
 <!--底部 end-->
 
-<script src="/js/jquery-1.7.2.min.js"></script>
+
 <script src="/js/jquery.ajaxchimp.min.js"></script>
 <script src="/js/script.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->

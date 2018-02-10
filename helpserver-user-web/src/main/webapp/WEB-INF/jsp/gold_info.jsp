@@ -36,7 +36,6 @@
             <!-- top end -->
             <div class="clear"></div>
         </div>
-        </div>
     </article>
 </header>
 
