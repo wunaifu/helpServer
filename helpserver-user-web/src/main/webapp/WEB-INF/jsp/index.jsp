@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: wunaifu
   Date: 2018/1/11
@@ -29,13 +29,68 @@
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <%
+        NowUser nowUser = new NowUser();
+        if (request.getSession().getAttribute("nowUser") != null) {
+            nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        }
 
+    %>
 </head>
 
 <body>
 <div class="hmtop">
     <!-- top start -->
-    <jsp:include page="top.jsp"></jsp:include>
+
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd">
+                    <a href="/map" target="_top">定位：<%=nowUser.getLocation()%></a>
+                    <a href="/index_user" target="_top" class="h"  style="margin-left: 50px;"><%=nowUser.getName()%>
+                    </a>
+                    <a href="/logout" target="_top">退出登录</a>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="/index" target="_top" class="h">平台首页</a></div>
+            </div>
+            <div class="topMessage my-shangcheng">
+                <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i
+                        class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+            </div>
+            <div class="topMessage mini-cart">
+                <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i
+                        class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
+                    <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
+            </div>
+            <div class="topMessage favorite">
+                <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white">
+        <div class="logo"><a href="/map" style="float: left"><img src="/images/logo1.png"/><%=nowUser.getLocation()%></a></div>
+        <div class="logoBig">
+            <li><img src="/images/logobig.png"/></li>
+        </div>
+
+        <div class="search-bar pr">
+            <a name="index_none_header_sysc" href="#"></a>
+            <form action="/searchserver">
+                <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+            </form>
+        </div>
+    </div>
+
     <!-- top end -->
     <div class="clear"></div>
 </div>

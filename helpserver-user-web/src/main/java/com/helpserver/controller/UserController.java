@@ -354,6 +354,7 @@ public class UserController {
                 nowUser.setPhone(user.getPhone());
                 nowUser.setName(user.getName());
                 nowUser.setPermission(user.getPermission());
+                nowUser.setLocation("江门市蓬江区");
 
                 request.getSession().setAttribute("nowUser", nowUser);
             }
