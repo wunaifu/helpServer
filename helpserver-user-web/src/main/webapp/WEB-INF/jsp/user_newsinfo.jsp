@@ -68,8 +68,8 @@
             <!--标题 -->
             <div class="am-cf am-padding">
                 <div class="am-fl am-cf">
-                    <a href="/index" style="color: #0a628f">首页&nbsp;>&nbsp;</a>
-                    <a style="color: #0a628f" href="/index_user">个人中心&nbsp;>&nbsp;</a>
+                    <a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
+                    <a style="color: #0a628f" href="/index_user">个人中心&nbsp;</a> >&nbsp;
                     <strong class="am-text-danger am-text-lg">消息详情</strong> / <small>NewsInfo</small></div>
             </div>
             <hr/>

@@ -61,8 +61,8 @@
             <!--标题 -->
             <div class="user-safety">
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a>>&nbsp;
-                        <a style="color: #0a628f" href="/index_user">个人中心&nbsp;</a>>&nbsp;
+                    <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
+                        <a style="color: #0a628f" href="/index_user">个人中心&nbsp;</a> >&nbsp;
                         <strong class="am-text-danger am-text-lg">账户安全</strong> / <small>Set&nbsp;up&nbsp;Safety</small>
                     </div>
                 </div>
