@@ -29,7 +29,10 @@ public class PageController {
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
 //        return page;
 //    }
-
+    @RequestMapping(value = "/map")
+    public String getUserByUserId(HttpServletRequest request) throws Exception {
+        return "index_map";
+    }
     @RequestMapping("/")
     public String showIndex1() {
         return "login";
