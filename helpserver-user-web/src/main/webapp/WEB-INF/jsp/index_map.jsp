@@ -22,27 +22,9 @@
 </body>
 </html>
 <script type="text/javascript">
+    // 百度地图API功能
     var map = new BMap.Map("allmap");
-    var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 14);
-    map.enableScrollWheelZoom();
-    map.enableInertialDragging();
-
-    map.enableContinuousZoom();
-
-    var size = new BMap.Size(10, 20);
-    map.addControl(new BMap.CityListControl({
-        anchor: BMAP_ANCHOR_TOP_LEFT,
-        offset: size,
-        // 切换城市之间事件
-        // onChangeBefore: function(){
-        //    alert('before');
-        // },
-        // 切换城市之后事件
-        // onChangeAfter:function(){
-        //   alert('after');
-        // }
-    }));
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
     // 添加带有定位的导航控件
     var navigationControl = new BMap.NavigationControl({
         // 靠左上角位置
