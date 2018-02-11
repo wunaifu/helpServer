@@ -61,7 +61,10 @@
         <div class="main-wrap">
 
             <div class="am-cf am-padding">
-                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">实名认证</strong> / <small>Real&nbsp;authentication</small></div>
+                <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;>&nbsp;</a>
+                    <a style="color: #0a628f" href="/index_user">个人中心&nbsp;>&nbsp;</a>
+                    <strong class="am-text-danger am-text-lg">实名认证</strong> / <small>Real&nbsp;authentication</small>
+                </div>
             </div>
             <hr/>
             <div class="authentication">
