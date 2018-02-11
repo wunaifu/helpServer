@@ -100,9 +100,9 @@
                                 <div class="cardPic">
                                     <img src="/resources/img/payshotcut.png" style="max-width: 165px;max-height: 259px;">
                                     <div class="cardText"><i class="am-icon-plus"></i>
-                                        <p>例图</p>
+                                        <p>示例</p>
                                     </div>
-                                    <p class="titleText">例图</p>
+                                    <p class="titleText">示例</p>
                                 </div>
                             </li>
                             <li>

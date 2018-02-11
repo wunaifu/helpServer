@@ -132,7 +132,7 @@ public class GoldServiceImpl implements GoldService {
 
     /**
      * 每日签到
-     * 更新金币数量+5
+     * 更新金币数量+1
      *
      * @param userId
      * @return
@@ -153,7 +153,7 @@ public class GoldServiceImpl implements GoldService {
                     Goldhistory goldhistory = new Goldhistory();
                     goldhistory.setUserid(userId);
                     goldhistory.setInfo(CommonsUtil.goldInfoSignIN);
-                    goldhistory.setAmount(5);
+                    goldhistory.setAmount(1);
                     goldhistory.setTime(TimeUtil.dateToString(new Date()));
                     goldhistory.setState(1);
                     if (goldhistoryDao.insertSelective(goldhistory) == 1) {

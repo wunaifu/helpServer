@@ -98,7 +98,7 @@
                                     <div class="m-address">
                                         <c:choose>
                                             <c:when test="${gold.state==0}">
-                                                <a href="/gold/dosignin" class="i-trigger">签到+5</a>
+                                                <a href="/gold/dosignin" class="i-trigger">签到+1</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="#"onclick="$.myToast('今日已签到');" class="i-trigger">已签到</a>

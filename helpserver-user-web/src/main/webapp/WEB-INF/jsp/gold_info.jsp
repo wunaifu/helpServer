@@ -71,7 +71,7 @@
                     <%--<div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>积分商城</a></div>--%>
                     <c:choose>
                         <c:when test="${gold.state==0}">
-                            <div class="signIn"><a href="/gold/dosignin"><i class="am-icon-calendar"></i><em>+5</em>每日签到</a></div>
+                            <div class="signIn"><a href="/gold/dosignin"><i class="am-icon-calendar"></i><em>+1</em>每日签到</a></div>
                         </c:when>
                         <c:otherwise>
                             <div class="signIn"><a href="#" onclick="$.myToast('今日已签到');"><i class="am-icon-calendar"></i><em>&nbsp;</em>已签到</a></div>
