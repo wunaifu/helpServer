@@ -209,25 +209,25 @@
                             <div class="orderContent">
                                 <div class="orderContentpic">
                                     <div class="imgBox">
-                                        <a href="orderinfo.html"><img src="/images/heart.jpg"></a>
+                                        <a href="orderinfo.html"><img src="/images/youzi.jpg"></a>
                                     </div>
                                 </div>
                                 <div class="detailContent">
-                                    <a href="orderinfo.html" class="delivery">派件</a>
+                                    <a href="orderinfo.html" class="delivery">标题：帮忙打包饭菜</a>
                                     <div class="orderID">
-                                        <span class="time">2016-03-09</span>
-                                        <span class="splitBorder">|</span>
-                                        <span class="time">21:52:47</span>
+                                        <span class="time">服务时间：2016-03-09 21:52:47</span>
                                     </div>
                                     <div class="orderID">
-                                        <span class="num">共2件商品</span>
+                                        <span class="num">内容：求五邑大学同学帮忙打包饭菜</span>
                                     </div>
                                 </div>
-                                <div class="state">已发货</div>
-                                <div class="price"><span class="sym">¥</span>246.<span class="sym">50</span></div>
+                                <div class="state">
+                                    <span class="num">2/5人抢单</span>
+                                </div>
+                                <div class="price"><!--<span class="sym">¥</span>-->10<span class="sym">金币</span></div>
 
                             </div>
-                            <a href="javascript:void(0);" class="btnPay">再次购买</a>
+                            <a href="javascript:void(0);" class="btnPay">抢单</a>
                         </div>
                     </div>
                     <!--九宫格-->
@@ -274,12 +274,16 @@
                         <div class="s-bar">
                             <i class="s-icon"></i>&nbsp;
                         </div>
-                        <div class="s-bar">
-                            <a href="/user/feedback"><i class="s-icon"></i>意见反馈</a>
-                        </div>
-                        <div class="s-bar">
-                            <a href="/logout"><i class="s-icon"></i>退出登录</a>
-                        </div>
+                        <a href="/user/feedback"><div class="s-bar">
+                            <i class="s-icon"></i>意见反馈
+                        </div></a>
+                        <hr style="margin: 0 10px 0 10px;">
+                        <a href="/logout">
+                            <div class="s-bar">
+                            <i class="s-icon"></i>退出登录
+                        </div></a>
+                        <hr style="margin: 0 10px 0 10px;">
+                        <div style="margin-bottom: 30px;"></div>
                     </div>
 
                 </div>
