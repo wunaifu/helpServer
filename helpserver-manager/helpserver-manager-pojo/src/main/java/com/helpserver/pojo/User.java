@@ -195,7 +195,7 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", userid=").append(userid);
         sb.append(", phone=").append(phone);
-        sb.append(", password=").append(password);
+        sb.append(", password=").append("***");
         sb.append(", name=").append(name);
         sb.append(", nickname=").append(nickname);
         sb.append(", address=").append(address);
