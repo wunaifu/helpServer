@@ -38,8 +38,8 @@
 
     %>
 </head>
-<body onload="mylocation();">
-<div class="hmtop" style="height: 22%">
+<body>
+<div class="hmtop" style="height: 25%">
     <!-- top start -->
 
     <!--顶部导航条 -->
@@ -96,19 +96,20 @@
         </div>
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
-            <form>
-                <input id="cityName1" name="index_none_header_sysc" style="font-size: 17px;" type="text" readonly="true" value="<%=nowUser.getLocation()%>" autocomplete="off">
-                <input id="ai-topsearch" class="submit am-btn" value="确定" index="1" type="button" onclick="">
+            <form action="finishmap" method="post">
+                <input id="cityName1" name="locationmap" style="font-size: 17px;" type="text" readonly="true" value="<%=nowUser.getLocation()%>">
+                <input id="ai-topsearch" class="submit am-btn" value="确定" index="1" type="submit">
             </form>
         </div>
     </div>
     <!-- top end -->
     <div class="clear"></div>
 </div>
-<div id="allmap" style="height: 78%"></div>
+<div id="allmap" style="height: 75%"></div>
 
 </body>
 </html>
+<script src="/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
 
     var myLocationHere;
@@ -124,6 +125,7 @@
         });
         local.search(cityName);
         myLocationHere = cityName;
+        $("#cityName1").attr("value",myLocationHere);
     }
     var myCity = new BMap.LocalCity();
     myCity.get(myFun);
@@ -153,6 +155,7 @@
         });
         local.search(address);
         myLocationHere = address;
+        $("#cityName1").attr("value",myLocationHere);
         //alert("2myLocationHere：" + myLocationHere);
     });
     geolocationControl.addEventListener("locationError", function (e) {
@@ -171,5 +174,6 @@
         });
         localSearch.search(citySearch);
         myLocationHere = citySearch;
+        $("#cityName1").attr("value",myLocationHere);
     }
 </script>

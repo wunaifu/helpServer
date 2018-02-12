@@ -52,6 +52,16 @@ public class PageController {
         return "login";
     }
 
+    @RequestMapping("/finishmap")
+    public String finishMap(HttpServletRequest request) {
+        String location = request.getParameter("locationmap");
+        NowUser nowUser= (NowUser) request.getSession().getAttribute("nowUser");
+        request.getSession().removeAttribute("nowUser");
+        nowUser.setLocation(location);
+        request.getSession().setAttribute("nowUser", nowUser);
+        return "index";
+    }
+
     @RequestMapping("/index")
     public String showIndex11(HttpServletRequest request) {
         if (!SessionSetUtils.isUserLogin(request)) {
