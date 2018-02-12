@@ -31,6 +31,9 @@ public class PageController {
 //    }
     @RequestMapping(value = "/map")
     public String getUserByUserId(HttpServletRequest request) throws Exception {
+        if (!SessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
         return "index_map";
     }
     @RequestMapping("/")

@@ -29,6 +29,8 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.UUID;
 
@@ -341,9 +343,18 @@ public class UserController {
      *
      * @param request
      */
-    @RequestMapping(value = "/dologin/{phone}/{password}")
-    public void dologin(@PathVariable("phone") String phone, @PathVariable("password") String password,
+    @RequestMapping(value = "/dologin")
+    public void dologin(//@PathVariable("phone") String phone, @PathVariable("password") String password,
                         HttpServletRequest request, HttpServletResponse response) {
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        String location = request.getParameter("location");
+        try {
+            location = URLDecoder.decode(location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("location========="+location);
         String result = userService.loginByPhoneAndPsw(phone, password);
         //登录成功，session保存当前用户数据
         if (result.equals("login_success")) {
@@ -354,8 +365,7 @@ public class UserController {
                 nowUser.setPhone(user.getPhone());
                 nowUser.setName(user.getName());
                 nowUser.setPermission(user.getPermission());
-                nowUser.setLocation("江门市蓬江区");
-
+                nowUser.setLocation(location);
                 request.getSession().setAttribute("nowUser", nowUser);
             }
         }

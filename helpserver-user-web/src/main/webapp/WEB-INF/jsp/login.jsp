@@ -23,9 +23,10 @@
     <link href="/css/dlstyle.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YUqCLjiE9ymXaCpOpZGU2sCZ6WXGHTGf"></script>
 </head>
 
-<body>
+<body onload="dingwei();">
 
 <div class="login-boxtitle">
     <a href="#"><img alt="logo" src="../../images/logobig.png"/></a>
@@ -78,17 +79,34 @@
         </div>
     </div>
 </div>
-
+<div id="allmap" style="visibility: hidden"></div>
 <!--底部 start-->
 <jsp:include page="footer.jsp"></jsp:include>
 <!--底部 end-->
-
-
 <script src="/js/jquery.ajaxchimp.min.js"></script>
 <script src="/js/script.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
 <script>
+    var myLocationHere;
+    function dingwei() {
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(113.090575, 22.599154), 11);
+        function myFun(result) {
+            var cityName = result.name;
+            map.setCenter(cityName);
+            var local = new BMap.LocalSearch(map, {
+                renderOptions: {map: map}
+            });
+            local.search(cityName);
+            myLocationHere = cityName;
+            //alert("myLocationHere=" + myLocationHere);
+            $.myToast("您位于"+myLocationHere)
+        }
+        var myCity = new BMap.LocalCity();
+        myCity.get(myFun);
+    }
+
     function fun() {
         var phone = $("#user").val().replace(" ","");
         var password = $("#password").val().replace(" ","");
@@ -104,7 +122,7 @@
         }
         $.ajax({
             type : "POST",
-            url: "/user/dologin/" + phone + "/" + password,
+            url: "/user/dologin?phone=" + phone + "&password=" + password+ "&location=" +encodeURI(encodeURI(myLocationHere)),
             contentType : "application/json;charset=utf-8",
             dataType : "text",
             error : function() {
@@ -142,7 +160,6 @@
             }
         });
     }
-
 </script>
 </body>
 
