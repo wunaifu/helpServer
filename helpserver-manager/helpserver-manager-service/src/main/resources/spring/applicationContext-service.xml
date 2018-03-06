@@ -36,4 +36,5 @@ http://www.springframework.org/schema/task
 	<dubbo:service interface="com.helpserver.service.FeedbackService" ref="feedbackServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.PayAccountService" ref="payAccountServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.GoldService" ref="goldServiceImpl" timeout="300000"/>
+	<dubbo:service interface="com.helpserver.service.NewsService" ref="newsServiceImpl" timeout="300000"/>
 </beans>

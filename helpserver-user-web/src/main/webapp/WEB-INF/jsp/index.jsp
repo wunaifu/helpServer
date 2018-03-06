@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: wunaifu
@@ -77,7 +78,7 @@
     <!--悬浮搜索框-->
 
     <div class="nav white">
-        <div class="logo"><a href="/map" style="float: left"><img src="/images/logo1.png"/><%=nowUser.getLocation()%></a></div>
+        <div class="logo" style="margin-top:18px;font-size: 12px;"><a href="/map"><%--<img src="/images/logo1.png"/>--%><%=nowUser.getLocation()%></a></div>
         <div class="logoBig">
             <li><img src="/images/logobig.png"/></li>
         </div>
@@ -757,18 +758,34 @@
         <!--走马灯 -->
 
         <div class="marqueenTwo">
-            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>平台头条<em
+            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>每日新鲜事<em
                     class="am-icon-angle-double-right"></em></span>
             <div class="demo">
 
                 <ul>
-                    <li class="title-first"><a target="_blank" href="#"><span>[特惠]</span>洋河年末大促，低至两件五折</a></li>
-                    <li><a target="_blank" href="#"><span>[特惠]</span>女生节商城爆品1分秒</a></li>
-                    <li><a target="_blank" href="#"><span>[公告]</span>华北、华中部分地区配送延迟</a></li>
-                    <li><a target="_blank" href="#"><span>[特惠]</span>家电狂欢千亿礼券 买1送1！</a></li>
-                    <li><a target="_blank" href="#"><span>[特惠]</span>洋河年末大促，低至两件五折</a></li>
-                    <li><a target="_blank" href="#"><span>[公告]</span>华北、华中部分地区配送延迟</a></li>
-
+                    <%--<li class="title-first"><a target="_blank" href="#"><span>[特惠]</span>洋河年末大促，低至两件五折</a></li>--%>
+                    <%--<li><a target="_blank" href="#"><span>[特惠]</span>女生节商城爆品1分秒</a></li>--%>
+                    <%--<li><a target="_blank" href="#"><span>[公告]</span>华北、华中部分地区配送延迟</a></li>--%>
+                    <%--<li><a target="_blank" href="#"><span>[特惠]</span>家电狂欢千亿礼券 买1送1！</a></li>--%>
+                    <%--<li><a target="_blank" href="#"><span>[特惠]</span>洋河年末大促，低至两件五折</a></li>--%>
+                    <%--<li><a target="_blank" href="#"><span>[公告]</span>华北、华中部分地区配送延迟</a></li>--%>
+                    <c:choose>
+                        <c:when test="${newsList.size()>0}">
+                            <c:forEach items="${newsList}" var="newsitem" varStatus="status">
+                                <c:choose>
+                                    <c:when test="${status.index==0}">
+                                        <li class="title-first"><a target="_blank" href="#"><span>[公告]</span>${newsitem.title}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a target="_blank" href="#"><span>[公告]</span>${newsitem.title}</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="title-first"><a target="_blank" href="#"><span>[公告]</span>目前没有每日新鲜事</a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
 
             </div>
@@ -806,7 +823,7 @@
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2>
                     <!--<p style="float:left;">互助服务</p>-->
-                    <p style="float:right;"><a href="/sendserver"><span>发起服务</span></a></p>
+                    <p style="float:right;"><a href="/server/add"><span>发起服务</span></a></p>
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">

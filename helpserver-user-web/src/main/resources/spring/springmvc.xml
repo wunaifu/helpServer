@@ -61,4 +61,5 @@
 	<dubbo:reference interface="com.helpserver.service.FeedbackService" id="feedbackService" />
 	<dubbo:reference interface="com.helpserver.service.PayAccountService" id="payAccountService" />
 	<dubbo:reference interface="com.helpserver.service.GoldService" id="goldService" />
-</beans>      
+	<dubbo:reference interface="com.helpserver.service.NewsService" id="newsServer" />
+</beans>

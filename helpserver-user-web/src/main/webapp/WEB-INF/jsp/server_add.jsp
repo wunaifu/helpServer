@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018-01-28
@@ -23,19 +23,28 @@
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 </head>
+<%
+    NowUser nowUser = new NowUser();
+    if (request.getSession().getAttribute("nowUser") != null) {
+        nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+    }
 
+%>
 <body>
 <!--头 -->
 <header>
     <article>
         <div class="mt-logo">
+            <!-- top start -->
             <!--顶部导航条 -->
             <div class="am-container header">
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="#" target="_top" class="h">亲，请登录</a>
-                            <a href="#" target="_top">免费注册</a>
+                            <a href="/map" target="_top">定位：<%=nowUser.getLocation()%></a>
+                            <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
+                            </a>
+                            <a href="/logout" target="_top">退出登录</a>
                         </div>
                     </div>
                 </ul>
@@ -44,13 +53,17 @@
                         <div class="menu-hd"><a href="/index" target="_top" class="h">平台首页</a></div>
                     </div>
                     <div class="topMessage my-shangcheng">
-                        <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                        <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i
+                                class="am-icon-user am-icon-fw"></i>个人中心</a></div>
                     </div>
                     <div class="topMessage mini-cart">
-                        <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span><!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
+                        <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i
+                                class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
+                            <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>
                     <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a></div>
+                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
+                        </div>
                     </div>
                 </ul>
             </div>
@@ -58,21 +71,22 @@
             <!--悬浮搜索框-->
 
             <div class="nav white">
+                <%--<div class="logo"><img src="/images/logo1.png"/></div>--%>
                 <div class="logoBig">
-                    <li><img src="/images/logobig.png" /></li>
+                    <li><img src="/images/logobig.png"/></li>
                 </div>
 
                 <div class="search-bar pr">
                     <a name="index_none_header_sysc" href="#"></a>
-                    <form>
+                    <form action="/searchserver">
                         <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
                         <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
                     </form>
                 </div>
             </div>
+            <!-- top end -->
 
             <div class="clear"></div>
-        </div>
         </div>
     </article>
 </header>
@@ -100,27 +114,13 @@
             <div class="user-info">
                 <!--标题 -->
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> / <small>Personal&nbsp;information</small></div>
+                    <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
+                        <%--<a style="color: #0a628f" href="/index_user">服务中心&nbsp;</a> >&nbsp;--%>
+                        <strong class="am-text-danger am-text-lg">发布服务</strong> /
+                        <small>Server&nbsp;add</small>
+                    </div>
                 </div>
                 <hr/>
-
-                <!--头像 -->
-                <div class="user-infoPic">
-
-                    <div class="filePic">
-                        <input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-                        <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt="" />
-                    </div>
-
-                    <p class="am-form-help">头像</p>
-
-                    <div class="info-m">
-                        <div><b>用户名：<i>小叮当</i></b></div>
-                        <div class="vip">
-                            <span></span><a href="#">会员专享</a>
-                        </div>
-                    </div>
-                </div>
 
                 <!--个人信息 -->
                 <div class="info-main">
@@ -206,44 +206,24 @@
             </div>
 
         </div>
-        <!--底部-->
-        <div class="footer">
-            <div class="footer-hd">
-                <p>
-                    <a href="#">恒望科技</a>
-                    <b>|</b>
-                    <a href="#">商城首页</a>
-                    <b>|</b>
-                    <a href="#">支付宝</a>
-                    <b>|</b>
-                    <a href="#">物流</a>
-                </p>
-            </div>
-            <div class="footer-bd">
-                <p>
-                    <a href="#">关于恒望</a>
-                    <a href="#">合作伙伴</a>
-                    <a href="#">联系我们</a>
-                    <a href="#">网站地图</a>
-                    <em>© 2015-2025 Hengwang.com 版权所有. </em>
-                </p>
-            </div>
-        </div>
+        <!--底部 start-->
+        <jsp:include page="footer.jsp"></jsp:include>
+        <!--底部 end-->
     </div>
 
     <aside class="menu">
         <ul>
             <li class="person active">
-                <a href="index.html"><i class="am-icon-user"></i>个人中心</a>
+                <a href="#"><i class="am-icon-user"></i>服务中心</a>
             </li>
             <li class="person">
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
-                    <li><a href="order.html">已发布</a></li>
-                    <li> <a href="change.html">已接单</a></li>
-                    <li> <a href="change.html">待评价</a></li>
-                    <li> <a href="comment.html">已完成</a></li>
-                    <li><a href="order.html">草稿箱</a></li>
+                    <li><a href="#">已发布</a></li>
+                    <li> <a href="#">已接单</a></li>
+                    <li> <a href="#">待评价</a></li>
+                    <li> <a href="#">已完成</a></li>
+                    <li><a href="#">草稿箱</a></li>
                 </ul>
             </li>
         </ul>

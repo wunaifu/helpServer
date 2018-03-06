@@ -29,12 +29,12 @@
 <body onload="dingwei();">
 
 <div class="login-boxtitle">
-    <a href="#"><img alt="logo" src="../../images/logobig.png"/></a>
+    <a href="#"><img alt="logo" src="/images/logobig.png"/></a>
 </div>
 
 <div class="login-banner">
     <div class="login-main">
-        <div class="login-banner-bg"><span></span><img src="../../images/big.jpg"/></div>
+        <div class="login-banner-bg"><span></span><img src="/images/big.jpg"/></div>
         <div class="login-box" style="padding: 20px;">
 
             <h3 class="title">登录服务平台</h3>
@@ -119,6 +119,9 @@
             $('#killPhoneMessage').hide().html('<label style="color: red;align-content: center">密码不能为空！</label>').show(300);
             $("#password").focus();
             return;
+        }
+        if (myLocationHere==""||myLocationHere==null||myLocationHere==undefined){
+            myLocationHere="江门市";
         }
         $.ajax({
             type : "POST",

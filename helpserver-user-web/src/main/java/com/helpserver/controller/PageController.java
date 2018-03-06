@@ -2,8 +2,10 @@ package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.Gold;
+import com.helpserver.pojo.News;
 import com.helpserver.pojo.User;
 import com.helpserver.service.GoldService;
+import com.helpserver.service.NewsService;
 import com.helpserver.service.UserService;
 import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by wunaifu on 2018/1/18.
@@ -24,6 +27,8 @@ public class PageController {
     UserService userService;
     @Autowired
     GoldService goldService;
+    @Autowired
+    NewsService newsService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
@@ -63,10 +68,12 @@ public class PageController {
     }
 
     @RequestMapping("/index")
-    public String showIndex11(HttpServletRequest request) {
+    public String showIndex11(HttpServletRequest request,Model model) {
         if (!SessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        List<News> newsList = newsService.getNewsList();
+        model.addAttribute("newsList", newsList);
         return "index";
     }
 
@@ -87,6 +94,9 @@ public class PageController {
         User user = userService.selectByPrimaryKey(nowUser.getUserid());
         Gold gold = goldService.getGold(nowUser.getUserid());
         user.setPassword("******");
+        List<News> newsList = newsService.getNewsList();
+
+        model.addAttribute("newsList", newsList);
         model.addAttribute("userinfo", user);
         model.addAttribute("gold", gold);
         return "index_user";

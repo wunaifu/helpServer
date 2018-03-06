@@ -132,6 +132,9 @@ public class UserController {
      */
     @RequestMapping(value = "/disagreeIdentity")
     public String disagreeIdentity(HttpServletRequest request,Model model) throws Exception {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
         int userId= Integer.parseInt(request.getParameter("userId"));
         String reason= request.getParameter("reason");
         String result = identityService.disagreeUserIdentity(userId,reason);

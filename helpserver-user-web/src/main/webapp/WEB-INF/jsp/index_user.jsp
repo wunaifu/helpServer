@@ -297,12 +297,22 @@
                     </div>
                     <div class="s-box">
                         <ul>
-                            <li><a><p>粮油冲锋周 满128减18</p></a></li>
-                            <li><a><p>防晒这么重要的事怎能随意</p></a></li>
-                            <li><a><p>春日护肤面膜不可少，你选对了吗？</p></a></li>
-                            <li><a><p>纯粹时尚，摩登出游，吸睛美衣</p></a></li>
-                            <li><a><p>粮油冲锋周 满128减18</p></a></li>
-                            <li><a><p>春日护肤面膜不可少，你选对了吗？</p></a></li>
+                            <%--<li><a><p>粮油冲锋周 满128减18</p></a></li>--%>
+                            <%--<li><a><p>防晒这么重要的事怎能随意</p></a></li>--%>
+                            <%--<li><a><p>春日护肤面膜不可少，你选对了吗？</p></a></li>--%>
+                            <%--<li><a><p>纯粹时尚，摩登出游，吸睛美衣</p></a></li>--%>
+                            <%--<li><a><p>粮油冲锋周 满128减18</p></a></li>--%>
+                            <%--<li><a><p>春日护肤面膜不可少，你选对了吗？</p></a></li>--%>
+                            <c:choose>
+                                <c:when test="${newsList.size()>0}">
+                                    <c:forEach items="${newsList}" var="newsitem" varStatus="status">
+                                        <li><a><p>${newsitem.title}</p></a></li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a><p>目前没有每日新鲜事</p></a></li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
                 </div>
