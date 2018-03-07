@@ -758,7 +758,7 @@
         <!--走马灯 -->
 
         <div class="marqueenTwo">
-            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>每日新鲜事<em
+            <span class="marqueen-title"><i class="am-icon-volume-up am-icon-fw"></i>平台头条<em
                     class="am-icon-angle-double-right"></em></span>
             <div class="demo">
 

@@ -42,7 +42,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">添加每日新闻</span>
+                    <span class="title">添加平台头条</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -58,8 +58,8 @@
                                             <div class="form-body">
                                                 <form action="/news/add" <%--onsubmit="return suborder()"--%> method="post">
                                                     <ul class="list-group text-left">
-                                                        <li class="list-group-item">标题：<input type="text" name="title" required></li>
-                                                        <li class="list-group-item">内容：<input type="text" name="content" required></li>
+                                                        <li class="list-group-item">标题：<input type="text" name="title" style="min-width: 300px" maxlength="16" required></li>
+                                                        <li class="list-group-item">内容：<textarea name="content" rows="4" cols="60" maxlength="200" required></textarea></li>
                                                         <li class="list-group-item"><input type="submit" value="提交"></li>
                                                     </ul>
                                                 </form>

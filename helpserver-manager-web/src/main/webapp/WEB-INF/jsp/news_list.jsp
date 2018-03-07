@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">每日新闻列表</span>
-                        <div class="description">以下是每日新闻列表.</div>
+                        <span class="title">平台头条列表</span>
+                        <div class="description">以下是平台头条列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a href="/news/addjsp">添加每日新闻</a></div>
+                                    <div class="title"><a href="/news/addjsp" style="color: #0a628f;">添加平台头条</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">

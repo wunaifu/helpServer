@@ -7,6 +7,7 @@ import com.helpserver.pojo.User;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.NewsService;
 import com.helpserver.service.UserService;
+import com.helpserver.utils.Pager;
 import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -95,8 +96,8 @@ public class PageController {
         Gold gold = goldService.getGold(nowUser.getUserid());
         user.setPassword("******");
         List<News> newsList = newsService.getNewsList();
-
-        model.addAttribute("newsList", newsList);
+        Pager<News> pager = new Pager<>(1, 6, newsList);
+        model.addAttribute("newsList", pager.getDataList());
         model.addAttribute("userinfo", user);
         model.addAttribute("gold", gold);
         return "index_user";

@@ -293,7 +293,7 @@
                 <!-- 日历-->
                 <div class="day-list">
                     <div class="s-title">
-                        每日新鲜事
+                        平台头条
                     </div>
                     <div class="s-box">
                         <ul>
