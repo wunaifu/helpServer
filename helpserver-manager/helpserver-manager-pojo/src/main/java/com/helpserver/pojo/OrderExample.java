@@ -1006,6 +1006,76 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andEndtimeIsNull() {
+            addCriterion("endTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeIsNotNull() {
+            addCriterion("endTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeEqualTo(String value) {
+            addCriterion("endTime =", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotEqualTo(String value) {
+            addCriterion("endTime <>", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeGreaterThan(String value) {
+            addCriterion("endTime >", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeGreaterThanOrEqualTo(String value) {
+            addCriterion("endTime >=", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeLessThan(String value) {
+            addCriterion("endTime <", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeLessThanOrEqualTo(String value) {
+            addCriterion("endTime <=", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeLike(String value) {
+            addCriterion("endTime like", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotLike(String value) {
+            addCriterion("endTime not like", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeIn(List<String> values) {
+            addCriterion("endTime in", values, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotIn(List<String> values) {
+            addCriterion("endTime not in", values, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeBetween(String value1, String value2) {
+            addCriterion("endTime between", value1, value2, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotBetween(String value1, String value2) {
+            addCriterion("endTime not between", value1, value2, "endtime");
+            return (Criteria) this;
+        }
+
         public Criteria andRepealtimeIsNull() {
             addCriterion("repealTime is null");
             return (Criteria) this;
@@ -1343,6 +1413,66 @@ public class OrderExample {
 
         public Criteria andCallphoneNotBetween(String value1, String value2) {
             addCriterion("callPhone not between", value1, value2, "callphone");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountIsNull() {
+            addCriterion("seeAmount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountIsNotNull() {
+            addCriterion("seeAmount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountEqualTo(Integer value) {
+            addCriterion("seeAmount =", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountNotEqualTo(Integer value) {
+            addCriterion("seeAmount <>", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountGreaterThan(Integer value) {
+            addCriterion("seeAmount >", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("seeAmount >=", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountLessThan(Integer value) {
+            addCriterion("seeAmount <", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountLessThanOrEqualTo(Integer value) {
+            addCriterion("seeAmount <=", value, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountIn(List<Integer> values) {
+            addCriterion("seeAmount in", values, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountNotIn(List<Integer> values) {
+            addCriterion("seeAmount not in", values, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountBetween(Integer value1, Integer value2) {
+            addCriterion("seeAmount between", value1, value2, "seeamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeeamountNotBetween(Integer value1, Integer value2) {
+            addCriterion("seeAmount not between", value1, value2, "seeamount");
             return (Criteria) this;
         }
     }

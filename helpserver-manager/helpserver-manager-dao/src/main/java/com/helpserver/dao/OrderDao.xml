@@ -15,11 +15,13 @@
     <result column="startPoint" property="startpoint" jdbcType="VARCHAR" />
     <result column="endPoint" property="endpoint" jdbcType="VARCHAR" />
     <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="repealTime" property="repealtime" jdbcType="VARCHAR" />
     <result column="repealReason" property="repealreason" jdbcType="VARCHAR" />
     <result column="orderState" property="orderstate" jdbcType="INTEGER" />
     <result column="callName" property="callname" jdbcType="VARCHAR" />
     <result column="callPhone" property="callphone" jdbcType="VARCHAR" />
+    <result column="seeAmount" property="seeamount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,8 +84,8 @@
   <sql id="Base_Column_List" >
     <if test="fields == null" >
       orderId, senderId, typeId, title, commission, menAccount, detailTime, expendTime, 
-      serverInfo, area, startPoint, endPoint, sendTime, repealTime, repealReason, orderState, 
-      callName, callPhone
+      serverInfo, area, startPoint, endPoint, sendTime, endTime, repealTime, repealReason, 
+      orderState, callName, callPhone, seeAmount
     </if>
     <if test="fields != null" >
       ${fields}
@@ -108,7 +110,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    orderId,senderId,typeId,title,commission,menAccount,detailTime,expendTime,serverInfo,area,startPoint,endPoint,sendTime,repealTime,repealReason,orderState,callName,callPhone
+    orderId,senderId,typeId,title,commission,menAccount,detailTime,expendTime,serverInfo,area,startPoint,endPoint,sendTime,endTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount
     from order
     where orderId = #{orderid,jdbcType=INTEGER}
   </select>
@@ -127,16 +129,16 @@
       title, commission, menAccount, 
       detailTime, expendTime, serverInfo, 
       area, startPoint, endPoint, 
-      sendTime, repealTime, repealReason, 
-      orderState, callName, callPhone
-      )
+      sendTime, endTime, repealTime, 
+      repealReason, orderState, callName, 
+      callPhone, seeAmount)
     values (#{orderid,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
       #{title,jdbcType=VARCHAR}, #{commission,jdbcType=INTEGER}, #{menaccount,jdbcType=INTEGER}, 
       #{detailtime,jdbcType=VARCHAR}, #{expendtime,jdbcType=VARCHAR}, #{serverinfo,jdbcType=VARCHAR}, 
       #{area,jdbcType=VARCHAR}, #{startpoint,jdbcType=VARCHAR}, #{endpoint,jdbcType=VARCHAR}, 
-      #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, #{repealreason,jdbcType=VARCHAR}, 
-      #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, #{callphone,jdbcType=VARCHAR}
-      )
+      #{sendtime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, 
+      #{repealreason,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, 
+      #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Order" >
     insert into order
@@ -180,6 +182,9 @@
       <if test="sendtime != null" >
         sendTime,
       </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
       <if test="repealtime != null" >
         repealTime,
       </if>
@@ -194,6 +199,9 @@
       </if>
       <if test="callphone != null" >
         callPhone,
+      </if>
+      <if test="seeamount != null" >
+        seeAmount,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -236,6 +244,9 @@
       <if test="sendtime != null" >
         #{sendtime,jdbcType=VARCHAR},
       </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
       <if test="repealtime != null" >
         #{repealtime,jdbcType=VARCHAR},
       </if>
@@ -250,6 +261,9 @@
       </if>
       <if test="callphone != null" >
         #{callphone,jdbcType=VARCHAR},
+      </if>
+      <if test="seeamount != null" >
+        #{seeamount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -301,6 +315,9 @@
       <if test="record.sendtime != null" >
         sendTime = #{record.sendtime,jdbcType=VARCHAR},
       </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
       <if test="record.repealtime != null" >
         repealTime = #{record.repealtime,jdbcType=VARCHAR},
       </if>
@@ -315,6 +332,9 @@
       </if>
       <if test="record.callphone != null" >
         callPhone = #{record.callphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seeamount != null" >
+        seeAmount = #{record.seeamount,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -336,11 +356,13 @@
       startPoint = #{record.startpoint,jdbcType=VARCHAR},
       endPoint = #{record.endpoint,jdbcType=VARCHAR},
       sendTime = #{record.sendtime,jdbcType=VARCHAR},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
       repealTime = #{record.repealtime,jdbcType=VARCHAR},
       repealReason = #{record.repealreason,jdbcType=VARCHAR},
       orderState = #{record.orderstate,jdbcType=INTEGER},
       callName = #{record.callname,jdbcType=VARCHAR},
-      callPhone = #{record.callphone,jdbcType=VARCHAR}
+      callPhone = #{record.callphone,jdbcType=VARCHAR},
+      seeAmount = #{record.seeamount,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -384,6 +406,9 @@
       <if test="sendtime != null" >
         sendTime = #{sendtime,jdbcType=VARCHAR},
       </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
       <if test="repealtime != null" >
         repealTime = #{repealtime,jdbcType=VARCHAR},
       </if>
@@ -398,6 +423,9 @@
       </if>
       <if test="callphone != null" >
         callPhone = #{callphone,jdbcType=VARCHAR},
+      </if>
+      <if test="seeamount != null" >
+        seeAmount = #{seeamount,jdbcType=INTEGER},
       </if>
     </set>
     where orderId = #{orderid,jdbcType=INTEGER}
@@ -416,11 +444,13 @@
       startPoint = #{startpoint,jdbcType=VARCHAR},
       endPoint = #{endpoint,jdbcType=VARCHAR},
       sendTime = #{sendtime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
       repealTime = #{repealtime,jdbcType=VARCHAR},
       repealReason = #{repealreason,jdbcType=VARCHAR},
       orderState = #{orderstate,jdbcType=INTEGER},
       callName = #{callname,jdbcType=VARCHAR},
-      callPhone = #{callphone,jdbcType=VARCHAR}
+      callPhone = #{callphone,jdbcType=VARCHAR},
+      seeAmount = #{seeamount,jdbcType=INTEGER}
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
 </mapper>

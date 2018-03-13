@@ -152,7 +152,11 @@
                     <div id="dropdown-form" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
+                                <li><a href="ordertype/list">服务类型管理</a>
+                                </li>
                                 <li><a href="#">进行中服务列表</a>
+                                </li>
+                                <li><a href="#">已完成服务列表</a>
                                 </li>
                                 <li><a href="#">已禁用服务列表</a>
                                 </li>

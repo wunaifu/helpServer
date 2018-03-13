@@ -69,6 +69,11 @@ public class Order implements Serializable {
     private String sendtime;
 
     /**
+     * 抢单结束时间
+     */
+    private String endtime;
+
+    /**
      * 撤单时间
      */
     private String repealtime;
@@ -79,7 +84,7 @@ public class Order implements Serializable {
     private String repealreason;
 
     /**
-     * 订单状态（0草稿，1发布进行1中，2已结束，3已取消、4管理员禁止该订单）
+     * 订单状态（0草稿、1抢单进行中、2服务进行中、3已结束、4已取消、-1管理员禁止该订单
      */
     private Integer orderstate;
 
@@ -92,6 +97,11 @@ public class Order implements Serializable {
      * 联系电话
      */
     private String callphone;
+
+    /**
+     * 浏览数
+     */
+    private Integer seeamount;
 
     private static final long serialVersionUID = 1L;
 
@@ -199,6 +209,14 @@ public class Order implements Serializable {
         this.sendtime = sendtime == null ? null : sendtime.trim();
     }
 
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
+    }
+
     public String getRepealtime() {
         return repealtime;
     }
@@ -239,6 +257,14 @@ public class Order implements Serializable {
         this.callphone = callphone == null ? null : callphone.trim();
     }
 
+    public Integer getSeeamount() {
+        return seeamount;
+    }
+
+    public void setSeeamount(Integer seeamount) {
+        this.seeamount = seeamount;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -258,11 +284,13 @@ public class Order implements Serializable {
         sb.append(", startpoint=").append(startpoint);
         sb.append(", endpoint=").append(endpoint);
         sb.append(", sendtime=").append(sendtime);
+        sb.append(", endtime=").append(endtime);
         sb.append(", repealtime=").append(repealtime);
         sb.append(", repealreason=").append(repealreason);
         sb.append(", orderstate=").append(orderstate);
         sb.append(", callname=").append(callname);
         sb.append(", callphone=").append(callphone);
+        sb.append(", seeamount=").append(seeamount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
