@@ -2,9 +2,9 @@ package com.helpserver.controller;
 
 import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
+import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.ResponseUtils;
-import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by wunaifu on 2018/1/13.
@@ -26,7 +25,7 @@ public class PageController {
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
-//        if (!SessionSetUtils.isManagerLogin(request)) {
+//        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
 //            return "page_403";
 //        }
 //        return page;
@@ -52,7 +51,7 @@ public class PageController {
     public String index(HttpServletRequest request) {
 
         System.out.println("phone==" + request.getSession().getAttribute("phone"));
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         return "index";
@@ -62,7 +61,7 @@ public class PageController {
     public String showIndex11(HttpServletRequest request) {
 
 //        System.out.println("phone=="+request.getSession().getAttribute("phone"));
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         return "index";
@@ -92,7 +91,7 @@ public class PageController {
      */
     @RequestMapping(value = "/manager/myinfo")
     public String myinfo(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String phone= (String) request.getSession().getAttribute("phone");

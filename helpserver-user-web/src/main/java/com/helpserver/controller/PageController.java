@@ -7,12 +7,11 @@ import com.helpserver.pojo.User;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.NewsService;
 import com.helpserver.service.UserService;
+import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.Pager;
-import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,7 @@ public class PageController {
 //    }
     @RequestMapping(value = "/map")
     public String getUserByUserId(HttpServletRequest request) throws Exception {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "index_map";
@@ -70,7 +69,7 @@ public class PageController {
 
     @RequestMapping("/index")
     public String showIndex11(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         List<News> newsList = newsService.getNewsList();
@@ -80,7 +79,7 @@ public class PageController {
 
     @RequestMapping("/index_type")
     public String index_type(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "index_type";
@@ -88,7 +87,7 @@ public class PageController {
 
     @RequestMapping("/index_user")
     public String index_user(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -105,7 +104,7 @@ public class PageController {
 
     @RequestMapping("/index_myorder")
     public String index_myorder(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "index_myorder";

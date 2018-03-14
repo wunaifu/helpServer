@@ -1,11 +1,8 @@
 package com.helpserver.controller;
 
-import com.helpserver.pojo.News;
 import com.helpserver.pojo.Ordertype;
-import com.helpserver.service.NewsService;
 import com.helpserver.service.OrderTypeService;
-import com.helpserver.utils.SessionSetUtils;
-import com.helpserver.utils.TimeUtil;
+import com.helpserver.util.ManagerSessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,7 +30,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/list")
     public String orderTypeList(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList(1);
@@ -50,7 +46,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/dellist")
     public String orderTypeDelList(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList(0);
@@ -67,7 +63,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/del/{id}")
     public String newsDelById(@PathVariable("id") int id, HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }Ordertype ordertype = new Ordertype();
         ordertype.setOrdertypeid(id);
@@ -89,7 +85,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/undel/{id}")
     public String orderTypeUnDelById(@PathVariable("id") int id, HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         Ordertype ordertype = new Ordertype();
@@ -111,7 +107,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/add")
     public String orderTypeAdd(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String typeName = request.getParameter("typeName");
@@ -134,7 +130,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/addjsp")
     public String orderTypeAddJsp(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         return "ordertype_add";
@@ -148,7 +144,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/update")
     public String orderTypeUpdate(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         int id = Integer.parseInt(request.getParameter("id"));
@@ -174,7 +170,7 @@ public class OrderTypeController {
      */
     @RequestMapping("/updatejsp/{id}")
     public String orderTypeUpdateJsp(@PathVariable("id") int id,HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         Ordertype ordertype = orderTypeService.getOrderTypeById(id);

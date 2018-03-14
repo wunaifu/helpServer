@@ -2,10 +2,9 @@ package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.Feedback;
-import com.helpserver.pojo.User;
 import com.helpserver.service.FeedbackService;
 import com.helpserver.service.UserService;
-import com.helpserver.utils.SessionSetUtils;
+import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class FeedbackController {
      */
     @RequestMapping("/user/insertFeedback")
     public String insertFeedback(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -55,7 +54,7 @@ public class FeedbackController {
 
     @RequestMapping("/user/feedback")
     public String feedback(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "user_feedback";
@@ -63,7 +62,7 @@ public class FeedbackController {
 
     @RequestMapping("/user/feedbacklist")
     public String feedbacklist(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");

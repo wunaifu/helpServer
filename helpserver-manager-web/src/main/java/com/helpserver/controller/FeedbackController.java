@@ -1,24 +1,19 @@
 package com.helpserver.controller;
 
-import com.helpserver.pojo.Feedback;
 import com.helpserver.pojo.FeedbackDto;
-import com.helpserver.pojo.User;
 import com.helpserver.service.FeedbackService;
 import com.helpserver.service.UserService;
+import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.ResponseUtils;
-import com.helpserver.utils.SessionSetUtils;
-import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,7 +57,7 @@ public class FeedbackController {
      */
     @RequestMapping("/feedback/undisposelist")
     public String undisposelist(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<FeedbackDto> feedbackDtoList = feedbackService.getFeedbackListByReplyTime(true);
@@ -78,7 +73,7 @@ public class FeedbackController {
      */
     @RequestMapping("/feedback/disposelist")
     public String disposelist(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<FeedbackDto> feedbackDtoList = feedbackService.getFeedbackListByReplyTime(false);

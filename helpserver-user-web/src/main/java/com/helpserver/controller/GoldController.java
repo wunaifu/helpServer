@@ -7,8 +7,8 @@ import com.helpserver.pojo.Goldhistory;
 import com.helpserver.pojo.Payaccount;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.PayAccountService;
+import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
-import com.helpserver.utils.SessionSetUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class GoldController {
      */
     @RequestMapping("/info")
     public String goldInfo(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -75,7 +75,7 @@ public class GoldController {
      */
     @RequestMapping("/pay")
     public String goldPay(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         Payaccount payaccount=payAccountService.getPayAccoun();
@@ -91,7 +91,7 @@ public class GoldController {
     @RequestMapping("/dopay")
     public String goldDoPay(@RequestParam(value = "file", required = false)
                                    MultipartFile file, HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -148,7 +148,7 @@ public class GoldController {
      */
     @RequestMapping("/dosignin")
     public String goldDoSignIn(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -176,7 +176,7 @@ public class GoldController {
      */
     @RequestMapping("/payhistory")
     public String goldPayhistory(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");

@@ -1,26 +1,20 @@
 package com.helpserver.controller;
 
-import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.User;
 import com.helpserver.pojo.UserInfoDto;
 import com.helpserver.service.IdentityService;
 import com.helpserver.service.UserService;
+import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.DESUtils;
-import com.helpserver.utils.ResponseUtils;
-import com.helpserver.utils.SessionSetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Created by wunaifu on 2018/1/11.
@@ -44,7 +38,7 @@ public class UserController {
      */
     @RequestMapping(value = "/unidentitylist")
     public String unIdentityList(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         //获取待审核列表
@@ -61,7 +55,7 @@ public class UserController {
      */
     @RequestMapping(value = "/unagreelist")
     public String unagreelist(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         //获取待审核列表
@@ -78,7 +72,7 @@ public class UserController {
      */
     @RequestMapping(value = "/identityedlist")
     public String identityedlist(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         //获取待审核列表
@@ -96,7 +90,7 @@ public class UserController {
     @RequestMapping(value = "/unidentity/{userId}/detail")
     public String unIdentityDetail(@PathVariable("userId") int userId,
                                    HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         //获取待审核列表
@@ -114,7 +108,7 @@ public class UserController {
     @RequestMapping(value = "/agreeIdentity/{userId}")
     public String agreeIdentity(@PathVariable("userId") int userId,
                                    HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String result = identityService.agreeUserIdentity(userId);
@@ -132,7 +126,7 @@ public class UserController {
      */
     @RequestMapping(value = "/disagreeIdentity")
     public String disagreeIdentity(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         int userId= Integer.parseInt(request.getParameter("userId"));
@@ -156,7 +150,7 @@ public class UserController {
      */
     @RequestMapping(value = "/banlist")
     public String fineAllBanUser(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<User> userList = userService.getUserListByPermission(2);
@@ -176,7 +170,7 @@ public class UserController {
      */
     @RequestMapping(value = "/uselist")
     public String fineAllUsingUser(HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<User> userList = userService.getAllUseingUserList();
@@ -195,7 +189,7 @@ public class UserController {
     @RequestMapping(value = "/{page}/{userId}/detail")
     public String getUserByUserId(@PathVariable("userId") int userId,@PathVariable("page") String page,
                                   HttpServletRequest request,Model model) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         User user = userService.selectByPrimaryKey(userId);
@@ -219,7 +213,7 @@ public class UserController {
     @RequestMapping(value = "/unban/{userId}")
     public String unbanUser(@PathVariable("userId") String userId,
                         HttpServletRequest request) throws Exception {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         int userIdINT = Integer.parseInt(userId);
@@ -237,7 +231,7 @@ public class UserController {
     @RequestMapping(value = "/ban/{userId}")
     public String banUser(@PathVariable("userId") String userId,
                             HttpServletRequest request, HttpServletResponse response) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         int userIdINT = Integer.parseInt(userId);
@@ -254,7 +248,7 @@ public class UserController {
     @RequestMapping(value = "/resetpsw/{userId}")
     public String resetUserPsw(@PathVariable("userId") String userId,
                           HttpServletRequest request, HttpServletResponse response) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         int userIdINT = Integer.parseInt(userId);

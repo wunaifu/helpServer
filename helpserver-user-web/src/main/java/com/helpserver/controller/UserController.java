@@ -5,6 +5,7 @@ import com.helpserver.pojo.Identity;
 import com.helpserver.pojo.User;
 import com.helpserver.service.IdentityService;
 import com.helpserver.service.UserService;
+import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.*;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
@@ -56,7 +57,7 @@ public class UserController {
      */
     @RequestMapping("/info")
     public String userInfo(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -75,7 +76,7 @@ public class UserController {
     @RequestMapping("/update")
     public String userUpdate(@RequestParam(value = "file", required = false)
                                      MultipartFile file, HttpServletRequest request, Model model){
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -140,7 +141,7 @@ public class UserController {
      */
     @RequestMapping("/safety")
     public String userSafety(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -158,7 +159,7 @@ public class UserController {
      */
     @RequestMapping("/resetpsw")
     public String userResetPsw(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "user_resetpsw";
@@ -172,7 +173,7 @@ public class UserController {
      */
     @RequestMapping("/doresetpsw")
     public String doresetpsw(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         String oldPsw = request.getParameter("oldpsw");
@@ -201,7 +202,7 @@ public class UserController {
      */
     @RequestMapping("/bindphone")
     public String userBindPhone(HttpServletRequest request) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         return "user_bindphone";
@@ -215,7 +216,7 @@ public class UserController {
      */
     @RequestMapping("/dobindphone")
     public String doBindPhone(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         int userId = Integer.parseInt(request.getParameter("userId"));
@@ -241,7 +242,7 @@ public class UserController {
      */
     @RequestMapping("/idcard")
     public String userIDcard(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
@@ -261,7 +262,7 @@ public class UserController {
     @RequestMapping("/doidcard")
     public String doIDcard(@RequestParam(value = "file", required = false)
              MultipartFile file[], HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isUserLogin(request)) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");

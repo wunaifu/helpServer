@@ -1,22 +1,17 @@
 package com.helpserver.controller;
 
 import com.helpserver.pojo.Payaccount;
-import com.helpserver.pojo.User;
 import com.helpserver.service.PayAccountService;
-import com.helpserver.service.UserService;
-import com.helpserver.utils.ResponseUtils;
-import com.helpserver.utils.SessionSetUtils;
+import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Date;
 import java.util.UUID;
@@ -38,7 +33,7 @@ public class PayAccountController {
      */
     @RequestMapping("/manager/mypayaccount")
     public String mypayaccount(HttpServletRequest request,Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         Payaccount payaccount=payAccountService.getPayAccoun();
@@ -56,7 +51,7 @@ public class PayAccountController {
     @RequestMapping("/manager/update/payaccount")
     public String updateMypayaccount(@RequestParam(value = "file", required = false)
                                            MultipartFile file, HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String fileName1 = null;

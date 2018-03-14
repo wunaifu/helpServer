@@ -2,7 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.pojo.News;
 import com.helpserver.service.NewsService;
-import com.helpserver.utils.SessionSetUtils;
+import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class NewsController {
      */
     @RequestMapping("/list")
     public String newsList(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         List<News> newsList = newsService.getNewsList();
@@ -49,7 +49,7 @@ public class NewsController {
      */
     @RequestMapping("/del/{id}")
     public String newsDelById(@PathVariable("id") int id, HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String result = newsService.deleteNewsById(id);
@@ -68,7 +68,7 @@ public class NewsController {
      */
     @RequestMapping("/add")
     public String newsAdd(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         String title = request.getParameter("title");
@@ -93,7 +93,7 @@ public class NewsController {
      */
     @RequestMapping("/addjsp")
     public String newsAddJsp(HttpServletRequest request, Model model) {
-        if (!SessionSetUtils.isManagerLogin(request)) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
         return "news_add";
