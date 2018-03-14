@@ -72,8 +72,8 @@
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${status.index+1}</td>
                                                     <td class="manager-border2">${item.title}</td>
-                                                    <td class="manager-border2 manager-hidden1">${item.content}</td>
-                                                    <td class="manager-border2 manager-hidden1">${item.time}</td>
+                                                    <td class="manager-border2">${item.content}</td>
+                                                    <td class="manager-border2">${item.time}</td>
                                                     <td class="manager-border2" style="font-size: 17px">
                                                         <%--<a href="/user/banlist/${item.userid}/detail"><span class="label label-success">详情</span></a>--%>
                                                         <a href="/news/del/${item.id}"><span class="label label-danger">删除</span></a>

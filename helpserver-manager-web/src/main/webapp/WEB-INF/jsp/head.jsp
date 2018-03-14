@@ -187,15 +187,15 @@
                 <!-- Dropdown-->
                 <li class="panel panel-default dropdown">
                     <a data-toggle="collapse" href="#dropdown-icon">
-                        <span class="icon fa fa-thumbs-o-up"></span><span class="title">新闻管理</span>
+                        <span class="icon fa fa-thumbs-o-up"></span><span class="title">平台头条管理</span>
                     </a>
                     <!-- Dropdown level 1 -->
                     <div id="dropdown-icon" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="/news/addjsp">添加每日新闻</a>
+                                <li><a href="/news/addjsp">添加平台头条</a>
                                 </li>
-                                <li><a href="/news/list">每日新闻列表</a>
+                                <li><a href="/news/list">平台头条列表</a>
                                 </li>
                             </ul>
                         </div>

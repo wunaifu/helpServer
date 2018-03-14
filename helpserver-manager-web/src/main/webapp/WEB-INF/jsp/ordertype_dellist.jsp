@@ -70,8 +70,8 @@
                                             <c:forEach items="${orderTypeList}" var="item" varStatus="status">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${status.index+1}</td>
-                                                    <td class="manager-border2 manager-hidden1">${item.type}</td>
-                                                    <td class="manager-border2 manager-hidden1">${item.typename}</td>
+                                                    <td class="manager-border2">${item.type}</td>
+                                                    <td class="manager-border2">${item.typename}</td>
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/ordertype/undel/${item.ordertypeid}"><span class="label label-success">取消禁用</span></a>
                                                     </td>

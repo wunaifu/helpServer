@@ -3,9 +3,11 @@ package com.helpserver.controller;
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.Gold;
 import com.helpserver.pojo.News;
+import com.helpserver.pojo.Ordertype;
 import com.helpserver.pojo.User;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.NewsService;
+import com.helpserver.service.OrderTypeService;
 import com.helpserver.service.UserService;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.Pager;
@@ -29,6 +31,8 @@ public class PageController {
     GoldService goldService;
     @Autowired
     NewsService newsService;
+    @Autowired
+    OrderTypeService orderTypeService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
@@ -73,15 +77,19 @@ public class PageController {
             return "page_403";
         }
         List<News> newsList = newsService.getNewsList();
+        List<Ordertype> orderTypeList = orderTypeService.getOrdertypeList(1);
         model.addAttribute("newsList", newsList);
+        model.addAttribute("orderTypeList", orderTypeList);
         return "index";
     }
 
     @RequestMapping("/index_type")
-    public String index_type(HttpServletRequest request) {
+    public String index_type(HttpServletRequest request,Model model) {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        List<Ordertype> orderTypeList = orderTypeService.getOrdertypeList(1);
+        model.addAttribute("orderTypeList", orderTypeList);
         return "index_type";
     }
 
