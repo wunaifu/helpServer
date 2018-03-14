@@ -27,7 +27,7 @@ public class OrderTypeController {
     OrderTypeService orderTypeService;
 
     /**
-     * 管理员查看订单类型列表
+     * 管理员查看订单类型列表，未删除
      * @param request
      * @param model
      * @return
@@ -37,9 +37,25 @@ public class OrderTypeController {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList();
+        List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList(1);
         model.addAttribute("orderTypeList", ordertypeList);
         return "ordertype_list";
+    }
+
+    /**
+     * 管理员查看订单类型列表，已删除
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/dellist")
+    public String orderTypeDelList(HttpServletRequest request, Model model) {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList(0);
+        model.addAttribute("orderTypeList", ordertypeList);
+        return "ordertype_dellist";
     }
 
     /**
@@ -53,12 +69,37 @@ public class OrderTypeController {
     public String newsDelById(@PathVariable("id") int id, HttpServletRequest request, Model model) {
         if (!SessionSetUtils.isManagerLogin(request)) {
             return "page_403";
-        }
-        String result = orderTypeService.deleteOrderTypeById(id);
-        if (result.equals("del_success")) {
+        }Ordertype ordertype = new Ordertype();
+        ordertype.setOrdertypeid(id);
+        ordertype.setType(0);
+        String result = orderTypeService.updateOrderTypeTypeById(ordertype);
+        if (result.equals("update_success")) {
             return "redirect:/ordertype/list";
         }
-        model.addAttribute("message", "删除订单类型，请稍后再试！");
+        model.addAttribute("reason", "删除订单类型，请稍后再试！");
+        return "page_400";
+    }
+
+    /**
+     * 管理员通过id取消删除订单类型
+     * @param id
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/undel/{id}")
+    public String orderTypeUnDelById(@PathVariable("id") int id, HttpServletRequest request, Model model) {
+        if (!SessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        Ordertype ordertype = new Ordertype();
+        ordertype.setOrdertypeid(id);
+        ordertype.setType(1);
+        String result = orderTypeService.updateOrderTypeTypeById(ordertype);
+        if (result.equals("update_success")) {
+            return "redirect:/ordertype/dellist";
+        }
+        model.addAttribute("reason", "删除订单类型，请稍后再试！");
         return "page_400";
     }
 
@@ -76,11 +117,12 @@ public class OrderTypeController {
         String typeName = request.getParameter("typeName");
         Ordertype ordertype = new Ordertype();
         ordertype.setTypename(typeName);
+        ordertype.setType(1);
         String result = orderTypeService.insertOrderType(ordertype);
-        if (result.equals("insert_success")) {
+        if (result.equals("add_success")) {
             return "redirect:/ordertype/list";
         }
-        model.addAttribute("message", "添加订单类型失败，请稍后再试！");
+        model.addAttribute("reason", "添加订单类型失败，请稍后再试！");
         return "page_400";
     }
 
@@ -120,7 +162,7 @@ public class OrderTypeController {
         if (result.equals("update_success")) {
             return "redirect:/ordertype/list";
         }
-        model.addAttribute("message", "添加订单类型失败，请稍后再试！");
+        model.addAttribute("reason", "添加订单类型失败，请稍后再试！");
         return "page_400";
     }
 

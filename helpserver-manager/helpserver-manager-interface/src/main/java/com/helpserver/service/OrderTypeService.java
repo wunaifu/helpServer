@@ -15,9 +15,9 @@ public interface OrderTypeService {
 
     String updateOrderType(Ordertype orderType);
 
-    String deleteOrderTypeById(int id);
+    String updateOrderTypeTypeById(Ordertype ordertype);
 
     Ordertype getOrderTypeById(int id);
 
-    List<Ordertype> getOrdertypeList();
+    List<Ordertype> getOrdertypeList(int type);
 }

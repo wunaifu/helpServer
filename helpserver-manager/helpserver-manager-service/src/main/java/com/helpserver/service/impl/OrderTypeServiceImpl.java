@@ -30,8 +30,8 @@ public class OrderTypeServiceImpl implements OrderTypeService {
         OrdertypeExample ordertypeExample = new OrdertypeExample();
         OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
         criteria.andOrdertypeidIsNotNull();
-        int count = ordertypeDao.countByExample(ordertypeExample);
-        orderType.setType(count);
+        //int count = ordertypeDao.countByExample(ordertypeExample);
+        //orderType.setType(1);
         if (ordertypeDao.insertSelective(orderType)==1) {
             return "add_success";
         }
@@ -47,11 +47,11 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     }
 
     @Override
-    public String deleteOrderTypeById(int id) {
-        if (ordertypeDao.deleteByPrimaryKey(id) == 1) {
-            return "del_success";
+    public String updateOrderTypeTypeById(Ordertype ordertype) {
+        if (ordertypeDao.updateByPrimaryKeySelective(ordertype) == 1) {
+            return "update_success";
         }
-        return "del_error";
+        return "update_error";
     }
 
     @Override
@@ -60,9 +60,10 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     }
 
     @Override
-    public List<Ordertype> getOrdertypeList() {
+    public List<Ordertype> getOrdertypeList(int type) {
         OrdertypeExample ordertypeExample = new OrdertypeExample();
         OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
+        criteria.andTypeEqualTo(type);
         ordertypeExample.setOrderByClause("type asc");
         return ordertypeDao.selectByExample(ordertypeExample);
     }

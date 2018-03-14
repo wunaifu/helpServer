@@ -56,7 +56,7 @@ public class NewsController {
         if (result.equals("del_success")) {
             return "redirect:/news/list";
         }
-        model.addAttribute("message", "删除每日新闻失败，请稍后再试！");
+        model.addAttribute("reason", "删除每日新闻失败，请稍后再试！");
         return "page_400";
     }
 
@@ -81,7 +81,7 @@ public class NewsController {
         if (result.equals("insert_success")) {
             return "redirect:/news/list";
         }
-        model.addAttribute("message", "添加每日新闻失败，请稍后再试！");
+        model.addAttribute("reason", "添加每日新闻失败，请稍后再试！");
         return "page_400";
     }
 

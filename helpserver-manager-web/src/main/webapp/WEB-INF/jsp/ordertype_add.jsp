@@ -58,7 +58,7 @@
                                             <div class="form-body">
                                                 <form action="/ordertype/add" <%--onsubmit="return suborder()"--%> method="post">
                                                     <ul class="list-group text-left">
-                                                        <li class="list-group-item">类型名字：<input type="text" name="title" style="min-width: 300px" maxlength="12" required></li>
+                                                        <li class="list-group-item">类型名字：<input type="text" name="typeName" style="min-width: 300px" maxlength="12" required></li>
                                                         <li class="list-group-item"><input type="submit" value="提交"></li>
                                                     </ul>
                                                 </form>

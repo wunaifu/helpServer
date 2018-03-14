@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">订单类型</span>
-                        <div class="description">以下是所有的用户可选择使用的订单类型，您可以进行查看修改.</div>
+                        <span class="title">已删除的订单类型列表</span>
+                        <div class="description">以下是已删除的订单类型列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp">添加订单类型</a><a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist">已禁用订单类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/list">订单类型管理</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -73,8 +73,7 @@
                                                     <td class="manager-border2 manager-hidden1">${item.type}</td>
                                                     <td class="manager-border2 manager-hidden1">${item.typename}</td>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/ordertype/updatejsp/${item.ordertypeid}"><span class="label label-default">修改</span></a>
-                                                        <a href="/ordertype/del/${item.ordertypeid}"><span class="label label-danger">禁用</span></a>
+                                                        <a href="/ordertype/undel/${item.ordertypeid}"><span class="label label-success">取消禁用</span></a>
                                                     </td>
 
                                                 </tr>
