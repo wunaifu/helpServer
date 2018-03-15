@@ -122,8 +122,9 @@
                 <!--标题 -->
                 <div class="am-cf am-padding">
                     <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
-                        <a style="color: #0a628f" href="">服务中心&nbsp;</a> >&nbsp;
-                        <strong class="am-text-danger am-text-lg">用户信息</strong>
+                        <%--<a style="color: #0a628f" href="/index_user">服务中心&nbsp;</a> >&nbsp;--%>
+                        <strong class="am-text-danger am-text-lg">发布服务</strong> /
+                        <small>Server&nbsp;add</small>
                     </div>
                 </div>
                 <hr/>
@@ -152,6 +153,9 @@
 
                                     <div class="am-tab-panel am-fade am-in am-active">
                                         <div class="details">
+                                            <!--<div class="attr-list-hd after-market-hd">
+                                                <h4>商品细节</h4>
+                                            </div>-->
                                             <div class="twlistNews">
                                                 <img style="width: 80px;height: 80px;" src="/images/tw1.jpg" />
 

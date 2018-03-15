@@ -23,6 +23,11 @@ public class ServerOrderController {
         return "server_detail";
     }
 
+    @RequestMapping("/server/info")
+    public String serverInfo(HttpServletRequest request, Model model) {
+        return "server_info";
+    }
+
     @RequestMapping("/server/userinfo")
     public String serverUserInfo(HttpServletRequest request, Model model) {
         return "server_userinfo";
