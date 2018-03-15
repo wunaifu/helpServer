@@ -18,4 +18,14 @@ public class ServerOrderController {
         return "server_add";
     }
 
+    @RequestMapping("/server/detail")
+    public String serverDetail(HttpServletRequest request, Model model) {
+        return "server_detail";
+    }
+
+    @RequestMapping("/server/userinfo")
+    public String serverUserInfo(HttpServletRequest request, Model model) {
+        return "server_userinfo";
+    }
+
 }

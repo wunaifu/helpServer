@@ -309,11 +309,11 @@
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">
-                    <h3><a href="/serverdetail">犯错了怎么办？</a></h3>
-                    <figure><a href="/serveruserinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
+                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
+                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
                     </figure>
                     <ul>
-                        <a href="/serverdetail">
+                        <a href="/server/detail">
                             <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
                                 感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
                                 人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
@@ -335,35 +335,54 @@
                     <div class="dateview">04-08 12:12:12</div>
                 </div>
                 <div class="blogs">
-                    <h3><a href="introduction.html">犯错了怎么办？</a></h3>
-                    <figure><img style="width: 72px;height: 72px;" src="/images/01.jpg"></figure>
+                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
+                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
+                    </figure>
                     <ul>
-                        <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者</p>
+                        <a href="/server/detail">
+                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
+                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
+                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+                            </p>
+                        </a>
                         <div class="autor1">
-                            <span>额外佣金：￥100</span>
+                            <span>分类：零活</span>
+                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
                             <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span></div>
-                        <a href="/" target="_blank" class="readmore">马上抢单</a>
+                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
+                        </div>
+                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
                     </ul>
-                    <p class="autor"><span>主人：杨青青</span><span>分类：【<a href="/">零活</a>】</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span><span>已抢单（<a>3/5</a>）</span>
+                    <p class="autor"><span>主人：杨青青</span>
+                        <span>已抢单（<a>3/5</a>）</span>
+                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
                     </p>
                     <div class="dateview">04-08 12:12:12</div>
                 </div>
                 <div class="blogs">
-                    <h3><a href="/">犯错了怎么办？</a></h3>
-                    <figure><img style="width: 72px;height: 72px;" src="/images/01.jpg"></figure>
+                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
+                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
+                    </figure>
                     <ul>
-                        <p>
-                            看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。</p>
+                        <a href="/server/detail">
+                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
+                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
+                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+                            </p>
+                        </a>
                         <div class="autor1">
-                            <span>额外佣金：￥100</span>
+                            <span>分类：零活</span>
+                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
                             <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span></div>
-                        <a href="/" target="_blank" class="readmore">马上抢单</a>
+                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
+                        </div>
+                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
                     </ul>
-                    <p class="autor"><span>主人：杨青青</span><span>分类：【<a href="/">零活</a>】</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span><span>已抢单（<a>3/5</a>）</span>
+                    <p class="autor"><span>主人：杨青青</span>
+                        <span>已抢单（<a>3/5</a>）</span>
+                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
                     </p>
                     <div class="dateview">04-08 12:12:12</div>
                 </div>

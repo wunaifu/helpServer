@@ -41,7 +41,7 @@
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="/map" target="_top">定位：<%=nowUser.getLocation()%></a>
+                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%></a>
                             <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
                             </a>
                             <a href="/logout" target="_top">退出登录</a>
@@ -124,21 +124,49 @@
 
                 <!--个人信息 -->
                 <div class="info-main">
-                    <form class="am-form am-form-horizontal">
-
+                    <form class="am-form am-form-horizontal" action="#" method="post">
                         <div class="am-form-group">
-                            <label for="user-name2" class="am-form-label">昵称</label>
+                            <label for="ordertype" class="am-form-label">类型</label>
+                            <div class="am-form-content birth">
+                                <div class="birth-select2">
+                                    <select data-am-selected id="ordertype" name="ordertype">
+                                        <option value="a">零活</option>
+                                        <option value="b">跑腿</option>
+                                        <option value="b">其他</option>
+                                    </select>
+                                    <%--<em>省</em>--%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="title" class="am-form-label">标题</label>
                             <div class="am-form-content">
-                                <input type="text" id="user-name2" placeholder="nickname">
-                                <small>昵称长度不能超过40个汉字</small>
+                                <input type="text" id="title" name="title" placeholder="标题长度不能超过20个汉字"
+                                maxlength="20">
+                                <%--<small>标题长度不能超过20个汉字</small>--%>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group" style="height: auto;">
+                            <label for="content" class="am-form-label">详情</label>
+                            <div class="am-form-content">
+                                <textarea type="text" id="content" name="content" placeholder="详情长度不能超过120个汉字"
+                                          maxlength="120" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="commission" class="am-form-label">酬劳(￥)</label>
+                            <div class="am-form-content">
+                                <input type="text" id="commission" name="commission" placeholder="发布人额外支付的酬劳"
+                                       maxlength="8">
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="user-name" class="am-form-label">姓名</label>
+                            <label for="menAccount" class="am-form-label">人数</label>
                             <div class="am-form-content">
-                                <input type="text" id="user-name2" placeholder="name">
-
+                                <input type="text" id="menAccount" name="menAccount" placeholder="服务所需要的人数"
+                                       maxlength="5">
                             </div>
                         </div>
 
@@ -146,56 +174,61 @@
                             <label class="am-form-label">性别</label>
                             <div class="am-form-content sex">
                                 <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="male" data-am-ucheck> 男
+                                    <input type="radio" name="sex" value="1" data-am-ucheck> 男
                                 </label>
                                 <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="female" data-am-ucheck> 女
+                                    <input type="radio" name="sex" value="0" data-am-ucheck> 女
                                 </label>
                                 <label class="am-radio-inline">
-                                    <input type="radio" name="radio10" value="secret" data-am-ucheck> 保密
+                                    <input type="radio" name="sex" value="2" checked="checked" data-am-ucheck> 不限
                                 </label>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="user-birth" class="am-form-label">生日</label>
+                            <label for="user-birth" class="am-form-label">地点</label>
                             <div class="am-form-content birth">
-                                <div class="birth-select">
+                                <div class="birth-select2">
                                     <select data-am-selected>
-                                        <option value="a">2015</option>
-                                        <option value="b">1987</option>
+                                        <option value="a">广东</option>
+                                        <option value="b">广西</option>
                                     </select>
-                                    <em>年</em>
+                                    <em>省</em>
                                 </div>
                                 <div class="birth-select2">
                                     <select data-am-selected>
-                                        <option value="a">12</option>
-                                        <option value="b">8</option>
+                                        <option value="a">广州</option>
+                                        <option value="b">江门</option>
                                     </select>
-                                    <em>月</em></div>
+                                    <em>市</em></div>
                                 <div class="birth-select2">
                                     <select data-am-selected>
-                                        <option value="a">21</option>
-                                        <option value="b">23</option>
+                                        <option value="a">白云区</option>
+                                        <option value="b">蓬江区</option>
                                     </select>
-                                    <em>日</em></div>
-                            </div>
-
-                        </div>
-                        <div class="am-form-group">
-                            <label for="user-phone" class="am-form-label">电话</label>
-                            <div class="am-form-content">
-                                <input id="user-phone" placeholder="telephonenumber" type="tel">
-
+                                    <em>区</em></div>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="user-email" class="am-form-label">电子邮件</label>
+                            <label for="expendTime" class="am-form-label">预计耗时</label>
                             <div class="am-form-content">
-                                <input id="user-email" placeholder="Email" type="email">
-
+                                <input id="expendTime" name="expendTime" placeholder="预计服务所需要的时间" type="text" maxlength="20">
                             </div>
                         </div>
+                        <div class="am-form-group">
+                            <label for="username" class="am-form-label">联系人</label>
+                            <div class="am-form-content">
+                                <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="userphone" class="am-form-label">联系电话</label>
+                            <div class="am-form-content">
+                                <input id="userphone" name="userphone" placeholder="服务联系人的联系方式" type="text" maxlength="15">
+                            </div>
+                        </div>
+                        <input style="visibility: hidden" id="orderState" name="orderState" value="0">
+
                         <div class="info-btn">
                             <div class="am-btn am-btn-danger">保存修改</div>
                         </div>
