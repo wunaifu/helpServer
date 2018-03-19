@@ -11,7 +11,7 @@ public interface OrdertypeDao {
 
     int deleteByExample(OrdertypeExample example);
 
-    int deleteByPrimaryKey(Integer ordertypeid);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Ordertype record);
 
@@ -19,7 +19,7 @@ public interface OrdertypeDao {
 
     List<Ordertype> selectByExample(OrdertypeExample example);
 
-    Ordertype selectByPrimaryKey(Integer ordertypeid);
+    Ordertype selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Ordertype record, @Param("example") OrdertypeExample example);
 

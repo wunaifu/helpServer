@@ -3,7 +3,7 @@ package com.helpserver.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdertypeExample {
+public class BigtypeExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -18,7 +18,7 @@ public class OrdertypeExample {
 
     protected String fields;
 
-    public OrdertypeExample() {
+    public BigtypeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -206,66 +206,6 @@ public class OrdertypeExample {
             return (Criteria) this;
         }
 
-        public Criteria andBigtypeidIsNull() {
-            addCriterion("bigtypeId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidIsNotNull() {
-            addCriterion("bigtypeId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidEqualTo(Integer value) {
-            addCriterion("bigtypeId =", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidNotEqualTo(Integer value) {
-            addCriterion("bigtypeId <>", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidGreaterThan(Integer value) {
-            addCriterion("bigtypeId >", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("bigtypeId >=", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidLessThan(Integer value) {
-            addCriterion("bigtypeId <", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidLessThanOrEqualTo(Integer value) {
-            addCriterion("bigtypeId <=", value, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidIn(List<Integer> values) {
-            addCriterion("bigtypeId in", values, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidNotIn(List<Integer> values) {
-            addCriterion("bigtypeId not in", values, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidBetween(Integer value1, Integer value2) {
-            addCriterion("bigtypeId between", value1, value2, "bigtypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andBigtypeidNotBetween(Integer value1, Integer value2) {
-            addCriterion("bigtypeId not between", value1, value2, "bigtypeid");
-            return (Criteria) this;
-        }
-
         public Criteria andTypenameIsNull() {
             addCriterion("typeName is null");
             return (Criteria) this;
@@ -333,66 +273,6 @@ public class OrdertypeExample {
 
         public Criteria andTypenameNotBetween(String value1, String value2) {
             addCriterion("typeName not between", value1, value2, "typename");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateIsNull() {
-            addCriterion("state is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateIsNotNull() {
-            addCriterion("state is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateEqualTo(Integer value) {
-            addCriterion("state =", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateNotEqualTo(Integer value) {
-            addCriterion("state <>", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateGreaterThan(Integer value) {
-            addCriterion("state >", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
-            addCriterion("state >=", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateLessThan(Integer value) {
-            addCriterion("state <", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateLessThanOrEqualTo(Integer value) {
-            addCriterion("state <=", value, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateIn(List<Integer> values) {
-            addCriterion("state in", values, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateNotIn(List<Integer> values) {
-            addCriterion("state not in", values, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateBetween(Integer value1, Integer value2) {
-            addCriterion("state between", value1, value2, "state");
-            return (Criteria) this;
-        }
-
-        public Criteria andStateNotBetween(Integer value1, Integer value2) {
-            addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
     }

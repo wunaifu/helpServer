@@ -27,11 +27,6 @@ public class OrderTypeServiceImpl implements OrderTypeService {
 
     @Override
     public String insertOrderType(Ordertype orderType) {
-        OrdertypeExample ordertypeExample = new OrdertypeExample();
-        OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
-        criteria.andOrdertypeidIsNotNull();
-        //int count = ordertypeDao.countByExample(ordertypeExample);
-        //orderType.setType(1);
         if (ordertypeDao.insertSelective(orderType)==1) {
             return "add_success";
         }
@@ -60,10 +55,10 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     }
 
     @Override
-    public List<Ordertype> getOrdertypeList(int type) {
+    public List<Ordertype> getOrdertypeList(int state) {
         OrdertypeExample ordertypeExample = new OrdertypeExample();
         OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
-        criteria.andTypeEqualTo(type);
+        criteria.andStateEqualTo(state);
         ordertypeExample.setOrderByClause("type asc");
         return ordertypeDao.selectByExample(ordertypeExample);
     }
