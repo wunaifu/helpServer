@@ -10,6 +10,11 @@ public class Bigtype implements Serializable {
      */
     private String typename;
 
+    /**
+     * 创建时间
+     */
+    private String createtime;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -28,6 +33,14 @@ public class Bigtype implements Serializable {
         this.typename = typename == null ? null : typename.trim();
     }
 
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -36,6 +49,7 @@ public class Bigtype implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", typename=").append(typename);
+        sb.append(", createtime=").append(createtime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

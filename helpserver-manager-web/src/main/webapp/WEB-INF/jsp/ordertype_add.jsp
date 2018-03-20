@@ -42,7 +42,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">添加订单类型</span>
+                    <span class="title">添加订单子类型</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -58,6 +58,7 @@
                                             <div class="form-body">
                                                 <form action="/ordertype/add" <%--onsubmit="return suborder()"--%> method="post">
                                                     <ul class="list-group text-left">
+                                                        <input class="hidden" name="bigtypeId" value="${bigtypeId}"/>
                                                         <li class="list-group-item">类型名字：<input type="text" name="typeName" style="min-width: 300px" maxlength="12" required></li>
                                                         <li class="list-group-item"><input type="submit" value="提交"></li>
                                                     </ul>

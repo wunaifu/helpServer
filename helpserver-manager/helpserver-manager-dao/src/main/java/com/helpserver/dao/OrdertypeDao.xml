@@ -6,6 +6,7 @@
     <result column="bigtypeId" property="bigtypeid" jdbcType="INTEGER" />
     <result column="typeName" property="typename" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, bigtypeId, typeName, state
+      id, bigtypeId, typeName, state, createTime
     </if>
     <if test="fields != null" >
       ${fields}
@@ -92,7 +93,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,bigtypeId,typeName,state
+    id,bigtypeId,typeName,state,createTime
     from ordertype
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -108,9 +109,9 @@
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Ordertype" >
     insert into ordertype (id, bigtypeId, typeName, 
-      state)
+      state, createTime)
     values (#{id,jdbcType=INTEGER}, #{bigtypeid,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER})
+      #{state,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Ordertype" >
     insert into ordertype
@@ -127,6 +128,9 @@
       <if test="state != null" >
         state,
       </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,6 +144,9 @@
       </if>
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -164,6 +171,9 @@
       <if test="record.state != null" >
         state = #{record.state,jdbcType=INTEGER},
       </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -174,7 +184,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       bigtypeId = #{record.bigtypeid,jdbcType=INTEGER},
       typeName = #{record.typename,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER}
+      state = #{record.state,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -191,6 +202,9 @@
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},
       </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -198,7 +212,8 @@
     update ordertype
     set bigtypeId = #{bigtypeid,jdbcType=INTEGER},
       typeName = #{typename,jdbcType=VARCHAR},
-      state = #{state,jdbcType=INTEGER}
+      state = #{state,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

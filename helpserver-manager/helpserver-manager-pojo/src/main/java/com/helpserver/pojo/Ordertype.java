@@ -20,6 +20,11 @@ public class Ordertype implements Serializable {
      */
     private Integer state;
 
+    /**
+     * 创建时间
+     */
+    private String createtime;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -54,6 +59,14 @@ public class Ordertype implements Serializable {
         this.state = state;
     }
 
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -64,6 +77,7 @@ public class Ordertype implements Serializable {
         sb.append(", bigtypeid=").append(bigtypeid);
         sb.append(", typename=").append(typename);
         sb.append(", state=").append(state);
+        sb.append(", createtime=").append(createtime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

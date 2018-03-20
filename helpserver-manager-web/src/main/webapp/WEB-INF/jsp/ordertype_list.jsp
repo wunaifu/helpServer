@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp">添加订单类型</a><a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist">已禁用订单类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp/${bigtypeId}">添加订单类型</a><a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist/${bigtypeId}">已禁用订单子类型</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -61,20 +61,18 @@
                                         <thead>
                                         <tr>
                                             <th class="manager-border2">序号</th>
-                                            <th class="manager-border2">状态</th>
                                             <th class="manager-border2">类型名字</th>
                                             <th hidden></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${orderTypeList}" var="item" varStatus="status">
+                                            <c:forEach items="${ordertypeList}" var="item" varStatus="status">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${status.index+1}</td>
-                                                    <td class="manager-border2">${item.type}</td>
                                                     <td class="manager-border2">${item.typename}</td>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/ordertype/updatejsp/${item.ordertypeid}"><span class="label label-default">修改</span></a>
-                                                        <a href="/ordertype/del/${item.ordertypeid}"><span class="label label-danger">禁用</span></a>
+                                                        <a href="/ordertype/updatejsp/${item.id}"><span class="label label-default">修改</span></a>
+                                                        <a href="/ordertype/del/${item.id}"><span class="label label-danger">禁用</span></a>
                                                     </td>
 
                                                 </tr>

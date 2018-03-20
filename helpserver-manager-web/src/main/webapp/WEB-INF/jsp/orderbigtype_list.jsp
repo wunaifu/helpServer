@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">已删除的订单类型列表</span>
-                        <div class="description">以下是已删除的订单类型列表.</div>
+                        <span class="title">订单父类型管理</span>
+                        <div class="description">以下是所有的用户可选择使用的订单的父类型，您可以进行查看修改.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/typelist/${bigtypeId}">未禁用订单子类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addbigjsp">添加订单父类型</a><a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist">已禁用订单类型</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -66,12 +66,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${orderTypeList}" var="item" varStatus="status">
+                                            <c:forEach items="${bigtypeList}" var="item" varStatus="status">
                                                 <tr class="manager-bg input-lg">
                                                     <td class="manager-border2">${status.index+1}</td>
                                                     <td class="manager-border2">${item.typename}</td>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/ordertype/undel/${item.id}"><span class="label label-success">取消禁用</span></a>
+                                                        <a href="/ordertype/updatebigjsp/${item.id}"><span class="label label-default">修改</span></a>
+                                                        <a href="/ordertype/typelist/${item.id}"><span class="label label-default">查看子类型</span></a>
                                                     </td>
 
                                                 </tr>

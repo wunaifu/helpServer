@@ -43,7 +43,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">修改订单子类型</span>
+                    <span class="title">修改订单父类型</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -57,11 +57,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-body">
-                                                <form action="/ordertype/update" <%--onsubmit="return suborder()"--%> method="post">
+                                                <form action="/ordertype/updatebig" <%--onsubmit="return suborder()"--%> method="post">
                                                     <ul class="list-group text-left">
-                                                        <input value="${orderType.id}" class="hidden" name="id">
-                                                        <input value="${orderType.bigtypeid}" class="hidden" name="bigtypeid">
-                                                        <li class="list-group-item">类型名字：<input value="${orderType.typename}" type="text" name="typeName" style="min-width: 300px" maxlength="12" required></li>
+                                                        <input value="${bigType.id}" class="hidden" name="id">
+                                                        <li class="list-group-item">类型名字：<input value="${bigType.typename}" type="text" name="typeName" style="min-width: 300px" maxlength="12" required></li>
                                                         <li class="list-group-item"><input type="submit" value="提交"></li>
                                                     </ul>
                                                 </form>
