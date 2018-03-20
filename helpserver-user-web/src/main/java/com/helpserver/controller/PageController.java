@@ -1,10 +1,7 @@
 package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
-import com.helpserver.pojo.Gold;
-import com.helpserver.pojo.News;
-import com.helpserver.pojo.Ordertype;
-import com.helpserver.pojo.User;
+import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.NewsService;
 import com.helpserver.service.OrderTypeService;
@@ -77,9 +74,9 @@ public class PageController {
             return "page_403";
         }
         List<News> newsList = newsService.getNewsList();
-        List<Ordertype> orderTypeList = orderTypeService.getOrdertypeList(1);
+        List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
         model.addAttribute("newsList", newsList);
-        model.addAttribute("orderTypeList", orderTypeList);
+        model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         return "index";
     }
 
@@ -88,8 +85,8 @@ public class PageController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-        List<Ordertype> orderTypeList = orderTypeService.getOrdertypeList(1);
-        model.addAttribute("orderTypeList", orderTypeList);
+        List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
+        model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         return "index_type";
     }
 

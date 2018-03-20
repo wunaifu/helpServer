@@ -280,8 +280,6 @@ public class OrderTypeController {
         return "ordertype_dellist";
     }
 
-
-
     /**
      * 管理员通过id取消删除订单类型
      * @param id

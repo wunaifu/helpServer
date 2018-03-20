@@ -53,7 +53,10 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp/${bigtypeId}">添加订单类型</a><a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist/${bigtypeId}">已禁用订单子类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp/${bigtypeId}">添加订单类型</a>
+                                        <a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist/${bigtypeId}">已禁用订单子类型</a>
+                                        <a style="margin-left:50px;color: #0a628f" href="/ordertype/biglist">订单父类型</a>
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="card-body">

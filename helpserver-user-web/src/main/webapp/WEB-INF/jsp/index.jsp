@@ -142,26 +142,28 @@
                     <div class="category" style="box-shadow:none ;margin-top: 2px;">
                         <ul class="category-list navTwo" id="js_climit_li">
                             <c:choose>
-                                <c:when test="${orderTypeList.size()>0}">
-                                    <c:forEach items="${orderTypeList}" var="typeitem" varStatus="status">
+                                <c:when test="${orderTypeDtoList.size()>0}">
+                                    <c:forEach items="${orderTypeDtoList}" var="bigitem" varStatus="status">
                                         <li>
                                             <div class="category-info">
                                                 <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
-                                                        class="ml-22" title="点心">${typeitem.typename}</a></h3>
+                                                        class="ml-22" title="点心">${bigitem.bigtype.typename}</a></h3>
                                                 <em>&gt;</em></div>
                                             <div class="menu-item menu-in top">
                                                 <div class="area-in">
                                                     <div class="area-bg">
                                                         <div class="menu-srot">
                                                             <div class="sort-side">
-                                                                <dl class="dl-sort">
-                                                                    <dt><span title="蛋糕">蛋糕</span></dt>
-                                                                    <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                                                </dl>
-                                                                <dl class="dl-sort">
-                                                                    <dt><span title="蛋糕">点心</span></dt>
-                                                                    <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                                                </dl>
+                                                            <c:choose>
+                                                                <c:when test="${orderTypeDtoList.size()>0}">
+                                                                    <c:forEach items="${bigitem.ordertypeList}" var="typeitem" varStatus="status">
+                                                                        <dl class="dl-sort">
+                                                                            <dt><span title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span></dt>
+                                                                            <dd><a title="${typeitem.typename}" href="#"><span>${typeitem.typename}</span></a></dd>
+                                                                        </dl>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                            </c:choose>
                                                             </div>
                                                             <div class="brand-side">
                                                                 <dl class="dl-sort">

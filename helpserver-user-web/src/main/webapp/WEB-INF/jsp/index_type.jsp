@@ -40,11 +40,11 @@
             <div class="category">
                 <ul class="category-list" id="js_climit_li">
                 <c:choose>
-                    <c:when test="${orderTypeList.size()>0}">
-                        <c:forEach items="${orderTypeList}" var="typeitem" varStatus="status">
+                    <c:when test="${orderTypeDtoList.size()>0}">
+                        <c:forEach items="${orderTypeDtoList}" var="typeitem" varStatus="status">
                             <li class="appliance js_toggle relative">
                         <div class="category-info">
-                            <h3 class="category-name b-category-name"><i><img src="/images/cookies.png"></i><a class="ml-22" title="${typeitem.typename}">${typeitem.typename}</a></h3>
+                            <h3 class="category-name b-category-name"><i><img src="/images/cookies.png"></i><a class="ml-22" title="${typeitem.bigtype.typename}">${typeitem.bigtype.typename}</a></h3>
                             <em>&gt;</em></div>
                         <div class="menu-item menu-in top">
                             <div class="area-in">
@@ -57,15 +57,15 @@
                                         </div>
                                         <div class="sort-side">
                                             <dl class="dl-sort">
-                                                <dt><span title="饼干">${typeitem.typename}</span></dt>
+                                                <dt><span title="饼干">${typeitem.bigtype.typename}</span></dt>
                                                 <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
                                             </dl>
                                             <dl class="dl-sort">
-                                                <dt><span title="薯片">${typeitem.typename}</span></dt>
+                                                <dt><span title="薯片">${typeitem.bigtype.typename}</span></dt>
                                                 <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
                                             </dl>
                                             <dl class="dl-sort">
-                                                <dt><span title="蛋糕">${typeitem.typename}</span></dt>
+                                                <dt><span title="蛋糕">${typeitem.bigtype.typename}</span></dt>
                                                 <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
                                             </dl>
                                         </div>
