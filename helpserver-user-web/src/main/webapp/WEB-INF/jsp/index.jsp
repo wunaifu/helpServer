@@ -48,8 +48,9 @@
         <ul class="message-l">
             <div class="topMessage">
                 <div class="menu-hd">
-                    <a href="/map" target="_top">定位：<%=nowUser.getLocation()%></a>
-                    <a href="/index_user" target="_top" class="h"  style="margin-left: 50px;"><%=nowUser.getName()%>
+                    <a href="/map" target="_top">定位：<%=nowUser.getLocation()%>
+                    </a>
+                    <a href="/index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
                     </a>
                     <a href="/logout" target="_top">退出登录</a>
                 </div>
@@ -69,7 +70,8 @@
                     <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
             </div>
             <div class="topMessage favorite">
-                <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
+                <div class="menu-hd"><a href="#" target="_top"><i
+                        class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
                 </div>
             </div>
         </ul>
@@ -78,7 +80,8 @@
     <!--悬浮搜索框-->
 
     <div class="nav white">
-        <div class="logo" style="margin-top:18px;font-size: 12px;"><a href="/map"><%--<img src="/images/logo1.png"/>--%><%=nowUser.getLocation()%></a></div>
+        <div class="logo" style="margin-top:18px;font-size: 12px;"><a
+                href="/map"><%--<img src="/images/logo1.png"/>--%><%=nowUser.getLocation()%></a></div>
         <div class="logoBig">
             <li><img src="/images/logobig.png"/></li>
         </div>
@@ -146,32 +149,32 @@
                                     <c:forEach items="${orderTypeDtoList}" var="bigitem" varStatus="status">
                                         <li>
                                             <div class="category-info">
-                                                <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
-                                                        class="ml-22" title="点心">${bigitem.bigtype.typename}</a></h3>
+                                                <h3 class="category-name b-category-name"><i><img
+                                                        src="/images/cake.png"></i><a
+                                                        class="ml-22" title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</a></h3>
                                                 <em>&gt;</em></div>
                                             <div class="menu-item menu-in top">
                                                 <div class="area-in">
                                                     <div class="area-bg">
                                                         <div class="menu-srot">
                                                             <div class="sort-side">
+                                                                <dl class="dl-sort">
+                                                                    <dt><span
+                                                                            title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span>
+                                                                    </dt>
                                                             <c:choose>
-                                                                <c:when test="${orderTypeDtoList.size()>0}">
-                                                                    <c:forEach items="${bigitem.ordertypeList}" var="typeitem" varStatus="status">
-                                                                        <dl class="dl-sort">
-                                                                            <dt><span title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span></dt>
-                                                                            <dd><a title="${typeitem.typename}" href="#"><span>${typeitem.typename}</span></a></dd>
-                                                                        </dl>
+                                                                <c:when test="${bigitem.ordertypeList.size()>0}">
+                                                                    <c:forEach items="${bigitem.ordertypeList}"
+                                                                               var="typeitem" varStatus="status">
+                                                                                <dd><a title="${typeitem.typename}"
+                                                                                       href="#"><span>${typeitem.typename}</span></a>
+                                                                                </dd>
                                                                     </c:forEach>
                                                                 </c:when>
+
                                                             </c:choose>
-                                                            </div>
-                                                            <div class="brand-side">
-                                                                <dl class="dl-sort">
-                                                                    <dt><span>实力商家</span></dt>
-                                                                    <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
-                                                                           rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
                                                                 </dl>
-                                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,8 +186,9 @@
                                 <c:otherwise>
                                     <li>
                                         <div class="category-info">
-                                            <h3 class="category-name b-category-name"><i><img src="/images/cake.png"></i><a
-                                                    class="ml-22" title="点心">其他</a></h3>
+                                            <h3 class="category-name b-category-name"><i><img
+                                                    src="/images/cake.png"></i><a
+                                                    class="ml-22" title="没有类型">没有类型</a></h3>
                                             <em>&gt;</em></div>
                                         <div class="menu-item menu-in top">
                                             <div class="area-in">
@@ -192,19 +196,8 @@
                                                     <div class="menu-srot">
                                                         <div class="sort-side">
                                                             <dl class="dl-sort">
-                                                                <dt><span title="蛋糕">蛋糕</span></dt>
-                                                                <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                                            </dl>
-                                                            <dl class="dl-sort">
-                                                                <dt><span title="蛋糕">点心</span></dt>
-                                                                <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                                            </dl>
-                                                        </div>
-                                                        <div class="brand-side">
-                                                            <dl class="dl-sort">
-                                                                <dt><span>实力商家</span></dt>
-                                                                <dd><a rel="nofollow" title="呵官方旗舰店" target="_blank" href="#"
-                                                                       rel="nofollow"><span class="red">呵官方旗舰店</span></a></dd>
+                                                                <dt><span title="没有类型">没有类型</span></dt>
+                                                                <dd><a title="没有类型" href="#"><span>没有类型</span></a></dd>
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -215,6 +208,11 @@
                                     </li>
                                 </c:otherwise>
                             </c:choose>
+                            <c:if test="${orderTypeDtoList.size()<10}">
+                                <c:forEach begin="1" end="${10-orderTypeDtoList.size()}">
+                                    <li></li>
+                                </c:forEach>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -258,7 +256,8 @@
                             <c:forEach items="${newsList}" var="newsitem" varStatus="status">
                                 <c:choose>
                                     <c:when test="${status.index==0}">
-                                        <li class="title-first"><a target="_blank" href="#"><span>[公告]</span>${newsitem.title}</a></li>
+                                        <li class="title-first"><a target="_blank"
+                                                                   href="#"><span>[公告]</span>${newsitem.title}</a></li>
                                     </c:when>
                                     <c:otherwise>
                                         <li><a target="_blank" href="#"><span>[公告]</span>${newsitem.title}</a></li>
@@ -422,7 +421,8 @@
                     <div class="avatar_box ">
                         <p class="avatar_imgbox "><img src="/images/no-img_mid_.jpg "/></p>
                         <ul class="user_info ">
-                            <li>用户名：<%=nowUser.getName()%></li>
+                            <li>用户名：<%=nowUser.getName()%>
+                            </li>
                             <li>级&nbsp;别：普通会员</li>
                         </ul>
                     </div>

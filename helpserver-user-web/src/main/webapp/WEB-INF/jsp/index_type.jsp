@@ -41,10 +41,21 @@
                 <ul class="category-list" id="js_climit_li">
                 <c:choose>
                     <c:when test="${orderTypeDtoList.size()>0}">
-                        <c:forEach items="${orderTypeDtoList}" var="typeitem" varStatus="status">
-                            <li class="appliance js_toggle relative">
+                        <c:forEach items="${orderTypeDtoList}" var="bigitem" varStatus="status">
+                            <c:choose>
+                                <c:when test="${status.index==0}">
+                                    <li class="appliance js_toggle relative first selected">
+                                </c:when>
+                                <c:when test="${status.index==orderTypeDtoList.size()}">
+                                    <li class="appliance js_toggle relative last">
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="appliance js_toggle relative">
+                                </c:otherwise>
+                            </c:choose>
                         <div class="category-info">
-                            <h3 class="category-name b-category-name"><i><img src="/images/cookies.png"></i><a class="ml-22" title="${typeitem.bigtype.typename}">${typeitem.bigtype.typename}</a></h3>
+                            <h3 class="category-name b-category-name"><i><img src="/images/cookies.png"></i>
+                                <a class="ml-22" title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</a></h3>
                             <em>&gt;</em></div>
                         <div class="menu-item menu-in top">
                             <div class="area-in">
@@ -57,16 +68,20 @@
                                         </div>
                                         <div class="sort-side">
                                             <dl class="dl-sort">
-                                                <dt><span title="饼干">${typeitem.bigtype.typename}</span></dt>
-                                                <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                            </dl>
-                                            <dl class="dl-sort">
-                                                <dt><span title="薯片">${typeitem.bigtype.typename}</span></dt>
-                                                <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
-                                            </dl>
-                                            <dl class="dl-sort">
-                                                <dt><span title="蛋糕">${typeitem.bigtype.typename}</span></dt>
-                                                <dd><a title="蒸蛋糕" href="#"><span>蒸蛋糕</span></a></dd>
+                                                <dt><span title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span></dt>
+                                            <c:choose>
+                                                <c:when test="${bigitem.ordertypeList.size()>0}">
+                                                    <c:forEach items="${bigitem.ordertypeList}" var="typeitem">
+                                                            <dd><a title="${typeitem.typename}" href="#"><span>${typeitem.typename}</span></a></dd>
+                                                    </c:forEach>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <dl class="dl-sort">
+                                                        <dt><span title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span></dt>
+                                                        <dd><a title="没有子类型" href="#"><span>没有子类型</span></a></dd>
+                                                    </dl>
+                                                </c:otherwise>
+                                            </c:choose>
                                             </dl>
                                         </div>
                                     </div>
@@ -78,7 +93,7 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <li class="appliance js_toggle relative last">
+                        <li class="appliance js_toggle relative first">
                             <div class="category-info">
                                 <h3 class="category-name b-category-name"><i><img src="/images/package.png"></i><a class="ml-22" title="其他">其他</a></h3>
                                 <em>&gt;</em></div>

@@ -90,6 +90,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
             OrdertypeExample ordertypeExample = new OrdertypeExample();
             OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
             criteria.andStateEqualTo(state);
+            criteria.andBigtypeidEqualTo(bigtypeList.get(i).getId());
             ordertypeExample.setOrderByClause("createTime desc");
             List<Ordertype> ordertypeS = ordertypeDao.selectByExample(ordertypeExample);
             orderTypeDto.setOrdertypeList(ordertypeS);
