@@ -69,7 +69,7 @@
                     </form>
                     <div class="login-links">
                         <label for="readerme">
-                            <input id="readerme" onclick="agree();" type="checkbox"> 点击表示您同意服务平台《服务协议》
+                            <input id="readerme" onclick="agree();" type="checkbox"> 点击表示您同意服务平台《<a onclick="readServerInfo()">服务协议</a>》
                         </label>
                         <a href="/login" class="zcnext am-fr am-btn-default">登录</a>
                         <br/>
@@ -250,6 +250,15 @@
             return;
         }
 
+    }
+
+    function readServerInfo() {
+        var serverInfo="<div style='font-size: 12px;float: left'>会员须做到:<\/br>"
+                +"● 用户名和昵称的注册与使用应符合网络道德，遵守中华人民共和国的相关法律法规。<\/br>"
+                +"● 用户名和昵称中不能含有威胁、淫秽、漫骂、非法、侵害他人权益等有争议性的文字。<\/br>"
+                +"● 注册成功后，会员必须保护好自己的帐号和密码，因会员本人泄露而造成的任何损失由会员本人负责。<\/br>"
+                +"● 不得盗用他人帐号，由此行为造成的后果自负。<\/br><\/div><div class='clear'><\/div>"
+        $.myAlert(serverInfo);
     }
 </script>
 </html>

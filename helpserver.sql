@@ -46,9 +46,11 @@ CREATE TABLE `bigtype` (
   `typeName` varchar(20) DEFAULT NULL COMMENT '订单大类型的名字',
   `createTime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `bigtype` */
+
+insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'其他','2018-03-20 16:36:08'),(2,'家教','2018-03-20 16:40:24');
 
 /*Table structure for table `collectorder` */
 
@@ -232,9 +234,11 @@ CREATE TABLE `ordertype` (
   PRIMARY KEY (`id`),
   KEY `bigtypeId` (`bigtypeId`),
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ordertype` */
+
+insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'其他',1,'2018-03-20 16:36:33'),(2,1,'IT',1,'2018-03-20 16:37:38'),(3,2,'语文',1,'2018-03-20 16:40:38'),(4,2,'数学',1,'2018-03-20 16:40:45'),(5,2,'英语',1,'2018-03-20 16:40:50');
 
 /*Table structure for table `payaccount` */
 

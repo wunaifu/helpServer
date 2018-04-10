@@ -141,8 +141,8 @@ public class PageController {
         return "page_500";
     }
 
-    @RequestMapping("/page_success")
+    @RequestMapping("/pageuser_success")
     public String page_success() {
-        return "page_success";
+        return "pageuser_success";
     }
 }

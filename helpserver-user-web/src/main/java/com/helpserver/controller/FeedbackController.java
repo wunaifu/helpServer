@@ -46,7 +46,7 @@ public class FeedbackController {
         String result = feedbackService.insertFeedback(feedback);
         if (result.equals("insert_success")) {
             model.addAttribute("message", "反馈信息提交成功，管理员马上处理！");
-            return "page_success";
+            return "pageuser_success";
         }
         model.addAttribute("message", "反馈信息提交失败，请稍后再试！");
         return "page_400";

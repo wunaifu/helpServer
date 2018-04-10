@@ -134,7 +134,7 @@ public class GoldController {
         result = goldService.addGoldadd(goldadd);
         if (result.equals("paygold_success")) {
             model.addAttribute("message", "充值请求提交成功，管理员将在24小时内处理，请等待！");
-            return "page_success";
+            return "pageuser_success";
         } else{
             model.addAttribute("message", "金币充值失败，请稍后再试！");
             return "page_400";
@@ -160,7 +160,7 @@ public class GoldController {
         }
         if (result.equals("signin_success")) {
             model.addAttribute("message", "签到成功。每天首次签到可以获得金币喔！");
-            return "page_success";
+            return "pageuser_success";
         } else if (result.equals("signin_haved")) {
             model.addAttribute("message", "对不起，您今天已签到，不能重复签到！");
             return "page_400";

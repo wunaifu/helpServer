@@ -67,7 +67,7 @@
     <div class="status">
         <h2 style="font-size: 18px;">操作成功！还有&nbsp;
             <span id="timess" style="font-size: 18px;color: #fe0023">8</span>&nbsp;即将前往&nbsp;
-            <a href="/index" style="font-size: 19px;color: #0c80ba">首页</a></h2>
+            <a href="/index_user" style="font-size: 19px;color: #0c80ba">个人中心</a></h2>
         <div class="successInfo">
             <ul>
                 <c:choose>
@@ -132,7 +132,7 @@
                 sTime='0';
                 iTime = 0;
                 //前往首页
-                window.location.href="/index";
+                window.location.href="/index_user";
             }else{
                 Account = setTimeout("RemainTime()",1000);
                 iTime=iTime-1;

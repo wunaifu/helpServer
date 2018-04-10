@@ -7,35 +7,22 @@ import com.helpserver.service.IdentityService;
 import com.helpserver.service.UserService;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.*;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.ProgressListener;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.jstl.sql.Result;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.UUID;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Created by wunaifu on 2018/1/11.
@@ -127,7 +114,7 @@ public class UserController {
         user.setHeadicon(fileName);
         if (userService.updateUser(user)) {
             model.addAttribute("message", "修改个人信息成功！");
-            return "page_success";
+            return "pageuser_success";
         }
         return "page_400";
 
@@ -328,7 +315,7 @@ public class UserController {
         }
         if (result.equals("update_success")) {
             model.addAttribute("message", "身份证验证请求提交成功，管理员将在24小时内处理，请等待！");
-            return "page_success";
+            return "pageuser_success";
         } else{
             model.addAttribute("message", "绑定手机失败，请稍后再试！");
             return "page_400";
