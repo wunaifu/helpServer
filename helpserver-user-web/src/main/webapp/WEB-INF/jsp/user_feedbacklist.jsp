@@ -75,33 +75,41 @@
                 <!--<hr />-->
 
                 <div class="bloglistindex">
-                    <c:forEach items="${feedbackList}" var="feedbackitem">
-                        <div class="blogs">
-                            <ul style="width: 100%">
-                                <a href="#">
-                                    <p>${feedbackitem.feedbackinfo}
+                    <c:choose>
+                        <c:when test="${feedbackList.size()>0}">
+                            <c:forEach items="${feedbackList}" var="feedbackitem">
+                                <div class="blogs">
+                                    <ul style="width: 100%">
+                                        <a href="#">
+                                            <p>${feedbackitem.feedbackinfo}
+                                            </p>
+                                        </a>
+                                        <c:choose>
+                                            <c:when test="${feedbackitem.reply==null||feedbackitem.reply==''}">
+                                                <div class="autor1" style="margin: 2px 20px 0 20px;">
+                                                    <span style="float: left;"><p>管理员未处理</p></span>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="autor1" style="margin: 2px 20px 0 20px;">
+                                                    <div><p style="float: left;">处理情况：${feedbackitem.reply}</p></div>
+                                                </div>
+                                                <div class="autor1" style="margin: 2px 20px 0 20px;">
+                                                    <div><p style="float: left;">处理时间：${feedbackitem.replytime}</p></div>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </ul>
+                                    <p class="autor"><span>反馈时间：${feedbackitem.feedbacktime}</span>
                                     </p>
-                                </a>
-                                <c:choose>
-                                    <c:when test="${feedbackitem.reply==null||feedbackitem.reply==''}">
-                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
-                                            <span style="float: left;"><p>管理员未处理</p></span>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
-                                            <div><p style="float: left;">处理情况：${feedbackitem.reply}</p></div>
-                                        </div>
-                                        <div class="autor1" style="margin: 2px 20px 0 20px;">
-                                            <div><p style="float: left;">处理时间：${feedbackitem.replytime}</p></div>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </ul>
-                            <p class="autor"><span>反馈时间：${feedbackitem.feedbacktime}</span>
-                            </p>
-                        </div>
-                    </c:forEach>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <p>没有反馈历史</p>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
                 <div class="clear "></div>
             </div>

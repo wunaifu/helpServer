@@ -138,7 +138,7 @@
                 iTime=iTime-1;
             }
         }else{
-            sTime='nothing';
+            sTime='0';
         }
         $("#timess").text(sTime);
     }

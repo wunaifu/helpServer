@@ -118,9 +118,9 @@
                                     </c:when>
                                     <c:otherwise>
                                         <tr>
-                                            <td class="pointType">无</td>
-                                            <td class="pointNum">0</td>
-                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                            <%--<td class="pointType">无</td>--%>
+                                            <%--<td class="pointNum">0</td>--%>
+                                            <%--<td class="pointTime">0000-00-00 00:00:00</td>--%>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
@@ -150,9 +150,9 @@
                                     </c:when>
                                     <c:otherwise>
                                         <tr>
-                                            <td class="pointType">无</td>
-                                            <td class="pointNum">0</td>
-                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                            <%--<td class="pointType">无</td>--%>
+                                            <%--<td class="pointNum">0</td>--%>
+                                            <%--<td class="pointTime">0000-00-00 00:00:00</td>--%>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
@@ -182,9 +182,9 @@
                                     </c:when>
                                     <c:otherwise>
                                         <tr>
-                                            <td class="pointType">无</td>
-                                            <td class="pointNum">0</td>
-                                            <td class="pointTime">0000-00-00 00:00:00</td>
+                                            <%--<td class="pointType">无</td>--%>
+                                            <%--<td class="pointNum">0</td>--%>
+                                            <%--<td class="pointTime">0000-00-00 00:00:00</td>--%>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
