@@ -52,6 +52,11 @@ public class PageController {
         return "login";
     }
 
+    @RequestMapping("/forgetpsw")
+    public String forgetpsw() {
+        return "login_forgetpsw";
+    }
+
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("nowUser");

@@ -361,6 +361,43 @@ public class UserController {
     }
 
     /**
+     * 手机验证码登录接口，返回登录信息，
+     * 1.login_success
+     * 2.password_error
+     * 3.phone_error
+     * 4.phone_ban
+     *
+     * @param request
+     */
+    @RequestMapping(value = "/fdologin")
+    public void fdologin(
+                        HttpServletRequest request, HttpServletResponse response) {
+        String phone = request.getParameter("phone");
+        String location = request.getParameter("location");
+        try {
+            location = URLDecoder.decode(location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("location========="+location);
+        String result = userService.loginByPhone(phone);
+        //登录成功，session保存当前用户数据
+        if (result.equals("login_success")) {
+            User user = userService.getUserByPhone(phone);
+            if (user != null) {
+                NowUser nowUser = new NowUser();
+                nowUser.setUserid(user.getUserid());
+                nowUser.setPhone(user.getPhone());
+                nowUser.setName(user.getName());
+                nowUser.setPermission(user.getPermission());
+                nowUser.setLocation(location);
+                request.getSession().setAttribute("nowUser", nowUser);
+            }
+        }
+        ResponseUtils.renderJson(response, result);
+    }
+
+    /**
      * 注册接口，返回注册信息
      * 1、user_exist
      * 2、register_success

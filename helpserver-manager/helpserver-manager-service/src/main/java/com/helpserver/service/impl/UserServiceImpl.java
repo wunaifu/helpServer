@@ -167,6 +167,31 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 普通用户忘记密码时登录
+     * 1、先验证是否存在手机账号,是否已被禁用
+     * 2、返回信息
+     *
+     * @param phone
+     * @return
+     */
+    @Override
+    public String loginByPhone(String phone) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+//        criteria.andPermissionNotEqualTo(2);
+        List<User> userList = userDao.selectByExample(userExample);
+        if (userList != null && userList.size() > 0) {
+            if (userList.get(0).getPermission() == 2) {
+                return "phone_ban";
+            }
+            return "login_success";
+        } else {
+            return "phone_error";
+        }
+    }
+
+    /**
      * 更新密码
      *
      * @param userId

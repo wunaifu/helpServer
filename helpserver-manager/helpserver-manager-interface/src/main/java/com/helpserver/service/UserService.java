@@ -23,6 +23,8 @@ public interface UserService {
 
     String loginByPhoneAndPsw(String phone,String password);
 
+    String loginByPhone(String phone);
+
     String managerLoginByPhoneAndPsw(String phone,String password);
 
     String addByPhoneAndPsw(String phone,String password);
