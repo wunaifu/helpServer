@@ -153,6 +153,20 @@ public class UserController {
     }
 
     /**
+     * 手机验证码重置密码页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findbackpsw")
+    public String userFindBackPsw(HttpServletRequest request) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_setpsw";
+    }
+
+    /**
      * 修改密码，修改成功，则重新登录
      *
      * @param request
@@ -175,6 +189,29 @@ public class UserController {
             return "page_400";
         } else if (result.equals("resetpsw_error")) {
             model.addAttribute("message", "重设密码失败，请稍后再试！");
+            return "page_400";
+        }
+        request.getSession().removeAttribute("nowUser");
+        return "page_resetpsw_success";
+    }
+
+    /**
+     * 通过手机验证码重置密码成功，则重新登录
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dosetpsw")
+    public String dosetpsw(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String psw = request.getParameter("password1");
+        psw = DESUtils.getMD5Str(psw);
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        String result = userService.doSetPsw(nowUser.getUserid(), psw);
+        if (result.equals("setpsw_error")) {
+            model.addAttribute("message", "重置密码失败，请稍后再试！");
             return "page_400";
         }
         request.getSession().removeAttribute("nowUser");
@@ -417,6 +454,41 @@ public class UserController {
         }
     }
 
+    /**
+     * 修改设置支付宝页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/setpay")
+    public String setpay(HttpServletRequest request) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "user_setmypay";
+    }
+
+    /**
+     * 修改设置支付宝成功
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dosetpay")
+    public String dosetpay(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String payaccount = request.getParameter("payaccount");
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        String result = userService.doSetPayAccount(nowUser.getUserid(),payaccount);
+        if (result.equals("setpay_error")) {
+            model.addAttribute("message", "设置支付宝账号失败，请稍后再试！");
+            return "page_400";
+        }
+        model.addAttribute("message", "设置支付宝账号成功！");
+        return "pageuser_success";
+    }
 
 }
 

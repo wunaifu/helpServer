@@ -58,12 +58,12 @@
                         </div>
                         <div class="user-pass">
                             <label for="password"><i class="am-icon-lock"></i></label>
-                            <input type="password" name="password" id="password" placeholder="设置密码"
+                            <input type="password" name="password" id="password" placeholder="设置密码（字母和数字）"
                                    onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6">
                         </div>
                         <div class="user-pass">
                             <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
-                            <input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="确认密码"
+                            <input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="确认密码（字母和数字）"
                                    onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="14" minlength="6">
                         </div>
                     </form>

@@ -115,18 +115,18 @@
                                 </a>
                             </div>
                         </li>
-                        <%--<li>
-                            <i class="i-safety-wallet"></i>
+                        <li>
+                            <i class="i-safety-security"></i>
                             <div class="m-left">
-                                <div class="fore1">支付密码</div>
-                                <div class="fore2"><small>启用支付密码功能，为您资产账户安全加把锁。</small></div>
+                                <div class="fore1">忘记密码</div>
+                                <div class="fore2"><small>忘记密码不要紧，可以通过手机验证码重置密码。</small></div>
                             </div>
                             <div class="fore3">
-                                <a href="/user/setpay">
-                                    <div class="am-btn am-btn-secondary">立即启用</div>
+                                <a href="/user/findbackpsw">
+                                    <div class="am-btn am-btn-secondary">重置</div>
                                 </a>
                             </div>
-                        </li>--%>
+                        </li>
                         <li>
                             <i class="i-safety-iphone"></i>
                             <div class="m-left">
@@ -159,22 +159,30 @@
                             </div>
                             <div class="fore3">
                                 <a href="/user/idcard">
-                                    <div class="am-btn am-btn-secondary">认证</div>
+                                    <c:choose>
+                                        <c:when test="${userinfo.permission==1}">
+                                            <div class="am-btn am-btn-secondary">已认证</div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="am-btn am-btn-secondary">认证</div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </a>
                             </div>
                         </li>
                         <li>
-                            <i class="i-safety-security"></i>
+                            <i class="i-safety-wallet"></i>
                             <div class="m-left">
-                                <div class="fore1">安全问题</div>
-                                <div class="fore2"><small>保护账户安全，验证您身份的工具之一。</small></div>
+                                <div class="fore1">支付宝账号</div>
+                                <div class="fore2"><small>填写支付宝账号，方便提现以及保证余额流通正常。</small></div>
                             </div>
                             <div class="fore3">
-                                <a href="question.html">
-                                    <div class="am-btn am-btn-secondary">认证</div>
+                                <a href="/user/setpay">
+                                    <div class="am-btn am-btn-secondary">设置</div>
                                 </a>
                             </div>
                         </li>
+
                     </ul>
                 </div>
 

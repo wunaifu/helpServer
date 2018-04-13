@@ -33,6 +33,10 @@ public interface UserService {
 
     String doResetPsw(int userId,String oldPsw,String newPsw);
 
+    String doSetPsw(int userId,String psw);
+
+    String doSetPayAccount(int userId,String payAccount);
+
     public String doBindPhone(int userId, String newPhone);
 
     boolean updateUser(User user);

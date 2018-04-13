@@ -220,6 +220,48 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 设置密码
+     *
+     * @param userId
+     * @param password
+     * @return
+     */
+    @Override
+    public String doSetPsw(int userId, String password) {
+        User user = userDao.selectByPrimaryKey(userId);
+        if (user != null) {
+            User user1 = new User();
+            user1.setUserid(userId);
+            user1.setPassword(password);
+            if (userDao.updateByPrimaryKeySelective(user1) == 1) {
+                return "setpsw_success";
+            }
+        }
+        return "setpsw_error";
+    }
+
+    /**
+     * 设置支付宝账号
+     *
+     * @param userId
+     * @param payAccount
+     * @return
+     */
+    @Override
+    public String doSetPayAccount(int userId, String payAccount) {
+        User user = userDao.selectByPrimaryKey(userId);
+        if (user != null) {
+            User user1 = new User();
+            user1.setUserid(userId);
+            user1.setPayaccount(payAccount);
+            if (userDao.updateByPrimaryKeySelective(user1) == 1) {
+                return "setpay_success";
+            }
+        }
+        return "setpay_error";
+    }
+
+    /**
      * 更新手机号
      *
      * @param userId
