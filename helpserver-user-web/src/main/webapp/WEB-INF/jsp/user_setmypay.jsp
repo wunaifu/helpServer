@@ -26,13 +26,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 
 </head>
-<%
-    NowUser nowUser = new NowUser();
-    if (request.getSession().getAttribute("nowUser") != null) {
-        nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-    }
 
-%>
 <body>
 <!--头 -->
 <header>
@@ -97,12 +91,12 @@
             </div>
             <form class="am-form am-form-horizontal" action="/user/dosetpay" onsubmit="return suborder()"
                   method="post">
-                <input style="visibility: hidden;" id="oldphone" value="<%=nowUser.getPhone()%>">
-                <input style="visibility: hidden;" name="userId" value="<%=nowUser.getUserid()%>">
+                <input style="visibility: hidden;" id="oldphone" value="${user.phone}">
+                <input style="visibility: hidden;" name="userId" value="${user.userid}">
                 <div class="am-form-group bind">
                     <label for="user-phone" class="am-form-label">验证手机</label>
                     <div class="am-form-content">
-                        <span id="user-phone"><%=nowUser.getPhone()%></span>
+                        <span id="user-phone">${user.phone}</span>
                     </div>
                 </div>
                 <div class="am-form-group code">
@@ -119,7 +113,7 @@
                 <div class="am-form-group">
                     <label for="payaccount" class="am-form-label">支付宝账号</label>
                     <div class="am-form-content">
-                        <input type="tel" name="payaccount" id="payaccount" placeholder="支付宝账号"
+                        <input type="tel" name="payaccount" id="payaccount" placeholder="支付宝账号" value="${user.payaccount}"
                                 maxlength="50" minlength="8" >
                     </div>
                 </div>

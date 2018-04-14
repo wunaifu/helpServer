@@ -147,7 +147,7 @@ public class GoldServiceImpl implements GoldService {
             //更新gold.state=1
             try {
                 gold.setState(1);
-                gold.setGoldamount(gold.getGoldamount() + 5);
+                gold.setGoldamount(gold.getGoldamount() + 1);
                 if (goldDao.updateByPrimaryKey(gold) == 1) {
                     //添加goldhistory
                     Goldhistory goldhistory = new Goldhistory();

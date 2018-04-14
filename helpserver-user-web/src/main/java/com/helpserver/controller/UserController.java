@@ -461,10 +461,14 @@ public class UserController {
      * @return
      */
     @RequestMapping("/setpay")
-    public String setpay(HttpServletRequest request) {
+    public String setpay(HttpServletRequest request,Model model) {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        User user = userService.selectByPrimaryKey(nowUser.getUserid());
+        user.setPassword("******");
+        model.addAttribute("user", user);
         return "user_setmypay";
     }
 

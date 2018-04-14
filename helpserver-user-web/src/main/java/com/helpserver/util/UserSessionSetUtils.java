@@ -1,5 +1,7 @@
 package com.helpserver.util;
 
+import com.helpserver.dto.NowUser;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,4 +16,15 @@ public class UserSessionSetUtils {
         }
         return false;
     }
+
+    public static NowUser getNowUser(HttpServletRequest request) {
+        if (request.getSession().getAttribute("nowUser") != null) {
+            NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+            return nowUser;
+        }
+        return null;
+    }
+
+
+
 }
