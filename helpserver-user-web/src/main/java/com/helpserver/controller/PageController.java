@@ -2,10 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.*;
-import com.helpserver.service.GoldService;
-import com.helpserver.service.NewsService;
-import com.helpserver.service.OrderTypeService;
-import com.helpserver.service.UserService;
+import com.helpserver.service.*;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,8 @@ public class PageController {
     NewsService newsService;
     @Autowired
     OrderTypeService orderTypeService;
+    @Autowired
+    MoneyService moneyService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
@@ -103,12 +102,14 @@ public class PageController {
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         User user = userService.selectByPrimaryKey(nowUser.getUserid());
         Gold gold = goldService.getGold(nowUser.getUserid());
+        Money money = moneyService.getMoney(nowUser.getUserid());
         user.setPassword("******");
         List<News> newsList = newsService.getNewsList();
         Pager<News> pager = new Pager<>(1, 6, newsList);
         model.addAttribute("newsList", pager.getDataList());
         model.addAttribute("userinfo", user);
         model.addAttribute("gold", gold);
+        model.addAttribute("money", money);
         return "index_user";
     }
 

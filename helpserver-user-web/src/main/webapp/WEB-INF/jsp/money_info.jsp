@@ -70,7 +70,11 @@
                 </div>
                 <hr/>
                 <div class="pointsTitle">
-                    <div class="usable">可用余额<span>${money.amount}</span></div>
+                    <div class="usable">可用余额<span>${money.amount}.00</span></div>
+                    <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>去提现</a></div>
+
+                    <div class="signIn"><a href="#"><i class="am-icon-calendar"></i>提现历史</a></div>
+
                 </div>
                 <div class="pointlist am-tabs" data-am-tabs>
                     <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">

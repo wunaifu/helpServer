@@ -121,20 +121,21 @@
                             </div>
                             <p class="m-wallet">
                                 <a href="/money/info">
-                                    <em class="m-num">0.00</em>
+                                    <em class="m-num">${money.amount}.00</em>
                                     <span class="m-title">账户余额</span>
+                                </a>
+                            </p>
+                            <p class="m-coupon">
+                                <%--<a href="/gold/pay">--%>
+                                <a href="/money/payhistory">
+                                    <em class="m-num">${money.payamount}</em>
+                                    <span class="m-title">已充值</span>
                                 </a>
                             </p>
                             <p class="m-bill">
                                 <a href="/gold/info">
                                     <em class="m-num">${gold.goldamount}</em>
                                     <span class="m-title">总金币</span>
-                                </a>
-                            </p>
-                            <p class="m-coupon">
-                                <a href="/gold/pay">
-                                    <em class="m-num">${gold.payamount}</em>
-                                    <span class="m-title">已充值</span>
                                 </a>
                             </p>
                         </div>

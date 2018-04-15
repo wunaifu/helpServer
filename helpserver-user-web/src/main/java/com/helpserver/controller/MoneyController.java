@@ -78,7 +78,7 @@ public class MoneyController {
         }
         Payaccount payaccount=payAccountService.getPayAccoun();
         model.addAttribute("payAccount", payaccount);
-        return "gold_pay";
+        return "money_pay";
     }
 
     /**
@@ -122,19 +122,19 @@ public class MoneyController {
         int userId = nowUser.getUserid();
         int payAmount = Integer.parseInt(request.getParameter("pay"));
 
-        Goldadd goldadd = new Goldadd();
-        goldadd.setUserid(userId);
-        goldadd.setAddamount(payAmount);
-        goldadd.setAddtime(TimeUtil.dateToString(new Date()));
-        goldadd.setAddphoto(fileName);
+        Moneyadd moneyadd = new Moneyadd();
+        moneyadd.setUserid(userId);
+        moneyadd.setAddamount(payAmount);
+        moneyadd.setAddtime(TimeUtil.dateToString(new Date()));
+        moneyadd.setAddphoto(fileName);
 
         String result = "";
-//        result = goldService.addGoldadd(goldadd);
-        if (result.equals("paygold_success")) {
+        result = moneyService.addMoneyadd(moneyadd);
+        if (result.equals("paymoney_success")) {
             model.addAttribute("message", "充值请求提交成功，管理员将在24小时内处理，请等待！");
             return "pageuser_success";
         } else{
-            model.addAttribute("message", "金币充值失败，请稍后再试！");
+            model.addAttribute("message", "余额充值失败，请稍后再试！");
             return "page_400";
         }
     }
@@ -150,9 +150,9 @@ public class MoneyController {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-        List<Goldadd> goldaddList =null;//= goldService.getGoldaddListByUserId(nowUser.getUserid());
-        model.addAttribute("goldaddList", goldaddList);
-        return "gold_addhistory";
+        List<Moneyadd> moneyaddList = moneyService.getMoneyaddListByUserId(nowUser.getUserid());
+        model.addAttribute("moneyaddList", moneyaddList);
+        return "money_addhistory";
     }
 
 }

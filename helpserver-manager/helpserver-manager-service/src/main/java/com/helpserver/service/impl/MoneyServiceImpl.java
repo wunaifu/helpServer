@@ -47,11 +47,24 @@ public class MoneyServiceImpl implements MoneyService {
         return null;
     }
 
+    /**
+     * 提交充值账户余额请求
+     * @param moneyadd
+     * @return
+     */
     @Override
     public String addMoneyadd(Moneyadd moneyadd) {
-        return null;
+        if (moneyAddDao.insertSelective(moneyadd) == 1) {
+            return "paymoney_success";
+        }
+        return "paymoney_error";
     }
 
+    /**
+     * 获取用户的余额基本信息
+     * @param userId
+     * @return
+     */
     @Override
     public Money getMoney(int userId) {
         MoneyExample moneyExample = new MoneyExample();
@@ -64,9 +77,20 @@ public class MoneyServiceImpl implements MoneyService {
         return null;
     }
 
+    /**
+     * 获取我的余额充值历史情况
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<Moneyadd> getMoneyaddListByUserId(int userId) {
-        return null;
+        MoneyaddExample moneyaddExample = new MoneyaddExample();
+        MoneyaddExample.Criteria criteria = moneyaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNotNull();
+        List<Moneyadd> moneyaddList = moneyAddDao.selectByExample(moneyaddExample);
+        return moneyaddList;
     }
 
     /**
