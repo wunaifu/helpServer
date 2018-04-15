@@ -47,6 +47,8 @@
 				<!--<prop key="java.lang.IndexOutOfBoundsException">page_500</prop>-->
 				<!--<prop key="java.lang.RuntimeException">page_400</prop>-->
 				<!--<prop key="com.helpserver.utils.MyThrowException">page_400</prop>-->
+				<!--<prop key="java.lang.Exception">page_500</prop>-->
+
 			</props>
 		</property>
 	</bean>
@@ -61,4 +63,5 @@
 	<dubbo:reference interface="com.helpserver.service.NewsService" id="newsService" />
 	<dubbo:reference interface="com.helpserver.service.OrderTypeService" id="orderTypeService" />
 	<dubbo:reference interface="com.helpserver.service.OrderService" id="orderService" />
+	<dubbo:reference interface="com.helpserver.service.MoneyService" id="moneyService" />
 </beans>

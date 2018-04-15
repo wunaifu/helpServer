@@ -3,10 +3,9 @@ package com.helpserver.service.impl;
 import com.alibaba.druid.support.logging.Log;
 import com.helpserver.dao.GoldDao;
 import com.helpserver.dao.GoldhistoryDao;
+import com.helpserver.dao.MoneyDao;
 import com.helpserver.dao.UserDao;
-import com.helpserver.pojo.Gold;
-import com.helpserver.pojo.Goldhistory;
-import com.helpserver.pojo.UserExample;
+import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.DESUtils;
@@ -14,7 +13,6 @@ import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.helpserver.pojo.User;
 import com.helpserver.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +33,8 @@ public class UserServiceImpl implements UserService {
     GoldDao goldDao;
     @Autowired
     GoldhistoryDao goldhistoryDao;
+    @Autowired
+    MoneyDao moneyDao;
 
     /**
      * 根据用户权限获取用户数据，并根据注册时间排序好
@@ -290,11 +290,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 注册
+     * 前端用户注册
      * 1、先验证是否存在手机账号
-     * 2、插入账号密码、权限为0、注册时间
+     * 2、插入账号密码、注册时间、权限为0：普通用户 1：实名可接单用户 -1：管理员
      * 3、添加初始金币
      * 4、添加金币收支历史
+     * 5、添加初始余额基本信息
      * *
      * 使用注解控制事务方法的优点:
      * 1.开发团队达成一致约定，明确标注事务方法的编程风格
@@ -308,14 +309,17 @@ public class UserServiceImpl implements UserService {
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andPhoneEqualTo(phone);
         List<User> userList = userDao.selectByExample(userExample);
+        int permission = 0;
+        //1.先验证是否存在手机账号
         if (userList != null && userList.size() > 0) {
             return "user_exist";
         } else {
             try {
+                //2.添加用户 插入账号密码、权限为permission、注册时间
                 User user = new User();
                 user.setPhone(phone);
                 user.setPassword(DESUtils.getMD5Str(password));
-                user.setPermission(0);
+                user.setPermission(permission);
                 user.setRegistertime(TimeUtil.dateToString(new Date()));
                 user.setName(phone);
                 user.setNickname(phone);
@@ -323,12 +327,14 @@ public class UserServiceImpl implements UserService {
                 int result = userDao.insertSelective(user);
                 int userId = user.getUserid();
                 if (result == 1) {
+                    //3.添加初始金币
                     Gold gold = new Gold();
                     gold.setUserid(userId);
                     gold.setTime(TimeUtil.dateToString(new Date()));
                     gold.setGoldamount(10);
                     gold.setState(0);
                     if (goldDao.insertSelective(gold) == 1) {
+                        //4、添加金币收支历史
                         Goldhistory goldhistory = new Goldhistory();
                         goldhistory.setUserid(userId);
                         goldhistory.setInfo(CommonsUtil.goldInfoRegister);
@@ -336,9 +342,20 @@ public class UserServiceImpl implements UserService {
                         goldhistory.setTime(gold.getTime());
                         goldhistory.setState(1);
                         if (goldhistoryDao.insertSelective(goldhistory) == 1) {
-                            return "register_success";
+                            //5、添加初始余额基本信息
+                            Money money = new Money();
+                            money.setUserid(userId);
+                            money.setAmount(0);
+                            money.setGetamount(0);
+                            money.setPayamount(0);
+                            money.setTime(gold.getTime());
+                            if (moneyDao.insertSelective(money) == 1) {
+                                return "register_success";
+                            }else {
+                                throw new MyThrowException("addmoney_failure");
+                            }
                         } else {
-                            throw new MyThrowException("addgold_failure");
+                            throw new MyThrowException("addgoldhistory_failure");
                         }
                     } else {
                         throw new MyThrowException("addgold_failure");
@@ -494,7 +511,18 @@ public class UserServiceImpl implements UserService {
                         goldhistory.setTime(gold.getTime());
                         goldhistory.setState(1);
                         if (goldhistoryDao.insertSelective(goldhistory) == 1) {
-                            return "register_success";
+                            //5、添加初始余额基本信息
+                            Money money = new Money();
+                            money.setUserid(userId);
+                            money.setAmount(0);
+                            money.setGetamount(0);
+                            money.setPayamount(0);
+                            money.setTime(gold.getTime());
+                            if (moneyDao.insertSelective(money) == 1) {
+                                return "register_success";
+                            }else {
+                                throw new MyThrowException("addmoney_failure");
+                            }
                         } else {
                             throw new MyThrowException("addgold_failure");
                         }

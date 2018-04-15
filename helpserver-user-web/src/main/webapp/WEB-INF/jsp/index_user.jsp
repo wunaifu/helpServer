@@ -120,7 +120,7 @@
                                 <i class="s-icon"></i>个人资产
                             </div>
                             <p class="m-wallet">
-                                <a href="#">
+                                <a href="/money/info">
                                     <em class="m-num">0.00</em>
                                     <span class="m-title">账户余额</span>
                                 </a>

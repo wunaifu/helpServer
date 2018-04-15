@@ -435,7 +435,7 @@ public class UserController {
     }
 
     /**
-     * 注册接口，返回注册信息
+     * 普通用户注册接口，返回注册信息
      * 1、user_exist
      * 2、register_success
      * 3、register_failure
@@ -446,7 +446,7 @@ public class UserController {
     public void doregister(@PathVariable("phone") String phone, @PathVariable("password") String password,
                            HttpServletRequest request, HttpServletResponse response) {
         String result = "error";
-        try {
+        try {//普通用户注册接口
             result = userService.addByPhoneAndPsw(phone, password);
             ResponseUtils.renderJson(response, result);
         } catch (MyThrowException e) {

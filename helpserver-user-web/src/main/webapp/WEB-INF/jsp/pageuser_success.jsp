@@ -72,10 +72,10 @@
             <ul>
                 <c:choose>
                     <c:when test="${message!=null||message!=''}">
-                        <li style="font-size: 18px;margin: 20px 0 10px 0;"><h2>${message}</h2></li>
+                        <li style="font-size: 16px;margin: 20px 0 10px 0;"><h2>${message}</h2></li>
                     </c:when>
                     <c:otherwise>
-                        <li style="font-size: 18px;margin: 20px 0 10px 0;">您的操作成功，谢谢！</li>
+                        <li style="font-size: 16px;margin: 20px 0 10px 0;">您的操作成功，谢谢！</li>
                     </c:otherwise>
                 </c:choose>
 

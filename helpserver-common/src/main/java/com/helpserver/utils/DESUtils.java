@@ -135,7 +135,7 @@ public class DESUtils {
     }
 
     public static void main(String[] args) {
-        String src = "963852";
+        String src = "123456";
         String enStr = DESUtils.getMD5Str(src);
         System.out.println("加密后："+enStr);
     }
