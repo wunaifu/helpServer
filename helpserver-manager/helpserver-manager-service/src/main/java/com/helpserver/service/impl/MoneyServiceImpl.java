@@ -38,8 +38,13 @@ public class MoneyServiceImpl implements MoneyService {
     }
 
     @Override
-    public String updateMoneySignIn(int userId) {
-        return null;
+    public int insertMoneyHistory(Moneyhistory moneyhistory) {
+        return moneyHistoryDao.insertSelective(moneyhistory);
+    }
+
+    @Override
+    public int updateMoneyByPrimaryKey(Money money) {
+        return moneyDao.updateByPrimaryKey(money);
     }
 
     /**

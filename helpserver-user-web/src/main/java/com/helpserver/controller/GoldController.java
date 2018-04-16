@@ -1,11 +1,9 @@
 package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
-import com.helpserver.pojo.Gold;
-import com.helpserver.pojo.Goldadd;
-import com.helpserver.pojo.Goldhistory;
-import com.helpserver.pojo.Payaccount;
+import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
+import com.helpserver.service.MoneyService;
 import com.helpserver.service.PayAccountService;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
@@ -35,6 +33,8 @@ public class GoldController {
     GoldService goldService;
     @Autowired
     PayAccountService payAccountService;
+    @Autowired
+    MoneyService moneyService;
 
     /**
      * 查看我的金币
@@ -69,7 +69,7 @@ public class GoldController {
     }
 
     /**
-     * 充值我的金币
+     * 通过支付宝充值我的金币
      * @param request
      * @return
      */
@@ -84,7 +84,7 @@ public class GoldController {
     }
 
     /**
-     * 确认充值金币、提交请求
+     * 支付宝充值确认充值金币、提交请求
      * @param request
      * @return
      */
@@ -142,6 +142,52 @@ public class GoldController {
     }
 
     /**
+     * 通过余额充值我的金币
+     * @param request
+     * @return
+     */
+    @RequestMapping("/paybymoney")
+    public String goldPayByMoney(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        Money money = moneyService.getMoney(nowUser.getUserid());
+        model.addAttribute("money", money);
+        return "gold_pay_bymoney";
+    }
+
+    /**
+     * 确认充值，通过余额充值我的金币
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dopaybymoney")
+    public String goldDoPayByMoney(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        int userId = nowUser.getUserid();
+        int payAmount = Integer.parseInt(request.getParameter("pay"));
+
+        Goldadd goldadd = new Goldadd();
+        goldadd.setUserid(userId);
+        goldadd.setAddamount(payAmount);
+        goldadd.setAddtime(TimeUtil.dateToString(new Date()));
+
+        String result = "";
+        result = goldService.addPayGoldByMoney(goldadd);
+        if (result.equals("pay_success")) {
+            model.addAttribute("message", "充值请求提交成功，管理员将在24小时内处理，请等待！");
+            return "pageuser_success";
+        } else{
+            model.addAttribute("message", "金币充值失败，请稍后再试！");
+            return "page_400";
+        }
+    }
+
+    /**
      * 每日签到金币
      * @param request
      * @return
@@ -180,8 +226,10 @@ public class GoldController {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-        List<Goldadd> goldaddList = goldService.getGoldaddListByUserId(nowUser.getUserid());
-        model.addAttribute("goldaddList", goldaddList);
+        List<Goldadd> goldaddedList = goldService.getGoldaddedListByUserId(nowUser.getUserid());
+        List<Goldadd> goldaddingList = goldService.getGoldaddingListByUserId(nowUser.getUserid());
+        model.addAttribute("goldaddedList", goldaddedList);
+        model.addAttribute("goldaddingList", goldaddingList);
         return "gold_addhistory";
     }
 

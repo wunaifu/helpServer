@@ -247,7 +247,7 @@
                                     <p>余额提现</p>
                                 </li>
                             </a>
-                            <a href="/gold/pay">
+                            <a href="/gold/paybymoney">
                                 <li class="am-u-sm-4"><i class="am-icon-dollar am-icon-md"></i>
                                     <p>金币充值</p>
                                 </li>

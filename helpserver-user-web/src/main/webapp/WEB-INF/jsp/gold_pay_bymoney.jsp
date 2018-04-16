@@ -69,58 +69,20 @@
             </div>
             <hr/>
             <div class="authentication">
-                <form action="/gold/dopay" onsubmit="return suborder()"
+                <form action="/gold/dopaybymoney" onsubmit="return suborder()"
                       enctype="multipart/form-data" method="post">
                     <p class="tip"><a href="/gold/payhistory" style="color: #0a628f;font-size: 17px;">充值历史>></a></p>
-                    <p class="tip"><a href="/gold/paybymoney" style="color: #0a628f;font-size: 17px;">余额充值金币>></a></p>
+                    <p class="tip"><a href="/gold/pay" style="color: #0a628f;font-size: 17px;">支付宝充值金币>></a></p>
                     <div class="authenticationInfo">
-                        <p class="title">填写充值信息</p>
+                        <p class="title">填写充值信息   目前可用余额${money.amount}￥</p>
                         <div class="am-form-group">
                             <label for="pay" class="am-form-label">充值金额</label>
                             <div class="am-form-content">
-                                <input type="tel" id="pay" name="pay" placeholder="1元10个金币"
+                                <input type="tel" id="pay" name="pay" placeholder="1￥=10个金币"
                                        onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="3">
+                                <input type="text" value="${money.amount}" id="money" style="visibility: hidden">
                             </div>
                         </div>
-                    </div>
-                    <div class="authenticationPic">
-                        <p class="title">请使用支付宝扫码付款</p>
-                        <%--<p class="tip">支付成功后上传付款截图</p>--%>
-                        <ul class="cardlist">
-                            <li>
-                                <div class="cardPic">
-                                    <img src="http://localhost:8082/resources/img/${payAccount.payphoto}" width="100%" height="100%">
-                                    <p class="titleText">收款图</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="authenticationPic">
-                        <p class="title">上传付款完成截图</p>
-                        <p class="tip">请按要求上传付款完成截图</p>
-                        <ul class="cardlist">
-                            <li>
-                                <div class="cardPic">
-                                    <img src="/resources/img/payshotcut.png" style="max-width: 165px;max-height: 259px;">
-                                    <div class="cardText"><i class="am-icon-plus"></i>
-                                        <p>示例</p>
-                                    </div>
-                                    <p class="titleText">示例</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cardPic">
-                                    <input id="file2" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp"
-                                           accept="image/*"
-                                           name="file" onchange="c2()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                    <img src="/images/cardbg.jpg" id="show2" style="max-width: 165px;max-height: 259px;">
-                                    <div class="cardText"><i class="am-icon-plus"></i>
-                                        <p>付款截图</p>
-                                    </div>
-                                    <p class="titleText">付款截图</p>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="info-btn">
@@ -155,8 +117,14 @@
 
     function suborder() {
         var pay = $("#pay").val().replace(" ", "");
+        var money = $("#money").val().replace(" ", "");
         if (pay == '') {
             $.myToast("请输入充值金额");
+            $("#pay").focus();
+            return false;
+        }
+        if (parseInt(pay) > parseInt(money)) {
+            $.myToast("充值金额超过已有余额");
             $("#pay").focus();
             return false;
         }

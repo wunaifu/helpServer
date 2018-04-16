@@ -85,7 +85,7 @@
                                                             <li class="list-group-item">状态：待审核</li>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <li class="list-group-item">状态：已审核</li>
+                                                            <li class="list-group-item">状态：已审核到账</li>
                                                             <li class="list-group-item">
                                                                 审核时间：${moneyAddDto.moneyadd.gettime}</li>
                                                         </c:otherwise>

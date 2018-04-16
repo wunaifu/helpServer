@@ -87,14 +87,16 @@
                                                         <c:otherwise>
                                                             <li class="list-group-item">状态：已审核</li>
                                                             <li class="list-group-item">
-                                                                审核时间：${goldAddDto.goldadd.gettime}</li>
+                                                                到账时间：${goldAddDto.goldadd.gettime}</li>
                                                         </c:otherwise>
                                                     </c:choose>
-                                                    <li class="list-group-item" style="text-align: left">
-                                                        <span>付款截图:<img style="min-width: 210px;min-height: 320px;"
-                                                                        src="http://localhost:8083/resources/img/${goldAddDto.goldadd.addphoto}">
-                                                        </span>
-                                                    </li>
+                                                    <c:if test="${goldAddDto.goldadd.addphoto!=null}">
+                                                        <li class="list-group-item" style="text-align: left">
+                                                            <span>付款截图:<img style="min-width: 210px;min-height: 320px;"
+                                                                            src="http://localhost:8083/resources/img/${goldAddDto.goldadd.addphoto}">
+                                                            </span>
+                                                        </li>
+                                                    </c:if>
                                                     <c:if test="${goldAddDto.goldadd.gettime==null||goldAddDto.goldadd.gettime==''}">
                                                         <li class="list-group-item">
                                                             <a href="/gold/agree/${goldAddDto.goldadd.id}">

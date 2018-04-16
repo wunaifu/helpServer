@@ -35,7 +35,7 @@
                 <li> <a href="/money/pay">余额充值</a></li>
                 <li> <a href="#">余额提现</a></li>
                 <li> <a href="/gold/info">我的金币</a></li>
-                <li> <a href="/gold/pay">金币充值</a></li>
+                <li> <a href="/gold/paybymoney">金币充值</a></li>
                 <li> <a href="#">金币提现</a></li>
             </ul>
         </li>

@@ -3,6 +3,7 @@ package com.helpserver.service.impl;
 import com.helpserver.dao.*;
 import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
+import com.helpserver.service.MoneyService;
 import com.helpserver.service.PayAccountService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.MyThrowException;
@@ -29,6 +30,8 @@ public class GoldServiceImpl implements GoldService {
     GoldaddDao goldAddDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    MoneyService moneyService;
 
     /**
      * 注册时初始化用户金币数为10
@@ -51,7 +54,7 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
-     * 充值金币
+     * 管理员审核通过支付宝充值金币
      * 1、获取充值信息
      * 2、添加审核时间
      * 3、增加金币基本表的金币总数
@@ -87,6 +90,77 @@ public class GoldServiceImpl implements GoldService {
                     goldhistory.setState(1);
                     if (goldhistoryDao.insertSelective(goldhistory) == 1) {
                         return "pay_success";
+                    } else {
+                        throw new MyThrowException("addgoldinfo_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("updategettime_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("updategettime_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 账户余额充值金币，直接到账
+     * 1、添加充值表
+     * 2、增加金币基本表的金币总数
+     * 3、添加金币收支历史
+     * 4、扣除余额基本表余额
+     * 5、添加余额收支历史
+     * @param goldAdd
+     * @return
+     */
+    @Transactional
+    @Override
+    public String addPayGoldByMoney(Goldadd goldAdd) {
+        String date = TimeUtil.dateToString(new Date());
+        int payAmount=goldAdd.getAddamount()*10;
+        try {
+            //1、添加充值表
+            goldAdd.setGettime(date);
+            if (goldAddDao.insertSelective(goldAdd) == 1) {
+                //2、增加金币基本表的金币总数
+                Gold gold = this.getGold(goldAdd.getUserid());
+                Gold goldInfoAdd = new Gold();
+                goldInfoAdd.setId(gold.getId());
+                goldInfoAdd.setPayamount(gold.getPayamount()+payAmount);
+                goldInfoAdd.setGoldamount(gold.getGoldamount() + payAmount);
+                if (goldDao.updateByPrimaryKeySelective(goldInfoAdd) == 1) {
+                    //3、添加金币收支历史
+                    Goldhistory goldhistory = new Goldhistory();
+                    goldhistory.setUserid(goldAdd.getUserid());
+                    goldhistory.setInfo(CommonsUtil.goldMoneyPayGold);
+                    goldhistory.setAmount(payAmount);
+                    goldhistory.setTime(date);
+                    goldhistory.setState(1);
+                    if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                        //4、更新余额基本表
+                        Money money = moneyService.getMoney(goldAdd.getUserid());
+                        money.setAmount(money.getAmount() - goldAdd.getAddamount());
+                        if (moneyService.updateMoneyByPrimaryKey(money) == 1) {
+                            //5、添加余额收支历史
+                            Moneyhistory moneyhistory = new Moneyhistory();
+                            moneyhistory.setUserid(goldAdd.getUserid());
+                            moneyhistory.setAmount(goldAdd.getAddamount());
+                            moneyhistory.setState(0);
+                            moneyhistory.setInfo(CommonsUtil.moneyToAddGlog);
+                            moneyhistory.setTime(date);
+                            if (moneyService.insertMoneyHistory(moneyhistory) == 1) {
+                                return "pay_success";
+                            }else {
+                                throw new MyThrowException("addmoneyhistory_failure");
+                            }
+                        }else {
+                            throw new MyThrowException("updatemoney_failure");
+                        }
+
                     } else {
                         throw new MyThrowException("addgoldinfo_failure");
                     }
@@ -194,17 +268,33 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
-     * 获取我的金币充值历史情况
+     * 获取我的金币充值已到账历史情况
      *
      * @param userId
      * @return
      */
     @Override
-    public List<Goldadd> getGoldaddListByUserId(int userId) {
+    public List<Goldadd> getGoldaddedListByUserId(int userId) {
         GoldaddExample goldaddExample = new GoldaddExample();
         GoldaddExample.Criteria criteria = goldaddExample.createCriteria();
         criteria.andUseridEqualTo(userId);
         criteria.andGettimeIsNotNull();
+        List<Goldadd> goldaddList = goldAddDao.selectByExample(goldaddExample);
+        return goldaddList;
+    }
+
+    /**
+     * 获取我的金币充值未到账历史情况
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Goldadd> getGoldaddingListByUserId(int userId) {
+        GoldaddExample goldaddExample = new GoldaddExample();
+        GoldaddExample.Criteria criteria = goldaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNull();
         List<Goldadd> goldaddList = goldAddDao.selectByExample(goldaddExample);
         return goldaddList;
     }

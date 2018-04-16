@@ -11,7 +11,9 @@ public interface MoneyService {
 
     boolean insertMoney(int userId);
 
-    String updateMoneySignIn(int userId);
+    int insertMoneyHistory(Moneyhistory moneyhistory);
+
+    int updateMoneyByPrimaryKey(Money money);
 
     String addPayMoneyByMoneyAddId(int moneyAddId);
 

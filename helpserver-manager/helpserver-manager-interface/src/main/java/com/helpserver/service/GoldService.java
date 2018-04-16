@@ -17,11 +17,15 @@ public interface GoldService {
 
     String addPayGoldByGoldAddId(int goldAddId);
 
+    String addPayGoldByMoney(Goldadd goldAdd);
+
     String addGoldadd(Goldadd goldadd);
 
     Gold getGold(int userId);
 
-    List<Goldadd> getGoldaddListByUserId(int userId);
+    List<Goldadd> getGoldaddedListByUserId(int userId);
+
+    List<Goldadd> getGoldaddingListByUserId(int userId);
 
     List<Goldhistory> getGoldHistoryListByUserId(int userId);
 

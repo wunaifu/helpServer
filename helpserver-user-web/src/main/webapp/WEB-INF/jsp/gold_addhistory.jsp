@@ -67,43 +67,83 @@
                 </div>
                 <hr/>
                 <div class="pointlist am-tabs" data-am-tabs>
-                    <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs" style="background-color: #dcdcdc;border: none;">
-                        <p align="center" style="margin: 10px 0 10px 0;">查看充值数目、申请时间及成功充值时间</p>
-                    </ul>
+                    <%--<ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs" style="background-color: #dcdcdc;border: none;">--%>
+                        <%--<p align="center" style="margin: 10px 0 10px 0;">查看充值数目、申请时间及成功充值时间</p>--%>
+                    <%--</ul>--%>
 
-                    <div class="am-tabs-bd">
-                        <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-                            <table>
-                                <b></b>
-                                <thead>
-                                <tr>
-                                    <th class="th2">充值数目</th>
-                                    <th class="th1">申请时间</th>
-                                    <th class="th3">成功时间</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:choose>
-                                    <c:when test="${goldaddList.size()>0}">
-                                        <c:forEach items="${goldaddList}" var="item">
+                    <div class="pointlist am-tabs" data-am-tabs>
+                        <ul class="am-avg-sm-2 am-tabs-nav am-nav am-nav-tabs">
+                            <li class="am-active"><a href="#tab1">已充值</a></li>
+                            <li><a href="#tab2">审核中</a></li>
+                        </ul>
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                                <table>
+                                    <b></b>
+                                    <thead>
+                                    <tr>
+                                        <th class="th1">充值数目</th>
+                                        <th class="th2">申请时间</th>
+                                        <th class="th3">成功时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:choose>
+                                        <c:when test="${goldaddedList.size()>0}">
+                                            <c:forEach items="${goldaddedList}" var="itemed">
+                                                <tr>
+                                                    <td class="pointType">+${itemed.addamount*10}</td>
+                                                    <td class="pointNum">${itemed.addtime}</td>
+                                                    <td class="pointTime">${itemed.gettime}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
                                             <tr>
-                                                <td class="pointType">+${item.addamount*10}</td>
-                                                <td class="pointNum">${item.addtime}</td>
-                                                <td class="pointTime">${item.gettime}</td>
+                                                <td class="pointType">无</td>
+                                                <td class="pointNum">无</td>
+                                                <td class="pointTime">未充值</td>
                                             </tr>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <tr>
-                                            <td class="pointType">无</td>
-                                            <td class="pointNum">无</td>
-                                            <td class="pointTime">无</td>
-                                        </tr>
-                                    </c:otherwise>
-                                </c:choose>
-                                </tbody>
-                            </table>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab2">
+                                <table>
+                                    <b></b>
+                                    <thead>
+                                    <tr>
+                                        <th class="th1">充值数目</th>
+                                        <th class="th2">申请时间</th>
+                                        <th class="th3">成功时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:choose>
+                                        <c:when test="${goldaddingList.size()>0}">
+                                            <c:forEach items="${goldaddingList}" var="iteming">
+                                                <tr>
+                                                    <td class="pointType">+${iteming.addamount*10}</td>
+                                                    <td class="pointNum">${iteming.addtime}</td>
+                                                    <td class="pointTime">审核中</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr>
+                                                <td class="pointType">无</td>
+                                                <td class="pointNum">无</td>
+                                                <td class="pointTime">未充值</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
+
                     </div>
 
                 </div>
