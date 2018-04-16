@@ -234,58 +234,58 @@
                     <!--九宫格-->
                     <div class="user-squaredIcon">
                         <div class="s-bar">
-                            <i class="s-icon"></i>我的常用
+                            <i class="s-icon"></i>我的功能
                         </div>
                         <ul>
-                            <a href="order.html">
-                                <li class="am-u-sm-4"><i class="am-icon-truck am-icon-md"></i>
-                                    <p>服务查询</p>
-                                </li>
-                            </a>
-                            <a href="collection.html">
-                                <li class="am-u-sm-4"><i class="am-icon-heart am-icon-md"></i>
-                                    <p>我的收藏</p>
-                                </li>
-                            </a>
-                            <a href="foot.html">
-                                <li class="am-u-sm-4"><i class="am-icon-paw am-icon-md"></i>
-                                    <p>我的足迹</p>
+                            <a href="/money/pay">
+                                <li class="am-u-sm-4"><i class="am-icon-rmb am-icon-md"></i>
+                                    <p>充值余额</p>
                                 </li>
                             </a>
                             <a href="#">
-                                <li class="am-u-sm-4"><i class="am-icon-gift am-icon-md"></i>
-                                    <p>为你推荐</p>
+                                <li class="am-u-sm-4"><i class="am-icon-money am-icon-md"></i>
+                                    <p>提现余额</p>
                                 </li>
                             </a>
-                            <a href="blog.html">
-                                <li class="am-u-sm-4"><i class="am-icon-share-alt am-icon-md"></i>
-                                    <p>我的分享</p>
+                            <a href="/gold/pay">
+                                <li class="am-u-sm-4"><i class="am-icon-dollar am-icon-md"></i>
+                                    <p>充值金币</p>
                                 </li>
                             </a>
-                            <a href="/home/home2.html">
+                            <a href="#">
+                                <li class="am-u-sm-4"><i class="am-icon-medkit am-icon-md"></i>
+                                    <p>提现金币</p>
+                                </li>
+                            </a>
+                            <a href="/user/feedback">
+                                <li class="am-u-sm-4"><i class="am-icon-heart am-icon-md"></i>
+                                    <p>意见反馈</p>
+                                </li>
+                            </a>
+                            <a href="/logout">
                                 <li class="am-u-sm-4"><i class="am-icon-clock-o am-icon-md"></i>
-                                    <p>趣事活动</p>
+                                    <p>退出登录</p>
                                 </li>
                             </a>
 
                         </ul>
                     </div>
 
-                    <div class="user-suggestion">
-                        <div class="s-bar">
-                            <i class="s-icon"></i>&nbsp;
-                        </div>
-                        <a href="/user/feedback"><div class="s-bar">
-                            <i class="s-icon"></i>意见反馈
-                        </div></a>
-                        <hr style="margin: 0 10px 0 10px;">
-                        <a href="/logout">
-                            <div class="s-bar">
-                            <i class="s-icon"></i>退出登录
-                        </div></a>
-                        <hr style="margin: 0 10px 0 10px;">
-                        <div style="margin-bottom: 30px;"></div>
-                    </div>
+                    <%--<div class="user-suggestion">--%>
+                        <%--<div class="s-bar">--%>
+                            <%--<i class="s-icon"></i>&nbsp;--%>
+                        <%--</div>--%>
+                        <%--<a href="/user/feedback"><div class="s-bar">--%>
+                            <%--<i class="s-icon"></i>意见反馈--%>
+                        <%--</div></a>--%>
+                        <%--<hr style="margin: 0 10px 0 10px;">--%>
+                        <%--<a href="/logout">--%>
+                            <%--<div class="s-bar">--%>
+                            <%--<i class="s-icon"></i>退出登录--%>
+                        <%--</div></a>--%>
+                        <%--<hr style="margin: 0 10px 0 10px;">--%>
+                        <%--<div style="margin-bottom: 30px;"></div>--%>
+                    <%--</div>--%>
 
                 </div>
             </div>
