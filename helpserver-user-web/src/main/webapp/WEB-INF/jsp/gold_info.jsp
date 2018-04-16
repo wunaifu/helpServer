@@ -71,7 +71,7 @@
                 <hr/>
                 <div class="pointsTitle">
                     <div class="usable">可用金币<span>${gold.goldamount}</span></div>
-                    <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>去提现</a></div>
+                    <div class="pointshop"><a href="/gold/tomoney"><i><img src="/images/u5.png" /></i>去提现</a></div>
                     <div class="pointshop" style="margin-left: 80px;"><a href="/gold/paybymoney"><i><img src="/images/u5.png" /></i>去充值</a></div>
                     <c:choose>
                         <c:when test="${gold.state==0}">

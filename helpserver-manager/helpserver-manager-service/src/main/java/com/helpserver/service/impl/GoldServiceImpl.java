@@ -54,6 +54,68 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
+     * 提现金币为余额
+     * 1、更新金币基本表
+     * 2、添加金币收支历史表
+     * 3、更新余额基本表
+     * 4、添加余额收支历史表
+     * @param amount
+     * @return
+     */
+    @Transactional
+    @Override
+    public String goleToMoney(int amount,int userId) {
+        String date = TimeUtil.dateToString(new Date());
+        int moneyAmount = amount / 10;
+        try {
+            //1、更新金币基本表
+            Gold gold = this.getGold(userId);
+            Gold goldInfoAdd = new Gold();
+            goldInfoAdd.setId(gold.getId());
+            goldInfoAdd.setGoldamount(gold.getGoldamount() - amount);
+            if (goldDao.updateByPrimaryKeySelective(goldInfoAdd) == 1) {
+                //2、添加金币收支历史
+                Goldhistory goldhistory = new Goldhistory();
+                goldhistory.setUserid(userId);
+                goldhistory.setInfo(CommonsUtil.goldToMoney);
+                goldhistory.setAmount(amount);
+                goldhistory.setTime(date);
+                goldhistory.setState(0);
+                if (goldhistoryDao.insertSelective(goldhistory) == 1) {
+                    //3、更新余额基本表
+                    Money money = moneyService.getMoney(userId);
+                    money.setAmount(money.getAmount() + moneyAmount);
+                    if (moneyService.updateMoneyByPrimaryKey(money) == 1) {
+                        //4、添加余额收支历史
+                        Moneyhistory moneyhistory = new Moneyhistory();
+                        moneyhistory.setUserid(userId);
+                        moneyhistory.setAmount(moneyAmount);
+                        moneyhistory.setState(1);
+                        moneyhistory.setInfo(CommonsUtil.goldToMoney);
+                        moneyhistory.setTime(date);
+                        if (moneyService.insertMoneyHistory(moneyhistory) == 1) {
+                            return "get_success";
+                        }else {
+                            throw new MyThrowException("addmoneyhistory_failure");
+                        }
+                    }else {
+                        throw new MyThrowException("updatemoney_failure");
+                    }
+
+                } else {
+                    throw new MyThrowException("addgoldinfo_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("updategettime_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
      * 管理员审核通过支付宝充值金币
      * 1、获取充值信息
      * 2、添加审核时间

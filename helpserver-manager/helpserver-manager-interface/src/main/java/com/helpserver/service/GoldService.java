@@ -19,6 +19,8 @@ public interface GoldService {
 
     String addPayGoldByMoney(Goldadd goldAdd);
 
+    String goleToMoney(int amount,int userId);
+
     String addGoldadd(Goldadd goldadd);
 
     Gold getGold(int userId);

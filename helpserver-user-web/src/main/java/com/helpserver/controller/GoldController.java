@@ -188,6 +188,47 @@ public class GoldController {
     }
 
     /**
+     * 金币提现为余额
+     * @param request
+     * @return
+     */
+    @RequestMapping("/tomoney")
+    public String goldToMoney(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        Gold gold = goldService.getGold(nowUser.getUserid());
+        model.addAttribute("gold", gold);
+        return "gold_tomoney";
+    }
+
+    /**
+     * 确认提现金币为余额
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dotomoney")
+    public String goldDoToMoney(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        int userId = nowUser.getUserid();
+        int amount = Integer.parseInt(request.getParameter("pay"));
+
+        String result = "";
+        result = goldService.goleToMoney(amount,userId);
+        if (result.equals("get_success")) {
+            model.addAttribute("message", "金币提现为余额成功，此次提现可得余额"+amount/10+"￥");
+            return "pageuser_success";
+        } else{
+            model.addAttribute("message", "金币提现失败，请稍后再试！");
+            return "page_400";
+        }
+    }
+
+    /**
      * 每日签到金币
      * @param request
      * @return
