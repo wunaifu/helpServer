@@ -78,19 +78,35 @@ public class MoneyServiceImpl implements MoneyService {
     }
 
     /**
-     * 获取我的余额充值历史情况
-     *
+     * 获取我的余额充值申请历史情况
+     *  未充值成功
      * @param userId
      * @return
      */
     @Override
-    public List<Moneyadd> getMoneyaddListByUserId(int userId) {
+    public List<Moneyadd> getMoneyAddingListByUserId(int userId) {
+        MoneyaddExample moneyaddExample = new MoneyaddExample();
+        MoneyaddExample.Criteria criteria = moneyaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNull();
+        List<Moneyadd> moneyaddList = moneyAddDao.selectByExample(moneyaddExample);
+        return moneyaddList;
+    }
+
+    /**
+     * 获取我的余额已充值历史情况
+     * 已充值成功
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Moneyadd> getMoneyAddedListByUserId(int userId) {
         MoneyaddExample moneyaddExample = new MoneyaddExample();
         MoneyaddExample.Criteria criteria = moneyaddExample.createCriteria();
         criteria.andUseridEqualTo(userId);
         criteria.andGettimeIsNotNull();
-        List<Moneyadd> moneyaddList = moneyAddDao.selectByExample(moneyaddExample);
-        return moneyaddList;
+        List<Moneyadd> moneyaddedList = moneyAddDao.selectByExample(moneyaddExample);
+        return moneyaddedList;
     }
 
     /**

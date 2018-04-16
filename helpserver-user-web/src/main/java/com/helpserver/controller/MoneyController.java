@@ -150,8 +150,10 @@ public class MoneyController {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-        List<Moneyadd> moneyaddList = moneyService.getMoneyaddListByUserId(nowUser.getUserid());
-        model.addAttribute("moneyaddList", moneyaddList);
+        List<Moneyadd> moneyAddingList = moneyService.getMoneyAddingListByUserId(nowUser.getUserid());
+        List<Moneyadd> moneyAddedList = moneyService.getMoneyAddedListByUserId(nowUser.getUserid());
+        model.addAttribute("moneyAddingList", moneyAddingList);
+        model.addAttribute("moneyAddedList", moneyAddedList);
         return "money_addhistory";
     }
 

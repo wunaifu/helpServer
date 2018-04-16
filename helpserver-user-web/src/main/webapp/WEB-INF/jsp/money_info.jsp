@@ -72,6 +72,7 @@
                 <div class="pointsTitle">
                     <div class="usable">可用余额<span>${money.amount}.00</span></div>
                     <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>去提现</a></div>
+                    <div class="pointshop" style="margin-left: 80px;"><a href="/money/pay"><i><img src="/images/u5.png" /></i>去充值</a></div>
 
                     <div class="signIn"><a href="#"><i class="am-icon-calendar"></i>提现历史</a></div>
 

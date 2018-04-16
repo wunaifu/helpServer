@@ -258,12 +258,12 @@
                                 </li>
                             </a>
                             <a href="/user/feedback">
-                                <li class="am-u-sm-4"><i class="am-icon-heart am-icon-md"></i>
+                                <li class="am-u-sm-4"><i class="am-icon-feed am-icon-md"></i>
                                     <p>意见反馈</p>
                                 </li>
                             </a>
                             <a href="/logout">
-                                <li class="am-u-sm-4"><i class="am-icon-clock-o am-icon-md"></i>
+                                <li class="am-u-sm-4"><i class="am-icon-sign-out am-icon-md"></i>
                                     <p>退出登录</p>
                                 </li>
                             </a>

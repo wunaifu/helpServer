@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-    <title>余额充值历史</title>
+    <title>账户余额充值历史</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
@@ -22,6 +22,8 @@
     <link href="/css/point.css" rel="stylesheet" type="text/css">
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+    <script src="/js/alert.js"></script>
 </head>
 
 <body>
@@ -63,33 +65,74 @@
                 <div class="am-cf am-padding">
                     <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
                         <a style="color: #0a628f" href="/index_user">个人中心&nbsp;</a> >&nbsp;
-                        <strong class="am-text-danger am-text-lg">余额充值历史</strong> / <small>PayGold&nbsp;History</small></div>
+                        <strong class="am-text-danger am-text-lg">余额充值历史</strong> / <small>PayMoney&nbsp;History</small>
+                    </div>
                 </div>
                 <hr/>
-                <div class="pointlist am-tabs" data-am-tabs>
-                    <%--<ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs" style="background-color: #dcdcdc;border: none;">--%>
-                        <p style="text-align:center;margin: 10px 0 10px 0;background-color: #ff713b;width: 60px;"><a href="/money/pay">去充值</a> </p>
-                    <%--</ul>--%>
+                <div class="pointsTitle">
+                    <div class="usable">可用余额<span>${money.amount}.00</span></div>
+                    <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>去提现</a></div>
+                    <div class="pointshop" style="margin-left: 80px;"><a href="/money/pay"><i><img src="/images/u5.png" /></i>去充值</a></div>
 
+                    <div class="signIn"><a href="#"><i class="am-icon-calendar"></i>提现历史</a></div>
+
+                </div>
+                <div class="pointlist am-tabs" data-am-tabs>
+                    <ul class="am-avg-sm-2 am-tabs-nav am-nav am-nav-tabs">
+                        <li class="am-active"><a href="#tab1">已充值</a></li>
+                        <li><a href="#tab2">审核中</a></li>
+                    </ul>
                     <div class="am-tabs-bd">
                         <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                             <table>
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th2">充值数目</th>
-                                    <th class="th1">申请时间</th>
+                                    <th class="th1">充值数目</th>
+                                    <th class="th2">申请时间</th>
                                     <th class="th3">成功时间</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:choose>
-                                    <c:when test="${moneyaddList.size()>0}">
-                                        <c:forEach items="${moneyaddList}" var="item">
+                                    <c:when test="${moneyAddedList.size()>0}">
+                                        <c:forEach items="${moneyAddedList}" var="itemed">
                                             <tr>
-                                                <td class="pointType">+${item.addamount}</td>
-                                                <td class="pointNum">${item.addtime}</td>
-                                                <td class="pointTime">${item.gettime}</td>
+                                                <td class="pointType">+${itemed.addamount}</td>
+                                                <td class="pointNum">${itemed.addtime}</td>
+                                                <td class="pointTime">${itemed.gettime}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                                <td class="pointType">无</td>
+                                                <td class="pointNum">无</td>
+                                                <td class="pointTime">未充值</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="am-tab-panel am-fade" id="tab2">
+                            <table>
+                                <b></b>
+                                <thead>
+                                <tr>
+                                    <th class="th1">充值数目</th>
+                                    <th class="th2">申请时间</th>
+                                    <th class="th3">成功时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:choose>
+                                    <c:when test="${moneyAddingList.size()>0}">
+                                        <c:forEach items="${moneyAddingList}" var="iteming">
+                                            <tr>
+                                                <td class="pointType">+${iteming.addamount}</td>
+                                                <td class="pointNum">${iteming.addtime}</td>
+                                                <td class="pointTime">审核中</td>
                                             </tr>
                                         </c:forEach>
                                     </c:when>
@@ -97,13 +140,14 @@
                                         <tr>
                                             <td class="pointType">无</td>
                                             <td class="pointNum">无</td>
-                                            <td class="pointTime">无</td>
+                                            <td class="pointTime">未充值</td>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
 
                 </div>

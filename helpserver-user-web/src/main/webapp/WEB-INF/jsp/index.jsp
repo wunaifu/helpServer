@@ -48,7 +48,7 @@
         <ul class="message-l">
             <div class="topMessage">
                 <div class="menu-hd">
-                    <a href="/map" target="_top">定位：<%=nowUser.getLocation()%>
+                    <a href="/map" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
                     </a>
                     <a href="/index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
                     </a>
@@ -80,8 +80,8 @@
     <!--悬浮搜索框-->
 
     <div class="nav white">
-        <div class="logo" style="margin-top:18px;font-size: 12px;"><a
-                href="/map"><%--<img src="/images/logo1.png"/>--%><%=nowUser.getLocation()%></a></div>
+        <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
+            <a href="/map"><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%></a></div>
         <div class="logoBig">
             <li><img src="/images/logobig.png"/></li>
         </div>
