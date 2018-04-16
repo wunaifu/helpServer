@@ -25,10 +25,10 @@ public interface MoneyService {
 
     List<Moneyhistory> getMoneyHistoryListByUserId(int userId);
 
-//    List<MoneyUserDto> getMoneyUserDtoList();
-//
-//    List<MoneyAddDto> getMoneyAddDtoListByGetTime(int getTimeState);
-//
-//    MoneyAddDto getMoneyAddDtoByMoneyAddId(int addId);
+    List<MoneyUserDto> getMoneyUserDtoList();
+
+    List<MoneyAddDto> getMoneyAddDtoListByGetTime(int getTimeState);
+
+    MoneyAddDto getMoneyAddDtoByMoneyAddId(int addId);
 
 }

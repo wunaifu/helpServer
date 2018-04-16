@@ -126,12 +126,20 @@
                 </li>
                 <li class="panel panel-default dropdown">
                     <a data-toggle="collapse" href="#dropdown-table">
-                        <span class="icon fa fa-table"></span><span class="title">金币管理</span>
+                        <span class="icon fa fa-table"></span><span class="title">余额与金币管理</span>
                     </a>
                     <!-- Dropdown level 1 -->
                     <div id="dropdown-table" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
+                                <li><a href="/money/userlist">用户余额列表</a>
+                                </li>
+                                <li><a href="/money/checkadd">余额充值申请列表</a>
+                                </li>
+                                <li><a href="/money/havedcheck">余额充值历史列表</a>
+                                </li>
+                                <li><a href="#">提现余额列表</a>
+                                </li>
                                 <li><a href="/gold/usergold">用户金币列表</a>
                                 </li>
                                 <li><a href="/gold/checkadd">金币充值申请列表</a>

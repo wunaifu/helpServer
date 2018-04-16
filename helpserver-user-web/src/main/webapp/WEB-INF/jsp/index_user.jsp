@@ -239,22 +239,22 @@
                         <ul>
                             <a href="/money/pay">
                                 <li class="am-u-sm-4"><i class="am-icon-rmb am-icon-md"></i>
-                                    <p>充值余额</p>
+                                    <p>余额充值</p>
                                 </li>
                             </a>
                             <a href="#">
                                 <li class="am-u-sm-4"><i class="am-icon-money am-icon-md"></i>
-                                    <p>提现余额</p>
+                                    <p>余额提现</p>
                                 </li>
                             </a>
                             <a href="/gold/pay">
                                 <li class="am-u-sm-4"><i class="am-icon-dollar am-icon-md"></i>
-                                    <p>充值金币</p>
+                                    <p>金币充值</p>
                                 </li>
                             </a>
                             <a href="#">
                                 <li class="am-u-sm-4"><i class="am-icon-medkit am-icon-md"></i>
-                                    <p>提现金币</p>
+                                    <p>金币提现</p>
                                 </li>
                             </a>
                             <a href="/user/feedback">

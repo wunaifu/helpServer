@@ -31,10 +31,12 @@
         <li class="person">
             <p><i class="am-icon-dollar"></i>我的资产</p>
             <ul>
+                <li> <a href="/money/info">账户余额</a></li>
+                <li> <a href="/money/pay">余额充值</a></li>
+                <li> <a href="#">余额提现</a></li>
                 <li> <a href="/gold/info">我的金币</a></li>
-                <li> <a href="#">账户余额</a></li>
-                <li> <a href="/gold/pay">充值金币 </a></li>
-                <li> <a href="bonus.html">提现金币</a></li>
+                <li> <a href="/gold/pay">金币充值</a></li>
+                <li> <a href="#">金币提现</a></li>
             </ul>
         </li>
 
