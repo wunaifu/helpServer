@@ -239,6 +239,21 @@ public class MoneyServiceImpl implements MoneyService {
     }
 
     /**
+     * 获取我的余额充值所有历史情况
+     *  未审核和已审核
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Moneyadd> getMoneyAddListByUserId(int userId) {
+        MoneyaddExample moneyaddExample = new MoneyaddExample();
+        MoneyaddExample.Criteria criteria = moneyaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        List<Moneyadd> moneyaddList = moneyAddDao.selectByExample(moneyaddExample);
+        return moneyaddList;
+    }
+
+    /**
      * 获取我的余额提现申请历史情况
      *  未充值成功
      * @param userId
@@ -250,6 +265,21 @@ public class MoneyServiceImpl implements MoneyService {
         MoneygetExample.Criteria criteria = moneygetExample.createCriteria();
         criteria.andUseridEqualTo(userId);
         criteria.andGettimeIsNull();
+        List<Moneyget> moneygetList = moneyGetDao.selectByExample(moneygetExample);
+        return moneygetList;
+    }
+
+    /**
+     * 获取我的余额提现所有历史情况
+     *  未审核和已审核的
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Moneyget> getMoneygetListByUserId(int userId) {
+        MoneygetExample moneygetExample = new MoneygetExample();
+        MoneygetExample.Criteria criteria = moneygetExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
         List<Moneyget> moneygetList = moneyGetDao.selectByExample(moneygetExample);
         return moneygetList;
     }

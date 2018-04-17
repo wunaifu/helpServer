@@ -4,6 +4,7 @@ import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.MoneyService;
 import com.helpserver.service.PayAccountService;
+import com.helpserver.service.UserService;
 import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class MoneyController {
     MoneyService moneyService;
     @Autowired
     PayAccountService payAccountService;
+    @Autowired
+    UserService userService;
 
     /**
      * 用户余额列表
@@ -40,6 +43,66 @@ public class MoneyController {
         List<MoneyUserDto> moneyUserDtoList = moneyService.getMoneyUserDtoList();
         model.addAttribute("moneyUserDtoList", moneyUserDtoList);
         return "money_user_list";
+    }
+
+    /**
+     * 管理员查看某用户的余额收支历史
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/iolist")
+    public String userMoneyIOlist(@PathVariable("userId") int userId,
+                                   HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        User user = userService.selectByPrimaryKey(userId);
+        //获取余额收支历史
+        List<Moneyhistory> moneyhistoryList = moneyService.getMoneyHistoryListByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("moneyhistoryList", moneyhistoryList);
+        return "money_user_iolist";
+    }
+
+    /**
+     * 管理员查看某用户的余额充值历史
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/inlist")
+    public String userMoneyInlist(@PathVariable("userId") int userId,
+                                  HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        User user = userService.selectByPrimaryKey(userId);
+        //获取余额收支历史
+        List<Moneyadd> moneyaddList = moneyService.getMoneyAddListByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("moneyhistoryList", moneyaddList);
+        return "money_user_inlist";
+    }
+
+    /**
+     * 管理员查看某用户的余额提现历史
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/outlist")
+    public String userMoneyOutlist(@PathVariable("userId") int userId,
+                                  HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        User user = userService.selectByPrimaryKey(userId);
+        //获取余额收支历史
+        List<Moneyget> moneygetList = moneyService.getMoneygetListByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("moneyhistoryList", moneygetList);
+        return "money_user_outlist";
     }
 
     /**

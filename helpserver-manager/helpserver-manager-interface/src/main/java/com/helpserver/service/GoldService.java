@@ -29,6 +29,8 @@ public interface GoldService {
 
     List<Goldadd> getGoldaddingListByUserId(int userId);
 
+    List<Goldadd> getGoldaddListByUserId(int userId);
+
     List<Goldhistory> getGoldHistoryListByUserId(int userId);
 
     List<GoldUserDto> getGoldUserDtoList();

@@ -362,6 +362,21 @@ public class GoldServiceImpl implements GoldService {
     }
 
     /**
+     * 获取我的金币所有充值历史情况，已到账未到账
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Goldadd> getGoldaddListByUserId(int userId) {
+        GoldaddExample goldaddExample = new GoldaddExample();
+        GoldaddExample.Criteria criteria = goldaddExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        List<Goldadd> goldaddList = goldAddDao.selectByExample(goldaddExample);
+        return goldaddList;
+    }
+
+    /**
      * 获取金币历史情况
      *
      * @param userId

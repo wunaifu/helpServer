@@ -85,6 +85,12 @@
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/user/golelist/${item.user.userid}/detail">
                                                             <span class="label label-default">用户信息</span></a>
+                                                        <a href="/money/${item.user.userid}/iolist">
+                                                            <span class="label label-warning">收支历史</span></a>
+                                                        <a href="/money/${item.user.userid}/inlist">
+                                                            <span class="label label-default">充值历史</span></a>
+                                                        <a href="/money/${item.user.userid}/outlist">
+                                                            <span class="label label-warning">提现历史</span></a>
                                                     </td>
 
                                                 </tr>

@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">用户金币列表</span>
-                        <div class="description">以下是用户的金币列表.</div>
+                        <span class="title">用户金币充值历史列表</span>
+                        <div class="description">以下是用户${user.phone}的金币充值历史列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,48 +53,45 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"></div>
+                                    <div class="title">
+                                        <a style="color: #0a628f" href="/gold/usergold">用户金币列表</a>
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <table class="datatable table table-striped" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th class="manager-border2">账号</th>
-                                            <th class="manager-border2">昵称</th>
                                             <th class="manager-border2">姓名</th>
-                                            <th class="manager-border2">总金币</th>
-                                            <th class="manager-border2">已充值金币</th>
-                                            <th class="manager-border2">开始时间</th>
-                                            <th class="manager-border2">状态</th>
-                                            <th hidden></th>
+                                            <th class="manager-border2">昵称</th>
+                                            <th class="manager-border2">金额</th>
+                                            <th class="manager-border2">个数</th>
+                                            <th class="manager-border2">申请时间</th>
+                                            <th class="manager-border2">到账时间</th>
+                                            <th class="manager-border2"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${goldUserDtoList}" var="item">
+                                            <c:forEach items="${goldhistoryList}" var="item">
                                                 <tr class="manager-bg input-lg">
 
-                                                    <td class="manager-border2">${item.user.phone}</td>
-                                                    <td class="manager-border2">${item.user.nickname}</td>
-                                                    <td class="manager-border2">${item.user.name}</td>
-                                                    <td class="manager-border2">${item.gold.goldamount}个</td>
-                                                    <td class="manager-border2">${item.gold.payamount}个</td>
-                                                    <td class="manager-border2">${item.gold.time}</td>
+                                                    <td class="manager-border2">${user.name}</td>
+                                                    <td class="manager-border2">${user.nickname}</td>
+                                                    <td class="manager-border2">${item.addamount}￥</td>
+                                                    <td class="manager-border2">${item.addamount * 10}个</td>
+                                                    <td class="manager-border2">${item.addtime}</td>
                                                     <c:choose>
-                                                        <c:when test="${item.gold.state==1}">
-                                                            <td class="manager-border2"><b>已签到</b></td>
+                                                        <c:when test="${item.gettime==null}">
+                                                            <td class="manager-border2">待审核通过</td>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <td class="manager-border2"><b>未签到</b></td>
+                                                            <td class="manager-border2">${item.gettime}</td>
                                                         </c:otherwise>
                                                     </c:choose>
+
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/user/goldlist/${item.user.userid}/detail">
-                                                            <span class="label label-default">用户信息</span></a>
-                                                        <a href="/gold/${item.user.userid}/iolist">
-                                                            <span class="label label-warning">收支历史</span></a>
-                                                        <a href="/gold/${item.user.userid}/inlist">
-                                                            <span class="label label-default">充值历史</span></a>
+                                                        <a href="/gold/pay/${item.id}/detail">
+                                                            <span class="label label-default">详情</span></a>
                                                     </td>
 
                                                 </tr>

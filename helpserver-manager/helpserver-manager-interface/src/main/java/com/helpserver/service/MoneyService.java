@@ -29,9 +29,13 @@ public interface MoneyService {
 
     List<Moneyadd> getMoneyAddingListByUserId(int userId);
 
+    List<Moneyadd> getMoneyAddListByUserId(int userId);
+
     List<Moneyget> getMoneygetedListByUserId(int userId);
 
     List<Moneyget> getMoneygetingListByUserId(int userId);
+
+    List<Moneyget> getMoneygetListByUserId(int userId);
 
     List<Moneyhistory> getMoneyHistoryListByUserId(int userId);
 

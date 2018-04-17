@@ -140,8 +140,6 @@
                                 </li>
                                 <li><a href="/money/checkget">余额提现申请列表</a>
                                 </li>
-                                <li><a href="#">余额提现历史列表</a>
-                                </li>
                             </ul>
                         </div>
                     </div>

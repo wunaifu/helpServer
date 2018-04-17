@@ -3,6 +3,7 @@ package com.helpserver.controller;
 import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.PayAccountService;
+import com.helpserver.service.UserService;
 import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class GoldController {
     GoldService goldService;
     @Autowired
     PayAccountService payAccountService;
+    @Autowired
+    UserService userService;
 
     /**
      * 用户金币列表
@@ -39,6 +42,46 @@ public class GoldController {
         List<GoldUserDto> goldUserDtoList = goldService.getGoldUserDtoList();
         model.addAttribute("goldUserDtoList", goldUserDtoList);
         return "gold_user_list";
+    }
+
+    /**
+     * 管理员查看某用户的金币收支历史
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/iolist")
+    public String userGoldIOlist(@PathVariable("userId") int userId,
+                                  HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        User user = userService.selectByPrimaryKey(userId);
+        //获取余额收支历史
+        List<Goldhistory> goldhistoryList = goldService.getGoldHistoryListByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("goldhistoryList", goldhistoryList);
+        return "gold_user_iolist";
+    }
+
+    /**
+     * 管理员查看某用户的金币收支历史
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{userId}/inlist")
+    public String userGoldInlist(@PathVariable("userId") int userId,
+                                 HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        User user = userService.selectByPrimaryKey(userId);
+        //获取余额收支历史
+        List<Goldadd> goldaddList = goldService.getGoldaddListByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("goldhistoryList", goldaddList);
+        return "gold_user_inlist";
     }
 
     /**
