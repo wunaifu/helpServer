@@ -1,9 +1,6 @@
 package com.helpserver.service.impl;
 
-import com.helpserver.dao.MoneyDao;
-import com.helpserver.dao.MoneyaddDao;
-import com.helpserver.dao.MoneyhistoryDao;
-import com.helpserver.dao.UserDao;
+import com.helpserver.dao.*;
 import com.helpserver.pojo.*;
 import com.helpserver.service.MoneyService;
 import com.helpserver.utils.CommonsUtil;
@@ -30,6 +27,8 @@ public class MoneyServiceImpl implements MoneyService {
     @Autowired
     MoneyaddDao moneyAddDao;
     @Autowired
+    MoneygetDao moneyGetDao;
+    @Autowired
     UserDao userDao;
 
     @Override
@@ -45,6 +44,16 @@ public class MoneyServiceImpl implements MoneyService {
     @Override
     public int updateMoneyByPrimaryKey(Money money) {
         return moneyDao.updateByPrimaryKey(money);
+    }
+
+    /**
+     * 用户申请提现余额到支付宝
+     * @param moneyget
+     * @return
+     */
+    @Override
+    public int addMoneyGet(Moneyget moneyget) {
+        return moneyGetDao.insertSelective(moneyget);
     }
 
     /**
@@ -161,6 +170,38 @@ public class MoneyServiceImpl implements MoneyService {
         criteria.andGettimeIsNotNull();
         List<Moneyadd> moneyaddedList = moneyAddDao.selectByExample(moneyaddExample);
         return moneyaddedList;
+    }
+
+    /**
+     * 获取我的余额提现申请历史情况
+     *  未充值成功
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Moneyget> getMoneygetingListByUserId(int userId) {
+        MoneygetExample moneygetExample = new MoneygetExample();
+        MoneygetExample.Criteria criteria = moneygetExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNull();
+        List<Moneyget> moneygetList = moneyGetDao.selectByExample(moneygetExample);
+        return moneygetList;
+    }
+
+    /**
+     * 获取我的余额已提现历史情况
+     * 已提现成功
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Moneyget> getMoneygetedListByUserId(int userId) {
+        MoneygetExample moneygetExample = new MoneygetExample();
+        MoneygetExample.Criteria criteria = moneygetExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        criteria.andGettimeIsNotNull();
+        List<Moneyget> moneygetedList = moneyGetDao.selectByExample(moneygetExample);
+        return moneygetedList;
     }
 
     /**

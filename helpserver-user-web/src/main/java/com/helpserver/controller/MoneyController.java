@@ -5,6 +5,7 @@ import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.MoneyService;
 import com.helpserver.service.PayAccountService;
+import com.helpserver.service.UserService;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
@@ -33,6 +34,8 @@ public class MoneyController {
     MoneyService moneyService;
     @Autowired
     PayAccountService payAccountService;
+    @Autowired
+    UserService userService;
 
     /**
      * 查看我的余额，余额收支历史
@@ -150,11 +153,90 @@ public class MoneyController {
             return "page_403";
         }
         NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
-        List<Moneyadd> moneyAddingList = moneyService.getMoneyAddingListByUserId(nowUser.getUserid());
-        List<Moneyadd> moneyAddedList = moneyService.getMoneyAddedListByUserId(nowUser.getUserid());
+        int userId = nowUser.getUserid();
+        List<Moneyadd> moneyAddingList = moneyService.getMoneyAddingListByUserId(userId);
+        List<Moneyadd> moneyAddedList = moneyService.getMoneyAddedListByUserId(userId);
+        Money money = moneyService.getMoney(userId);
         model.addAttribute("moneyAddingList", moneyAddingList);
         model.addAttribute("moneyAddedList", moneyAddedList);
+        model.addAttribute("money", money);
+
         return "money_addhistory";
+    }
+
+    /**
+     * 提现我的余额到支付宝
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getmoney")
+    public String getmoney(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        int userId = nowUser.getUserid();
+        Money money = moneyService.getMoney(userId);
+        User user = userService.selectByPrimaryKey(userId);
+        user.setPassword("***");
+        model.addAttribute("money", money);
+        model.addAttribute("user", user);
+        return "money_getmoney";
+    }
+
+    /**
+     * 确认提现余额、提交请求
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dogetmoney")
+    public String dogetmoney(HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        int userId = nowUser.getUserid();
+        String payaccount = request.getParameter("payaccount");
+        String payName = request.getParameter("payName");
+        int money = Integer.parseInt(request.getParameter("money"));
+
+        String date = TimeUtil.dateToString(new Date());
+        Moneyget moneyget = new Moneyget();
+        moneyget.setUserid(userId);
+        moneyget.setAmount(money);
+        moneyget.setTime(date);
+        moneyget.setPayaccount(payaccount);
+        moneyget.setAccountname(payName);
+
+        int result = moneyService.addMoneyGet(moneyget);
+        if (1 == result) {
+            model.addAttribute("message", "提现请求提交成功，管理员将在24小时内处理，请等待！");
+            return "pageuser_success";
+        } else {
+            model.addAttribute("message", "余额提现请求失败，请稍后再试！");
+            return "page_400";
+        }
+    }
+
+    /**
+     * 查看我的余额提现历史
+     * @param request
+     * @return
+     */
+    @RequestMapping("/gethistory")
+    public String gethistory(HttpServletRequest request,Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = (NowUser) request.getSession().getAttribute("nowUser");
+        int userId = nowUser.getUserid();
+        List<Moneyget> moneygetingList = moneyService.getMoneygetingListByUserId(userId);
+        List<Moneyget> moneygetedList = moneyService.getMoneygetedListByUserId(userId);
+        Money money = moneyService.getMoney(userId);
+        model.addAttribute("moneygetingList", moneygetingList);
+        model.addAttribute("moneygetedList", moneygetedList);
+        model.addAttribute("money", money);
+        return "money_gethistory";
     }
 
 }

@@ -70,11 +70,11 @@
                 </div>
                 <hr/>
                 <div class="pointsTitle">
-                    <div class="usable">可用余额<span>${money.amount}.00</span></div>
-                    <div class="pointshop"><a href="#"><i><img src="/images/u5.png" /></i>去提现</a></div>
+                    <div class="usable">可用余额<span>${money.amount}.00￥</span></div>
+                    <div class="pointshop"><a href="/money/getmoney"><i><img src="/images/u5.png" /></i>去提现</a></div>
                     <div class="pointshop" style="margin-left: 80px;"><a href="/money/pay"><i><img src="/images/u5.png" /></i>去充值</a></div>
 
-                    <div class="signIn"><a href="#"><i class="am-icon-calendar"></i>提现历史</a></div>
+                    <div class="signIn"><a href="/money/gethistory"><i class="am-icon-calendar"></i>提现历史</a></div>
 
                 </div>
                 <div class="pointlist am-tabs" data-am-tabs>
@@ -88,7 +88,7 @@
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th1">充值数目</th>
+                                    <th class="th1">充值数额</th>
                                     <th class="th2">申请时间</th>
                                     <th class="th3">成功时间</th>
                                 </tr>
@@ -98,7 +98,7 @@
                                     <c:when test="${moneyAddedList.size()>0}">
                                         <c:forEach items="${moneyAddedList}" var="itemed">
                                             <tr>
-                                                <td class="pointType">+${itemed.addamount}</td>
+                                                <td class="pointType">+${itemed.addamount}￥</td>
                                                 <td class="pointNum">${itemed.addtime}</td>
                                                 <td class="pointTime">${itemed.gettime}</td>
                                             </tr>
@@ -120,7 +120,7 @@
                                 <b></b>
                                 <thead>
                                 <tr>
-                                    <th class="th1">充值数目</th>
+                                    <th class="th1">充值数额</th>
                                     <th class="th2">申请时间</th>
                                     <th class="th3">成功时间</th>
                                 </tr>
@@ -130,7 +130,7 @@
                                     <c:when test="${moneyAddingList.size()>0}">
                                         <c:forEach items="${moneyAddingList}" var="iteming">
                                             <tr>
-                                                <td class="pointType">+${iteming.addamount}</td>
+                                                <td class="pointType">+${iteming.addamount}￥</td>
                                                 <td class="pointNum">${iteming.addtime}</td>
                                                 <td class="pointTime">审核中</td>
                                             </tr>

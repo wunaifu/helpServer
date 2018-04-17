@@ -19,11 +19,17 @@ public interface MoneyService {
 
     String addMoneyadd(Moneyadd moneyadd);
 
+    int addMoneyGet(Moneyget moneyget);
+
     Money getMoney(int userId);
 
     List<Moneyadd> getMoneyAddedListByUserId(int userId);
 
     List<Moneyadd> getMoneyAddingListByUserId(int userId);
+
+    List<Moneyget> getMoneygetedListByUserId(int userId);
+
+    List<Moneyget> getMoneygetingListByUserId(int userId);
 
     List<Moneyhistory> getMoneyHistoryListByUserId(int userId);
 
