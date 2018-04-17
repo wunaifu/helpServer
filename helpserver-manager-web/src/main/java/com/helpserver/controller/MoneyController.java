@@ -1,9 +1,6 @@
 package com.helpserver.controller;
 
-import com.helpserver.pojo.GoldAddDto;
-import com.helpserver.pojo.GoldUserDto;
-import com.helpserver.pojo.MoneyAddDto;
-import com.helpserver.pojo.MoneyUserDto;
+import com.helpserver.pojo.*;
 import com.helpserver.service.GoldService;
 import com.helpserver.service.MoneyService;
 import com.helpserver.service.PayAccountService;
@@ -120,4 +117,43 @@ public class MoneyController {
         return "page_400";
     }
 
+    /**
+     * 余额提现审核列表
+     * @param request
+     * @return
+     */
+    @RequestMapping("/checkget")
+    public String moneyCheckGetMoney(HttpServletRequest request,Model model) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //获取未审核列表
+        List<MoneyGetDto> moneyGetDtoList = moneyService.getMoneyGetDtoListByGetTime(0);
+        model.addAttribute("moneyGetDtoList", moneyGetDtoList);
+        return "money_uncheck_getlist";
+    }
+
+    /**
+     * 通过余额提现
+     * @param request
+     * @return
+     */
+    @RequestMapping("/agreeget/{getId}")
+    public String moneyAgreeGetMoney(@PathVariable("getId") int getId,
+                                     HttpServletRequest request,Model model) {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        //pay_success
+        String result = "";
+        try {
+            result = moneyService.addMoneyGetByMoneyGetId(getId);
+        } catch (MyThrowException e) {
+            e.printStackTrace();
+        }
+        if (result.equals("pay_success")) {
+            return "redirect:/money/checkget";
+        }
+        return "page_400";
+    }
 }

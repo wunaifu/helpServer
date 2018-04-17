@@ -138,7 +138,9 @@
                                 </li>
                                 <li><a href="/money/havedcheck">余额充值历史列表</a>
                                 </li>
-                                <li><a href="#">提现余额列表</a>
+                                <li><a href="/money/checkget">余额提现申请列表</a>
+                                </li>
+                                <li><a href="#">余额提现历史列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -158,8 +160,6 @@
                                 <li><a href="/gold/checkadd">金币充值申请列表</a>
                                 </li>
                                 <li><a href="/gold/havedcheck">金币充值历史列表</a>
-                                </li>
-                                <li><a href="#">提现金币列表</a>
                                 </li>
                             </ul>
                         </div>

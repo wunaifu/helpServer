@@ -48,12 +48,37 @@ public class MoneyServiceImpl implements MoneyService {
 
     /**
      * 用户申请提现余额到支付宝
+     * 1、添加提现申请
+     * 2、扣除余额基本表余额
      * @param moneyget
      * @return
      */
+    @Transactional
     @Override
-    public int addMoneyGet(Moneyget moneyget) {
-        return moneyGetDao.insertSelective(moneyget);
+    public String addMoneyGet(Moneyget moneyget) {
+        try {
+            //1、添加提现申请
+            if (moneyGetDao.insertSelective(moneyget) == 1) {
+                //2、减少余额基本表的余额总数
+                Money money = this.getMoney(moneyget.getUserid());
+                Money moneyInfoAdd = new Money();
+                moneyInfoAdd.setId(money.getId());
+                moneyInfoAdd.setGetamount(money.getGetamount() + moneyget.getAmount());
+                moneyInfoAdd.setAmount(money.getAmount() - moneyget.getAmount());
+                if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
+                    return "pay_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("updategettime_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("updategettime_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
     }
 
     /**
@@ -99,6 +124,47 @@ public class MoneyServiceImpl implements MoneyService {
                 } else {
                     //抛出异常
                     throw new MyThrowException("updategettime_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("updategettime_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 通过提现余额
+     * 1、获取提现信息，添加审核时间，更新提现表
+     * 2、更新余额收支历史
+     * @param moneyGetId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String addMoneyGetByMoneyGetId(int moneyGetId) {
+        String date = TimeUtil.dateToString(new Date());
+        //1、获取提现信息，添加审核时间，更新提现表
+        Moneyget moneyget = moneyGetDao.selectByPrimaryKey(moneyGetId);
+        try {
+            //更新提现表
+            Moneyget moneygetUpdate = new Moneyget();
+            moneygetUpdate.setId(moneyGetId);
+            moneygetUpdate.setGettime(date);
+            if (moneyGetDao.updateByPrimaryKeySelective(moneygetUpdate) == 1) {
+                //2、添加余额收支历史
+                Moneyhistory moneyhistory = new Moneyhistory();
+                moneyhistory.setUserid(moneyget.getUserid());
+                moneyhistory.setInfo(CommonsUtil.moneyToMoney);
+                moneyhistory.setAmount(moneyget.getAmount());
+                moneyhistory.setTime(date);
+                moneyhistory.setState(0);
+                if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {
+                    return "pay_success";
+                } else {
+                    throw new MyThrowException("addmoneyinfo_failure");
                 }
             } else {
                 //抛出异常
@@ -275,6 +341,37 @@ public class MoneyServiceImpl implements MoneyService {
             }
         }
         return moneyAddDtoList;
+    }
+
+    /**
+     * 获取余额提现历史，已审核或者未审核
+     *
+     * @param getTimeState
+     * @return
+     */
+    @Override
+    public List<MoneyGetDto> getMoneyGetDtoListByGetTime(int getTimeState) {
+        MoneygetExample moneygetExample = new MoneygetExample();
+        MoneygetExample.Criteria criteria = moneygetExample.createCriteria();
+        if (getTimeState == 0) {
+            criteria.andGettimeIsNull();
+        } else {
+            criteria.andGettimeIsNotNull();
+        }
+        List<Moneyget> moneygetList = moneyGetDao.selectByExample(moneygetExample);
+        System.out.println("MoneygetList============" + moneygetList.toString());
+        List<MoneyGetDto> moneygetDtoList = new ArrayList<>();
+        int moneyListSize = moneygetList.size();
+        if (moneygetList != null && moneyListSize > 0) {
+            for (int i = 0; i < moneyListSize; i++) {
+                MoneyGetDto moneygetDto = new MoneyGetDto();
+                User user = userDao.selectByPrimaryKey(moneygetList.get(i).getUserid());
+                moneygetDto.setMoneyget(moneygetList.get(i));
+                moneygetDto.setUser(user);
+                moneygetDtoList.add(moneygetDto);
+            }
+        }
+        return moneygetDtoList;
     }
 
     /**

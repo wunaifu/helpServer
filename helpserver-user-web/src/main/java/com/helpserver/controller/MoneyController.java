@@ -208,8 +208,8 @@ public class MoneyController {
         moneyget.setPayaccount(payaccount);
         moneyget.setAccountname(payName);
 
-        int result = moneyService.addMoneyGet(moneyget);
-        if (1 == result) {
+        String result = moneyService.addMoneyGet(moneyget);
+        if (result.equals("pay_success")) {
             model.addAttribute("message", "提现请求提交成功，管理员将在24小时内处理，请等待！");
             return "pageuser_success";
         } else {

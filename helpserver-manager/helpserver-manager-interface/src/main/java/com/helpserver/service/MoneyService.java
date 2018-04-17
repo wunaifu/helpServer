@@ -17,9 +17,11 @@ public interface MoneyService {
 
     String addPayMoneyByMoneyAddId(int moneyAddId);
 
+    String addMoneyGetByMoneyGetId(int moneyGetId);
+
     String addMoneyadd(Moneyadd moneyadd);
 
-    int addMoneyGet(Moneyget moneyget);
+    String addMoneyGet(Moneyget moneyget);
 
     Money getMoney(int userId);
 
@@ -36,6 +38,8 @@ public interface MoneyService {
     List<MoneyUserDto> getMoneyUserDtoList();
 
     List<MoneyAddDto> getMoneyAddDtoListByGetTime(int getTimeState);
+
+    List<MoneyGetDto> getMoneyGetDtoListByGetTime(int getTimeState);
 
     MoneyAddDto getMoneyAddDtoByMoneyAddId(int addId);
 
