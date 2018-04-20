@@ -77,7 +77,6 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <dl class="dl-sort">
-                                                        <dt><span title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</span></dt>
                                                         <dd><a title="没有子类型" href="#"><span>没有子类型</span></a></dd>
                                                     </dl>
                                                 </c:otherwise>
