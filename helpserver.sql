@@ -21,14 +21,14 @@ USE `helpserver`;
 DROP TABLE IF EXISTS `acceptorder`;
 
 CREATE TABLE `acceptorder` (
-  `acceptorderId` int(11) NOT NULL AUTO_INCREMENT COMMENT '接单表id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '接单表id',
   `accepterId` int(11) DEFAULT NULL COMMENT '接单者id',
   `orderId` int(11) DEFAULT NULL COMMENT '订单id',
   `acceptTime` varchar(32) DEFAULT NULL COMMENT '接单时间',
   `backReason` varchar(50) DEFAULT NULL COMMENT '退单理由',
   `backTime` varchar(32) DEFAULT NULL COMMENT '退单时间（为空未取消，不空接单中）',
   `acceptState` int(11) NOT NULL DEFAULT '1' COMMENT '状态（1接单，0取消，2已完成，3发布方取消）',
-  PRIMARY KEY (`acceptorderId`),
+  PRIMARY KEY (`id`),
   KEY `accepterId` (`accepterId`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `acceptorder_ibfk_1` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
@@ -103,7 +103,7 @@ CREATE TABLE `gold` (
 
 /*Data for the table `gold` */
 
-insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-04-15 19:48:36',0,0),(2,2,11,'2018-04-15 19:51:45',1,0),(3,3,10,'2018-04-15 19:52:03',0,0),(4,4,10,'2018-04-15 19:52:21',0,0),(5,5,10,'2018-04-15 19:52:38',0,0),(6,6,10,'2018-04-15 19:52:53',0,0),(7,7,10,'2018-04-15 19:53:11',0,0),(8,8,10,'2018-04-15 19:53:26',0,0),(9,9,10,'2018-04-15 19:53:45',0,0),(10,10,10,'2018-04-15 19:54:01',0,0),(11,11,10,'2018-04-15 19:54:52',0,0),(12,12,10,'2018-04-15 19:55:11',0,0);
+insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-04-15 19:48:36',0,0),(2,2,71,'2018-04-15 19:51:45',1,160),(3,3,10,'2018-04-15 19:52:03',0,0),(4,4,10,'2018-04-15 19:52:21',0,0),(5,5,10,'2018-04-15 19:52:38',0,0),(6,6,10,'2018-04-15 19:52:53',0,0),(7,7,10,'2018-04-15 19:53:11',0,0),(8,8,10,'2018-04-15 19:53:26',0,0),(9,9,10,'2018-04-15 19:53:45',0,0),(10,10,10,'2018-04-15 19:54:01',0,0),(11,11,10,'2018-04-15 19:54:52',0,0),(12,12,10,'2018-04-15 19:55:11',0,0);
 
 /*Table structure for table `goldadd` */
 
@@ -119,9 +119,11 @@ CREATE TABLE `goldadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goldadd` */
+
+insert  into `goldadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,3,'2018-04-16 18:50:44','2/2880f731-33a4-4471-a321-07561ea0128b.png','2018-04-16 19:06:33'),(3,2,2,'2018-04-16 19:55:01',NULL,'2018-04-16 19:55:01'),(4,2,1,'2018-04-16 19:59:23',NULL,'2018-04-16 19:59:23'),(5,2,10,'2018-04-16 21:09:18','2/467c502e-d623-4b18-b21a-270cf18a21c0.png','2018-04-16 21:09:55');
 
 /*Table structure for table `goldhistory` */
 
@@ -137,11 +139,11 @@ CREATE TABLE `goldhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goldhistory` */
 
-insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-04-15 19:48:36',1),(2,2,10,'注册','2018-04-15 19:51:45',1),(3,3,10,'注册','2018-04-15 19:52:03',1),(4,4,10,'注册','2018-04-15 19:52:21',1),(5,5,10,'注册','2018-04-15 19:52:38',1),(6,6,10,'注册','2018-04-15 19:52:53',1),(7,7,10,'注册','2018-04-15 19:53:11',1),(8,8,10,'注册','2018-04-15 19:53:26',1),(9,9,10,'注册','2018-04-15 19:53:45',1),(10,10,10,'注册','2018-04-15 19:54:01',1),(11,11,10,'注册','2018-04-15 19:54:52',1),(12,12,10,'注册','2018-04-15 19:55:11',1),(13,2,1,'每日签到','2018-04-15 20:01:45',1);
+insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-04-15 19:48:36',1),(2,2,10,'注册','2018-04-15 19:51:45',1),(3,3,10,'注册','2018-04-15 19:52:03',1),(4,4,10,'注册','2018-04-15 19:52:21',1),(5,5,10,'注册','2018-04-15 19:52:38',1),(6,6,10,'注册','2018-04-15 19:52:53',1),(7,7,10,'注册','2018-04-15 19:53:11',1),(8,8,10,'注册','2018-04-15 19:53:26',1),(9,9,10,'注册','2018-04-15 19:53:45',1),(10,10,10,'注册','2018-04-15 19:54:01',1),(11,11,10,'注册','2018-04-15 19:54:52',1),(12,12,10,'注册','2018-04-15 19:55:11',1),(13,2,1,'每日签到','2018-04-15 20:01:45',1),(14,2,30,'支付宝充值','2018-04-16 19:06:33',1),(16,2,20,'余额充值','2018-04-16 19:55:01',1),(17,2,10,'余额充值','2018-04-16 19:59:23',1),(20,2,100,'支付宝充值','2018-04-16 21:09:55',1),(21,2,100,'金币提现','2018-04-16 21:10:32',0);
 
 /*Table structure for table `identity` */
 
@@ -183,7 +185,7 @@ CREATE TABLE `money` (
 
 /*Data for the table `money` */
 
-insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-15 19:48:36',0,0),(2,2,0,'2018-04-15 19:51:45',0,0),(3,3,0,'2018-04-15 19:52:03',0,0),(4,4,0,'2018-04-15 19:52:21',0,0),(5,5,0,'2018-04-15 19:52:38',0,0),(6,6,0,'2018-04-15 19:52:53',0,0),(7,7,0,'2018-04-15 19:53:11',0,0),(8,8,0,'2018-04-15 19:53:26',0,0),(9,9,0,'2018-04-15 19:53:45',0,0),(10,10,0,'2018-04-15 19:54:01',0,0),(11,11,0,'2018-04-15 19:54:52',0,0),(12,12,0,'2018-04-15 19:55:11',0,0);
+insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-15 19:48:36',0,0),(2,2,11,'2018-04-15 19:51:45',10,6),(3,3,0,'2018-04-15 19:52:03',0,0),(4,4,0,'2018-04-15 19:52:21',0,0),(5,5,0,'2018-04-15 19:52:38',0,0),(6,6,0,'2018-04-15 19:52:53',0,0),(7,7,0,'2018-04-15 19:53:11',0,0),(8,8,0,'2018-04-15 19:53:26',0,0),(9,9,0,'2018-04-15 19:53:45',0,0),(10,10,0,'2018-04-15 19:54:01',0,0),(11,11,0,'2018-04-15 19:54:52',0,0),(12,12,0,'2018-04-15 19:55:11',0,0);
 
 /*Table structure for table `moneyadd` */
 
@@ -199,9 +201,11 @@ CREATE TABLE `moneyadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyadd` */
+
+insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,10,'2018-04-16 11:48:07','2/9652b128-d4c3-4f06-a571-8400e4c00757.png','2018-04-16 14:55:15');
 
 /*Table structure for table `moneyget` */
 
@@ -218,9 +222,11 @@ CREATE TABLE `moneyget` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyget_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyget` */
+
+insert  into `moneyget`(`id`,`userId`,`amount`,`time`,`payaccount`,`accountname`,`getTime`) values (1,2,5,'2018-04-17 11:51:31','12312312','福','2018-04-17 14:20:39'),(2,2,1,'2018-04-17 14:21:33','2134','18219111621','2018-04-17 14:21:52');
 
 /*Table structure for table `moneyhistory` */
 
@@ -236,9 +242,11 @@ CREATE TABLE `moneyhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyhistory` */
+
+insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,10,'余额充值','2018-04-16 14:55:15',1),(2,2,2,'充值金币','2018-04-16 19:55:01',0),(3,2,1,'充值金币','2018-04-16 19:59:23',0),(6,2,10,'金币提现','2018-04-16 21:10:32',1),(7,2,5,'余额提现','2018-04-17 14:20:39',0),(8,2,1,'余额提现','2018-04-17 14:21:52',0);
 
 /*Table structure for table `news` */
 
@@ -262,23 +270,20 @@ CREATE TABLE `order` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `senderId` int(11) NOT NULL COMMENT '发布者id',
   `typeId` int(11) NOT NULL COMMENT '发布类型id（零活、跑腿）',
-  `title` varchar(32) DEFAULT NULL COMMENT '标题',
-  `commission` int(11) DEFAULT '0' COMMENT '佣金',
-  `menAccount` int(11) DEFAULT '1' COMMENT '需求人数',
-  `detailTime` varchar(32) DEFAULT NULL COMMENT '服务具体时间',
-  `expendTime` varchar(32) DEFAULT NULL COMMENT '预计耗时',
-  `serverInfo` varchar(150) DEFAULT NULL COMMENT '服务详情',
+  `money` int(11) DEFAULT '0' COMMENT '服务费用',
+  `name` varchar(50) DEFAULT NULL COMMENT '资源名字',
+  `startTime` varchar(32) DEFAULT NULL COMMENT '可使用开始时间',
+  `endTime` varchar(32) DEFAULT NULL COMMENT '可使用结束时间',
+  `detail` varchar(150) DEFAULT NULL COMMENT '服务详情、备注',
   `area` varchar(80) DEFAULT NULL COMMENT '所在区域（省市县）',
-  `startPoint` varchar(80) DEFAULT NULL COMMENT '起点（街道）',
-  `endPoint` varchar(80) DEFAULT NULL COMMENT '终点（街道）',
+  `point` varchar(150) DEFAULT NULL COMMENT '详细坐标',
   `sendTime` varchar(32) DEFAULT NULL COMMENT '发布时间',
-  `endTime` varchar(32) DEFAULT NULL COMMENT '抢单结束时间',
   `repealTime` varchar(32) DEFAULT NULL COMMENT '撤单时间',
   `repealReason` varchar(50) DEFAULT NULL COMMENT '撤单原因',
   `orderState` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态（0草稿、1抢单进行中、2服务进行中、3已结束、4已取消、-1管理员禁止该订单',
   `callName` varchar(15) DEFAULT NULL COMMENT '联系人',
   `callPhone` varchar(20) DEFAULT NULL COMMENT '联系电话',
-  `seeAmount` int(11) DEFAULT NULL COMMENT '浏览数',
+  `seeAmount` int(11) DEFAULT '0' COMMENT '浏览数',
   PRIMARY KEY (`orderId`),
   KEY `senderId` (`senderId`),
   KEY `typeId` (`typeId`),

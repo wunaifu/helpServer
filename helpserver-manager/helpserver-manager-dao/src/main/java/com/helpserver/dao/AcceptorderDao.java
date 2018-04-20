@@ -11,7 +11,7 @@ public interface AcceptorderDao {
 
     int deleteByExample(AcceptorderExample example);
 
-    int deleteByPrimaryKey(Integer acceptorderid);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Acceptorder record);
 
@@ -19,7 +19,7 @@ public interface AcceptorderDao {
 
     List<Acceptorder> selectByExample(AcceptorderExample example);
 
-    Acceptorder selectByPrimaryKey(Integer acceptorderid);
+    Acceptorder selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Acceptorder record, @Param("example") AcceptorderExample example);
 

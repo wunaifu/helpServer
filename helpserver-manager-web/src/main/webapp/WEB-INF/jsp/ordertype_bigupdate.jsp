@@ -43,7 +43,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">修改订单父类型</span>
+                    <span class="title">修改资源父类型</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

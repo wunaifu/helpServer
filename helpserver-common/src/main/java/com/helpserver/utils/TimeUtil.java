@@ -34,6 +34,19 @@ public class TimeUtil {
         return dateStr;
     }
 
+    public static String dateToStrMdHm(String dateStr){
+        Date date = TimeUtil.stringToDate(dateStr);
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+//        DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH/mm/ss");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
     public static String dateToStrNoTime(Date date){
         String dateStr = "";
         //format的格式可以任意

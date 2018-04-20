@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.helpserver.utils.TimeUtil" %><%--
   Created by IntelliJ IDEA.
   User: wunaifu
   Date: 2018/1/11
@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">资源类型</span>
-                        <div class="description">以下是所有的用户可选择使用的属于<b style="font-size: 18px;">${bigtype.typename}</b>的资源类型，您可以进行查看修改.</div>
+                        <span class="title">用户订单已被禁用列表</span>
+                        <div class="description">以下是用户的已被禁用的资源服务订单列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,29 +53,46 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addjsp/${bigtype.id}">添加资源类型</a>
-                                        <a style="margin-left:50px;color: #0a628f" href="/ordertype/dellist/${bigtype.id}">已禁用资源子类型</a>
-                                        <a style="margin-left:50px;color: #0a628f" href="/ordertype/biglist">资源父类型</a>
-                                    </div>
+                                    <div class="title"></div>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <table class="datatable table table-striped" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th class="manager-border2">序号</th>
-                                            <th class="manager-border2">类型名字</th>
+                                            <th class="manager-border2">发布人</th>
+                                            <th class="manager-border2">资源名字</th>
+                                            <th class="manager-border2">资源类型</th>
+                                            <th class="manager-border2">地点</th>
+                                            <th class="manager-border2">坐标</th>
+                                            <th class="manager-border2">发布时间</th>
+                                            <th class="manager-border2">使用时间</th>
+                                            <th class="manager-border2">禁用时间</th>
+                                            <th class="manager-border2">订单状态</th>
                                             <th hidden></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${ordertypeList}" var="item" varStatus="status">
+                                            <c:forEach items="${orderUserDtoList}" var="item">
                                                 <tr class="manager-bg input-lg">
-                                                    <td class="manager-border2">${status.index+1}</td>
-                                                    <td class="manager-border2">${item.typename}</td>
+
+                                                    <td class="manager-border2">${item.senderName}</td>
+                                                    <td class="manager-border2">${item.order.name}</td>
+                                                    <td class="manager-border2">${item.orderTypeName}</td>
+                                                    <td class="manager-border2">${item.order.area}</td>
+                                                    <td class="manager-border2">${item.order.sendtime}</td>
+                                                    <td class="manager-border2">
+                                                    ${TimeUtil.dateToStrMdHm(item.order.starttime)}-${TimeUtil.dateToStrMdHm(item.order.endtime)}
+                                                    </td>
+                                                    <td class="manager-border2"><b>${item.order.repealtime}</b></td>
+                                                    <td class="manager-border2"><b>已禁止</b></td>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/ordertype/updatejsp/${item.id}"><span class="label label-default">修改</span></a>
-                                                        <a href="/ordertype/del/${item.id}"><span class="label label-danger">禁用</span></a>
+                                                        <a href="/user/goldlist/${item.order.senderid}/detail">
+                                                            <span class="label label-default">用户信息</span></a>
+                                                        <a href="/gold/iolist">
+                                                            <span class="label label-warning">服务详情</span></a>
+                                                        <a href="/gold/inlist">
+                                                            <span class="label label-default">抢单详情</span></a>
                                                     </td>
 
                                                 </tr>

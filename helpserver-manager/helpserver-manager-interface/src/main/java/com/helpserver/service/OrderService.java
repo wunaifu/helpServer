@@ -2,6 +2,7 @@ package com.helpserver.service;
 
 import com.helpserver.pojo.News;
 import com.helpserver.pojo.Order;
+import com.helpserver.pojo.OrderUserDto;
 
 import java.util.List;
 
@@ -14,7 +15,13 @@ public interface OrderService {
 
     String deleteOrderById(int id);
 
-    News getOrderById(int id);
+    Order getOrderById(int id);
 
     List<Order> getOrderList();
+
+    List<OrderUserDto> getOrderUserDtoList(int state1,int state2);
+
+    List<OrderUserDto> getOrderUserDtoListByState(int state2);
+
+    List<OrderUserDto> getOrderUserDtoListByOrderList(List<Order> orderList);
 }

@@ -171,13 +171,13 @@
                     <div id="dropdown-form" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="/ordertype/biglist">服务类型管理</a>
+                                <li><a href="/ordertype/biglist">资源类型管理</a>
                                 </li>
-                                <li><a href="#">进行中服务列表</a>
+                                <li><a href="/order/listing">进行中服务列表</a>
                                 </li>
-                                <li><a href="#">已完成服务列表</a>
+                                <li><a href="/order/finishlist">已结束服务列表</a>
                                 </li>
-                                <li><a href="#">已禁用服务列表</a>
+                                <li><a href="/order/banlist">已禁用服务列表</a>
                                 </li>
                             </ul>
                         </div>

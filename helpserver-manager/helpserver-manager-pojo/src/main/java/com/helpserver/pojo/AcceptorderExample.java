@@ -146,63 +146,63 @@ public class AcceptorderExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andAcceptorderidIsNull() {
-            addCriterion("acceptorderId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidIsNotNull() {
-            addCriterion("acceptorderId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidEqualTo(Integer value) {
-            addCriterion("acceptorderId =", value, "acceptorderid");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidNotEqualTo(Integer value) {
-            addCriterion("acceptorderId <>", value, "acceptorderid");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidGreaterThan(Integer value) {
-            addCriterion("acceptorderId >", value, "acceptorderid");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("acceptorderId >=", value, "acceptorderid");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidLessThan(Integer value) {
-            addCriterion("acceptorderId <", value, "acceptorderid");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidLessThanOrEqualTo(Integer value) {
-            addCriterion("acceptorderId <=", value, "acceptorderid");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidIn(List<Integer> values) {
-            addCriterion("acceptorderId in", values, "acceptorderid");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidNotIn(List<Integer> values) {
-            addCriterion("acceptorderId not in", values, "acceptorderid");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidBetween(Integer value1, Integer value2) {
-            addCriterion("acceptorderId between", value1, value2, "acceptorderid");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andAcceptorderidNotBetween(Integer value1, Integer value2) {
-            addCriterion("acceptorderId not between", value1, value2, "acceptorderid");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

@@ -19,34 +19,29 @@ public class Order implements Serializable {
     private Integer typeid;
 
     /**
-     * 标题
+     * 服务费用
      */
-    private String title;
+    private Integer money;
 
     /**
-     * 佣金
+     * 资源名字
      */
-    private Integer commission;
+    private String name;
 
     /**
-     * 需求人数
+     * 可使用开始时间
      */
-    private Integer menaccount;
+    private String starttime;
 
     /**
-     * 服务具体时间
+     * 可使用结束时间
      */
-    private String detailtime;
+    private String endtime;
 
     /**
-     * 预计耗时
+     * 服务详情、备注
      */
-    private String expendtime;
-
-    /**
-     * 服务详情
-     */
-    private String serverinfo;
+    private String detail;
 
     /**
      * 所在区域（省市县）
@@ -54,24 +49,14 @@ public class Order implements Serializable {
     private String area;
 
     /**
-     * 起点（街道）
+     * 详细坐标
      */
-    private String startpoint;
-
-    /**
-     * 终点（街道）
-     */
-    private String endpoint;
+    private String point;
 
     /**
      * 发布时间
      */
     private String sendtime;
-
-    /**
-     * 抢单结束时间
-     */
-    private String endtime;
 
     /**
      * 撤单时间
@@ -103,6 +88,11 @@ public class Order implements Serializable {
      */
     private Integer seeamount;
 
+    /**
+     * 资源图片
+     */
+    private String picture;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getOrderid() {
@@ -129,52 +119,44 @@ public class Order implements Serializable {
         this.typeid = typeid;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getMoney() {
+        return money;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public Integer getCommission() {
-        return commission;
+    public String getName() {
+        return name;
     }
 
-    public void setCommission(Integer commission) {
-        this.commission = commission;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public Integer getMenaccount() {
-        return menaccount;
+    public String getStarttime() {
+        return starttime;
     }
 
-    public void setMenaccount(Integer menaccount) {
-        this.menaccount = menaccount;
+    public void setStarttime(String starttime) {
+        this.starttime = starttime == null ? null : starttime.trim();
     }
 
-    public String getDetailtime() {
-        return detailtime;
+    public String getEndtime() {
+        return endtime;
     }
 
-    public void setDetailtime(String detailtime) {
-        this.detailtime = detailtime == null ? null : detailtime.trim();
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
     }
 
-    public String getExpendtime() {
-        return expendtime;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setExpendtime(String expendtime) {
-        this.expendtime = expendtime == null ? null : expendtime.trim();
-    }
-
-    public String getServerinfo() {
-        return serverinfo;
-    }
-
-    public void setServerinfo(String serverinfo) {
-        this.serverinfo = serverinfo == null ? null : serverinfo.trim();
+    public void setDetail(String detail) {
+        this.detail = detail == null ? null : detail.trim();
     }
 
     public String getArea() {
@@ -185,20 +167,12 @@ public class Order implements Serializable {
         this.area = area == null ? null : area.trim();
     }
 
-    public String getStartpoint() {
-        return startpoint;
+    public String getPoint() {
+        return point;
     }
 
-    public void setStartpoint(String startpoint) {
-        this.startpoint = startpoint == null ? null : startpoint.trim();
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint == null ? null : endpoint.trim();
+    public void setPoint(String point) {
+        this.point = point == null ? null : point.trim();
     }
 
     public String getSendtime() {
@@ -207,14 +181,6 @@ public class Order implements Serializable {
 
     public void setSendtime(String sendtime) {
         this.sendtime = sendtime == null ? null : sendtime.trim();
-    }
-
-    public String getEndtime() {
-        return endtime;
-    }
-
-    public void setEndtime(String endtime) {
-        this.endtime = endtime == null ? null : endtime.trim();
     }
 
     public String getRepealtime() {
@@ -265,6 +231,14 @@ public class Order implements Serializable {
         this.seeamount = seeamount;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture == null ? null : picture.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -274,23 +248,21 @@ public class Order implements Serializable {
         sb.append(", orderid=").append(orderid);
         sb.append(", senderid=").append(senderid);
         sb.append(", typeid=").append(typeid);
-        sb.append(", title=").append(title);
-        sb.append(", commission=").append(commission);
-        sb.append(", menaccount=").append(menaccount);
-        sb.append(", detailtime=").append(detailtime);
-        sb.append(", expendtime=").append(expendtime);
-        sb.append(", serverinfo=").append(serverinfo);
-        sb.append(", area=").append(area);
-        sb.append(", startpoint=").append(startpoint);
-        sb.append(", endpoint=").append(endpoint);
-        sb.append(", sendtime=").append(sendtime);
+        sb.append(", money=").append(money);
+        sb.append(", name=").append(name);
+        sb.append(", starttime=").append(starttime);
         sb.append(", endtime=").append(endtime);
+        sb.append(", detail=").append(detail);
+        sb.append(", area=").append(area);
+        sb.append(", point=").append(point);
+        sb.append(", sendtime=").append(sendtime);
         sb.append(", repealtime=").append(repealtime);
         sb.append(", repealreason=").append(repealreason);
         sb.append(", orderstate=").append(orderstate);
         sb.append(", callname=").append(callname);
         sb.append(", callphone=").append(callphone);
         sb.append(", seeamount=").append(seeamount);
+        sb.append(", picture=").append(picture);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

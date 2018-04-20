@@ -81,7 +81,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
         BigtypeExample bigtypeExample = new BigtypeExample();
         BigtypeExample.Criteria criteria1 = bigtypeExample.createCriteria();
         criteria1.andIdIsNotNull();
-        bigtypeExample.setOrderByClause("createTime desc");
+//        bigtypeExample.setOrderByClause("createTime desc");
         List<Bigtype> bigtypeList = bigtypeDao.selectByExample(bigtypeExample);
 
         for (int i = 0; i < bigtypeList.size(); i++) {
@@ -91,7 +91,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
             OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
             criteria.andStateEqualTo(state);
             criteria.andBigtypeidEqualTo(bigtypeList.get(i).getId());
-            ordertypeExample.setOrderByClause("createTime desc");
+//            ordertypeExample.setOrderByClause("createTime desc");
             List<Ordertype> ordertypeS = ordertypeDao.selectByExample(ordertypeExample);
             orderTypeDto.setOrdertypeList(ordertypeS);
             orderTypeDtoList.add(orderTypeDto);
@@ -104,7 +104,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
         BigtypeExample bigtypeExample = new BigtypeExample();
         BigtypeExample.Criteria criteria1 = bigtypeExample.createCriteria();
         criteria1.andIdIsNotNull();
-        bigtypeExample.setOrderByClause("createTime desc");
+//        bigtypeExample.setOrderByClause("createTime desc");
         List<Bigtype> bigtypeList = bigtypeDao.selectByExample(bigtypeExample);
 
         return bigtypeList;
@@ -116,7 +116,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
         OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
         criteria.andStateEqualTo(state);
         criteria.andBigtypeidEqualTo(bigTypeId);
-        ordertypeExample.setOrderByClause("createTime desc");
+//        ordertypeExample.setOrderByClause("createTime desc");
         List<Ordertype> ordertypeS = ordertypeDao.selectByExample(ordertypeExample);
 
         return ordertypeS;

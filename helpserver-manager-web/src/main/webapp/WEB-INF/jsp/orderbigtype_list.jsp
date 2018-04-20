@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">订单父类型管理</span>
-                        <div class="description">以下是所有的用户可选择使用的订单的父类型，您可以进行查看修改.</div>
+                        <span class="title">资源父类型管理</span>
+                        <div class="description">以下是所有的用户可选择使用的资源的父类型，您可以进行查看修改.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addbigjsp">添加订单父类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/addbigjsp">添加资源父类型</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">

@@ -6,7 +6,7 @@ public class Acceptorder implements Serializable {
     /**
      * 接单表id
      */
-    private Integer acceptorderid;
+    private Integer id;
 
     /**
      * 接单者id
@@ -40,12 +40,12 @@ public class Acceptorder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getAcceptorderid() {
-        return acceptorderid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAcceptorderid(Integer acceptorderid) {
-        this.acceptorderid = acceptorderid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getAccepterid() {
@@ -102,7 +102,7 @@ public class Acceptorder implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", acceptorderid=").append(acceptorderid);
+        sb.append(", id=").append(id);
         sb.append(", accepterid=").append(accepterid);
         sb.append(", orderid=").append(orderid);
         sb.append(", accepttime=").append(accepttime);

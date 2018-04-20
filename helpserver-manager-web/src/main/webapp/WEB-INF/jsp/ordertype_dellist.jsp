@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">已删除的订单类型列表</span>
-                        <div class="description">以下是已删除的订单类型列表.</div>
+                        <span class="title">已删除的资源类型列表</span>
+                        <div class="description">以下是已删除的资源类型列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -53,7 +53,7 @@
                                 <div class="card-header">
 
                                     <div class="card-title">
-                                    <div class="title"><a style="color: #0a628f" href="/ordertype/typelist/${bigtypeId}">未禁用订单子类型</a></div>
+                                    <div class="title"><a style="color: #0a628f" href="/ordertype/typelist/${bigtypeId}">未禁用资源子类型</a></div>
                                     </div>
                                 </div>
                                 <div class="card-body">

@@ -152,8 +152,9 @@ public class OrderTypeController {
             return "page_403";
         }
         List<Ordertype> ordertypeList = orderTypeService.getOrdertypeList(id,1);
+        Bigtype bigtype = orderTypeService.getBigtypeById(id);
         model.addAttribute("ordertypeList", ordertypeList);
-        model.addAttribute("bigtypeId", id);
+        model.addAttribute("bigtype", bigtype);
         return "ordertype_list";
     }
 
@@ -194,7 +195,8 @@ public class OrderTypeController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        model.addAttribute("bigtypeId", id);
+        Bigtype bigtype = orderTypeService.getBigtypeById(id);
+        model.addAttribute("bigtype", bigtype);
         return "ordertype_add";
     }
 
