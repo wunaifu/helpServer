@@ -46,9 +46,11 @@ CREATE TABLE `bigtype` (
   `typeName` varchar(20) DEFAULT NULL COMMENT '订单大类型的名字',
   `createTime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `bigtype` */
+
+insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'交通工具','2018-04-20 20:15:53'),(2,'租房建筑','2018-04-20 20:16:07'),(3,'衣料服装','2018-04-20 20:16:18'),(4,'家居用品','2018-04-20 20:16:38'),(5,'其他','2018-04-20 20:17:13');
 
 /*Table structure for table `collectorder` */
 
@@ -280,18 +282,21 @@ CREATE TABLE `order` (
   `sendTime` varchar(32) DEFAULT NULL COMMENT '发布时间',
   `repealTime` varchar(32) DEFAULT NULL COMMENT '撤单时间',
   `repealReason` varchar(50) DEFAULT NULL COMMENT '撤单原因',
-  `orderState` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态（0草稿、1抢单进行中、2服务进行中、3已结束、4已取消、-1管理员禁止该订单',
+  `orderState` int(11) DEFAULT '0' COMMENT '订单状态（0草稿、1抢单进行中、2服务进行中、3已结束、4已取消、-1管理员禁止该订单',
   `callName` varchar(15) DEFAULT NULL COMMENT '联系人',
   `callPhone` varchar(20) DEFAULT NULL COMMENT '联系电话',
   `seeAmount` int(11) DEFAULT '0' COMMENT '浏览数',
+  `picture` varchar(150) DEFAULT NULL COMMENT '资源图片',
   PRIMARY KEY (`orderId`),
   KEY `senderId` (`senderId`),
   KEY `typeId` (`typeId`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `order` */
+
+insert  into `order`(`orderId`,`senderId`,`typeId`,`money`,`name`,`startTime`,`endTime`,`detail`,`area`,`point`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`) values (1,2,1,0,'1','2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,NULL,NULL,'2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,-1,NULL,NULL,0,NULL);
 
 /*Table structure for table `ordertype` */
 
@@ -306,9 +311,11 @@ CREATE TABLE `ordertype` (
   PRIMARY KEY (`id`),
   KEY `bigtypeId` (`bigtypeId`),
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ordertype` */
+
+insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'汽车',1,'2018-04-20 20:19:18'),(2,1,'摩托车',1,'2018-04-20 20:19:28'),(3,1,'电车',1,'2018-04-20 20:19:32'),(4,1,'自行车',1,'2018-04-20 20:19:40'),(5,1,'其他',1,'2018-04-20 20:19:45');
 
 /*Table structure for table `payaccount` */
 
