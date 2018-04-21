@@ -139,38 +139,53 @@
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="title" class="am-form-label">标题</label>
+                            <label for="title" class="am-form-label">资源名字</label>
                             <div class="am-form-content">
-                                <input type="text" id="title" name="title" placeholder="标题长度不能超过20个汉字"
+                                <input type="text" id="title" name="title" placeholder="长度不能超过20个汉字"
                                 maxlength="20">
                                 <%--<small>标题长度不能超过20个汉字</small>--%>
                             </div>
                         </div>
 
                         <div class="am-form-group" style="height: auto;">
-                            <label for="content" class="am-form-label">详情</label>
+                            <label for="content" class="am-form-label">详情备注</label>
                             <div class="am-form-content">
-                                <textarea type="text" id="content" name="content" placeholder="详情长度不能超过120个汉字"
+                                <textarea type="text" id="content" name="content" placeholder="长度不能超过120个汉字"
                                           maxlength="120" rows="4"></textarea>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="commission" class="am-form-label">酬劳(￥)</label>
+                            <label for="commission" class="am-form-label">费用(￥)</label>
                             <div class="am-form-content">
-                                <input type="text" id="commission" name="commission" placeholder="发布人额外支付的酬劳"
+                                <input type="text" id="commission" name="commission" placeholder="使用资源需要的服务费"
                                        maxlength="8">
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="menAccount" class="am-form-label">人数</label>
+                            <label for="menAccount" class="am-form-label">初始时间</label>
                             <div class="am-form-content">
-                                <input type="text" id="menAccount" name="menAccount" placeholder="服务所需要的人数"
+                                <input type="text" id="menAccount" name="menAccount" placeholder="资源可使用的初始时间"
                                        maxlength="5">
                             </div>
                         </div>
 
                         <div class="am-form-group">
+                            <label for="menAccount" class="am-form-label">结束时间</label>
+                            <div class="am-form-content">
+                                <input type="text" id="menAccount" name="menAccount" placeholder="资源可使用的结束时间"
+                                       maxlength="5">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="menAccount" class="am-form-label">资源定位</label>
+                            <div class="am-form-content">
+                                <a href="/server/map">去定位</a>
+                            </div>
+                        </div>
+
+                        <%--<div class="am-form-group">
                             <label class="am-form-label">性别</label>
                             <div class="am-form-content sex">
                                 <label class="am-radio-inline">
@@ -183,7 +198,7 @@
                                     <input type="radio" name="sex" value="2" checked="checked" data-am-ucheck> 不限
                                 </label>
                             </div>
-                        </div>
+                        </div>--%>
 
                         <div class="am-form-group">
                             <label for="user-birth" class="am-form-label">地点</label>
@@ -229,8 +244,11 @@
                         </div>
                         <input style="visibility: hidden" id="orderState" name="orderState" value="0">
 
+                        <%--<div class="info-btn">--%>
+                            <%--<div class="am-btn am-btn-danger">保存修改</div>--%>
+                        <%--</div>--%>
                         <div class="info-btn">
-                            <div class="am-btn am-btn-danger">保存修改</div>
+                            <input value="保存修改" class="am-btn am-btn-danger" type="submit">
                         </div>
 
                     </form>

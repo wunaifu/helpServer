@@ -1,5 +1,6 @@
 package com.helpserver.controller;
 
+import com.helpserver.util.UserSessionSetUtils;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,14 @@ public class ServerOrderController {
     @RequestMapping("/server/userinfo")
     public String serverUserInfo(HttpServletRequest request, Model model) {
         return "server_userinfo";
+    }
+
+    @RequestMapping(value = "/server/map")
+    public String getUserByUserId(HttpServletRequest request) throws Exception {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        return "server_goods_map";
     }
 
 }
