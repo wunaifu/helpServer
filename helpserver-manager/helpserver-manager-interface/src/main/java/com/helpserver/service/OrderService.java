@@ -1,8 +1,7 @@
 package com.helpserver.service;
 
-import com.helpserver.pojo.News;
-import com.helpserver.pojo.Order;
 import com.helpserver.pojo.OrderUserDto;
+import com.helpserver.pojo.Orderinfo;
 
 import java.util.List;
 
@@ -11,17 +10,17 @@ import java.util.List;
  */
 public interface OrderService {
 
-    String insertOrder(Order news);
+    String insertOrder(Orderinfo orderinfo);
 
     String deleteOrderById(int id);
 
-    Order getOrderById(int id);
+    Orderinfo getOrderById(int id);
 
-    List<Order> getOrderList();
+    List<Orderinfo> getOrderList();
 
     List<OrderUserDto> getOrderUserDtoList(int state1,int state2);
 
     List<OrderUserDto> getOrderUserDtoListByState(int state2);
 
-    List<OrderUserDto> getOrderUserDtoListByOrderList(List<Order> orderList);
+    List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList);
 }

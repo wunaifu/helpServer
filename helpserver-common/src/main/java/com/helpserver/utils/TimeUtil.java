@@ -21,6 +21,19 @@ public class TimeUtil {
         return dateStr;
     }
 
+    public static String dateToStrNoS(Date date){
+        String dateStr = "";
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("yy/MM/dd/HH:mm");
+//        DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH/mm/ss");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
     public static String dateToStrNoDay(Date date){
         String dateStr = "";
         //format的格式可以任意

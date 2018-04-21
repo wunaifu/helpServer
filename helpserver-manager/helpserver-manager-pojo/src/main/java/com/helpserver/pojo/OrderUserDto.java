@@ -10,7 +10,7 @@ public class OrderUserDto implements Serializable {
     String senderName;
     String orderTypeName;
     String bigTypeName;
-    Order order;
+    Orderinfo order;
 
     public int getSenderId() {
         return senderId;
@@ -44,11 +44,11 @@ public class OrderUserDto implements Serializable {
         this.bigTypeName = bigTypeName;
     }
 
-    public Order getOrder() {
+    public Orderinfo getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Orderinfo order) {
         this.order = order;
     }
 

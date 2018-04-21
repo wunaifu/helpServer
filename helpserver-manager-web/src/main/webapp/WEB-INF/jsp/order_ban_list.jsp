@@ -77,12 +77,13 @@
                                                 <tr class="manager-bg input-lg">
 
                                                     <td class="manager-border2">${item.senderName}</td>
-                                                    <td class="manager-border2">${item.order.name}</td>
+                                                    <td class="manager-border2">${item.order.foodname}</td>
                                                     <td class="manager-border2">${item.orderTypeName}</td>
-                                                    <td class="manager-border2">${item.order.area}</td>
+                                                    <td class="manager-border2">${item.order.areainfo}</td>
+                                                    <td class="manager-border2">${item.order.pointinfo}</td>
                                                     <td class="manager-border2">${item.order.sendtime}</td>
                                                     <td class="manager-border2">
-                                                    ${TimeUtil.dateToStrMdHm(item.order.starttime)}-${TimeUtil.dateToStrMdHm(item.order.endtime)}
+                                                    ${item.order.starttime}-${item.order.endtime}
                                                     </td>
                                                     <td class="manager-border2"><b>${item.order.repealtime}</b></td>
                                                     <td class="manager-border2"><b>已禁止</b></td>

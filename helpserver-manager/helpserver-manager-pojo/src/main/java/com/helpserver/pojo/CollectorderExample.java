@@ -146,63 +146,63 @@ public class CollectorderExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCollectidIsNull() {
-            addCriterion("collectId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidIsNotNull() {
-            addCriterion("collectId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidEqualTo(Integer value) {
-            addCriterion("collectId =", value, "collectid");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidNotEqualTo(Integer value) {
-            addCriterion("collectId <>", value, "collectid");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidGreaterThan(Integer value) {
-            addCriterion("collectId >", value, "collectid");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("collectId >=", value, "collectid");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidLessThan(Integer value) {
-            addCriterion("collectId <", value, "collectid");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidLessThanOrEqualTo(Integer value) {
-            addCriterion("collectId <=", value, "collectid");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidIn(List<Integer> values) {
-            addCriterion("collectId in", values, "collectid");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidNotIn(List<Integer> values) {
-            addCriterion("collectId not in", values, "collectid");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidBetween(Integer value1, Integer value2) {
-            addCriterion("collectId between", value1, value2, "collectid");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCollectidNotBetween(Integer value1, Integer value2) {
-            addCriterion("collectId not between", value1, value2, "collectid");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

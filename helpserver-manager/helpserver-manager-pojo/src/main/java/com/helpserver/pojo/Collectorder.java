@@ -6,7 +6,7 @@ public class Collectorder implements Serializable {
     /**
      * 收藏id
      */
-    private Integer collectid;
+    private Integer id;
 
     /**
      * 订单id
@@ -25,12 +25,12 @@ public class Collectorder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getCollectid() {
-        return collectid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCollectid(Integer collectid) {
-        this.collectid = collectid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getOrderid() {
@@ -63,7 +63,7 @@ public class Collectorder implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", collectid=").append(collectid);
+        sb.append(", id=").append(id);
         sb.append(", orderid=").append(orderid);
         sb.append(", collectorid=").append(collectorid);
         sb.append(", collecttime=").append(collecttime);

@@ -1,7 +1,7 @@
 package com.helpserver.service.impl;
 
 import com.helpserver.dao.BigtypeDao;
-import com.helpserver.dao.OrderDao;
+import com.helpserver.dao.OrderinfoDao;
 import com.helpserver.dao.OrdertypeDao;
 import com.helpserver.dao.UserDao;
 import com.helpserver.pojo.*;
@@ -21,29 +21,35 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     UserDao userDao;
     @Autowired
-    OrderDao orderDao;
+    OrderinfoDao orderDao;
     @Autowired
     BigtypeDao bigtypeDao;
     @Autowired
     OrdertypeDao orderTypeDao;
 
     @Override
-    public String insertOrder(Order news) {
-        return null;
+    public String insertOrder(Orderinfo order) {
+        if (orderDao.insertSelective(order) == 1) {
+            return "insert_success";
+        }
+        return "insert_failure";
     }
 
     @Override
     public String deleteOrderById(int id) {
-        return null;
+        if (orderDao.deleteByPrimaryKey(id) == 1) {
+            return "del_success";
+        }
+        return "del_failure";
     }
 
     @Override
-    public Order getOrderById(int id) {
-        return null;
+    public Orderinfo getOrderById(int id) {
+        return orderDao.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<Order> getOrderList() {
+    public List<Orderinfo> getOrderList() {
         return null;
     }
 
@@ -55,11 +61,11 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderUserDto> getOrderUserDtoList(int state1,int state2) {
-        OrderExample orderExample = new OrderExample();
-        OrderExample.Criteria criteria = orderExample.createCriteria();
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
 //        criteria.andOrderstateBetween(state1,state2);
         orderExample.setOrderByClause("sendTime desc");
-        List<Order> orderList = orderDao.selectByExample(orderExample);
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
         System.out.println(orderList.toString());
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
@@ -71,11 +77,11 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderUserDto> getOrderUserDtoListByState(int state) {
-        OrderExample orderExample = new OrderExample();
-        OrderExample.Criteria criteria = orderExample.createCriteria();
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
 //        criteria.andOrderstateEqualTo(state);
         orderExample.setOrderByClause("sendTime desc");
-        List<Order> orderList = orderDao.selectByExample(orderExample);
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
         System.out.println(orderList.toString());
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
@@ -87,10 +93,10 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public List<OrderUserDto> getOrderUserDtoListByOrderList(List<Order> orderList) {
+    public List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList) {
         List<OrderUserDto> orderUserDtoList = new ArrayList<>();
         if (orderList.size() > 0) {
-            for (Order order : orderList) {
+            for (Orderinfo order : orderList) {
                 OrderUserDto orderUserDto = new OrderUserDto();
                 User user = userDao.selectByPrimaryKey(order.getSenderid());
                 Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());

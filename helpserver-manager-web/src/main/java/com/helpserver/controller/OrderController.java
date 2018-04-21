@@ -4,6 +4,7 @@ import com.helpserver.pojo.*;
 import com.helpserver.service.*;
 import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
+import com.helpserver.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class OrderController {
 
     /**
      * 订单已结束列表
-     * 3已结束、4已取消、-1管理员禁止该订单
+     * 3已结束、4已取消
      * @param request
      * @return
      */
@@ -63,8 +65,8 @@ public class OrderController {
     }
 
     /**
-     * 订单已结束列表
-     * 3已结束、4已取消、-1管理员禁止该订单
+     * 订单被禁止列表
+     * -1管理员禁止该订单
      * @param request
      * @return
      */
@@ -77,6 +79,22 @@ public class OrderController {
         List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByState(state);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
         return "order_ban_list";
+    }
+
+    /**
+     * 订单已结束列表
+     * 3已结束、4已取消、-1管理员禁止该订单
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getorder")
+    public String getorder(HttpServletRequest request, HttpServletResponse response,Model model) {
+//        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+//            return "page_403";
+//        }
+        Orderinfo order = orderService.getOrderById(1);
+        ResponseUtils.renderJson(response,order.toString());
+        return null;
     }
 
 }

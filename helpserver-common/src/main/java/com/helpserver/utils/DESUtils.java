@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Hex;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.spec.AlgorithmParameterSpec;
+import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
@@ -138,6 +139,7 @@ public class DESUtils {
         String src = "123456";
         String enStr = DESUtils.getMD5Str(src);
         System.out.println("加密后："+enStr);
+        System.out.println(TimeUtil.dateToStrNoS(new Date()));
     }
 
 }

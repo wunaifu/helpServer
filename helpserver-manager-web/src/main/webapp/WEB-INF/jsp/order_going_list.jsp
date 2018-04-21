@@ -76,12 +76,14 @@
                                                 <tr class="manager-bg input-lg">
 
                                                     <td class="manager-border2">${item.senderName}</td>
-                                                    <td class="manager-border2">${item.order.name}</td>
+                                                    <td class="manager-border2">${item.order.foodname}</td>
                                                     <td class="manager-border2">${item.orderTypeName}</td>
-                                                    <td class="manager-border2">${item.order.area}</td>
+                                                    <td class="manager-border2">${item.order.areainfo}</td>
+                                                    <td class="manager-border2">${item.order.pointinfo}</td>
                                                     <td class="manager-border2">${item.order.sendtime}</td>
                                                     <td class="manager-border2">
-                                                    ${TimeUtil.dateToStrMdHm(item.order.starttime)}-${TimeUtil.dateToStrMdHm(item.order.endtime)}</td>
+                                                            ${item.order.starttime}-${item.order.endtime}
+                                                    </td>
                                                     <c:choose>
                                                         <c:when test="${item.order.orderstate==1}">
                                                             <td class="manager-border2"><b>抢单进行中</b></td>

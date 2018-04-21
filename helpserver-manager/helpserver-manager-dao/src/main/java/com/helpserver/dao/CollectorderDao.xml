@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.helpserver.dao.CollectorderDao" >
   <resultMap id="BaseResultMap" type="com.helpserver.pojo.Collectorder" >
-    <result column="collectId" property="collectid" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="orderId" property="orderid" jdbcType="INTEGER" />
     <result column="collectorId" property="collectorid" jdbcType="INTEGER" />
     <result column="collectTime" property="collecttime" jdbcType="VARCHAR" />
@@ -67,7 +67,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      collectId, orderId, collectorId, collectTime
+      id, orderId, collectorId, collectTime
     </if>
     <if test="fields != null" >
       ${fields}
@@ -90,6 +90,16 @@
       limit #{startRow} , #{pageSize}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,orderId,collectorId,collectTime
+    from collectorder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collectorder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.helpserver.pojo.CollectorderExample" >
     delete from collectorder
     <if test="_parameter != null" >
@@ -97,16 +107,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Collectorder" >
-    insert into collectorder (collectId, orderId, collectorId, 
+    insert into collectorder (id, orderId, collectorId, 
       collectTime)
-    values (#{collectid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{collectorid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{collectorid,jdbcType=INTEGER}, 
       #{collecttime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Collectorder" >
     insert into collectorder
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="collectid != null" >
-        collectId,
+      <if test="id != null" >
+        id,
       </if>
       <if test="orderid != null" >
         orderId,
@@ -119,8 +129,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="collectid != null" >
-        #{collectid,jdbcType=INTEGER},
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="orderid != null" >
         #{orderid,jdbcType=INTEGER},
@@ -142,8 +152,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update collectorder
     <set >
-      <if test="record.collectid != null" >
-        collectId = #{record.collectid,jdbcType=INTEGER},
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.orderid != null" >
         orderId = #{record.orderid,jdbcType=INTEGER},
@@ -161,12 +171,34 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update collectorder
-    set collectId = #{record.collectid,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
       orderId = #{record.orderid,jdbcType=INTEGER},
       collectorId = #{record.collectorid,jdbcType=INTEGER},
       collectTime = #{record.collecttime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Collectorder" >
+    update collectorder
+    <set >
+      <if test="orderid != null" >
+        orderId = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="collectorid != null" >
+        collectorId = #{collectorid,jdbcType=INTEGER},
+      </if>
+      <if test="collecttime != null" >
+        collectTime = #{collecttime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Collectorder" >
+    update collectorder
+    set orderId = #{orderid,jdbcType=INTEGER},
+      collectorId = #{collectorid,jdbcType=INTEGER},
+      collectTime = #{collecttime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

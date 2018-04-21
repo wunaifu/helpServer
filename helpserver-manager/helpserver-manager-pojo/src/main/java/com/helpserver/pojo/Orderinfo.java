@@ -2,11 +2,11 @@ package com.helpserver.pojo;
 
 import java.io.Serializable;
 
-public class Order implements Serializable {
+public class Orderinfo implements Serializable {
     /**
      * id
      */
-    private Integer orderid;
+    private Integer id;
 
     /**
      * 发布者id
@@ -21,12 +21,12 @@ public class Order implements Serializable {
     /**
      * 服务费用
      */
-    private Integer money;
+    private Integer moneyamount;
 
     /**
      * 资源名字
      */
-    private String name;
+    private String foodname;
 
     /**
      * 可使用开始时间
@@ -41,17 +41,17 @@ public class Order implements Serializable {
     /**
      * 服务详情、备注
      */
-    private String detail;
+    private String orderdetail;
 
     /**
      * 所在区域（省市县）
      */
-    private String area;
+    private String areainfo;
 
     /**
      * 详细坐标
      */
-    private String point;
+    private String pointinfo;
 
     /**
      * 发布时间
@@ -95,12 +95,12 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getOrderid() {
-        return orderid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSenderid() {
@@ -119,20 +119,20 @@ public class Order implements Serializable {
         this.typeid = typeid;
     }
 
-    public Integer getMoney() {
-        return money;
+    public Integer getMoneyamount() {
+        return moneyamount;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void setMoneyamount(Integer moneyamount) {
+        this.moneyamount = moneyamount;
     }
 
-    public String getName() {
-        return name;
+    public String getFoodname() {
+        return foodname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setFoodname(String foodname) {
+        this.foodname = foodname == null ? null : foodname.trim();
     }
 
     public String getStarttime() {
@@ -151,28 +151,28 @@ public class Order implements Serializable {
         this.endtime = endtime == null ? null : endtime.trim();
     }
 
-    public String getDetail() {
-        return detail;
+    public String getOrderdetail() {
+        return orderdetail;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail == null ? null : detail.trim();
+    public void setOrderdetail(String orderdetail) {
+        this.orderdetail = orderdetail == null ? null : orderdetail.trim();
     }
 
-    public String getArea() {
-        return area;
+    public String getAreainfo() {
+        return areainfo;
     }
 
-    public void setArea(String area) {
-        this.area = area == null ? null : area.trim();
+    public void setAreainfo(String areainfo) {
+        this.areainfo = areainfo == null ? null : areainfo.trim();
     }
 
-    public String getPoint() {
-        return point;
+    public String getPointinfo() {
+        return pointinfo;
     }
 
-    public void setPoint(String point) {
-        this.point = point == null ? null : point.trim();
+    public void setPointinfo(String pointinfo) {
+        this.pointinfo = pointinfo == null ? null : pointinfo.trim();
     }
 
     public String getSendtime() {
@@ -245,16 +245,16 @@ public class Order implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", orderid=").append(orderid);
+        sb.append(", id=").append(id);
         sb.append(", senderid=").append(senderid);
         sb.append(", typeid=").append(typeid);
-        sb.append(", money=").append(money);
-        sb.append(", name=").append(name);
+        sb.append(", moneyamount=").append(moneyamount);
+        sb.append(", foodname=").append(foodname);
         sb.append(", starttime=").append(starttime);
         sb.append(", endtime=").append(endtime);
-        sb.append(", detail=").append(detail);
-        sb.append(", area=").append(area);
-        sb.append(", point=").append(point);
+        sb.append(", orderdetail=").append(orderdetail);
+        sb.append(", areainfo=").append(areainfo);
+        sb.append(", pointinfo=").append(pointinfo);
         sb.append(", sendtime=").append(sendtime);
         sb.append(", repealtime=").append(repealtime);
         sb.append(", repealreason=").append(repealreason);

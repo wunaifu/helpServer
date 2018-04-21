@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.helpserver.dao.OrderDao" >
-  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Order" >
-    <id column="orderId" property="orderid" jdbcType="INTEGER" />
+<mapper namespace="com.helpserver.dao.OrderinfoDao" >
+  <resultMap id="BaseResultMap" type="com.helpserver.pojo.Orderinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="senderId" property="senderid" jdbcType="INTEGER" />
     <result column="typeId" property="typeid" jdbcType="INTEGER" />
-    <result column="money" property="money" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="moneyAmount" property="moneyamount" jdbcType="INTEGER" />
+    <result column="foodName" property="foodname" jdbcType="VARCHAR" />
     <result column="startTime" property="starttime" jdbcType="VARCHAR" />
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
-    <result column="area" property="area" jdbcType="VARCHAR" />
-    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="orderDetail" property="orderdetail" jdbcType="VARCHAR" />
+    <result column="areaInfo" property="areainfo" jdbcType="VARCHAR" />
+    <result column="pointInfo" property="pointinfo" jdbcType="VARCHAR" />
     <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
     <result column="repealTime" property="repealtime" jdbcType="VARCHAR" />
     <result column="repealReason" property="repealreason" jdbcType="VARCHAR" />
@@ -81,20 +81,21 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      orderId, senderId, typeId, money, name, startTime, endTime, detail, area, point, 
-      sendTime, repealTime, repealReason, orderState, callName, callPhone, seeAmount, picture
+      id, senderId, typeId, moneyAmount, foodName, startTime, endTime, orderDetail, areaInfo, 
+      pointInfo, sendTime, repealTime, repealReason, orderState, callName, callPhone, seeAmount, 
+      picture
     </if>
     <if test="fields != null" >
       ${fields}
     </if>
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.helpserver.pojo.OrderinfoExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from orderinfo
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -107,41 +108,41 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    orderId,senderId,typeId,money,name,startTime,endTime,detail,area,point,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture
-    from order
-    where orderId = #{orderid,jdbcType=INTEGER}
+    id,senderId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,areaInfo,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture
+    from orderinfo
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from order
-    where orderId = #{orderid,jdbcType=INTEGER}
+    delete from orderinfo
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.helpserver.pojo.OrderExample" >
-    delete from order
+  <delete id="deleteByExample" parameterType="com.helpserver.pojo.OrderinfoExample" >
+    delete from orderinfo
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.helpserver.pojo.Order" >
-    insert into order (orderId, senderId, typeId, 
-      money, name, startTime, 
-      endTime, detail, area, 
-      point, sendTime, repealTime, 
+  <insert id="insert" parameterType="com.helpserver.pojo.Orderinfo" >
+    insert into orderinfo (id, senderId, typeId, 
+      moneyAmount, foodName, startTime, 
+      endTime, orderDetail, areaInfo, 
+      pointInfo, sendTime, repealTime, 
       repealReason, orderState, callName, 
       callPhone, seeAmount, picture
       )
-    values (#{orderid,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
-      #{money,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
-      #{endtime,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
-      #{point,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
+      #{moneyamount,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{orderdetail,jdbcType=VARCHAR}, #{areainfo,jdbcType=VARCHAR}, 
+      #{pointinfo,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, 
       #{repealreason,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, 
       #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.helpserver.pojo.Order" >
-    insert into order
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.Orderinfo" >
+    insert into orderinfo
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderid != null" >
-        orderId,
+      <if test="id != null" >
+        id,
       </if>
       <if test="senderid != null" >
         senderId,
@@ -149,11 +150,11 @@
       <if test="typeid != null" >
         typeId,
       </if>
-      <if test="money != null" >
-        money,
+      <if test="moneyamount != null" >
+        moneyAmount,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="foodname != null" >
+        foodName,
       </if>
       <if test="starttime != null" >
         startTime,
@@ -161,14 +162,14 @@
       <if test="endtime != null" >
         endTime,
       </if>
-      <if test="detail != null" >
-        detail,
+      <if test="orderdetail != null" >
+        orderDetail,
       </if>
-      <if test="area != null" >
-        area,
+      <if test="areainfo != null" >
+        areaInfo,
       </if>
-      <if test="point != null" >
-        point,
+      <if test="pointinfo != null" >
+        pointInfo,
       </if>
       <if test="sendtime != null" >
         sendTime,
@@ -196,8 +197,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderid != null" >
-        #{orderid,jdbcType=INTEGER},
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="senderid != null" >
         #{senderid,jdbcType=INTEGER},
@@ -205,11 +206,11 @@
       <if test="typeid != null" >
         #{typeid,jdbcType=INTEGER},
       </if>
-      <if test="money != null" >
-        #{money,jdbcType=INTEGER},
+      <if test="moneyamount != null" >
+        #{moneyamount,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="foodname != null" >
+        #{foodname,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
         #{starttime,jdbcType=VARCHAR},
@@ -217,14 +218,14 @@
       <if test="endtime != null" >
         #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null" >
-        #{detail,jdbcType=VARCHAR},
+      <if test="orderdetail != null" >
+        #{orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="area != null" >
-        #{area,jdbcType=VARCHAR},
+      <if test="areainfo != null" >
+        #{areainfo,jdbcType=VARCHAR},
       </if>
-      <if test="point != null" >
-        #{point,jdbcType=VARCHAR},
+      <if test="pointinfo != null" >
+        #{pointinfo,jdbcType=VARCHAR},
       </if>
       <if test="sendtime != null" >
         #{sendtime,jdbcType=VARCHAR},
@@ -252,17 +253,17 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.helpserver.pojo.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from order
+  <select id="countByExample" parameterType="com.helpserver.pojo.OrderinfoExample" resultType="java.lang.Integer" >
+    select count(*) from orderinfo
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update order
+    update orderinfo
     <set >
-      <if test="record.orderid != null" >
-        orderId = #{record.orderid,jdbcType=INTEGER},
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.senderid != null" >
         senderId = #{record.senderid,jdbcType=INTEGER},
@@ -270,11 +271,11 @@
       <if test="record.typeid != null" >
         typeId = #{record.typeid,jdbcType=INTEGER},
       </if>
-      <if test="record.money != null" >
-        money = #{record.money,jdbcType=INTEGER},
+      <if test="record.moneyamount != null" >
+        moneyAmount = #{record.moneyamount,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.foodname != null" >
+        foodName = #{record.foodname,jdbcType=VARCHAR},
       </if>
       <if test="record.starttime != null" >
         startTime = #{record.starttime,jdbcType=VARCHAR},
@@ -282,14 +283,14 @@
       <if test="record.endtime != null" >
         endTime = #{record.endtime,jdbcType=VARCHAR},
       </if>
-      <if test="record.detail != null" >
-        detail = #{record.detail,jdbcType=VARCHAR},
+      <if test="record.orderdetail != null" >
+        orderDetail = #{record.orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="record.area != null" >
-        area = #{record.area,jdbcType=VARCHAR},
+      <if test="record.areainfo != null" >
+        areaInfo = #{record.areainfo,jdbcType=VARCHAR},
       </if>
-      <if test="record.point != null" >
-        point = #{record.point,jdbcType=VARCHAR},
+      <if test="record.pointinfo != null" >
+        pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
       </if>
       <if test="record.sendtime != null" >
         sendTime = #{record.sendtime,jdbcType=VARCHAR},
@@ -321,17 +322,17 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update order
-    set orderId = #{record.orderid,jdbcType=INTEGER},
+    update orderinfo
+    set id = #{record.id,jdbcType=INTEGER},
       senderId = #{record.senderid,jdbcType=INTEGER},
       typeId = #{record.typeid,jdbcType=INTEGER},
-      money = #{record.money,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      moneyAmount = #{record.moneyamount,jdbcType=INTEGER},
+      foodName = #{record.foodname,jdbcType=VARCHAR},
       startTime = #{record.starttime,jdbcType=VARCHAR},
       endTime = #{record.endtime,jdbcType=VARCHAR},
-      detail = #{record.detail,jdbcType=VARCHAR},
-      area = #{record.area,jdbcType=VARCHAR},
-      point = #{record.point,jdbcType=VARCHAR},
+      orderDetail = #{record.orderdetail,jdbcType=VARCHAR},
+      areaInfo = #{record.areainfo,jdbcType=VARCHAR},
+      pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
       sendTime = #{record.sendtime,jdbcType=VARCHAR},
       repealTime = #{record.repealtime,jdbcType=VARCHAR},
       repealReason = #{record.repealreason,jdbcType=VARCHAR},
@@ -344,8 +345,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Order" >
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Orderinfo" >
+    update orderinfo
     <set >
       <if test="senderid != null" >
         senderId = #{senderid,jdbcType=INTEGER},
@@ -353,11 +354,11 @@
       <if test="typeid != null" >
         typeId = #{typeid,jdbcType=INTEGER},
       </if>
-      <if test="money != null" >
-        money = #{money,jdbcType=INTEGER},
+      <if test="moneyamount != null" >
+        moneyAmount = #{moneyamount,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="foodname != null" >
+        foodName = #{foodname,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
         startTime = #{starttime,jdbcType=VARCHAR},
@@ -365,14 +366,14 @@
       <if test="endtime != null" >
         endTime = #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null" >
-        detail = #{detail,jdbcType=VARCHAR},
+      <if test="orderdetail != null" >
+        orderDetail = #{orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="area != null" >
-        area = #{area,jdbcType=VARCHAR},
+      <if test="areainfo != null" >
+        areaInfo = #{areainfo,jdbcType=VARCHAR},
       </if>
-      <if test="point != null" >
-        point = #{point,jdbcType=VARCHAR},
+      <if test="pointinfo != null" >
+        pointInfo = #{pointinfo,jdbcType=VARCHAR},
       </if>
       <if test="sendtime != null" >
         sendTime = #{sendtime,jdbcType=VARCHAR},
@@ -399,19 +400,19 @@
         picture = #{picture,jdbcType=VARCHAR},
       </if>
     </set>
-    where orderId = #{orderid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Order" >
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Orderinfo" >
+    update orderinfo
     set senderId = #{senderid,jdbcType=INTEGER},
       typeId = #{typeid,jdbcType=INTEGER},
-      money = #{money,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+      moneyAmount = #{moneyamount,jdbcType=INTEGER},
+      foodName = #{foodname,jdbcType=VARCHAR},
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      area = #{area,jdbcType=VARCHAR},
-      point = #{point,jdbcType=VARCHAR},
+      orderDetail = #{orderdetail,jdbcType=VARCHAR},
+      areaInfo = #{areainfo,jdbcType=VARCHAR},
+      pointInfo = #{pointinfo,jdbcType=VARCHAR},
       sendTime = #{sendtime,jdbcType=VARCHAR},
       repealTime = #{repealtime,jdbcType=VARCHAR},
       repealReason = #{repealreason,jdbcType=VARCHAR},
@@ -420,6 +421,6 @@
       callPhone = #{callphone,jdbcType=VARCHAR},
       seeAmount = #{seeamount,jdbcType=INTEGER},
       picture = #{picture,jdbcType=VARCHAR}
-    where orderId = #{orderid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
