@@ -17,19 +17,14 @@
 
     <title>首页</title>
 
-    <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
-    <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
+    <link href="AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
 
-    <link href="/basic/css/demo.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/personal.css" rel="stylesheet" type="text/css">
-    <link href="/css/vipstyle.css" rel="stylesheet" type="text/css">
-    <link href="/css/hmstyle.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/base.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/media.css" rel="stylesheet">
-    <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-    <script src="/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
-    <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link href="basic/css/demo.css" rel="stylesheet" type="text/css" />
+
+    <link href="css/hmstyle.css" rel="stylesheet" type="text/css" />
+    <script src="AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -298,106 +293,51 @@
 <div class="shopMainbg">
     <div class="shopMain" id="shopmain">
 
-        <!--热门活动 -->
-
-        <div class="am-container">
-            <!--<hr />-->
-
-            <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
-                <h2>
-                    <!--<p style="float:left;">互助服务</p>-->
-                    <p style="float:right;"><a href="/server/add"><span>发起服务</span></a></p>
-                </h2>
-                <div class="clear "></div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-
-            </div>
-            <div class="clear "></div>
-        </div>
-        <div class="clear "></div>
     </div>
+    <div class="clear "></div>
 
-    <!--底部 start-->
-    <jsp:include page="footer.jsp"></jsp:include>
-    <!--底部 end-->
+    <div class="am-container ">
+        <div class="shopTitle ">
+            <h4>海味</h4>
+            <h3>你是我的优乐美么？不，我是你小鱼干</h3>
+            <div class="today-brands ">
+                <%--<a href="# ">小鱼干</a>--%>
+                <%--<a href="# ">海苔</a>--%>
+                <%--<a href="# ">鱿鱼丝</a>--%>
+                <%--<a href="# ">海带丝</a>--%>
+            </div>
+            <span class="more ">
+                    <a class="more-link " href="/server/add">发布资源服务</a>
+                        </span>
+        </div>
+    </div>
+    <div class="am-g am-g-fixed flood method3 ">
+        <ul class="am-thumbnails ">
+            <li >
+                <div class="list "style="border: 1px solid #b5b5b5">
+                    <a href="# ">
+                        <img src="/images/icon-sale.png" style="min-height:140px;max-height: 150px"/>
+                        <div class="pro-title ">电动自行车</div>
+                        <div class="pro-title ">萨拉米 1+1小鸡腿</div>
+                        <div class="pro-title ">￥29.90</div>
+                        <span class="e-price ">抢单</span>
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
 </div>
+</div>
+</div>
+</div>
+<!--引导 -->
+<script type="text/javascript " src="../basic/js/quick_links.js "></script>
+</body>
+<!--底部 start-->
+<jsp:include page="footer.jsp"></jsp:include>
+<!--底部 end-->
 </div>
 </div>
 </div>
