@@ -88,7 +88,7 @@ public class OrderController {
      * @throws Exception
      */
     @RequestMapping(value = "/{orderId}/detail")
-    public String userGoldIOlist(@PathVariable("orderId") int orderId,
+    public String orderDetail(@PathVariable("orderId") int orderId,
                                  HttpServletRequest request,Model model) throws Exception {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
@@ -96,6 +96,25 @@ public class OrderController {
         OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
         model.addAttribute("orderUserDto", orderUserDto);
         return "order_detail";
+    }
+
+    /**
+     * 管理员查看某资源服务的抢单详情
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{orderId}/asklist")
+    public String orderAskList(@PathVariable("orderId") int orderId,
+                                 HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        Orderinfo order = orderService.getOrderById(orderId);
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = orderService.getAcceptOrderUserDtoListByOrderId(order);
+        model.addAttribute("order", order);
+        model.addAttribute("acceptOrderUserDtoList", acceptOrderUserDtoList);
+        return "order_asklist";
     }
 
 }

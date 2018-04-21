@@ -266,6 +266,66 @@ public class OrderinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andAccepteridIsNull() {
+            addCriterion("accepterId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridIsNotNull() {
+            addCriterion("accepterId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridEqualTo(Integer value) {
+            addCriterion("accepterId =", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridNotEqualTo(Integer value) {
+            addCriterion("accepterId <>", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridGreaterThan(Integer value) {
+            addCriterion("accepterId >", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("accepterId >=", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridLessThan(Integer value) {
+            addCriterion("accepterId <", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridLessThanOrEqualTo(Integer value) {
+            addCriterion("accepterId <=", value, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridIn(List<Integer> values) {
+            addCriterion("accepterId in", values, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridNotIn(List<Integer> values) {
+            addCriterion("accepterId not in", values, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridBetween(Integer value1, Integer value2) {
+            addCriterion("accepterId between", value1, value2, "accepterid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccepteridNotBetween(Integer value1, Integer value2) {
+            addCriterion("accepterId not between", value1, value2, "accepterid");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeidIsNull() {
             addCriterion("typeId is null");
             return (Criteria) this;
@@ -1413,6 +1473,66 @@ public class OrderinfoExample {
 
         public Criteria andUpdatetimeNotBetween(String value1, String value2) {
             addCriterion("updateTime not between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidIsNull() {
+            addCriterion("acceptorderId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidIsNotNull() {
+            addCriterion("acceptorderId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidEqualTo(Integer value) {
+            addCriterion("acceptorderId =", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidNotEqualTo(Integer value) {
+            addCriterion("acceptorderId <>", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidGreaterThan(Integer value) {
+            addCriterion("acceptorderId >", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("acceptorderId >=", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidLessThan(Integer value) {
+            addCriterion("acceptorderId <", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidLessThanOrEqualTo(Integer value) {
+            addCriterion("acceptorderId <=", value, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidIn(List<Integer> values) {
+            addCriterion("acceptorderId in", values, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidNotIn(List<Integer> values) {
+            addCriterion("acceptorderId not in", values, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidBetween(Integer value1, Integer value2) {
+            addCriterion("acceptorderId between", value1, value2, "acceptorderid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAcceptorderidNotBetween(Integer value1, Integer value2) {
+            addCriterion("acceptorderId not between", value1, value2, "acceptorderid");
             return (Criteria) this;
         }
     }

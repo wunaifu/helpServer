@@ -8,9 +8,18 @@ import java.io.Serializable;
 public class OrderUserDto implements Serializable {
     int senderId;
     String senderName;
+    String accepterName;
     String orderTypeName;
     String bigTypeName;
     Orderinfo order;
+
+    public String getAccepterName() {
+        return accepterName;
+    }
+
+    public void setAccepterName(String accepterName) {
+        this.accepterName = accepterName;
+    }
 
     public int getSenderId() {
         return senderId;
@@ -52,14 +61,4 @@ public class OrderUserDto implements Serializable {
         this.order = order;
     }
 
-    @Override
-    public String toString() {
-        return "OrderUserDto{" +
-                "senderId=" + senderId +
-                ", senderName='" + senderName + '\'' +
-                ", orderTypeName='" + orderTypeName + '\'' +
-                ", bigTypeName='" + bigTypeName + '\'' +
-                ", order=" + order +
-                '}';
-    }
 }

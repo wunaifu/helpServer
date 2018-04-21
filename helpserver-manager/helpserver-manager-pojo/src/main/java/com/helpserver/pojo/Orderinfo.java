@@ -14,6 +14,11 @@ public class Orderinfo implements Serializable {
     private Integer senderid;
 
     /**
+     * 抢单成功者id
+     */
+    private Integer accepterid;
+
+    /**
      * 发布类型id（零活、跑腿）
      */
     private Integer typeid;
@@ -98,6 +103,11 @@ public class Orderinfo implements Serializable {
      */
     private String updatetime;
 
+    /**
+     * 抢单成功表id
+     */
+    private Integer acceptorderid;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -114,6 +124,14 @@ public class Orderinfo implements Serializable {
 
     public void setSenderid(Integer senderid) {
         this.senderid = senderid;
+    }
+
+    public Integer getAccepterid() {
+        return accepterid;
+    }
+
+    public void setAccepterid(Integer accepterid) {
+        this.accepterid = accepterid;
     }
 
     public Integer getTypeid() {
@@ -252,6 +270,14 @@ public class Orderinfo implements Serializable {
         this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 
+    public Integer getAcceptorderid() {
+        return acceptorderid;
+    }
+
+    public void setAcceptorderid(Integer acceptorderid) {
+        this.acceptorderid = acceptorderid;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -260,6 +286,7 @@ public class Orderinfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", senderid=").append(senderid);
+        sb.append(", accepterid=").append(accepterid);
         sb.append(", typeid=").append(typeid);
         sb.append(", moneyamount=").append(moneyamount);
         sb.append(", foodname=").append(foodname);
@@ -277,6 +304,7 @@ public class Orderinfo implements Serializable {
         sb.append(", seeamount=").append(seeamount);
         sb.append(", picture=").append(picture);
         sb.append(", updatetime=").append(updatetime);
+        sb.append(", acceptorderid=").append(acceptorderid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

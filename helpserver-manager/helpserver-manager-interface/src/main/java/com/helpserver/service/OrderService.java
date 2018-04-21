@@ -1,5 +1,6 @@
 package com.helpserver.service;
 
+import com.helpserver.pojo.AcceptOrderUserDto;
 import com.helpserver.pojo.OrderUserDto;
 import com.helpserver.pojo.Orderinfo;
 
@@ -27,4 +28,6 @@ public interface OrderService {
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order);
 
     public OrderUserDto getOrderUserDtoByOrderId(int orderId);
+
+    public List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(Orderinfo order);
 }

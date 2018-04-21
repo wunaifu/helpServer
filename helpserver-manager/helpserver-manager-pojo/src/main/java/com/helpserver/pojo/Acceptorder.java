@@ -34,7 +34,7 @@ public class Acceptorder implements Serializable {
     private String backtime;
 
     /**
-     * 状态（1接单，0取消，2已完成，3发布方取消）
+     * 状态（0待确认，1已接单，2已完成，3我取消，4抢单失败，5,发布方取消）
      */
     private Integer acceptstate;
 

@@ -1,9 +1,6 @@
 package com.helpserver.service.impl;
 
-import com.helpserver.dao.BigtypeDao;
-import com.helpserver.dao.OrderinfoDao;
-import com.helpserver.dao.OrdertypeDao;
-import com.helpserver.dao.UserDao;
+import com.helpserver.dao.*;
 import com.helpserver.pojo.*;
 import com.helpserver.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class OrderServiceImpl implements OrderService {
     BigtypeDao bigtypeDao;
     @Autowired
     OrdertypeDao orderTypeDao;
+    @Autowired
+    AcceptorderDao acceptOrderDao;
 
     @Override
     public String insertOrder(Orderinfo order) {
@@ -99,11 +98,15 @@ public class OrderServiceImpl implements OrderService {
             for (Orderinfo order : orderList) {
                 OrderUserDto orderUserDto = new OrderUserDto();
                 User user = userDao.selectByPrimaryKey(order.getSenderid());
+                User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
                 Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());
                 Bigtype bigtype = bigtypeDao.selectByPrimaryKey(ordertype.getBigtypeid());
                 orderUserDto.setOrder(order);
                 if (user != null) {
                     orderUserDto.setSenderName(user.getName());
+                }
+                if (accepter != null) {
+                    orderUserDto.setAccepterName(accepter.getName());
                 }
                 if (ordertype != null) {
                     orderUserDto.setOrderTypeName(ordertype.getTypename());
@@ -126,11 +129,15 @@ public class OrderServiceImpl implements OrderService {
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order) {
         OrderUserDto orderUserDto = new OrderUserDto();
         User user = userDao.selectByPrimaryKey(order.getSenderid());
+        User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
         Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());
         Bigtype bigtype = bigtypeDao.selectByPrimaryKey(ordertype.getBigtypeid());
         orderUserDto.setOrder(order);
         if (user != null) {
             orderUserDto.setSenderName(user.getName());
+        }
+        if (accepter != null) {
+            orderUserDto.setAccepterName(accepter.getName());
         }
         if (ordertype != null) {
             orderUserDto.setOrderTypeName(ordertype.getTypename());
@@ -151,4 +158,34 @@ public class OrderServiceImpl implements OrderService {
         Orderinfo orderinfo = orderDao.selectByPrimaryKey(orderId);
         return this.getOrderUserDtoByOrder(orderinfo);
     }
+
+    /**
+     * 通过orderId获取抢单列表详情
+     * @param orderinfo
+     * @return
+     */
+    @Override
+    public List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(Orderinfo orderinfo) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andOrderidEqualTo(orderinfo.getId());
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = new ArrayList<>();
+        for (Acceptorder acceptOrder : acceptorderList) {
+            AcceptOrderUserDto aOUD = new AcceptOrderUserDto();
+            aOUD.setAcceptorder(acceptOrder);
+            User acceptUser = userDao.selectByPrimaryKey(acceptOrder.getAccepterid());
+            User sendUser = userDao.selectByPrimaryKey(orderinfo.getSenderid());
+            if (acceptUser != null) {
+                aOUD.setAcceptUserName(acceptUser.getName());
+            }
+            if (sendUser != null) {
+                aOUD.setSendUserName(sendUser.getName());
+            }
+            aOUD.setOrderGoodsName(orderinfo.getFoodname());
+            acceptOrderUserDtoList.add(aOUD);
+        }
+        return acceptOrderUserDtoList;
+    }
+
 }

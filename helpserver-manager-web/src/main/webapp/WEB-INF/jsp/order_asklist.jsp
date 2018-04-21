@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">用户订单已完成列表</span>
-                        <div class="description">以下是用户的已完成的资源服务订单列表.</div>
+                        <span class="title">资源服务抢单列表</span>
+                        <div class="description">以下是${order.foodname}资源的抢单列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -60,48 +60,49 @@
                                     <table class="datatable table table-striped" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th class="manager-border2">发布人</th>
+                                            <th class="manager-border2">抢单者</th>
+                                            <th class="manager-border2">资源拥有者</th>
                                             <th class="manager-border2">资源名字</th>
-                                            <th class="manager-border2">资源类型</th>
-                                            <th class="manager-border2">资源地点</th>
-                                            <th class="manager-border2">详细坐标</th>
-                                            <th class="manager-border2">服务费用</th>
-                                            <th class="manager-border2">发布时间</th>
-                                            <th class="manager-border2">使用时间</th>
-                                            <th class="manager-border2">订单状态</th>
+                                            <th class="manager-border2">资源可使用时间</th>
+                                            <th class="manager-border2">抢单时间</th>
+                                            <th class="manager-border2">抢单状态</th>
                                             <th hidden></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${orderUserDtoList}" var="item">
-                                            <tr class="manager-bg input-lg">
+                                            <c:forEach items="${acceptOrderUserDtoList}" var="item">
+                                                <tr class="manager-bg input-lg">
 
-                                                <td class="manager-border2">${item.senderName}</td>
-                                                <td class="manager-border2">${item.order.foodname}</td>
-                                                <td class="manager-border2" style="font-size: 12px;">
-                                                ${item.bigTypeName}/${item.orderTypeName}</td>
-                                                <td class="manager-border2">${item.order.areainfo}</td>
-                                                <td class="manager-border2">${item.order.pointinfo}</td>
-                                                <td class="manager-border2">${item.order.moneyamount}</td>
-                                                <td class="manager-border2">${item.order.sendtime}</td>
-                                                <td class="manager-border2">
-                                                        ${item.order.starttime}-${item.order.endtime}
-                                                </td>
+                                                    <td class="manager-border2">${item.acceptUserName}</td>
+                                                    <td class="manager-border2">${item.sendUserName}</td>
+                                                    <td class="manager-border2">${item.orderGoodsName}</td>
+                                                    <td class="manager-border2">${order.starttime}-${order.endtime}</td>
+                                                    <td class="manager-border2">${item.acceptorder.accepttime}</td>
                                                     <c:choose>
-                                                        <c:when test="${item.order.orderstate==4}">
-                                                            <td class="manager-border2"><b>已取消</b></td>
+                                                        <c:when test="${item.acceptorder.acceptstate==1}">
+                                                            <td class="manager-border2"><b>抢单成功</b></td>
+                                                        </c:when>
+                                                        <c:when test="${item.acceptorder.acceptstate==2}">
+                                                            <td class="manager-border2"><b>已完成</b></td>
+                                                        </c:when>
+                                                        <c:when test="${item.acceptorder.acceptstate==3}">
+                                                            <td class="manager-border2"><b>抢单已取消</b></td>
+                                                        </c:when>
+                                                        <c:when test="${item.acceptorder.acceptstate==4}">
+                                                            <td class="manager-border2"><b>抢单失败</b></td>
+                                                        </c:when>
+                                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                                            <td class="manager-border2"><b>发布方已取消</b></td>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <td class="manager-border2"><b>已结束</b></td>
+                                                            <td class="manager-border2"><b>抢单进行中</b></td>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/user/goldlist/${item.order.senderid}/detail">
-                                                            <span class="label label-default">用户信息</span></a>
-                                                        <a href="/order/${item.order.id}/detail">
+                                                        <a href="/user/goldlist/${item.acceptorder.accepterid}/detail">
+                                                            <span class="label label-default">抢单者信息</span></a>
+                                                        <a href="/order/${order.id}/detail">
                                                             <span class="label label-warning">服务详情</span></a>
-                                                        <a href="/order/${item.order.id}/asklist">
-                                                            <span class="label label-default">抢单详情</span></a>
                                                     </td>
 
                                                 </tr>

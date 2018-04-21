@@ -94,7 +94,7 @@
                                                             <span class="label label-default">用户信息</span></a>
                                                         <a href="/order/${item.order.id}/detail">
                                                             <span class="label label-warning">服务详情</span></a>
-                                                        <a href="/gold/inlist">
+                                                        <a href="/order/${item.order.id}/asklist">
                                                             <span class="label label-default">抢单详情</span></a>
                                                     </td>
 

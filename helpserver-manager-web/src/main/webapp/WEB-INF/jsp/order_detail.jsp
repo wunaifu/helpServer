@@ -80,10 +80,12 @@
                                                         </c:when>
                                                         <c:when test="${orderUserDto.order.orderstate==2}">
                                                             <li class="list-group-item">订单状态：服务进行中</li>
+                                                            <li class="list-group-item">抢单成功者：${orderUserDto.accepterName}</li>
                                                             <li class="list-group-item">确认抢单者时间：${orderUserDto.order.updatetime}</li>
                                                         </c:when>
                                                         <c:when test="${orderUserDto.order.orderstate==3}">
                                                             <li class="list-group-item">订单状态：已结束</li>
+                                                            <li class="list-group-item">抢单成功者：${orderUserDto.accepterName}</li>
                                                             <li class="list-group-item">结束时间：${orderUserDto.order.updatetime}</li>
                                                         </c:when>
                                                         <c:when test="${orderUserDto.order.orderstate==4}">

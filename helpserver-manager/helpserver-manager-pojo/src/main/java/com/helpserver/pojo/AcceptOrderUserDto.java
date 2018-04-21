@@ -6,15 +6,42 @@ import java.io.Serializable;
  * Created by Administrator on 2018-02-01.
  */
 public class AcceptOrderUserDto implements Serializable {
-    User user;
+    int senderId;
+    String sendUserName;
+    String acceptUserName;
+    String orderGoodsName;
     Acceptorder acceptorder;
 
-    public User getUser() {
-        return user;
+    public int getSenderId() {
+        return senderId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getSendUserName() {
+        return sendUserName;
+    }
+
+    public void setSendUserName(String sendUserName) {
+        this.sendUserName = sendUserName;
+    }
+
+    public String getAcceptUserName() {
+        return acceptUserName;
+    }
+
+    public void setAcceptUserName(String acceptUserName) {
+        this.acceptUserName = acceptUserName;
+    }
+
+    public String getOrderGoodsName() {
+        return orderGoodsName;
+    }
+
+    public void setOrderGoodsName(String orderGoodsName) {
+        this.orderGoodsName = orderGoodsName;
     }
 
     public Acceptorder getAcceptorder() {
