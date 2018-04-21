@@ -165,7 +165,7 @@
                 </li>
                 <li class="panel panel-default dropdown">
                     <a data-toggle="collapse" href="#dropdown-form">
-                        <span class="icon fa fa-file-text-o"></span><span class="title">服务管理</span>
+                        <span class="icon fa fa-file-text-o"></span><span class="title">资源服务管理</span>
                     </a>
                     <!-- Dropdown level 1 -->
                     <div id="dropdown-form" class="panel-collapse collapse">
@@ -173,11 +173,11 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/ordertype/biglist">资源类型管理</a>
                                 </li>
-                                <li><a href="/order/listing">进行中服务列表</a>
+                                <li><a href="/order/listing">进行中资源服务列表</a>
                                 </li>
-                                <li><a href="/order/finishlist">已结束服务列表</a>
+                                <li><a href="/order/finishlist">已结束资源服务列表</a>
                                 </li>
-                                <li><a href="/order/banlist">已禁用服务列表</a>
+                                <li><a href="/order/banlist">已禁用资源服务列表</a>
                                 </li>
                             </ul>
                         </div>

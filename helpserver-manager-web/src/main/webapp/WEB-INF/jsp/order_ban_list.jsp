@@ -63,34 +63,36 @@
                                             <th class="manager-border2">发布人</th>
                                             <th class="manager-border2">资源名字</th>
                                             <th class="manager-border2">资源类型</th>
-                                            <th class="manager-border2">地点</th>
-                                            <th class="manager-border2">坐标</th>
+                                            <th class="manager-border2">资源地点</th>
+                                            <th class="manager-border2">详细坐标</th>
+                                            <th class="manager-border2">服务费用</th>
                                             <th class="manager-border2">发布时间</th>
-                                            <th class="manager-border2">使用时间</th>
                                             <th class="manager-border2">禁用时间</th>
                                             <th class="manager-border2">订单状态</th>
                                             <th hidden></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${orderUserDtoList}" var="item">
-                                                <tr class="manager-bg input-lg">
+                                        <c:forEach items="${orderUserDtoList}" var="item">
+                                            <tr class="manager-bg input-lg">
 
-                                                    <td class="manager-border2">${item.senderName}</td>
-                                                    <td class="manager-border2">${item.order.foodname}</td>
-                                                    <td class="manager-border2">${item.orderTypeName}</td>
-                                                    <td class="manager-border2">${item.order.areainfo}</td>
-                                                    <td class="manager-border2">${item.order.pointinfo}</td>
-                                                    <td class="manager-border2">${item.order.sendtime}</td>
-                                                    <td class="manager-border2">
-                                                    ${item.order.starttime}-${item.order.endtime}
-                                                    </td>
-                                                    <td class="manager-border2"><b>${item.order.repealtime}</b></td>
+                                                <td class="manager-border2">${item.senderName}</td>
+                                                <td class="manager-border2">${item.order.foodname}</td>
+                                                <td class="manager-border2" style="font-size: 12px;">
+                                                ${item.bigTypeName}/${item.orderTypeName}</td>
+                                                <td class="manager-border2">${item.order.areainfo}</td>
+                                                <td class="manager-border2">${item.order.pointinfo}</td>
+                                                <td class="manager-border2">${item.order.moneyamount}</td>
+                                                <td class="manager-border2">${item.order.sendtime}</td>
+                                                <%--<td class="manager-border2">--%>
+                                                        <%--${item.order.starttime}-${item.order.endtime}--%>
+                                                <%--</td>--%>
+                                                    <td class="manager-border2"><b>${item.order.updatetime}</b></td>
                                                     <td class="manager-border2"><b>已禁止</b></td>
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/user/goldlist/${item.order.senderid}/detail">
                                                             <span class="label label-default">用户信息</span></a>
-                                                        <a href="/gold/iolist">
+                                                        <a href="/order/${item.order.id}/detail">
                                                             <span class="label label-warning">服务详情</span></a>
                                                         <a href="/gold/inlist">
                                                             <span class="label label-default">抢单详情</span></a>

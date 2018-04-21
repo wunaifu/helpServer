@@ -93,6 +93,11 @@ public class Orderinfo implements Serializable {
      */
     private String picture;
 
+    /**
+     * 更新状态时间
+     */
+    private String updatetime;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -239,6 +244,14 @@ public class Orderinfo implements Serializable {
         this.picture = picture == null ? null : picture.trim();
     }
 
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime == null ? null : updatetime.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -263,6 +276,7 @@ public class Orderinfo implements Serializable {
         sb.append(", callphone=").append(callphone);
         sb.append(", seeamount=").append(seeamount);
         sb.append(", picture=").append(picture);
+        sb.append(", updatetime=").append(updatetime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

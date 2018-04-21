@@ -82,19 +82,20 @@ public class OrderController {
     }
 
     /**
-     * 订单已结束列表
-     * 3已结束、4已取消、-1管理员禁止该订单
-     * @param request
+     * 管理员查看某资源服务的详细信息
+     * @param model
      * @return
+     * @throws Exception
      */
-    @RequestMapping("/getorder")
-    public String getorder(HttpServletRequest request, HttpServletResponse response,Model model) {
-//        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
-//            return "page_403";
-//        }
-        Orderinfo order = orderService.getOrderById(1);
-        ResponseUtils.renderJson(response,order.toString());
-        return null;
+    @RequestMapping(value = "/{orderId}/detail")
+    public String userGoldIOlist(@PathVariable("orderId") int orderId,
+                                 HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+        model.addAttribute("orderUserDto", orderUserDto);
+        return "order_detail";
     }
 
 }

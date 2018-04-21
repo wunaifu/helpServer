@@ -1345,6 +1345,76 @@ public class OrderinfoExample {
             addCriterion("picture not between", value1, value2, "picture");
             return (Criteria) this;
         }
+
+        public Criteria andUpdatetimeIsNull() {
+            addCriterion("updateTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIsNotNull() {
+            addCriterion("updateTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeEqualTo(String value) {
+            addCriterion("updateTime =", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotEqualTo(String value) {
+            addCriterion("updateTime <>", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThan(String value) {
+            addCriterion("updateTime >", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThanOrEqualTo(String value) {
+            addCriterion("updateTime >=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThan(String value) {
+            addCriterion("updateTime <", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThanOrEqualTo(String value) {
+            addCriterion("updateTime <=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLike(String value) {
+            addCriterion("updateTime like", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotLike(String value) {
+            addCriterion("updateTime not like", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIn(List<String> values) {
+            addCriterion("updateTime in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotIn(List<String> values) {
+            addCriterion("updateTime not in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeBetween(String value1, String value2) {
+            addCriterion("updateTime between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotBetween(String value1, String value2) {
+            addCriterion("updateTime not between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

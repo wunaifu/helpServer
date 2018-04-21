@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderUserDto> getOrderUserDtoList(int state1,int state2) {
         OrderinfoExample orderExample = new OrderinfoExample();
         OrderinfoExample.Criteria criteria = orderExample.createCriteria();
-//        criteria.andOrderstateBetween(state1,state2);
+        criteria.andOrderstateBetween(state1,state2);
         orderExample.setOrderByClause("sendTime desc");
         List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
         System.out.println(orderList.toString());
@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderUserDto> getOrderUserDtoListByState(int state) {
         OrderinfoExample orderExample = new OrderinfoExample();
         OrderinfoExample.Criteria criteria = orderExample.createCriteria();
-//        criteria.andOrderstateEqualTo(state);
+        criteria.andOrderstateEqualTo(state);
         orderExample.setOrderByClause("sendTime desc");
         List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
         System.out.println(orderList.toString());
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 通过orderList获取订单的详情
+     * 通过orderList获取所有订单的详情列表
      * @param orderList
      * @return
      */
@@ -115,5 +115,40 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return orderUserDtoList;
+    }
+
+    /**
+     * 通过order获取订单的详情
+     * @param order
+     * @return
+     */
+    @Override
+    public OrderUserDto getOrderUserDtoByOrder(Orderinfo order) {
+        OrderUserDto orderUserDto = new OrderUserDto();
+        User user = userDao.selectByPrimaryKey(order.getSenderid());
+        Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());
+        Bigtype bigtype = bigtypeDao.selectByPrimaryKey(ordertype.getBigtypeid());
+        orderUserDto.setOrder(order);
+        if (user != null) {
+            orderUserDto.setSenderName(user.getName());
+        }
+        if (ordertype != null) {
+            orderUserDto.setOrderTypeName(ordertype.getTypename());
+        }
+        if (bigtype != null) {
+            orderUserDto.setBigTypeName(bigtype.getTypename());
+        }
+        return orderUserDto;
+    }
+
+    /**
+     * 通过orderId获取订单详情
+     * @param orderId
+     * @return
+     */
+    @Override
+    public OrderUserDto getOrderUserDtoByOrderId(int orderId) {
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(orderId);
+        return this.getOrderUserDtoByOrder(orderinfo);
     }
 }

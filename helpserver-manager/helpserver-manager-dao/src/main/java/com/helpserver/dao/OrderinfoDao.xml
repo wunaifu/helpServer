@@ -20,6 +20,7 @@
     <result column="callPhone" property="callphone" jdbcType="VARCHAR" />
     <result column="seeAmount" property="seeamount" jdbcType="INTEGER" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,7 +84,7 @@
     <if test="fields == null" >
       id, senderId, typeId, moneyAmount, foodName, startTime, endTime, orderDetail, areaInfo, 
       pointInfo, sendTime, repealTime, repealReason, orderState, callName, callPhone, seeAmount, 
-      picture
+      picture, updateTime
     </if>
     <if test="fields != null" >
       ${fields}
@@ -108,7 +109,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,senderId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,areaInfo,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture
+    id,senderId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,areaInfo,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture,updateTime
     from orderinfo
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -128,15 +129,15 @@
       endTime, orderDetail, areaInfo, 
       pointInfo, sendTime, repealTime, 
       repealReason, orderState, callName, 
-      callPhone, seeAmount, picture
-      )
+      callPhone, seeAmount, picture, 
+      updateTime)
     values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
       #{moneyamount,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
       #{endtime,jdbcType=VARCHAR}, #{orderdetail,jdbcType=VARCHAR}, #{areainfo,jdbcType=VARCHAR}, 
       #{pointinfo,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, 
       #{repealreason,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, 
-      #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}
-      )
+      #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Orderinfo" >
     insert into orderinfo
@@ -195,6 +196,9 @@
       <if test="picture != null" >
         picture,
       </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -250,6 +254,9 @@
       </if>
       <if test="picture != null" >
         #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -316,6 +323,9 @@
       <if test="record.picture != null" >
         picture = #{record.picture,jdbcType=VARCHAR},
       </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -340,7 +350,8 @@
       callName = #{record.callname,jdbcType=VARCHAR},
       callPhone = #{record.callphone,jdbcType=VARCHAR},
       seeAmount = #{record.seeamount,jdbcType=INTEGER},
-      picture = #{record.picture,jdbcType=VARCHAR}
+      picture = #{record.picture,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -399,6 +410,9 @@
       <if test="picture != null" >
         picture = #{picture,jdbcType=VARCHAR},
       </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -420,7 +434,8 @@
       callName = #{callname,jdbcType=VARCHAR},
       callPhone = #{callphone,jdbcType=VARCHAR},
       seeAmount = #{seeamount,jdbcType=INTEGER},
-      picture = #{picture,jdbcType=VARCHAR}
+      picture = #{picture,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

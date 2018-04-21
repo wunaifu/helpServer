@@ -23,4 +23,8 @@ public interface OrderService {
     List<OrderUserDto> getOrderUserDtoListByState(int state2);
 
     List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList);
+
+    public OrderUserDto getOrderUserDtoByOrder(Orderinfo order);
+
+    public OrderUserDto getOrderUserDtoByOrderId(int orderId);
 }
