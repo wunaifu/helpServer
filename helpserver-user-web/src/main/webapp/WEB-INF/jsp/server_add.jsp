@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -13,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-    <title>个人资料</title>
+    <title>发布资源服务</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
@@ -78,7 +79,7 @@
 
                 <div class="search-bar pr">
                     <a name="index_none_header_sysc" href="#"></a>
-                    <form action="/searchserver">
+                    <form action="/server/search">
                         <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
                         <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
                     </form>
@@ -116,7 +117,7 @@
                 <div class="am-cf am-padding">
                     <div class="am-fl am-cf"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
                         <%--<a style="color: #0a628f" href="/index_user">服务中心&nbsp;</a> >&nbsp;--%>
-                        <strong class="am-text-danger am-text-lg">发布服务</strong> /
+                        <strong class="am-text-danger am-text-lg">发布资源服务</strong> /
                         <small>Server&nbsp;add</small>
                     </div>
                 </div>
@@ -130,20 +131,25 @@
                             <div class="am-form-content birth">
                                 <div class="birth-select2">
                                     <select data-am-selected id="ordertype" name="ordertype">
-                                        <option value="a">零活</option>
-                                        <option value="b">跑腿</option>
-                                        <option value="b">其他</option>
+                                        <c:choose>
+                                            <c:when test="${orderTypeList.size()>0}">
+                                                <c:forEach items="${orderTypeList}" var="item">
+                                                    <option value="${item.id}">${item.typename}</option>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="0">没有类型</option>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </select>
-                                    <%--<em>省</em>--%>
                                 </div>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="title" class="am-form-label">资源名字</label>
+                            <label for="name" class="am-form-label">资源名字</label>
                             <div class="am-form-content">
-                                <input type="text" id="title" name="title" placeholder="长度不能超过20个汉字"
-                                maxlength="20">
-                                <%--<small>标题长度不能超过20个汉字</small>--%>
+                                <input type="text" id="name" name="name" placeholder="长度不能超过20个汉字"
+                                maxlength="20" required>
                             </div>
                         </div>
 
@@ -151,37 +157,44 @@
                             <label for="content" class="am-form-label">详情备注</label>
                             <div class="am-form-content">
                                 <textarea type="text" id="content" name="content" placeholder="长度不能超过120个汉字"
-                                          maxlength="120" rows="4"></textarea>
+                                          maxlength="120" rows="4" required></textarea>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="commission" class="am-form-label">费用(￥)</label>
+                            <label for="money" class="am-form-label">费用(￥)</label>
                             <div class="am-form-content">
-                                <input type="text" id="commission" name="commission" placeholder="使用资源需要的服务费"
-                                       maxlength="8">
-                            </div>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label for="menAccount" class="am-form-label">初始时间</label>
-                            <div class="am-form-content">
-                                <input type="text" id="menAccount" name="menAccount" placeholder="资源可使用的初始时间"
-                                       maxlength="5">
+                                <input type="text" id="money" name="money" placeholder="使用资源需要的服务费"
+                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="menAccount" class="am-form-label">结束时间</label>
+                            <label for="startTime" class="am-form-label">初始时间</label>
                             <div class="am-form-content">
-                                <input type="text" id="menAccount" name="menAccount" placeholder="资源可使用的结束时间"
-                                       maxlength="5">
+                                <input type="text" id="startTime" name="startTime" placeholder="资源可使用的初始时间"
+                                       maxlength="5" required>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="menAccount" class="am-form-label">资源定位</label>
+                            <label for="endTime" class="am-form-label">结束时间</label>
                             <div class="am-form-content">
-                                <a href="/server/map">去定位</a>
+                                <input type="text" id="endTime" name="endTime" placeholder="资源可使用的结束时间"
+                                       maxlength="5" required>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="area" class="am-form-label">资源位置</label>
+                            <div class="am-form-content">
+                                <input type="text" id="area" name="area" placeholder="资源可使用的初始时间"
+                                       maxlength="5" required>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label  class="am-form-label">精细定位</label>
+                            <div class="am-form-content">
+                                <p style="align-content: center"><a href="/server/map">去定位</a></p>
                             </div>
                         </div>
 
@@ -201,36 +214,6 @@
                         </div>--%>
 
                         <div class="am-form-group">
-                            <label for="user-birth" class="am-form-label">地点</label>
-                            <div class="am-form-content birth">
-                                <div class="birth-select2">
-                                    <select data-am-selected>
-                                        <option value="a">广东</option>
-                                        <option value="b">广西</option>
-                                    </select>
-                                    <em>省</em>
-                                </div>
-                                <div class="birth-select2">
-                                    <select data-am-selected>
-                                        <option value="a">广州</option>
-                                        <option value="b">江门</option>
-                                    </select>
-                                    <em>市</em></div>
-                                <div class="birth-select2">
-                                    <select data-am-selected>
-                                        <option value="a">白云区</option>
-                                        <option value="b">蓬江区</option>
-                                    </select>
-                                    <em>区</em></div>
-                            </div>
-                        </div>
-                        <div class="am-form-group">
-                            <label for="expendTime" class="am-form-label">预计耗时</label>
-                            <div class="am-form-content">
-                                <input id="expendTime" name="expendTime" placeholder="预计服务所需要的时间" type="text" maxlength="20">
-                            </div>
-                        </div>
-                        <div class="am-form-group">
                             <label for="username" class="am-form-label">联系人</label>
                             <div class="am-form-content">
                                 <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20">
@@ -248,7 +231,7 @@
                             <%--<div class="am-btn am-btn-danger">保存修改</div>--%>
                         <%--</div>--%>
                         <div class="info-btn">
-                            <input value="保存修改" class="am-btn am-btn-danger" type="submit">
+                            <input value="确认发布" class="am-btn am-btn-danger" type="submit">
                         </div>
 
                     </form>
@@ -274,7 +257,6 @@
                     <li> <a href="#">已接单</a></li>
                     <li> <a href="#">待评价</a></li>
                     <li> <a href="#">已完成</a></li>
-                    <li><a href="#">草稿箱</a></li>
                 </ul>
             </li>
         </ul>

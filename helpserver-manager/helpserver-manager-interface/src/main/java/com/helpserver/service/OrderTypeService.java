@@ -28,4 +28,7 @@ public interface OrderTypeService {
     List<Bigtype> getBigTypeList();
 
     List<Ordertype> getOrdertypeList(int bigTypeId,int state);
+
+
+    List<Ordertype> getOrdertypeListByState(int state);
 }

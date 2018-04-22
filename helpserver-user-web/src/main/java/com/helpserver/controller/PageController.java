@@ -69,7 +69,7 @@ public class PageController {
         request.getSession().removeAttribute("nowUser");
         nowUser.setLocation(location);
         request.getSession().setAttribute("nowUser", nowUser);
-        return "index";
+        return "redirect:/index";
     }
 
     @RequestMapping("/index")

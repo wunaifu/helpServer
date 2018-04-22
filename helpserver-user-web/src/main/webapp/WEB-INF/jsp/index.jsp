@@ -299,7 +299,7 @@
     <div class="am-container ">
         <div class="shopTitle ">
             <h4>资源服务</h4>
-            <%--<h3>你是我的优乐美么？不，我是你小鱼干</h3>--%>
+            <h3></h3>
             <div class="today-brands ">
                 <%--<a href="# ">小鱼干</a>--%>
                 <%--<a href="# ">海苔</a>--%>
@@ -316,11 +316,10 @@
             <li >
                 <div class="list "style="border: 1px solid #b5b5b5">
                     <a href="# ">
-                        <img src="/images/cp.jpg" style="min-height:140px;max-height: 150px"/>
+                        <img src="/images/cp.jpg" style="min-height:150px;max-height: 150px"/>
                         <div class="pro-title ">电动自行车</div>
-                        <div class="pro-title ">萨拉米 1+1小鸡腿</div>
                         <div class="pro-title ">￥29.90</div>
-                        <span class="e-price ">抢单</span>
+                        <span class="e-price " style="padding:5px;">抢单</span>
                     </a>
                 </div>
             </li>

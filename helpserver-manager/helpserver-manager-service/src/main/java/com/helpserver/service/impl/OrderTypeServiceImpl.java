@@ -119,5 +119,13 @@ public class OrderTypeServiceImpl implements OrderTypeService {
         return ordertypeS;
     }
 
+    @Override
+    public List<Ordertype> getOrdertypeListByState(int state) {
+        OrdertypeExample ordertypeExample = new OrdertypeExample();
+        OrdertypeExample.Criteria criteria=ordertypeExample.createCriteria();
+        criteria.andStateEqualTo(state);
+        List<Ordertype> ordertypeS = ordertypeDao.selectByExample(ordertypeExample);
 
+        return ordertypeS;
+    }
 }
