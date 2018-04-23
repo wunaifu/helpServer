@@ -135,6 +135,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * 通过城市和状态获取资源服务订单
+     * @param state
+     * @param city
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListByStateAndCity(int state, String city) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andOrderstateEqualTo(state);
+        criteria.andCityLike(city);
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        System.out.println(orderList.toString());
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
+
+    /**
      * 通过orderList获取所有订单的详情列表
      * @param orderList
      * @return

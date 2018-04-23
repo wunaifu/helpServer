@@ -74,14 +74,25 @@ public class PageController {
         return "redirect:/index";
     }
 
+    /**
+     * 获取订单数据、数据类型跳转到首页
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping("/index")
     public String showIndex11(HttpServletRequest request,Model model) {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        String city = nowUser.getLocation();
         List<News> newsList = newsService.getNewsList();
         List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByState(1);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndCity(1,city);
+        if (orderTypeDtoList.size() < 1) {
+            orderUserDtoList = orderService.getOrderUserDtoListByState(1);
+        }
         model.addAttribute("newsList", newsList);
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
