@@ -193,8 +193,8 @@
 
         var phone = $("#oldphone").val().replace(" ", "");
         content = "您的验证码是：" + new_code + "。请不要把验证码泄露给其他人。";
-        account = "C62138766";
-        password = "f2f3a56a1bd4de09fd0b4fb5c7f6ba4a";
+        account = "C87765250";
+        password = "4223e2ce730884f4024d753c5867b0ea";
         mobile = phone;
         RemainTimeNew();
 //        $.ajax({

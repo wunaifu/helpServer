@@ -70,4 +70,16 @@ public class OrderUserDto implements Serializable {
         this.order = order;
     }
 
+    @Override
+    public String toString() {
+        return "OrderUserDto{" +
+                "senderId=" + senderId +
+                ", senderName='" + senderName + '\'' +
+                ", senderIcon='" + senderIcon + '\'' +
+                ", accepterName='" + accepterName + '\'' +
+                ", orderTypeName='" + orderTypeName + '\'' +
+                ", bigTypeName='" + bigTypeName + '\'' +
+                ", order=" + order +
+                '}';
+    }
 }

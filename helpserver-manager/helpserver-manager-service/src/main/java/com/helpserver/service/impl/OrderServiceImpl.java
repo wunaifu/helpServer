@@ -148,7 +148,10 @@ public class OrderServiceImpl implements OrderService {
         criteria.andCityLike(city);
         orderExample.setOrderByClause("sendTime desc");
         List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
-        System.out.println(orderList.toString());
+        if (orderList == null) {
+            return null;
+        }
+        System.out.println("orderList="+orderList.toString());
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
     }

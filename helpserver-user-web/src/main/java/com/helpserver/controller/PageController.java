@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,13 @@ public class PageController {
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
 //        return page;
 //    }
+
+    /**
+     * 前往修改当前城市
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/map")
     public String getUserByUserId(HttpServletRequest request) throws Exception {
         if (!UserSessionSetUtils.isUserLogin(request)) {
@@ -66,6 +74,9 @@ public class PageController {
 
     @RequestMapping("/finishmap")
     public String finishMap(HttpServletRequest request) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
         String location = request.getParameter("locationmap");
         NowUser nowUser= (NowUser) request.getSession().getAttribute("nowUser");
         request.getSession().removeAttribute("nowUser");
@@ -89,10 +100,13 @@ public class PageController {
         String city = nowUser.getLocation();
         List<News> newsList = newsService.getNewsList();
         List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndCity(1,city);
-        if (orderTypeDtoList.size() < 1) {
+        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
+        orderUserDtoList = orderService.getOrderUserDtoListByStateAndCity(1, city);
+        System.out.println("orderUserDtoList1="+orderUserDtoList.toString());
+        if (orderUserDtoList.size()<1) {
             orderUserDtoList = orderService.getOrderUserDtoListByState(1);
         }
+        System.out.println("orderUserDtoList2="+orderUserDtoList.toString());
         model.addAttribute("newsList", newsList);
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
