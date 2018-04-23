@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -153,21 +154,37 @@
                                     <div class="am-tab-panel am-fade am-in am-active">
                                         <div class="details">
                                             <div class="twlistNews">
-                                                <img style="width: 80px;height: 80px;" src="/images/tw1.jpg" />
+                                                <img style="width: 80px;height: 80px;" src="/resources/img/${user.headicon}" />
 
                                             </div>
                                         </div>
                                         <div class="clear"></div>
                                         <div align="left" style="margin-left: 20px;vertical-align: top;color: #666;font-size:14px;">
                                             <%--<ul id="J_AttrUL">--%>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">姓名:</b>&nbsp;零活</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">昵称:</b>&nbsp;200￥</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">地址:</b>&nbsp;湖北省武汉市</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">抢单时间:</b>&nbsp;2018-01-01 12:00:00</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">性别:</b>&nbsp;女</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">联系方式：</b>&nbsp;18219111621</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">个人简介：</b>&nbsp;开袋去壳即食，请放置于常温、阴凉、通风、干燥处保存，
-                                                请放置于常温、阴凉、通风、干燥处保存，请放置于常温、阴凉、通风、干燥处保存
+                                            <div style="margin-top: 10px;"><b style="color: #101010;">姓名:</b>&nbsp;${user.name}</div>
+                                            <div style="margin-top: 10px;"><b style="color: #101010;">昵称:</b>&nbsp;${user.nickname}</div>
+                                            <div style="margin-top: 10px;"><b style="color: #101010;">地址:</b>&nbsp;${user.name}</div>
+                                            <%--<div style="margin-top: 10px;"><b style="color: #101010;">时间:</b>&nbsp;${user.name}</div>--%>
+                                            <c:choose>
+                                                <c:when test="${user.sex==1}">
+                                                    <div style="margin-top: 10px;"><b style="color: #101010;">性别:</b>&nbsp;男</div>
+                                                </c:when>
+                                                <c:when test="${user.sex==0}">
+                                                    <div style="margin-top: 10px;"><b style="color: #101010;">性别:</b>&nbsp;女</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div style="margin-top: 10px;"><b style="color: #101010;">性别:</b>&nbsp;未知</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${user.permission==1}">
+                                                    <div style="margin-top: 10px;"><b style="color: #101010;">权限:</b>&nbsp;已实名</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div style="margin-top: 10px;"><b style="color: #101010;">权限:</b>&nbsp;未认证</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <div style="margin-top: 10px;"><b style="color: #101010;">个人简介：</b>&nbsp;${user.userinfo}
                                             </div>
                                             <%--</ul>--%>
                                             <div class="clear"></div>
@@ -200,11 +217,11 @@
             <li class="person">
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
+                    <li><a href="/server/add">发服务</a></li>
                     <li><a href="#">已发布</a></li>
                     <li> <a href="#">已接单</a></li>
                     <li> <a href="#">待评价</a></li>
                     <li> <a href="#">已完成</a></li>
-                    <li><a href="#">草稿箱</a></li>
                 </ul>
             </li>
         </ul>

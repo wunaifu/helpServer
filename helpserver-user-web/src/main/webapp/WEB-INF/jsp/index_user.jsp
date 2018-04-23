@@ -175,11 +175,11 @@
                             <a class="i-load-more-item-shadow" href="order.html">全部订单</a>
                         </div>
                         <ul>
+                            <li><a href="/server/add"><i><img src="/images/refund.png"/></i><span>发服务</span></a></li>
                             <li><a href="order.html"><i><img src="/images/pay.png"/></i><span>已发布</span></a></li>
                             <li><a href="order.html"><i><img src="/images/send.png"/></i><span>已接单</span></a></li>
                             <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>待评价</span></a></li>
                             <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>已完成</span></a></li>
-                            <li><a href="/server/add"><i><img src="/images/refund.png"/></i><span>发服务</span></a></li>
                         </ul>
                         <div class="orderContentBox">
                             <div class="orderContent">

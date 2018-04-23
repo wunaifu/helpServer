@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.helpserver.dto.NowUser" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -13,14 +14,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-    <title>个人资料</title>
+    <title>资源服务订单详情</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
     <link href="/css/personal.css" rel="stylesheet" type="text/css">
     <link href="/css/infstyle.css" rel="stylesheet" type="text/css">
-    <link type="text/css" href="/css/optstyle.css" rel="stylesheet" />
-    <link type="text/css" href="/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="/css/optstyle.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/style.css" rel="stylesheet"/>
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/quick_links.js"></script>
@@ -48,7 +49,8 @@
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%></a>
+                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%>
+                            </a>
                             <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
                             </a>
                             <a href="/logout" target="_top">退出登录</a>
@@ -69,7 +71,8 @@
                             <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>
                     <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
+                        <div class="menu-hd"><a href="#" target="_top"><i
+                                class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
                         </div>
                     </div>
                 </ul>
@@ -86,7 +89,8 @@
                 <div class="search-bar pr">
                     <a name="index_none_header_sysc" href="#"></a>
                     <form action="/searchserver">
-                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+                        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索"
+                               autocomplete="off">
                         <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
                     </form>
                 </div>
@@ -133,11 +137,12 @@
                 <div class="listMain">
 
                     <script type="text/javascript">
-                        $(function() {});
-                        $(window).load(function() {
+                        $(function () {
+                        });
+                        $(window).load(function () {
                             $('.flexslider').flexslider({
                                 animation: "slide",
-                                start: function(slider) {
+                                start: function (slider) {
                                     $('body').removeClass('loading');
                                 }
                             });
@@ -146,7 +151,7 @@
                     <!-- introduce-->
 
                     <div class="introduce">
-                        <div class="introduceMain"  style="width: 100%">
+                        <div class="introduceMain" style="width: 100%">
                             <div class="am-tabs" data-am-tabs>
 
                                 <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
@@ -171,23 +176,45 @@
                                     <div class="am-tab-panel am-fade am-in am-active">
                                         <div class="details">
                                             <div class="attr-list-hd after-market-hd">
-                                                <h4>找一个语文家教老师</h4>
+                                                <h4>资源名字：${orderUserDto.order.foodname}</h4>
                                             </div>
                                         </div>
                                         <div class="clear"></div>
-                                        <div align="left" style="margin-left: 20px;vertical-align: top;color: #666;font-size:14px;">
+                                        <div align="left"
+                                             style="margin-left: 20px;vertical-align: top;color: #666;font-size:14px;">
                                             <%--<ul id="J_AttrUL">--%>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">服务类型:</b>&nbsp;零活</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">额外佣金:</b>&nbsp;200￥</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">服务地点:</b>&nbsp;湖北省武汉市</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">服务时间:</b>&nbsp;2018-01-01 12:00:00</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">所需人数:</b>&nbsp;3/5人</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">性别要求:</b>&nbsp;女</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">联系人:</b>&nbsp;张三</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">联系方式：</b>&nbsp;18219111621</div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">储存方法：</b>&nbsp;请放置于常温、阴凉、通风、干燥处保存 </div>
-                                            <div style="margin-top: 10px;"><b style="color: #101010;">服务详情：</b>&nbsp;开袋去壳即食，请放置于常温、阴凉、通风、干燥处保存，
-                                                请放置于常温、阴凉、通风、干燥处保存，请放置于常温、阴凉、通风、干燥处保存
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">服务类型:</b>&nbsp;${orderUserDto.orderTypeName}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">资源费用:</b>&nbsp;${orderUserDto.order.moneyamount}￥
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">服务区域:</b>&nbsp;${orderUserDto.order.city}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">详细地址:</b>&nbsp;${orderUserDto.order.address}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">精细定位:</b>&nbsp;${orderUserDto.order.address}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">可使用时间:</b>&nbsp;${orderUserDto.order.starttime}到${orderUserDto.order.endtime}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">详情备注：</b>&nbsp;${orderUserDto.order.orderdetail}
+                                            </div>
+                                            <c:if test="${orderUserDto.order.accepterid==-1}">
+                                                <div style="margin-top: 10px;"><b
+                                                        style="color: #101010;">联系人:</b>&nbsp;${orderUserDto.order.callname}
+                                                </div>
+                                                <div style="margin-top: 10px;"><b style="color: #101010;">联系方式：</b>&nbsp;${orderUserDto.order.callphone}
+                                                </div>
+                                            </c:if>
+                                            <div style="margin-top: 10px;">
+                                                <b style="color: #101010;">资源照片：</b>&nbsp;<img
+                                                    src="/resources/img/${orderUserDto.order.picture}"
+                                                    style="max-height: 600px;max-width: 400px;">
                                             </div>
                                             <%--</ul>--%>
                                             <div class="clear"></div>
@@ -199,7 +226,7 @@
                                             <li class="am-comment">
                                                 <!-- 接单人容器 -->
                                                 <a href="/server/userinfo">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 接单人头像 -->
                                                 </a>
 
@@ -234,7 +261,7 @@
                                             <li class="am-comment">
                                                 <!-- 接单人容器 -->
                                                 <a href="/server/userinfo">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 接单人头像 -->
                                                 </a>
 
@@ -324,7 +351,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -334,7 +361,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">b***1
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年11月02日 17:46</time>
@@ -358,7 +386,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -368,7 +396,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">l***4 (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">l***4
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年10月28日 11:33</time>
@@ -392,7 +421,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -402,7 +431,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">b***1
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年11月02日 17:46</time>
@@ -426,7 +456,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -436,7 +466,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">h***n (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">h***n
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年11月25日 12:48</time>
@@ -459,7 +490,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -469,7 +500,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">b***1
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年11月02日 17:46</time>
@@ -493,7 +525,7 @@
                                             <li class="am-comment">
                                                 <!-- 评论容器 -->
                                                 <a href="">
-                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                    <img class="am-comment-avatar" src="/images/hwbn40x40.jpg"/>
                                                     <!-- 评论者头像 -->
                                                 </a>
 
@@ -503,7 +535,8 @@
                                                         <!--<h3 class="am-comment-title">评论标题</h3>-->
                                                         <div class="am-comment-meta">
                                                             <!-- 评论元数据 -->
-                                                            <a href="#link-to-user" class="am-comment-author">l***4 (匿名)</a>
+                                                            <a href="#link-to-user" class="am-comment-author">l***4
+                                                                (匿名)</a>
                                                             <!-- 评论者 -->
                                                             评论于
                                                             <time datetime="">2015年10月28日 11:33</time>
@@ -542,7 +575,9 @@
                                         <div class="clear"></div>
 
                                         <div class="tb-reviewsft">
-                                            <div class="tb-rate-alert type-attention">购买前请查看该商品的 <a href="#" target="_blank">购物保障</a>，明确您的售后保障权益。</div>
+                                            <div class="tb-rate-alert type-attention">购买前请查看该商品的 <a href="#"
+                                                                                                    target="_blank">购物保障</a>，明确您的售后保障权益。
+                                            </div>
                                         </div>
 
                                     </div>
@@ -574,9 +609,9 @@
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
                     <li><a href="#">已发布</a></li>
-                    <li> <a href="#">已接单</a></li>
-                    <li> <a href="#">待评价</a></li>
-                    <li> <a href="#">已完成</a></li>
+                    <li><a href="#">已接单</a></li>
+                    <li><a href="#">待评价</a></li>
+                    <li><a href="#">已完成</a></li>
                     <li><a href="#">草稿箱</a></li>
                 </ul>
             </li>

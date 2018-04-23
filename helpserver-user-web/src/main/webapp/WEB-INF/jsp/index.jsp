@@ -305,87 +305,58 @@
 
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2>
-                    <!--<p style="float:left;">互助服务</p>-->
-                    <p style="float:right;"><a href="/server/add"><span>发起服务</span></a></p>
+                    <p style="float:left;">来看看您需要的资源吧</p>
+                    <p style="float:right;"><a href="/server/add"><span>发布资源服务</span></a></p>
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
+                    <h3>您缺少资源吗？这里有您需要资源服务，快来看一看吧。</h3>
                     <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
+                        <p>
+                        </p>
                     </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
                 </div>
+                <c:choose>
+                    <c:when test="${orderUserDtoList.size()>0}">
+                        <c:forEach items="${orderUserDtoList}" var="item" varStatus="status">
+                            <div class="blogs">
+                                <h3><a href="/server/${item.order.id}/detail">${item.order.foodname}</a></h3>
+                                <figure><a href="/server/${item.order.senderid}/userinfo"><img style="width: 72px;height: 72px;" src="/resources/img/${item.senderIcon}"></a>
+                                </figure>
+                                <ul>
+                                    <a href="/server/${item.order.id}/detail">
+                                        <p>备注：${item.order.orderdetail}
+                                        </p>
+                                    </a>
+                                    <div class="autor1">
+                                        <span>类型：${item.orderTypeName}</span>
+                                        <span style="margin: 0px 0px 0px 10px;">服务费用：${item.order.moneyamount}￥</span>
+                                        <span style="margin: 0px 0px 0px 10px;">服务区域：${item.order.city}</span>
+                                        <span style="margin: 0px 0px 0px 10px;">可使用时间：${item.order.starttime}到${item.order.endtime}</span>
+                                    </div>
+                                    <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
+                                </ul>
+                                <p class="autor"><span>发布者：${item.senderName}</span>
+                                    <span>发布时间：${item.order.sendtime}</span>
+                                    <%--<span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>--%>
+                                </p>
+                                <%--<div class="dateview">${item.order.sendtime}</div>--%>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h1 align="center">未有资源服务订单</h1>
+                    </c:otherwise>
+                </c:choose>
                 <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
+                    <h3></h3>
+                    <figure></a>
                     </figure>
                     <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
+
                     </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
+                    <p class="autor">
                     </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
                 </div>
 
             </div>

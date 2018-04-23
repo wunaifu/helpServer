@@ -8,10 +8,19 @@ import java.io.Serializable;
 public class OrderUserDto implements Serializable {
     int senderId;
     String senderName;
+    String senderIcon;
     String accepterName;
     String orderTypeName;
     String bigTypeName;
     Orderinfo order;
+
+    public String getSenderIcon() {
+        return senderIcon;
+    }
+
+    public void setSenderIcon(String senderIcon) {
+        this.senderIcon = senderIcon;
+    }
 
     public String getAccepterName() {
         return accepterName;

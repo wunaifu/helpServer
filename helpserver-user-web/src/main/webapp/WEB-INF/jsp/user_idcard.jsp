@@ -123,71 +123,86 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <input value="${identity.id}" style="visibility: hidden" name="id">
                             <c:choose>
-                                <c:when test="${identity.checkstate==-1}">
-                                    <p class="tip" style="color: red;">认证失败，请重新填写您身份证上的真实信息</p>
-                                    <p class="tip" style="color: red;">失败原因：${identity.failurereason}</p>
-                                </c:when>
                                 <c:when test="${identity.checkstate==1}">
-                                    <p class="tip" style="color: green;">认证成功，可以承接平台的服务</p>
-                                    <p class="tip">也可以重新填写您身份证上的真实信息</p>
+                                    <p class="tip" align="center" style="color: green;font-size: 18px;">
+                                        认证成功，可进行资源任务抢单。前往<a href="/index" style="font-size: 20px;color: #0a628f">首页</a> </p>
                                 </c:when>
                                 <c:otherwise>
-                                    <p class="tip">请填写您身份证上的真实信息，以用于报关审核</p>
+                                    <input value="${identity.id}" style="visibility: hidden" name="id">
+                                    <c:choose>
+                                        <c:when test="${identity.checkstate==-1}">
+                                            <p class="tip" style="color: red;">认证失败，请重新填写您身份证上的真实信息</p>
+                                            <p class="tip" style="color: red;">失败原因：${identity.failurereason}</p>
+                                        </c:when>
+                                        <c:when test="${identity.checkstate==0}">
+                                            <p class="tip" style="color: #ffd635;">认证审核中，请等待</p>
+                                            <p class="tip">也可以重新填写您身份证上的真实信息</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="tip">请填写您身份证上的真实信息，以用于报关审核</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="authenticationInfo">
+                                        <p class="title">填写个人信息</p>
+                                        <div class="am-form-group">
+                                            <label for="username" class="am-form-label">真实姓名</label>
+                                            <div class="am-form-content">
+                                                <input type="text" id="username" name="name" placeholder="请输入您的真实姓名"
+                                                       maxlength="10" value="${identity.name}">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <label for="userIDcard" class="am-form-label">身份证号</label>
+                                            <div class="am-form-content">
+                                                <input type="tel" id="userIDcard" name="idcard" placeholder="请输入您的身份证信息" value="${identity.idcard}"
+                                                       onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="20" minlength="6">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="authenticationPic">
+                                        <p class="title">上传身份证照片</p>
+                                        <p class="tip">请按要求上传身份证</p>
+                                        <ul class="cardlist">
+                                            <li>
+                                                <div class="cardPic">
+                                                    <input id="file1" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
+                                                           name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
+                                                    <img src="/resources/img/${identity.frontphoto}" id="show1">
+                                                    <div class="cardText"><i class="am-icon-plus"></i>
+                                                        <p>正面照片</p>
+                                                    </div>
+                                                    <p class="titleText">身份证正面</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cardPic">
+                                                    <input id="file2" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
+                                                           name="file" onchange="c2()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
+                                                    <img src="/resources/img/${identity.backphoto}" id="show2">
+                                                    <div class="cardText"><i class="am-icon-plus"></i>
+                                                        <p>背面照片</p>
+                                                    </div>
+                                                    <p class="titleText">身份证背面</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="authenticationInfo">
-                                <p class="title">填写个人信息</p>
-                                <div class="am-form-group">
-                                    <label for="username" class="am-form-label">真实姓名</label>
-                                    <div class="am-form-content">
-                                        <input type="text" id="username" name="name" placeholder="请输入您的真实姓名"
-                                               maxlength="10" value="${identity.name}">
-                                    </div>
-                                </div>
-                                <div class="am-form-group">
-                                    <label for="userIDcard" class="am-form-label">身份证号</label>
-                                    <div class="am-form-content">
-                                        <input type="tel" id="userIDcard" name="idcard" placeholder="请输入您的身份证信息" value="${identity.idcard}"
-                                               onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')" maxlength="20" minlength="6">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="authenticationPic">
-                                <p class="title">上传身份证照片</p>
-                                <p class="tip">请按要求上传身份证</p>
-                                <ul class="cardlist">
-                                    <li>
-                                        <div class="cardPic">
-                                            <input id="file1" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
-                                                   name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                            <img src="/resources/img/${identity.frontphoto}" id="show1">
-                                            <div class="cardText"><i class="am-icon-plus"></i>
-                                                <p>正面照片</p>
-                                            </div>
-                                            <p class="titleText">身份证正面</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="cardPic">
-                                            <input id="file2" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
-                                                   name="file" onchange="c2()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                            <img src="/resources/img/${identity.backphoto}" id="show2">
-                                            <div class="cardText"><i class="am-icon-plus"></i>
-                                                <p>背面照片</p>
-                                            </div>
-                                            <p class="titleText">身份证背面</p>
-                                        </div>
-                                    </li>
-                                </ul>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${identity!=null&&identity.checkstate==1}">
+
+                        </c:when>
+                        <c:otherwise>
+                            <div class="info-btn">
+                                <input style="width: 100%" type="submit" class="am-btn am-btn-danger" value="提交">
                             </div>
                         </c:otherwise>
                     </c:choose>
 
-                <div class="info-btn">
-                    <input style="width: 100%" type="submit" class="am-btn am-btn-danger" value="提交">
-                </div>
                 </form>
             </div>
         </div>

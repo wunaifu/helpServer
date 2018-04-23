@@ -155,7 +155,7 @@
                             <i class="i-safety-idcard"></i>
                             <div class="m-left">
                                 <div class="fore1">实名认证</div>
-                                <div class="fore2"><small>用于提升账号的安全性和信任级别，认证后不能修改认证信息。</small></div>
+                                <div class="fore2"><small>用于提升账号的安全性和信任级别，认证后可进行资源任务抢单。</small></div>
                             </div>
                             <div class="fore3">
                                 <a href="/user/idcard">

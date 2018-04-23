@@ -152,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
                 orderUserDto.setOrder(order);
                 if (user != null) {
                     orderUserDto.setSenderName(user.getName());
+                    orderUserDto.setSenderIcon(user.getHeadicon());
                 }
                 if (accepter != null) {
                     orderUserDto.setAccepterName(accepter.getName());
@@ -183,6 +184,7 @@ public class OrderServiceImpl implements OrderService {
         orderUserDto.setOrder(order);
         if (user != null) {
             orderUserDto.setSenderName(user.getName());
+            orderUserDto.setSenderIcon(user.getHeadicon());
         }
         if (accepter != null) {
             orderUserDto.setAccepterName(accepter.getName());

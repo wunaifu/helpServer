@@ -23,6 +23,7 @@
     <link href="/css/infstyle.css" rel="stylesheet" type="text/css">
     <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link href="/css/stepstyle.css" rel="stylesheet" type="text/css">
 </head>
 <%
     NowUser nowUser = new NowUser();
@@ -131,7 +132,7 @@
                 </div>
                 <!--个人信息 -->
                 <div class="info-main">
-                    <form class="am-form am-form-horizontal" action="/server/doadd" method="post" onsubmit="return checkData()">
+                    <form class="am-form am-form-horizontal" enctype="multipart/form-data"  action="/server/doadd" method="post" onsubmit="return checkData()">
                         <div class="clearfix"></div>
                         <div class="am-form-group">
                             <label for="ordertype" class="am-form-label">类型</label>
@@ -220,9 +221,9 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="endTime" class="am-form-label">结束时间</label>
+                            <label for="qwe" class="am-form-label">结束时间</label>
                             <div class="am-form-content">
-                                <input type="datetime-local" id="endTime" name="endTime" placeholder="资源可使用的结束时间"
+                                <input type="text"  id="qwe" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="endTime" placeholder="资源可使用的结束时间"
                                         required>
                                 <small>资源可使用时间范围的结束时间，即归还的最终时间</small>
                             </div>
@@ -246,6 +247,23 @@
                         <%--<div class="info-btn">--%>
                             <%--<div class="am-btn am-btn-danger">保存修改</div>--%>
                         <%--</div>--%>
+                        <div class="authenticationPic">
+                            <p class="title">上传资源图片</p>
+                            <p class="tip">请按要求上传资源图片</p>
+                            <ul class="cardlist">
+                                <li>
+                                    <div class="cardPic">
+                                        <input id="file1" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
+                                               name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
+                                        <img src="/images/cardbg.jpg" id="show1">
+                                        <div class="cardText"><i class="am-icon-plus"></i>
+                                            <p>资源照片</p>
+                                        </div>
+                                        <p class="titleText">照片</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="info-btn">
                             <input value="确认发布" class="am-btn am-btn-danger" type="submit">
                         </div>
@@ -279,11 +297,19 @@
 
     </aside>
 </div>
+<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
 <script type="text/javascript">
-
+    function c1() {
+        var r = new FileReader();
+        f = document.getElementById('file1').files[0];
+        r.readAsDataURL(f);
+        r.onload = function (e) {
+            document.getElementById('show1').src = this.result;
+        };
+    }
     function checkData() {
         var moneyInfo = $("#moneyInfo").val().replace(" ", "");
         if (parseInt(moneyInfo) < 10) {

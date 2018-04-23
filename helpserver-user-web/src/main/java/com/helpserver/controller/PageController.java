@@ -29,6 +29,8 @@ public class PageController {
     OrderTypeService orderTypeService;
     @Autowired
     MoneyService moneyService;
+    @Autowired
+    OrderService orderService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {
@@ -79,8 +81,10 @@ public class PageController {
         }
         List<News> newsList = newsService.getNewsList();
         List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByState(1);
         model.addAttribute("newsList", newsList);
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
+        model.addAttribute("orderUserDtoList", orderUserDtoList);
         return "index";
     }
 
