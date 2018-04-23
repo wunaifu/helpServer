@@ -212,9 +212,16 @@
                                                 </div>
                                             </c:if>
                                             <div style="margin-top: 10px;">
-                                                <b style="color: #101010;">资源照片：</b>&nbsp;<img
-                                                    src="/resources/img/${orderUserDto.order.picture}"
-                                                    style="max-height: 600px;max-width: 400px;">
+                                                <b style="color: #101010;">资源照片：</b>&nbsp;
+                                                <c:choose>
+                                                    <c:when test="${orderUserDto.order.picture==null||orderUserDto.order.picture==''}">
+                                                        没有图片
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="/resources/img/${orderUserDto.order.picture}"
+                                                                style="max-height: 600px;max-width: 400px;">
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             <%--</ul>--%>
                                             <div class="clear"></div>

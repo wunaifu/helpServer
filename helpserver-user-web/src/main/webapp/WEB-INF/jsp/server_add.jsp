@@ -32,7 +32,7 @@
     }
 
 %>
-<body onload="checkData()">
+<body onload="init()">
 <!--头 -->
 <header>
     <article>
@@ -215,15 +215,15 @@
                             <label for="startTime" class="am-form-label">初始时间</label>
                             <div class="am-form-content">
                                 <input type="datetime-local" id="startTime" name="startTime" placeholder="资源可使用的初始时间"
-                                         required>
+                                         required value="${nowTime}T00:00:01">
                                 <small>资源可使用时间范围的开始时间</small>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="qwe" class="am-form-label">结束时间</label>
+                            <label for="endTime" class="am-form-label">结束时间</label>
                             <div class="am-form-content">
-                                <input type="text"  id="qwe" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="endTime" placeholder="资源可使用的结束时间"
+                                <input type="datetime-local"  id="endTime" value="${nowTime}T23:59:59" name="endTime" placeholder="资源可使用的结束时间"
                                         required>
                                 <small>资源可使用时间范围的结束时间，即归还的最终时间</small>
                             </div>
@@ -318,6 +318,16 @@
             return false;
         }
         return true;
+    }
+
+    function init() {
+        var moneyInfo = $("#moneyInfo").val().replace(" ", "");
+        var startTime = $("#startTime").val().replace(" ", "");
+        var endTime = $("#endTime").val().replace(" ", "");
+        if (parseInt(moneyInfo) < 10) {
+            $.myToast("余额不足，请充值");
+        }
+
     }
 </script>
 </body>

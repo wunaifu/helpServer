@@ -54,6 +54,7 @@ public class ServerOrderController {
         Money money = moneyService.getMoney(nowUser.getUserid());
         model.addAttribute("orderTypeList", orderTypeList);
         model.addAttribute("moneyInfo", money.getAmount());
+        model.addAttribute("nowTime", TimeUtil.dateToStrNoTime(new Date()));
         return "server_add";
     }
 
@@ -71,8 +72,11 @@ public class ServerOrderController {
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         String sendTime = TimeUtil.dateToString(new Date());
-        String startTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(request.getParameter("startTime")));
-        String endTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(request.getParameter("endTime")));
+        String start = request.getParameter("startTime").replaceAll("T", " ");
+        String end = request.getParameter("endTime").replaceAll("T", " ");
+        System.out.println(start+" "+end);
+        String startTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(start));
+        String endTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(end));
 
         Orderinfo orderinfo = new Orderinfo();
         orderinfo.setSenderid(nowUser.getUserid());
