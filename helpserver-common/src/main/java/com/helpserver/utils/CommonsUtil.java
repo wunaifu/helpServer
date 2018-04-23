@@ -15,6 +15,9 @@ public class CommonsUtil {
     public static final String moneyInfoPayMoney = "余额充值";
     public static final String moneyToMoney = "余额提现";
     public static final String moneyToAddGlog = "充值金币";
+    public static final String moneyOrderMoney = "服务保障金";
     public static final String moneyInfoPutServer = "发布服务";
     public static final String moneyInfoGetServer = "承接服务";
+    //发布资源服务保障金
+    public static final int orderMoney = 10;
 }

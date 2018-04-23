@@ -49,9 +49,14 @@ public class Orderinfo implements Serializable {
     private String orderdetail;
 
     /**
-     * 所在区域（省市县）
+     * 地级市
      */
-    private String areainfo;
+    private String city;
+
+    /**
+     * 地址
+     */
+    private String address;
 
     /**
      * 详细坐标
@@ -182,12 +187,20 @@ public class Orderinfo implements Serializable {
         this.orderdetail = orderdetail == null ? null : orderdetail.trim();
     }
 
-    public String getAreainfo() {
-        return areainfo;
+    public String getCity() {
+        return city;
     }
 
-    public void setAreainfo(String areainfo) {
-        this.areainfo = areainfo == null ? null : areainfo.trim();
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public String getPointinfo() {
@@ -293,7 +306,8 @@ public class Orderinfo implements Serializable {
         sb.append(", starttime=").append(starttime);
         sb.append(", endtime=").append(endtime);
         sb.append(", orderdetail=").append(orderdetail);
-        sb.append(", areainfo=").append(areainfo);
+        sb.append(", city=").append(city);
+        sb.append(", address=").append(address);
         sb.append(", pointinfo=").append(pointinfo);
         sb.append(", sendtime=").append(sendtime);
         sb.append(", repealtime=").append(repealtime);

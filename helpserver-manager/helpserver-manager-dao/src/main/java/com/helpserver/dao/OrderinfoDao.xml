@@ -11,7 +11,8 @@
     <result column="startTime" property="starttime" jdbcType="VARCHAR" />
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="orderDetail" property="orderdetail" jdbcType="VARCHAR" />
-    <result column="areaInfo" property="areainfo" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="pointInfo" property="pointinfo" jdbcType="VARCHAR" />
     <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
     <result column="repealTime" property="repealtime" jdbcType="VARCHAR" />
@@ -85,8 +86,8 @@
   <sql id="Base_Column_List" >
     <if test="fields == null" >
       id, senderId, accepterId, typeId, moneyAmount, foodName, startTime, endTime, orderDetail, 
-      areaInfo, pointInfo, sendTime, repealTime, repealReason, orderState, callName, callPhone, 
-      seeAmount, picture, updateTime, acceptorderId
+      city, address, pointInfo, sendTime, repealTime, repealReason, orderState, callName, 
+      callPhone, seeAmount, picture, updateTime, acceptorderId
     </if>
     <if test="fields != null" >
       ${fields}
@@ -111,7 +112,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,senderId,accepterId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,areaInfo,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture,updateTime,acceptorderId
+    id,senderId,accepterId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,city,address,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture,updateTime,acceptorderId
     from orderinfo
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -129,19 +130,19 @@
     insert into orderinfo (id, senderId, accepterId, 
       typeId, moneyAmount, foodName, 
       startTime, endTime, orderDetail, 
-      areaInfo, pointInfo, sendTime, 
-      repealTime, repealReason, orderState, 
-      callName, callPhone, seeAmount, 
-      picture, updateTime, acceptorderId
-      )
+      city, address, pointInfo, 
+      sendTime, repealTime, repealReason, 
+      orderState, callName, callPhone, 
+      seeAmount, picture, updateTime, 
+      acceptorderId)
     values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{accepterid,jdbcType=INTEGER}, 
       #{typeid,jdbcType=INTEGER}, #{moneyamount,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, 
       #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{orderdetail,jdbcType=VARCHAR}, 
-      #{areainfo,jdbcType=VARCHAR}, #{pointinfo,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, 
-      #{repealtime,jdbcType=VARCHAR}, #{repealreason,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, 
-      #{callname,jdbcType=VARCHAR}, #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER}, 
-      #{picture,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{acceptorderid,jdbcType=INTEGER}
-      )
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{pointinfo,jdbcType=VARCHAR}, 
+      #{sendtime,jdbcType=VARCHAR}, #{repealtime,jdbcType=VARCHAR}, #{repealreason,jdbcType=VARCHAR}, 
+      #{orderstate,jdbcType=INTEGER}, #{callname,jdbcType=VARCHAR}, #{callphone,jdbcType=VARCHAR}, 
+      #{seeamount,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{acceptorderid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Orderinfo" >
     insert into orderinfo
@@ -173,8 +174,11 @@
       <if test="orderdetail != null" >
         orderDetail,
       </if>
-      <if test="areainfo != null" >
-        areaInfo,
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="address != null" >
+        address,
       </if>
       <if test="pointinfo != null" >
         pointInfo,
@@ -238,8 +242,11 @@
       <if test="orderdetail != null" >
         #{orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="areainfo != null" >
-        #{areainfo,jdbcType=VARCHAR},
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="pointinfo != null" >
         #{pointinfo,jdbcType=VARCHAR},
@@ -312,8 +319,11 @@
       <if test="record.orderdetail != null" >
         orderDetail = #{record.orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="record.areainfo != null" >
-        areaInfo = #{record.areainfo,jdbcType=VARCHAR},
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.pointinfo != null" >
         pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
@@ -364,7 +374,8 @@
       startTime = #{record.starttime,jdbcType=VARCHAR},
       endTime = #{record.endtime,jdbcType=VARCHAR},
       orderDetail = #{record.orderdetail,jdbcType=VARCHAR},
-      areaInfo = #{record.areainfo,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
       pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
       sendTime = #{record.sendtime,jdbcType=VARCHAR},
       repealTime = #{record.repealtime,jdbcType=VARCHAR},
@@ -407,8 +418,11 @@
       <if test="orderdetail != null" >
         orderDetail = #{orderdetail,jdbcType=VARCHAR},
       </if>
-      <if test="areainfo != null" >
-        areaInfo = #{areainfo,jdbcType=VARCHAR},
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="pointinfo != null" >
         pointInfo = #{pointinfo,jdbcType=VARCHAR},
@@ -456,7 +470,8 @@
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
       orderDetail = #{orderdetail,jdbcType=VARCHAR},
-      areaInfo = #{areainfo,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       pointInfo = #{pointinfo,jdbcType=VARCHAR},
       sendTime = #{sendtime,jdbcType=VARCHAR},
       repealTime = #{repealtime,jdbcType=VARCHAR},

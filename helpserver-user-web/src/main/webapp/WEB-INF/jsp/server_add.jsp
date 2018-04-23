@@ -31,7 +31,7 @@
     }
 
 %>
-<body>
+<body onload="checkData()">
 <!--头 -->
 <header>
     <article>
@@ -123,9 +123,16 @@
                 </div>
                 <hr/>
 
+                <div>
+                    <p style="float:left;width: auto;color: #818482">
+                        <input style="visibility: hidden" value="${moneyInfo}" id="moneyInfo">
+                        发布资源服务需要扣除10余额的保证金，您当前的余额为<b style="color: black">[${moneyInfo}￥]</b>,请确保余额充足，余额会在服务完成后平台会自动归还。
+                    </p>
+                </div>
                 <!--个人信息 -->
                 <div class="info-main">
-                    <form class="am-form am-form-horizontal" action="#" method="post">
+                    <form class="am-form am-form-horizontal" action="/server/doadd" method="post" onsubmit="return checkData()">
+                        <div class="clearfix"></div>
                         <div class="am-form-group">
                             <label for="ordertype" class="am-form-label">类型</label>
                             <div class="am-form-content birth">
@@ -154,9 +161,9 @@
                         </div>
 
                         <div class="am-form-group" style="height: auto;">
-                            <label for="content" class="am-form-label">详情备注</label>
+                            <label for="detail" class="am-form-label">详情备注</label>
                             <div class="am-form-content">
-                                <textarea type="text" id="content" name="content" placeholder="长度不能超过120个汉字"
+                                <textarea type="text" id="detail" name="detail" placeholder="长度不能超过120个汉字"
                                           maxlength="120" rows="4" required></textarea>
                             </div>
                         </div>
@@ -169,26 +176,31 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="startTime" class="am-form-label">初始时间</label>
-                            <div class="am-form-content">
-                                <input type="text" id="startTime" name="startTime" placeholder="资源可使用的初始时间"
-                                       maxlength="5" required>
+                            <label for="city" class="am-form-label">所在城市</label>
+                            <div class="am-form-content birth">
+                                <div class="birth-select2">
+                                    <select data-am-selected id="city" name="city">
+                                        <option value="广州市">广州</option>
+                                        <option value="深圳市">深圳</option>
+                                        <option value="江门市">江门</option>
+                                        <option value="中山市">中山</option>
+                                        <option value="湛江市">湛江</option>
+                                        <option value="珠海市">珠海</option>
+                                        <option value="汕头市">汕头</option>
+                                        <option value="佛山市">佛山</option>
+                                        <option value="茂名市">茂名</option>
+                                        <option value="阳江市">阳江</option>
+                                        <option value="清远市">清远</option>
+                                        <option value="东莞市">东莞</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
                         <div class="am-form-group">
-                            <label for="endTime" class="am-form-label">结束时间</label>
+                            <label for="address" class="am-form-label">资源位置</label>
                             <div class="am-form-content">
-                                <input type="text" id="endTime" name="endTime" placeholder="资源可使用的结束时间"
-                                       maxlength="5" required>
-                            </div>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label for="area" class="am-form-label">资源位置</label>
-                            <div class="am-form-content">
-                                <input type="text" id="area" name="area" placeholder="资源可使用的初始时间"
-                                       maxlength="5" required>
+                                <input type="text" id="address" name="address" placeholder="资源的详细地址位置"
+                                       maxlength="80" required>
                             </div>
                         </div>
                         <div class="am-form-group">
@@ -198,34 +210,38 @@
                             </div>
                         </div>
 
-                        <%--<div class="am-form-group">
-                            <label class="am-form-label">性别</label>
-                            <div class="am-form-content sex">
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="sex" value="1" data-am-ucheck> 男
-                                </label>
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="sex" value="0" data-am-ucheck> 女
-                                </label>
-                                <label class="am-radio-inline">
-                                    <input type="radio" name="sex" value="2" checked="checked" data-am-ucheck> 不限
-                                </label>
+                        <div class="am-form-group">
+                            <label for="startTime" class="am-form-label">初始时间</label>
+                            <div class="am-form-content">
+                                <input type="datetime-local" id="startTime" name="startTime" placeholder="资源可使用的初始时间"
+                                         required>
+                                <small>资源可使用时间范围的开始时间</small>
                             </div>
-                        </div>--%>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="endTime" class="am-form-label">结束时间</label>
+                            <div class="am-form-content">
+                                <input type="datetime-local" id="endTime" name="endTime" placeholder="资源可使用的结束时间"
+                                        required>
+                                <small>资源可使用时间范围的结束时间，即归还的最终时间</small>
+                            </div>
+                        </div>
 
                         <div class="am-form-group">
                             <label for="username" class="am-form-label">联系人</label>
                             <div class="am-form-content">
-                                <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20">
+                                <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="userphone" class="am-form-label">联系电话</label>
                             <div class="am-form-content">
-                                <input id="userphone" name="userphone" placeholder="服务联系人的联系方式" type="text" maxlength="15">
+                                <input id="userphone" name="userphone" placeholder="服务联系人的联系方式" type="text" maxlength="20"
+                                       onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
-                        <input style="visibility: hidden" id="orderState" name="orderState" value="0">
+                        <%--<input style="visibility: hidden" id="orderState" name="orderState" value="0">--%>
 
                         <%--<div class="info-btn">--%>
                             <%--<div class="am-btn am-btn-danger">保存修改</div>--%>
@@ -263,7 +279,21 @@
 
     </aside>
 </div>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
+<script type="text/javascript">
 
+    function checkData() {
+        var moneyInfo = $("#moneyInfo").val().replace(" ", "");
+        if (parseInt(moneyInfo) < 10) {
+            $.myToast("余额不足，请充值");
+//            $("#money").focus();
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 
 </html>

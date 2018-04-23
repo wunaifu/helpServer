@@ -21,11 +21,11 @@
         <li class="person">
             <p><i class="am-icon-balance-scale"></i>我的服务</p>
             <ul>
+                <li><a href="/server/add">发服务</a></li>
                 <li><a href="order.html">已发布</a></li>
                 <li> <a href="change.html">已接单</a></li>
                 <li> <a href="change.html">待评价</a></li>
                 <li> <a href="comment.html">已完成</a></li>
-                <li><a href="order.html">草稿箱</a></li>
             </ul>
         </li>
         <li class="person">

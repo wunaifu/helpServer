@@ -32,10 +32,12 @@ CREATE TABLE `acceptorder` (
   KEY `accepterId` (`accepterId`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `acceptorder_ibfk_1` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `acceptorder` */
+
+insert  into `acceptorder`(`id`,`accepterId`,`orderId`,`acceptTime`,`backReason`,`backTime`,`acceptState`) values (1,3,2,'2018-04-15 19:52:03',NULL,NULL,0),(2,4,2,'2018-04-15 19:52:03',NULL,NULL,1),(3,5,2,'2018-04-15 19:52:03',NULL,NULL,2),(4,6,2,'2018-04-15 19:52:03',NULL,NULL,3),(5,7,2,'2018-04-15 19:52:03',NULL,NULL,4),(6,8,2,'2018-04-15 19:52:03',NULL,NULL,5);
 
 /*Table structure for table `bigtype` */
 
@@ -57,13 +59,14 @@ insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'交通工具','2
 DROP TABLE IF EXISTS `collectorder`;
 
 CREATE TABLE `collectorder` (
-  `collectId` int(11) DEFAULT NULL COMMENT '收藏id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '收藏id',
   `orderId` int(11) DEFAULT NULL COMMENT '订单id',
   `collectorId` int(11) DEFAULT NULL COMMENT '收藏者id',
   `collectTime` varchar(32) DEFAULT NULL COMMENT '收藏时间',
+  PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `collectorId` (`collectorId`),
-  CONSTRAINT `collectorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`),
+  CONSTRAINT `collectorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`),
   CONSTRAINT `collectorder_ibfk_2` FOREIGN KEY (`collectorId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -264,21 +267,22 @@ CREATE TABLE `news` (
 
 /*Data for the table `news` */
 
-/*Table structure for table `order` */
+/*Table structure for table `orderinfo` */
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orderinfo`;
 
-CREATE TABLE `order` (
-  `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `senderId` int(11) NOT NULL COMMENT '发布者id',
-  `typeId` int(11) NOT NULL COMMENT '发布类型id（零活、跑腿）',
-  `money` int(11) DEFAULT '0' COMMENT '服务费用',
-  `name` varchar(50) DEFAULT NULL COMMENT '资源名字',
+CREATE TABLE `orderinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `senderId` int(11) NOT NULL DEFAULT '0' COMMENT '发布者id',
+  `accepterId` int(11) DEFAULT '0' COMMENT '抢单成功者id',
+  `typeId` int(11) NOT NULL DEFAULT '0' COMMENT '发布类型id（零活、跑腿）',
+  `moneyAmount` int(11) DEFAULT '0' COMMENT '服务费用',
+  `foodName` varchar(50) DEFAULT NULL COMMENT '资源名字',
   `startTime` varchar(32) DEFAULT NULL COMMENT '可使用开始时间',
   `endTime` varchar(32) DEFAULT NULL COMMENT '可使用结束时间',
-  `detail` varchar(150) DEFAULT NULL COMMENT '服务详情、备注',
-  `area` varchar(80) DEFAULT NULL COMMENT '所在区域（省市县）',
-  `point` varchar(150) DEFAULT NULL COMMENT '详细坐标',
+  `orderDetail` varchar(150) DEFAULT NULL COMMENT '服务详情、备注',
+  `areaInfo` varchar(80) DEFAULT NULL COMMENT '所在区域（省市县）',
+  `pointInfo` varchar(150) DEFAULT NULL COMMENT '详细坐标',
   `sendTime` varchar(32) DEFAULT NULL COMMENT '发布时间',
   `repealTime` varchar(32) DEFAULT NULL COMMENT '撤单时间',
   `repealReason` varchar(50) DEFAULT NULL COMMENT '撤单原因',
@@ -287,16 +291,22 @@ CREATE TABLE `order` (
   `callPhone` varchar(20) DEFAULT NULL COMMENT '联系电话',
   `seeAmount` int(11) DEFAULT '0' COMMENT '浏览数',
   `picture` varchar(150) DEFAULT NULL COMMENT '资源图片',
-  PRIMARY KEY (`orderId`),
+  `updateTime` varchar(32) DEFAULT NULL COMMENT '更新状态时间',
+  `acceptorderId` int(11) DEFAULT '0' COMMENT '抢单成功表id',
+  PRIMARY KEY (`id`),
   KEY `senderId` (`senderId`),
   KEY `typeId` (`typeId`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `orderinfo_ibfk_3` (`accepterId`),
+  KEY `acceptorderId` (`acceptorderId`),
+  CONSTRAINT `orderinfo_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`),
+  CONSTRAINT `orderinfo_ibfk_3` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `orderinfo_ibfk_4` FOREIGN KEY (`acceptorderId`) REFERENCES `acceptorder` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
-/*Data for the table `order` */
+/*Data for the table `orderinfo` */
 
-insert  into `order`(`orderId`,`senderId`,`typeId`,`money`,`name`,`startTime`,`endTime`,`detail`,`area`,`point`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`) values (1,2,1,0,'1','2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,NULL,NULL,'2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,-1,NULL,NULL,0,NULL);
+insert  into `orderinfo`(`id`,`senderId`,`accepterId`,`typeId`,`moneyAmount`,`foodName`,`startTime`,`endTime`,`orderDetail`,`areaInfo`,`pointInfo`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`acceptorderId`) values (1,2,NULL,1,0,'1','18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,'2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,-1,NULL,NULL,0,NULL,NULL,NULL),(2,3,NULL,2,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,0,NULL,NULL,NULL),(3,4,NULL,3,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,2,NULL,NULL,0,NULL,NULL,NULL),(4,5,NULL,4,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,3,NULL,NULL,0,NULL,NULL,NULL),(5,6,NULL,1,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,4,NULL,NULL,0,NULL,NULL,NULL),(6,7,NULL,2,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL);
 
 /*Table structure for table `ordertype` */
 
