@@ -25,6 +25,18 @@ public class NowUser {
      */
     private String location;
 
+    /**
+     * 资源地点
+     */
+    private String goodsLocation;
+    /**
+     * 资源地点lng
+     */
+    private String goodsLng;
+    /**
+     * 资源地点lat
+     */
+    private String goodsLat;
 
     /**
      * 权限（0普通用户，1可接单用户，2被禁用用户,-1管理员）
@@ -69,5 +81,29 @@ public class NowUser {
 
     public void setPermission(int permission) {
         this.permission = permission;
+    }
+
+    public String getGoodsLocation() {
+        return goodsLocation;
+    }
+
+    public void setGoodsLocation(String goodsLocation) {
+        this.goodsLocation = goodsLocation;
+    }
+
+    public String getGoodsLng() {
+        return goodsLng;
+    }
+
+    public void setGoodsLng(String goodsLng) {
+        this.goodsLng = goodsLng;
+    }
+
+    public String getGoodsLat() {
+        return goodsLat;
+    }
+
+    public void setGoodsLat(String goodsLat) {
+        this.goodsLat = goodsLat;
     }
 }

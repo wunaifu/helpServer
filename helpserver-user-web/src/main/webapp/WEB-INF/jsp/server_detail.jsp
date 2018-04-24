@@ -204,13 +204,13 @@
                                             <div style="margin-top: 10px;"><b
                                                     style="color: #101010;">详情备注：</b>&nbsp;${orderUserDto.order.orderdetail}
                                             </div>
-                                            <c:if test="${orderUserDto.order.accepterid==-1}">
+                                            <%--<c:if test="${orderUserDto.order.accepterid==-1}">--%>
                                                 <div style="margin-top: 10px;"><b
                                                         style="color: #101010;">联系人:</b>&nbsp;${orderUserDto.order.callname}
                                                 </div>
                                                 <div style="margin-top: 10px;"><b style="color: #101010;">联系方式：</b>&nbsp;${orderUserDto.order.callphone}
                                                 </div>
-                                            </c:if>
+                                            <%--</c:if>--%>
                                             <div style="margin-top: 10px;">
                                                 <b style="color: #101010;">资源照片：</b>&nbsp;
                                                 <c:choose>

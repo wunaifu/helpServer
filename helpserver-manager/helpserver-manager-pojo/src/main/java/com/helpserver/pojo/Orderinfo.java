@@ -14,11 +14,6 @@ public class Orderinfo implements Serializable {
     private Integer senderid;
 
     /**
-     * 抢单成功者id
-     */
-    private Integer accepterid;
-
-    /**
      * 发布类型id（零活、跑腿）
      */
     private Integer typeid;
@@ -109,9 +104,19 @@ public class Orderinfo implements Serializable {
     private String updatetime;
 
     /**
-     * 抢单成功表id
+     * 经度
      */
-    private Integer acceptorderid;
+    private String lng;
+
+    /**
+     * 纬度
+     */
+    private String lat;
+
+    /**
+     * 数量
+     */
+    private Integer amount;
 
     private static final long serialVersionUID = 1L;
 
@@ -129,14 +134,6 @@ public class Orderinfo implements Serializable {
 
     public void setSenderid(Integer senderid) {
         this.senderid = senderid;
-    }
-
-    public Integer getAccepterid() {
-        return accepterid;
-    }
-
-    public void setAccepterid(Integer accepterid) {
-        this.accepterid = accepterid;
     }
 
     public Integer getTypeid() {
@@ -283,12 +280,28 @@ public class Orderinfo implements Serializable {
         this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 
-    public Integer getAcceptorderid() {
-        return acceptorderid;
+    public String getLng() {
+        return lng;
     }
 
-    public void setAcceptorderid(Integer acceptorderid) {
-        this.acceptorderid = acceptorderid;
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -299,7 +312,6 @@ public class Orderinfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", senderid=").append(senderid);
-        sb.append(", accepterid=").append(accepterid);
         sb.append(", typeid=").append(typeid);
         sb.append(", moneyamount=").append(moneyamount);
         sb.append(", foodname=").append(foodname);
@@ -318,7 +330,9 @@ public class Orderinfo implements Serializable {
         sb.append(", seeamount=").append(seeamount);
         sb.append(", picture=").append(picture);
         sb.append(", updatetime=").append(updatetime);
-        sb.append(", acceptorderid=").append(acceptorderid);
+        sb.append(", lng=").append(lng);
+        sb.append(", lat=").append(lat);
+        sb.append(", amount=").append(amount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -190,7 +190,7 @@ public class OrderServiceImpl implements OrderService {
             for (Orderinfo order : orderList) {
                 OrderUserDto orderUserDto = new OrderUserDto();
                 User user = userDao.selectByPrimaryKey(order.getSenderid());
-                User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
+//                User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
                 Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());
                 Bigtype bigtype = bigtypeDao.selectByPrimaryKey(ordertype.getBigtypeid());
                 orderUserDto.setOrder(order);
@@ -198,9 +198,9 @@ public class OrderServiceImpl implements OrderService {
                     orderUserDto.setSenderName(user.getName());
                     orderUserDto.setSenderIcon(user.getHeadicon());
                 }
-                if (accepter != null) {
-                    orderUserDto.setAccepterName(accepter.getName());
-                }
+//                if (accepter != null) {
+//                    orderUserDto.setAccepterName(accepter.getName());
+//                }
                 if (ordertype != null) {
                     orderUserDto.setOrderTypeName(ordertype.getTypename());
                 }
@@ -222,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order) {
         OrderUserDto orderUserDto = new OrderUserDto();
         User user = userDao.selectByPrimaryKey(order.getSenderid());
-        User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
+//        User accepter = userDao.selectByPrimaryKey(order.getAccepterid());
         Ordertype ordertype = orderTypeDao.selectByPrimaryKey(order.getTypeid());
         Bigtype bigtype = bigtypeDao.selectByPrimaryKey(ordertype.getBigtypeid());
         orderUserDto.setOrder(order);
@@ -230,9 +230,9 @@ public class OrderServiceImpl implements OrderService {
             orderUserDto.setSenderName(user.getName());
             orderUserDto.setSenderIcon(user.getHeadicon());
         }
-        if (accepter != null) {
-            orderUserDto.setAccepterName(accepter.getName());
-        }
+//        if (accepter != null) {
+//            orderUserDto.setAccepterName(accepter.getName());
+//        }
         if (ordertype != null) {
             orderUserDto.setOrderTypeName(ordertype.getTypename());
         }

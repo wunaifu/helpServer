@@ -7,6 +7,7 @@ import com.helpserver.service.OrderService;
 import com.helpserver.service.OrderTypeService;
 import com.helpserver.service.UserService;
 import com.helpserver.util.UserSessionSetUtils;
+import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -84,10 +86,9 @@ public class ServerOrderController {
 
         Orderinfo orderinfo = new Orderinfo();
         orderinfo.setSenderid(nowUser.getUserid());
-        orderinfo.setAccepterid(0);
-        orderinfo.setAcceptorderid(0);
         orderinfo.setTypeid(Integer.parseInt(request.getParameter("ordertype")));
         orderinfo.setFoodname(request.getParameter("name"));
+        orderinfo.setAmount(Integer.parseInt(request.getParameter("amount")));
         orderinfo.setOrderdetail(request.getParameter("detail"));
         orderinfo.setMoneyamount(Integer.parseInt(request.getParameter("money")));
         orderinfo.setAddress(request.getParameter("address"));
@@ -99,6 +100,9 @@ public class ServerOrderController {
         orderinfo.setCallname(request.getParameter("username"));
         orderinfo.setCallphone(request.getParameter("userphone"));
         orderinfo.setOrderstate(1);
+        orderinfo.setLng(nowUser.getGoodsLng());
+        orderinfo.setLat(nowUser.getGoodsLat());
+        orderinfo.setPointinfo(nowUser.getGoodsLocation());
         String fileName1 = "";
         try {
             if (file != null) {
@@ -147,9 +151,9 @@ public class ServerOrderController {
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
-        if (orderUserDto.getOrder().getAccepterid() == nowUser.getUserid()) {
-            orderUserDto.getOrder().setAccepterid(-1);
-        }
+//        if (orderUserDto.getOrder().getAccepterid() == nowUser.getUserid()) {
+//            orderUserDto.getOrder().setAccepterid(-1);
+//        }
         model.addAttribute("orderUserDto", orderUserDto);
         return "server_detail";
     }
@@ -213,6 +217,31 @@ public class ServerOrderController {
             return "page_403";
         }
         return "server_goods_map";
+    }
+
+    /**
+     * 完成资源位置精细定位
+     * @param request
+     * @return
+     */
+    @RequestMapping("/dogoodsmap")
+    public void doGoodsMap(HttpServletRequest request, HttpServletResponse response) {
+
+        String mylng = request.getParameter("mylng");
+        String mylat = request.getParameter("mylat");
+        String location = request.getParameter("location");
+        try {
+            location = URLDecoder.decode(location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        NowUser nowUser= UserSessionSetUtils.getNowUser(request);
+        request.getSession().removeAttribute("nowUser");
+        nowUser.setGoodsLocation(location);
+        nowUser.setGoodsLng(mylng);
+        nowUser.setGoodsLat(mylat);
+        request.getSession().setAttribute("nowUser", nowUser);
+        ResponseUtils.renderJson(response,"success");
     }
 
 }

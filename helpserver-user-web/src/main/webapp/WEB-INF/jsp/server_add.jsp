@@ -177,6 +177,14 @@
                         </div>
 
                         <div class="am-form-group">
+                            <label for="amount" class="am-form-label">资源数量</label>
+                            <div class="am-form-content">
+                                <input type="text" id="amount" name="amount" placeholder="资源数量"
+                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
                             <label for="city" class="am-form-label">所在城市</label>
                             <div class="am-form-content birth">
                                 <div class="birth-select2">
