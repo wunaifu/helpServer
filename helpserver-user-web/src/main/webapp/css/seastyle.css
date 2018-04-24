@@ -62,7 +62,7 @@ li.select-result dt {left:-30px; top:10px;font-weight:bold;width:50px;}
 .select-list .dd-conent dd{width:33.33% ;text-align: center;margin-left: 0px;height:25px ;}
 dl#select2 .dd-conent{ left:-100%; right:-100%;}
 dl#select3 .dd-conent{ left:-200%; right:0px;}
-	   
+
 .am-badge{font-size:12px ;padding:0px 0px;background-color: #999999;color: #ffffff;}
 .theme-popover-mask{z-index:5;width: 100%;height: auto;position:fixed ;background:#000 ;top:0;opacity: 0.6;}
 .theme-popover{width: 100%;}
@@ -120,7 +120,7 @@ dl#select3 .dd-conent{ left:-200%; right:0px;}
 .select-list dl dt{top:5px;}
 .select dt{width:100px;margin-left:0;text-align:center;color:#666;height:24px;line-height:24px;}
 .select-list .dd-conent{ display:inline-block;float:left;background: none;width:100%;position: static;}
-dl#select2 .dd-conent,dl#select3 .dd-conent{ left:0; right:0;}
+dl#select2 .dd-conent,dl#select3 .dd-conent,dl#select4 .dd-conent,dl#select5 .dd-conent{ left:0; right:0;}
 
 /*搜索结果*/
 .i-pic.limit {padding:0px;margin:10px;border: 1px #e8e8e8 solid;background:#fff ;}

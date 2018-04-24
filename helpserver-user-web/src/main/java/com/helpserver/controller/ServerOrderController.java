@@ -180,11 +180,6 @@ public class ServerOrderController {
         }
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
-//        try {
-//            search = URLDecoder.decode(search, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
         model.addAttribute("search", search);
         return "server_search";
     }
