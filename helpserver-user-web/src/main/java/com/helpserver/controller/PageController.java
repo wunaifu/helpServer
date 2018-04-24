@@ -82,7 +82,7 @@ public class PageController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-        String location = request.getParameter("locationmap")+"市";
+        String location = request.getParameter("locationmap");
         NowUser nowUser= (NowUser) request.getSession().getAttribute("nowUser");
         request.getSession().removeAttribute("nowUser");
         nowUser.setLocation(location);

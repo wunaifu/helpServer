@@ -88,8 +88,8 @@
 
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
-            <form action="/searchserver">
-                <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+            <form action="/server/search"  method="post">
+                <input id="searchInput" name="search" type="text" placeholder="搜索" autocomplete="off" required value="${search}">
                 <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
             </form>
         </div>
@@ -122,92 +122,63 @@
 <div class="am-g am-g-fixed">
     <div class="am-u-sm-12 am-u-md-12">
         <div class="theme-popover">
-            <div class="searchAbout">
-                <span class="font-pale">相关搜索：</span>
-                <a title="坚果" href="#">坚果</a>
-                <a title="瓜子" href="#">瓜子</a>
-                <a title="鸡腿" href="#">豆干</a>
+            <%--<div class="searchAbout">--%>
+                <%--<span class="font-pale">相关搜索：</span>--%>
+                <%--<a title="坚果" href="#">坚果</a>--%>
+                <%--<a title="瓜子" href="#">瓜子</a>--%>
+                <%--<a title="鸡腿" href="#">豆干</a>--%>
 
-            </div>
+            <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="fl">松子</span>
-                    <span class="total fl">搜索到<strong class="num">997</strong>件相关商品</span>
+                    <span class="fl"><a href="/index" style="color: #0a628f">首页</a>>搜索关键字 /
+                    <small><b style="color: #ff4d2d">${search} </b></small></span>
+                    <span class="total fl">搜索到<strong class="num">${orderUserDtoList.size()}</strong>件相关资源</span>
                 </p>
                 <div class="clear"></div>
-                <li class="select-result">
-                    <dl>
-                        <dt>已选</dt>
-                        <dd class="select-no"></dd>
-                        <p class="eliminateCriteria">清除</p>
-                    </dl>
-                </li>
-                <div class="clear"></div>
-                <%--<li class="select-list">--%>
-                    <%--<dl id="select1">--%>
-                        <%--<dt class="am-badge am-round">品牌</dt>--%>
-
-                        <%--<div class="dd-conent">--%>
-                            <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
-                            <%--<dd><a href="#">百草味</a></dd>--%>
-                            <%--<dd><a href="#">良品铺子</a></dd>--%>
-                            <%--<dd><a href="#">新农哥</a></dd>--%>
-                            <%--<dd><a href="#">楼兰蜜语</a></dd>--%>
-                            <%--<dd><a href="#">口水娃</a></dd>--%>
-                            <%--<dd><a href="#">考拉兄弟</a></dd>--%>
-                        <%--</div>--%>
-
+                <%--<li class="select-result">--%>
+                    <%--<dl>--%>
+                        <%--<dt>已选</dt>--%>
+                        <%--<dd class="select-no"></dd>--%>
+                        <%--<p class="eliminateCriteria">清除</p>--%>
                     <%--</dl>--%>
                 <%--</li>--%>
-                <%--<li class="select-list">--%>
-                    <%--<dl id="select2">--%>
-                        <%--<dt class="am-badge am-round">种类</dt>--%>
-                        <%--<div class="dd-conent">--%>
-                            <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
-                            <%--<dd><a href="#">东北松子</a></dd>--%>
-                            <%--<dd><a href="#">巴西松子</a></dd>--%>
-                            <%--<dd><a href="#">夏威夷果</a></dd>--%>
-                            <%--<dd><a href="#">松子</a></dd>--%>
-                        <%--</div>--%>
-                    <%--</dl>--%>
-                <%--</li>--%>
-                <%--<li class="select-list">--%>
-                    <%--<dl id="select3">--%>
-                        <%--<dt class="am-badge am-round">选购热点</dt>--%>
-                        <%--<div class="dd-conent">--%>
-                            <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
-                            <%--<dd><a href="#">手剥松子</a></dd>--%>
-                            <%--<dd><a href="#">薄壳松子</a></dd>--%>
-                            <%--<dd><a href="#">进口零食</a></dd>--%>
-                            <%--<dd><a href="#">有机零食</a></dd>--%>
-                        <%--</div>--%>
-                    <%--</dl>--%>
-                <%--</li>--%>
-                <%--<li class="select-list">--%>
-                    <%--<dl id="select4">--%>
-                        <%--<dt class="am-badge am-round">选购热点</dt>--%>
-                        <%--<div class="dd-conent">--%>
-                            <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
-                            <%--<dd><a href="#">手剥松子</a></dd>--%>
-                            <%--<dd><a href="#">薄壳松子</a></dd>--%>
-                            <%--<dd><a href="#">进口零食</a></dd>--%>
-                            <%--<dd><a href="#">有机零食</a></dd>--%>
-                        <%--</div>--%>
-                    <%--</dl>--%>
-                <%--</li>--%>
-                <%--<li class="select-list">--%>
-                    <%--<dl id="select5">--%>
-                        <%--<dt class="am-badge am-round">选购热点</dt>--%>
-                        <%--<div class="dd-conent">--%>
-                            <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
-                            <%--<dd><a href="#">手剥松子</a></dd>--%>
-                            <%--<dd><a href="#">薄壳松子</a></dd>--%>
-                            <%--<dd><a href="#">进口零食</a></dd>--%>
-                            <%--<dd><a href="#">有机零食</a></dd>--%>
-                        <%--</div>--%>
-                    <%--</dl>--%>
-                <%--</li>--%>
-
+                <%--<div class="clear"></div>--%>
+                <c:choose>
+                    <c:when test="${orderTypeDtoList.size()>0}">
+                        <c:forEach items="${orderTypeDtoList}" var="item" varStatus="status">
+                            <li class="select-list">
+                                <dl id="select2">
+                                    <dt class="am-badge am-round">${item.bigtype.typename}</dt>
+                                    <div class="dd-conent">
+                                        <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
+                                        <c:choose>
+                                            <c:when test="${item.ordertypeList.size()>0}">
+                                                <c:forEach items="${item.ordertypeList}" var="itemtype">
+                                                    <dd><a href="#">${itemtype.typename}</a></dd>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <dd><a href="#">其他</a></dd>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </dl>
+                            </li>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="select-list">
+                            <dl id="select1">
+                                <dt class="am-badge am-round">全部</dt>
+                                <div class="dd-conent">
+                                    <dd class="select-all selected"><a href="#">全部</a></dd>
+                                    <dd><a href="#">其他</a></dd>
+                                </div>
+                            </dl>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
             <div class="clear"></div>
         </div>
@@ -232,89 +203,44 @@
                     <p style="float:left;">资源互助服务</p>
                 </h2>
                 <div class="clear "></div>
-                <div style="font-size: 15px;margin: 10px 0 10px 5px;padding: 5px;"><a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;
-                    <%--<a style="color: #0a628f" href="/index_user">服务中心&nbsp;</a> >&nbsp;--%>
-                    <strong >搜索关键字</strong> /
-                    <small>家教</small>
+                <div style="font-size: 15px;margin: 10px 0 10px 5px;padding: 5px;">
+                    <%--<a href="/index" style="color: #0a628f">首页&nbsp;</a> >&nbsp;--%>
+                    <%--&lt;%&ndash;<a style="color: #0a628f" href="/index_user">服务中心&nbsp;</a> >&nbsp;&ndash;%&gt;--%>
+                    <%--<strong >搜索关键字</strong> /--%>
+                    <%--<small><b style="color: #ff4d2d">${search}</b></small>--%>
                 </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
-                <div class="blogs">
-                    <h3><a href="/server/detail">犯错了怎么办？</a></h3>
-                    <figure><a href="/server/userinfo"><img style="width: 72px;height: 72px;" src="/images/01.jpg"></a>
-                    </figure>
-                    <ul>
-                        <a href="/server/detail">
-                            <p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
-                                感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
-                                人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，
-                                不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
-                            </p>
-                        </a>
-                        <div class="autor1">
-                            <span>分类：零活</span>
-                            <span style="margin: 0px 0px 0px 10px;">酬劳：￥100</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务点：蓬江区</span>
-                            <span style="margin: 0px 0px 0px 10px;">服务时间：中午9点半前</span>
-                        </div>
-                        <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
-                    </ul>
-                    <p class="autor"><span>主人：杨青青</span>
-                        <span>已抢单（<a>3/5</a>）</span>
-                        <span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>
-                    </p>
-                    <div class="dateview">04-08 12:12:12</div>
-                </div>
+                <c:choose>
+                    <c:when test="${orderUserDtoList.size()>0}">
+                        <c:forEach items="${orderUserDtoList}" var="item" varStatus="status">
+                            <div class="blogs">
+                                <h3><a href="/server/${item.order.id}/detail">资源名：${item.order.foodname}</a></h3>
+                                <figure><a href="/server/${item.order.senderid}/userinfo"><img style="width: 72px;height: 72px;" src="/resources/img/${item.senderIcon}"></a>
+                                </figure>
+                                <ul>
+                                    <a href="/server/${item.order.id}/detail">
+                                        <p>备注：${item.order.orderdetail}
+                                        </p>
+                                    </a>
+                                    <div class="autor1">
+                                        <span>类型：${item.orderTypeName}</span>
+                                        <span style="margin: 0px 0px 0px 10px;">服务费用：${item.order.moneyamount}￥</span>
+                                        <span style="margin: 0px 0px 0px 10px;">服务区域：${item.order.city}</span>
+                                        <span style="margin: 0px 0px 0px 10px;">可使用时间：${item.order.starttime}到${item.order.endtime}</span>
+                                    </div>
+                                    <a href="/index_myorder" target="_blank" class="readmore">马上抢单</a>
+                                </ul>
+                                <p class="autor"><span>发布者：${item.senderName}</span>
+                                    <span>发布时间：${item.order.sendtime}</span>
+                                        <%--<span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>--%>
+                                </p>
+                                    <%--<div class="dateview">${item.order.sendtime}</div>--%>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h1 align="center">未有资源服务订单</h1>
+                    </c:otherwise>
+                </c:choose>
 
             </div>
             <div class="clear "></div>

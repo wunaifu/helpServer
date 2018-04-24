@@ -11,6 +11,7 @@ import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -162,7 +166,26 @@ public class ServerOrderController {
      * @return
      */
     @RequestMapping("/search")
-    public String serverSearch(HttpServletRequest request, Model model) {
+    public String serverSearch(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String search = request.getParameter("search");
+//        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
+        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
+        orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
+        if (orderUserDtoList.size()<1) {
+            orderUserDtoList = orderService.getOrderUserDtoListByState(1);
+        }
+        model.addAttribute("orderTypeDtoList", orderTypeDtoList);
+        model.addAttribute("orderUserDtoList", orderUserDtoList);
+//        try {
+//            search = URLDecoder.decode(search, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+        model.addAttribute("search", search);
         return "server_search";
     }
 

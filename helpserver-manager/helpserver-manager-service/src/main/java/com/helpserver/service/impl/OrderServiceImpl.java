@@ -145,7 +145,29 @@ public class OrderServiceImpl implements OrderService {
         OrderinfoExample orderExample = new OrderinfoExample();
         OrderinfoExample.Criteria criteria = orderExample.createCriteria();
         criteria.andOrderstateEqualTo(state);
-        criteria.andCityLike(city);
+        criteria.andCityLike("%"+city+"%");
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        if (orderList == null) {
+            return null;
+        }
+        System.out.println("orderList="+orderList.toString());
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
+
+    /**
+     * 通过关键字和状态搜索资源服务订单
+     * @param state
+     * @param search
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListByStateAndSearch(int state, String search) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andOrderstateEqualTo(state);
+        criteria.andFoodnameLike("%"+search+"%");
         orderExample.setOrderByClause("sendTime desc");
         List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
         if (orderList == null) {

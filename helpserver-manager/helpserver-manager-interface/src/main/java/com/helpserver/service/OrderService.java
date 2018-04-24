@@ -25,6 +25,8 @@ public interface OrderService {
 
     List<OrderUserDto> getOrderUserDtoListByStateAndCity(int state,String city);
 
+    List<OrderUserDto> getOrderUserDtoListByStateAndSearch(int state,String search);
+
     List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList);
 
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order);
