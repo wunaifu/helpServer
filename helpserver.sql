@@ -27,17 +27,15 @@ CREATE TABLE `acceptorder` (
   `acceptTime` varchar(32) DEFAULT NULL COMMENT '接单时间',
   `backReason` varchar(50) DEFAULT NULL COMMENT '退单理由',
   `backTime` varchar(32) DEFAULT NULL COMMENT '退单时间（为空未取消，不空接单中）',
-  `acceptState` int(11) NOT NULL DEFAULT '1' COMMENT '状态（1接单，0取消，2已完成，3发布方取消）',
+  `acceptState` int(11) NOT NULL DEFAULT '1' COMMENT '状态（1抢单中，0取消，2接单中，3已完成，4发布方取消）',
   PRIMARY KEY (`id`),
   KEY `accepterId` (`accepterId`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `acceptorder_ibfk_1` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `acceptorder` */
-
-insert  into `acceptorder`(`id`,`accepterId`,`orderId`,`acceptTime`,`backReason`,`backTime`,`acceptState`) values (1,3,2,'2018-04-15 19:52:03',NULL,NULL,0),(2,4,2,'2018-04-15 19:52:03',NULL,NULL,1),(3,5,2,'2018-04-15 19:52:03',NULL,NULL,2),(4,6,2,'2018-04-15 19:52:03',NULL,NULL,3),(5,7,2,'2018-04-15 19:52:03',NULL,NULL,4),(6,8,2,'2018-04-15 19:52:03',NULL,NULL,5);
 
 /*Table structure for table `bigtype` */
 
@@ -168,9 +166,11 @@ CREATE TABLE `identity` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `identity` */
+
+insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,2,'吴乃福','1231545623115','2/bd07aace-0895-446b-99ed-074587af2216.png','2/00f155aa-8e36-442c-8b5c-8247232468cb.png','2018-04-23 11:18:40','2018-04-23 11:21:14','认证通过',1);
 
 /*Table structure for table `money` */
 
@@ -190,7 +190,7 @@ CREATE TABLE `money` (
 
 /*Data for the table `money` */
 
-insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-15 19:48:36',0,0),(2,2,11,'2018-04-15 19:51:45',10,6),(3,3,0,'2018-04-15 19:52:03',0,0),(4,4,0,'2018-04-15 19:52:21',0,0),(5,5,0,'2018-04-15 19:52:38',0,0),(6,6,0,'2018-04-15 19:52:53',0,0),(7,7,0,'2018-04-15 19:53:11',0,0),(8,8,0,'2018-04-15 19:53:26',0,0),(9,9,0,'2018-04-15 19:53:45',0,0),(10,10,0,'2018-04-15 19:54:01',0,0),(11,11,0,'2018-04-15 19:54:52',0,0),(12,12,0,'2018-04-15 19:55:11',0,0);
+insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-15 19:48:36',0,0),(2,2,1,'2018-04-15 19:51:45',40,6),(3,3,30,'2018-04-15 19:52:03',100,0),(4,4,0,'2018-04-15 19:52:21',0,0),(5,5,0,'2018-04-15 19:52:38',0,0),(6,6,0,'2018-04-15 19:52:53',0,0),(7,7,0,'2018-04-15 19:53:11',0,0),(8,8,0,'2018-04-15 19:53:26',0,0),(9,9,0,'2018-04-15 19:53:45',0,0),(10,10,0,'2018-04-15 19:54:01',0,0),(11,11,0,'2018-04-15 19:54:52',0,0),(12,12,0,'2018-04-15 19:55:11',0,0);
 
 /*Table structure for table `moneyadd` */
 
@@ -206,11 +206,11 @@ CREATE TABLE `moneyadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyadd` */
 
-insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,10,'2018-04-16 11:48:07','2/9652b128-d4c3-4f06-a571-8400e4c00757.png','2018-04-16 14:55:15');
+insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,10,'2018-04-16 11:48:07','2/9652b128-d4c3-4f06-a571-8400e4c00757.png','2018-04-16 14:55:15'),(2,2,30,'2018-04-23 11:38:05','2/304ef6c3-e01d-4dcc-b23e-a1b91a283f40.png','2018-04-23 11:39:00'),(3,3,100,'2018-04-23 15:39:16','3/c5936655-5195-420a-b3d0-15403840b6bd.png','2018-04-23 15:39:33');
 
 /*Table structure for table `moneyget` */
 
@@ -247,11 +247,11 @@ CREATE TABLE `moneyhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyhistory` */
 
-insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,10,'余额充值','2018-04-16 14:55:15',1),(2,2,2,'充值金币','2018-04-16 19:55:01',0),(3,2,1,'充值金币','2018-04-16 19:59:23',0),(6,2,10,'金币提现','2018-04-16 21:10:32',1),(7,2,5,'余额提现','2018-04-17 14:20:39',0),(8,2,1,'余额提现','2018-04-17 14:21:52',0);
+insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,10,'余额充值','2018-04-16 14:55:15',1),(2,2,2,'充值金币','2018-04-16 19:55:01',0),(3,2,1,'充值金币','2018-04-16 19:59:23',0),(6,2,10,'金币提现','2018-04-16 21:10:32',1),(7,2,5,'余额提现','2018-04-17 14:20:39',0),(8,2,1,'余额提现','2018-04-17 14:21:52',0),(9,2,10,'服务保障金','2018-04-23 10:53:30',0),(10,2,30,'余额充值','2018-04-23 11:39:00',1),(11,2,10,'服务保障金','2018-04-23 11:40:12',0),(12,2,10,'服务保障金','2018-04-23 11:41:53',0),(13,2,10,'服务保障金','2018-04-23 15:35:47',0),(14,3,100,'余额充值','2018-04-23 15:39:33',1),(15,3,10,'服务保障金','2018-04-23 15:40:19',0),(16,3,10,'服务保障金','2018-04-23 15:43:15',0),(17,3,10,'服务保障金','2018-04-23 15:51:15',0),(18,3,10,'服务保障金','2018-04-24 17:30:59',0),(19,3,10,'服务保障金','2018-04-24 18:29:06',0),(20,3,10,'服务保障金','2018-04-24 18:58:44',0),(21,3,10,'服务保障金','2018-04-24 19:01:16',0);
 
 /*Table structure for table `news` */
 
@@ -274,14 +274,14 @@ DROP TABLE IF EXISTS `orderinfo`;
 CREATE TABLE `orderinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `senderId` int(11) NOT NULL DEFAULT '0' COMMENT '发布者id',
-  `accepterId` int(11) DEFAULT '0' COMMENT '抢单成功者id',
   `typeId` int(11) NOT NULL DEFAULT '0' COMMENT '发布类型id（零活、跑腿）',
   `moneyAmount` int(11) DEFAULT '0' COMMENT '服务费用',
   `foodName` varchar(50) DEFAULT NULL COMMENT '资源名字',
   `startTime` varchar(32) DEFAULT NULL COMMENT '可使用开始时间',
   `endTime` varchar(32) DEFAULT NULL COMMENT '可使用结束时间',
   `orderDetail` varchar(150) DEFAULT NULL COMMENT '服务详情、备注',
-  `areaInfo` varchar(80) DEFAULT NULL COMMENT '所在区域（省市县）',
+  `city` varchar(30) DEFAULT NULL COMMENT '地级市',
+  `address` varchar(100) DEFAULT NULL COMMENT '地址',
   `pointInfo` varchar(150) DEFAULT NULL COMMENT '详细坐标',
   `sendTime` varchar(32) DEFAULT NULL COMMENT '发布时间',
   `repealTime` varchar(32) DEFAULT NULL COMMENT '撤单时间',
@@ -292,21 +292,19 @@ CREATE TABLE `orderinfo` (
   `seeAmount` int(11) DEFAULT '0' COMMENT '浏览数',
   `picture` varchar(150) DEFAULT NULL COMMENT '资源图片',
   `updateTime` varchar(32) DEFAULT NULL COMMENT '更新状态时间',
-  `acceptorderId` int(11) DEFAULT '0' COMMENT '抢单成功表id',
+  `lng` varchar(30) DEFAULT NULL COMMENT '经度',
+  `lat` varchar(30) DEFAULT NULL COMMENT '纬度',
+  `amount` int(11) DEFAULT NULL COMMENT '数量',
   PRIMARY KEY (`id`),
   KEY `senderId` (`senderId`),
   KEY `typeId` (`typeId`),
-  KEY `orderinfo_ibfk_3` (`accepterId`),
-  KEY `acceptorderId` (`acceptorderId`),
   CONSTRAINT `orderinfo_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`),
-  CONSTRAINT `orderinfo_ibfk_3` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `orderinfo_ibfk_4` FOREIGN KEY (`acceptorderId`) REFERENCES `acceptorder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 /*Data for the table `orderinfo` */
 
-insert  into `orderinfo`(`id`,`senderId`,`accepterId`,`typeId`,`moneyAmount`,`foodName`,`startTime`,`endTime`,`orderDetail`,`areaInfo`,`pointInfo`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`acceptorderId`) values (1,2,NULL,1,0,'1','18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,'2018-04-15 19:52:03','2018-04-15 19:52:03',NULL,-1,NULL,NULL,0,NULL,NULL,NULL),(2,3,NULL,2,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,0,NULL,NULL,NULL),(3,4,NULL,3,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,2,NULL,NULL,0,NULL,NULL,NULL),(4,5,NULL,4,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,3,NULL,NULL,0,NULL,NULL,NULL),(5,6,NULL,1,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,4,NULL,NULL,0,NULL,NULL,NULL),(6,7,NULL,2,0,NULL,'18/04/15/19:52','18/04/18/19:52',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,0,NULL,NULL,NULL);
+insert  into `orderinfo`(`id`,`senderId`,`typeId`,`moneyAmount`,`foodName`,`startTime`,`endTime`,`orderDetail`,`city`,`address`,`pointInfo`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`lng`,`lat`,`amount`) values (10,2,4,20,'山地自行车','18/04/23/10:53','18/04/23/10:53','稍等哈','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 10:53:30',NULL,NULL,1,'吴先生','18219111626',0,NULL,NULL,'113.266935','22.545448',NULL),(11,2,2,50,'男装摩托车','18/04/23/11:40','18/04/23/11:40','阿达','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 11:40:12',NULL,NULL,1,'2','2',0,NULL,NULL,'113.266935','22.545448',NULL),(12,2,1,12,'白色汽车','18/04/23/11:41','18/04/23/11:41','123','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 11:41:53',NULL,NULL,1,'2','2',0,'2/5c2442ce-cf3a-49b7-874c-6453f0efccdd.png',NULL,'113.266935','22.545448',NULL),(13,2,1,11,'11','18/04/23/15:35','18/04/23/15:35','11','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:35:47',NULL,NULL,1,'1','1',0,'2/1ad98696-0403-4c83-b12f-7742aa0ae3e5.jpg',NULL,'113.266935','22.545448',NULL),(14,3,1,1,'1','18/04/23/15:40','18/04/23/15:40','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:40:19',NULL,NULL,1,'1','1',0,'3/12a4f53b-564d-4cd6-9819-a7adfcfc99cd.png',NULL,'113.266935','22.545448',NULL),(15,3,1,1,'1','18/04/23/15:43','18/04/25/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:43:15',NULL,NULL,1,'1','1',0,NULL,NULL,'113.266935','22.545448',NULL),(16,3,1,4,'4','18/04/25/00:00','18/04/30/23:59','4','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:51:15',NULL,NULL,1,'4','4',0,NULL,NULL,'113.266935','22.545448',NULL),(17,3,4,1,'afds','18/04/25/00:00','18/04/28/23:59','afds','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 17:30:59',NULL,NULL,1,'12','2112',0,'3/fa402474-1da2-4146-bae3-3a68c390cec2.jpg',NULL,'113.267007','22.543353',2),(18,3,1,1,'1','18/04/24/00:00','18/04/24/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 18:29:06',NULL,NULL,1,'1','1',0,NULL,NULL,'113.114423','22.557105',1),(19,3,4,23,'自行车','18/04/26/00:00','18/04/28/23:59','阿斯顿发放的','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 18:58:44',NULL,NULL,1,'吴','18219111626',0,'3/f3063184-371a-439a-b944-2148456beb86.jpg',NULL,'113.266935','22.545448',2),(20,3,1,1,'1','18/04/24/00:00','18/04/24/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 19:01:16',NULL,NULL,1,'1','1',0,NULL,NULL,'113.266935','22.545448',1);
 
 /*Table structure for table `ordertype` */
 
@@ -367,7 +365,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-04-15 19:48:36',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','18219111621','18219111621',NULL,0,1,NULL,'icon001.png','2018-04-15 19:51:45',NULL,NULL,0),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:03',NULL,NULL,0),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:21',NULL,NULL,0),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','18219111624','18219111624',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:38',NULL,NULL,0),(6,'18219111625','ea289daceb77cafc67ab21a64b9c77dd','18219111625','18219111625',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:53',NULL,NULL,0),(7,'18219111626','ea289daceb77cafc67ab21a64b9c77dd','18219111626','18219111626',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:11',NULL,NULL,0),(8,'18219111627','ea289daceb77cafc67ab21a64b9c77dd','18219111627','18219111627',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:26',NULL,NULL,0),(9,'18219111628','ea289daceb77cafc67ab21a64b9c77dd','18219111628','18219111628',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:45',NULL,NULL,0),(10,'18219111629','ea289daceb77cafc67ab21a64b9c77dd','18219111629','18219111629',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:01',NULL,NULL,0),(11,'18219111630','ea289daceb77cafc67ab21a64b9c77dd','18219111630','18219111630',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:52',NULL,NULL,0),(12,'18219111631','ea289daceb77cafc67ab21a64b9c77dd','18219111631','18219111631',NULL,0,1,NULL,'icon001.png','2018-04-15 19:55:11',NULL,NULL,0);
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-04-15 19:48:36',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','张三','18219111621','1',0,1,'1','2/b57ad510-90fb-4f83-b7f4-3a6947421c0e.jpg','2018-04-15 19:51:45',NULL,NULL,1),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:03',NULL,NULL,0),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:21',NULL,NULL,0),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','18219111624','18219111624',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:38',NULL,NULL,0),(6,'18219111625','ea289daceb77cafc67ab21a64b9c77dd','18219111625','18219111625',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:53',NULL,NULL,0),(7,'18219111626','ea289daceb77cafc67ab21a64b9c77dd','18219111626','18219111626',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:11',NULL,NULL,0),(8,'18219111627','ea289daceb77cafc67ab21a64b9c77dd','18219111627','18219111627',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:26',NULL,NULL,0),(9,'18219111628','ea289daceb77cafc67ab21a64b9c77dd','18219111628','18219111628',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:45',NULL,NULL,0),(10,'18219111629','ea289daceb77cafc67ab21a64b9c77dd','18219111629','18219111629',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:01',NULL,NULL,0),(11,'18219111630','ea289daceb77cafc67ab21a64b9c77dd','18219111630','18219111630',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:52',NULL,NULL,0),(12,'18219111631','ea289daceb77cafc67ab21a64b9c77dd','18219111631','18219111631',NULL,0,1,NULL,'icon001.png','2018-04-15 19:55:11',NULL,NULL,0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

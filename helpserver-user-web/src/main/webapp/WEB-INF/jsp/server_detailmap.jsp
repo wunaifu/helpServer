@@ -37,11 +37,13 @@
     %>
 </head>
 <body <%--onload="init(<%=nowUser.getLocation()%>)"--%>>
+<div style="height: 0px;">
 <input style="visibility: hidden" id="mylng" value="${mylng}">
 <input style="visibility: hidden" id="mylat" value="${mylat}">
 <input style="visibility: hidden" id="address" value="${address}">
+</div>
 <div id="l-map"></div>
-<div id="r-result"></div>
+<%--<div id="r-result"></div>--%>
 </body>
 </html>
 
@@ -72,10 +74,10 @@
 
     var infoWindow = new BMap.InfoWindow(address);  // 创建信息窗口对象
     map.openInfoWindow(infoWindow,new_point); //开启信息窗口
-    document.getElementById("r-result").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
+//    document.getElementById("r-result").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
     function attribute() {
         var infoWindow = new BMap.InfoWindow(address);  // 创建信息窗口对象
         map.openInfoWindow(infoWindow,new_point); //开启信息窗口
-        document.getElementById("r-result").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
+//        document.getElementById("r-result").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
     }
 </script>

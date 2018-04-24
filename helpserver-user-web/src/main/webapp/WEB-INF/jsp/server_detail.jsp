@@ -190,6 +190,9 @@
                                                     style="color: #101010;">资源费用:</b>&nbsp;${orderUserDto.order.moneyamount}￥
                                             </div>
                                             <div style="margin-top: 10px;"><b
+                                                    style="color: #101010;">资源数量:</b>&nbsp;${orderUserDto.order.amount}
+                                            </div>
+                                            <div style="margin-top: 10px;"><b
                                                     style="color: #101010;">服务区域:</b>&nbsp;${orderUserDto.order.city}
                                             </div>
                                             <div style="margin-top: 10px;"><b
@@ -197,7 +200,7 @@
                                             </div>
                                             <div style="margin-top: 10px;"><b
                                                     style="color: #101010;">精细定位:</b>&nbsp;
-                                                <a href="/server/detail/${orderUserDto.order.id}/map">去查看</a>
+                                                <a href="/server/detail/${orderUserDto.order.id}/map"><i class="am-icon-map-marker"></i>去查看</a>
                                             </div>
                                             <div style="margin-top: 10px;"><b
                                                     style="color: #101010;">可使用时间:</b>&nbsp;${orderUserDto.order.starttime}到${orderUserDto.order.endtime}
