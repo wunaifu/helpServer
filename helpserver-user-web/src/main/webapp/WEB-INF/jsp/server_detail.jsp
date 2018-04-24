@@ -196,7 +196,8 @@
                                                     style="color: #101010;">详细地址:</b>&nbsp;${orderUserDto.order.address}
                                             </div>
                                             <div style="margin-top: 10px;"><b
-                                                    style="color: #101010;">精细定位:</b>&nbsp;${orderUserDto.order.address}
+                                                    style="color: #101010;">精细定位:</b>&nbsp;
+                                                <a href="/server/detail/${orderUserDto.order.id}/map">去查看</a>
                                             </div>
                                             <div style="margin-top: 10px;"><b
                                                     style="color: #101010;">可使用时间:</b>&nbsp;${orderUserDto.order.starttime}到${orderUserDto.order.endtime}

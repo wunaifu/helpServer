@@ -168,14 +168,13 @@
         map.clearOverlays();    //清除地图上所有覆盖物
         function myFun(){
             var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            map.centerAndZoom(pp, 12);
+            map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
             mylng=pp.lng;
             mylat=pp.lat;
             console.log("mylng="+mylng);
             console.log("mylat="+mylat);
             console.log(pp);
-            mylng = pp;
         }
         var local = new BMap.LocalSearch(map, { //智能搜索
             onSearchComplete: myFun
@@ -188,7 +187,7 @@
         mylat=e.point.lat;
         alert(e.point.lng + ", " + e.point.lat);
         map.clearOverlays();    //清除地图上所有覆盖物
-        map.centerAndZoom(e.point, 12);
+        map.centerAndZoom(e.point, 18);
         map.addOverlay(new BMap.Marker(e.point));    //添加标注
         console.log("mylng="+mylng);
         console.log("mylat="+mylat);

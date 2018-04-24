@@ -158,6 +158,29 @@ public class ServerOrderController {
         return "server_detail";
     }
 
+    /**
+     * 资源服务详情，资源位置地图
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/detail/{orderId}/map")
+    public String serverDetailmap(@PathVariable("orderId") int orderId,
+            HttpServletRequest request,Model model) throws Exception {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        Orderinfo orderinfo = orderService.getOrderById(orderId);
+        String mylng = orderinfo.getLng();
+        String mylat = orderinfo.getLat();
+        String address = orderinfo.getAddress();
+        System.out.println(mylng+","+mylat);
+        model.addAttribute("mylng", mylng);
+        model.addAttribute("mylat", mylat);
+        model.addAttribute("address", address);
+        return "server_detailmap";
+    }
+
     @RequestMapping("/info")
     public String serverInfo(HttpServletRequest request, Model model) {
         return "server_info";
