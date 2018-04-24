@@ -72,12 +72,17 @@ public class PageController {
         return "login";
     }
 
+    /**
+     * 首页修改定位的城市
+     * @param request
+     * @return
+     */
     @RequestMapping("/finishmap")
     public String finishMap(HttpServletRequest request) {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-        String location = request.getParameter("locationmap");
+        String location = request.getParameter("locationmap")+"市";
         NowUser nowUser= (NowUser) request.getSession().getAttribute("nowUser");
         request.getSession().removeAttribute("nowUser");
         nowUser.setLocation(location);

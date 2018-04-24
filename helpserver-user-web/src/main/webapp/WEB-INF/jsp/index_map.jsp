@@ -47,7 +47,7 @@
         <ul class="message-l">
             <div class="topMessage">
                 <div class="menu-hd">
-                    <a href="/map" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
+                    <a target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
                     </a>
                     <a href="/index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
                     </a>
@@ -80,8 +80,8 @@
 
     <div class="nav white">
         <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
-            <a href="/map"><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker"
-                                                                    style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
+            <a><i class="am-icon-map-marker"
+                  style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
             </a></div>
         <div class="logoBig">
             <li><img src="/images/logobig.png"/></li>
@@ -113,7 +113,7 @@
                     <%--<p style="float:right;"><a href="/server/add"><span>发布资源服务</span></a></p>--%>
                 </h2>
                 <div class="clear "></div>
-                <div class="blogs" style="padding: 30px;" align="center">
+                <div class="blogs" style="padding: 30px;font-size: 18px;" align="center">
                     <form action="finishmap" method="post" onsubmit="return isChooseCity();">
                         <select name="province" id="province">
                             <option value="请选择">请选择</option>

@@ -305,8 +305,8 @@
 
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2>
-                    <p style="float:left;">来看看您需要的资源吧</p>
-                    <p style="float:right;"><a href="/server/add"><span>发布资源服务</span></a></p>
+                    <a href="/server/add"><p class="am-icon-angle-right" style="float:left;font-size: 14px;padding: 1px"><span>去发布资源服务</span></p></a>
+                    <p style="float:right;font-size: 12px;">来看看您需要的资源</p>
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">
