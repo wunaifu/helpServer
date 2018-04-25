@@ -93,7 +93,7 @@ a.readmore { background: #e41635; color: #fff; padding: 5px 10px; float: right; 
 .blogs::before { content: ""; width: 10px; height: 10px; border-radius: 50%; position: absolute; background: #cac1c1; border: 2px solid #fff; left: -27px; -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
 .blogs:hover::before { background: #474645 }
 .dateview { position: absolute; left: -135px; top: 0px; z-index: 1; color: #F5F5F5; }
-.blogs::after { content: ""; width: 121px; height: 29px; position: absolute; left: -148px; top: -9px; z-index: 0; background: #474645 url(../images/ti.png) no-repeat; opacity: 0; -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+/*.blogs::after { content: ""; width: 121px; height: 29px; position: absolute; left: -148px; top: -9px; z-index: 0; background: #474645 url(../images/ti.png) no-repeat; opacity: 0; -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s; transition: all 1s; }*/
 .blogs:hover::after { opacity: 1 }
 /* 右侧栏个人档案 */
 .avatar { margin: 10px auto; width: 160px; height: 160px; border-radius: 100%; overflow: hidden; }

@@ -72,56 +72,80 @@ public class ServerOrderController {
      */
     @RequestMapping("/doadd")
     public String doAddServer(@RequestParam(value = "file", required = false)
-                                          MultipartFile file, HttpServletRequest request, Model model) {
+                                          MultipartFile file[], HttpServletRequest request, Model model) {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         String sendTime = TimeUtil.dateToString(new Date());
-        String start = request.getParameter("startTime").replaceAll("T", " ");
-        String end = request.getParameter("endTime").replaceAll("T", " ");
-        System.out.println(start+" "+end);
-        String startTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(start));
-        String endTime = TimeUtil.dateToStrNoS(TimeUtil.stringToDate(end));
 
         Orderinfo orderinfo = new Orderinfo();
         orderinfo.setSenderid(nowUser.getUserid());
         orderinfo.setTypeid(Integer.parseInt(request.getParameter("ordertype")));
+        orderinfo.setCity(request.getParameter("city"));
         orderinfo.setFoodname(request.getParameter("name"));
         orderinfo.setAmount(Integer.parseInt(request.getParameter("amount")));
-        orderinfo.setOrderdetail(request.getParameter("detail"));
-        orderinfo.setMoneyamount(Integer.parseInt(request.getParameter("money")));
         orderinfo.setAddress(request.getParameter("address"));
-        orderinfo.setCity(request.getParameter("city"));
-        orderinfo.setPointinfo("");
+        orderinfo.setLng(nowUser.getGoodsLng());
+        orderinfo.setLat(nowUser.getGoodsLat());
+        orderinfo.setMoneyamount(Integer.parseInt(request.getParameter("money")));
+        orderinfo.setDaymoney(Integer.parseInt(request.getParameter("dayMoney")));
+        orderinfo.setDaynumber(Integer.parseInt(request.getParameter("dayNumber")));
+        orderinfo.setMonthmoney(Integer.parseInt(request.getParameter("monthMoney")));
+        orderinfo.setMonthnumber(Integer.parseInt(request.getParameter("monthNumber")));
+        orderinfo.setOrderdetail(request.getParameter("detail"));
         orderinfo.setSendtime(sendTime);
-        orderinfo.setStarttime(startTime);
-        orderinfo.setEndtime(endTime);
         orderinfo.setCallname(request.getParameter("username"));
         orderinfo.setCallphone(request.getParameter("userphone"));
         orderinfo.setOrderstate(1);
-        orderinfo.setLng(nowUser.getGoodsLng());
-        orderinfo.setLat(nowUser.getGoodsLat());
         orderinfo.setPointinfo(nowUser.getGoodsLocation());
         String fileName1 = "";
+        String fileName2 = "";
+        String fileName3 = "";
         try {
             if (file != null) {
-                String picture1 = file.getOriginalFilename();
+                String picture1 = file[0].getOriginalFilename();
+                String picture2 = file[1].getOriginalFilename();
+                String picture3 = file[2].getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/" + nowUser.getUserid() + "/";
                 if (picture1.equals("")) {
-
-                } else {// 保存
-                    String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/"+nowUser.getUserid()+"/";
+                    orderinfo.setPicture("goodsphoto.png");
+                }else {// 保存
                     fileName1 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
-                    System.out.println("**********" + filePath);
-                    System.out.println("fileName1**********" + fileName1);
                     File targetFile1 = new File(filePath, fileName1); // 新建文件
                     if (!targetFile1.exists()) { // 判断文件的路径是否存在
                         targetFile1.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
                     }
-                    file.transferTo(targetFile1); // 传送 失败就抛异常
+                    file[0].transferTo(targetFile1); // 传送 失败就抛异常
                     // 执行更新图片在服务器的地址
-                    fileName1=nowUser.getUserid()+"/"+fileName1;
+                    fileName1 = nowUser.getUserid() + "/" + fileName1;
                     orderinfo.setPicture(fileName1);
+                }
+                if (picture2.equals("")) {
+                    orderinfo.setInfopicture1("tw6.jpg");
+                }else {// 保存
+                    fileName2 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile2 = new File(filePath, fileName2); // 新建文件
+                    if (!targetFile2.exists()) { // 判断文件的路径是否存在
+                        targetFile2.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[1].transferTo(targetFile2); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName2 = nowUser.getUserid() + "/" + fileName2;
+                    orderinfo.setInfopicture1(fileName2);
+                }
+                if (picture3.equals("")) {
+                    orderinfo.setInfopicture2("tw6.jpg");
+                } else {// 保存
+                    fileName3 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile3 = new File(filePath, fileName3); // 新建文件
+                    if (!targetFile3.exists()) { // 判断文件的路径是否存在
+                        targetFile3.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[2].transferTo(targetFile3); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName3 = nowUser.getUserid() + "/" + fileName3;
+                    orderinfo.setInfopicture2(fileName3);
                 }
             }
         } catch (Exception e) {
@@ -173,6 +197,14 @@ public class ServerOrderController {
         Orderinfo orderinfo = orderService.getOrderById(orderId);
         String mylng = orderinfo.getLng();
         String mylat = orderinfo.getLat();
+        if (mylng == null||mylat == null) {
+            mylng = "113.090708";
+            mylat = "22.599186";
+        }
+        if ("".equals(mylng)||"".equals(mylat)) {
+            mylng = "113.090708";
+            mylat = "22.599186";
+        }
         String address = orderinfo.getAddress();
         System.out.println(mylng+","+mylat);
         model.addAttribute("mylng", mylng);

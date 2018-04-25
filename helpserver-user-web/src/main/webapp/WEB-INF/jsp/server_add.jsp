@@ -206,13 +206,14 @@
                         <div class="am-form-group">
                             <label  class="am-form-label">资源定位</label>
                             <div class="am-form-content">
-                                <p style="align-content: center"><a href="/server/map"><i class="am-icon-map-marker"></i>去定位</a></p>
+                                <p ><a href="/server/map"><i class="am-icon-map-marker"></i>去定位</a></p>
+                                <small>资源定位成功后，返回该页面继续填写</small>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="money" class="am-form-label">押金￥</label>
                             <div class="am-form-content">
-                                <input type="text" id="money" name="money" placeholder="接单者需要扣除的押金"
+                                <input type="text" id="money" name="money" placeholder="接单者需要扣除的押金<300￥"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
@@ -263,7 +264,7 @@
                             <label for="userphone" class="am-form-label">联系电话</label>
                             <div class="am-form-content">
                                 <input id="userphone" name="userphone" placeholder="服务联系人的联系方式" type="text" maxlength="20"
-                                       onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                                       onkeyup="this.value=this.value.replace(/[^-0-9]/g,'')" required>
                             </div>
                         </div>
                         <div class="authenticationPic">
@@ -376,8 +377,20 @@
 
     function checkData() {
         var moneyInfo = $("#moneyInfo").val().replace(" ", "");
+        var money = $("#money").val().replace(" ", "");
+        var dayNumber = $("#dayNumber").val().replace(" ", "");
+        var monthNumber = $("#monthNumber").val().replace(" ", "");
         if (parseInt(moneyInfo) < 20) {
             $.myToast("余额不足，不可发布订单");
+            return false;
+        }
+        if (parseInt(dayNumber) <= 0 && parseInt(monthNumber) <= 0) {
+            $.myToast("可租天数和月数不能同时为0");
+            return false;
+        }
+        if (parseInt(money) >= 300) {
+            $.myToast("押金不能超过300");
+            $("#money").focus();
             return false;
         }
         return true;

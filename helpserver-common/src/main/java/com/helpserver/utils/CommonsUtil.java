@@ -19,5 +19,5 @@ public class CommonsUtil {
     public static final String moneyInfoPutServer = "发布服务";
     public static final String moneyInfoGetServer = "承接服务";
     //发布资源服务保障金
-    public static final int orderMoney = 10;
+    public static final int sendOrderPutMoney = 20;
 }

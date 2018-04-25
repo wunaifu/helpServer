@@ -54,13 +54,13 @@ public class OrderServiceImpl implements OrderService {
                 Money money = moneyService.getMoney(order.getSenderid());
                 Money moneyInfoAdd = new Money();
                 moneyInfoAdd.setId(money.getId());
-                moneyInfoAdd.setAmount(money.getAmount() - CommonsUtil.orderMoney);
+                moneyInfoAdd.setAmount(money.getAmount() - CommonsUtil.sendOrderPutMoney);
                 if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
                     //3、添加收支历史
                     Moneyhistory moneyhistory = new Moneyhistory();
                     moneyhistory.setUserid(order.getSenderid());
                     moneyhistory.setInfo(CommonsUtil.moneyOrderMoney);
-                    moneyhistory.setAmount(CommonsUtil.orderMoney);
+                    moneyhistory.setAmount(CommonsUtil.sendOrderPutMoney);
                     moneyhistory.setTime(order.getSendtime());
                     moneyhistory.setState(0);
                     if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {

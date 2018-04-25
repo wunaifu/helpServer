@@ -133,4 +133,26 @@ $(document).ready(function() {
 
 	})
 
+
+	//获得文本框对象
+	var t1 = $("#text_box1");
+	//初始化数量为1,并失效减
+	$('#min1').attr('disabled', true);
+	//数量增加操作
+	$("#add1").click(function() {
+		t1.val(parseInt(t1.val()) + 1)
+		if (parseInt(t1.val()) != 1) {
+			$('#min1').attr('disabled', false);
+		}
+
+	})
+	//数量减少操作
+	$("#min1").click(function() {
+		t1.val(parseInt(t.val()) - 1);
+		if (parseInt(t1.val()) == 1) {
+			$('#min1').attr('disabled', true);
+		}
+
+	})
+
 })
