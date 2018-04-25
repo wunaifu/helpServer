@@ -235,7 +235,7 @@
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>
                                     </div>
-                                    <a href="/server/${item.order.id}/detail" target="_blank" class="readmore">马上抢单</a>
+                                    <a href="/server/${item.order.id}/detail" class="readmore">马上抢单</a>
                                 </ul>
                                 <p class="autor"><span>发布者：<a href="/server/${item.order.senderid}/userinfo">${item.senderName}</a> </span>
                                     <span>发布时间：${item.order.sendtime}</span>

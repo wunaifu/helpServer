@@ -105,7 +105,7 @@
         <div class="long-title"><span class="all-goods">全部分类</span></div>
         <div class="nav-cont">
             <ul>
-                <li class="index"><a href="home2.html">首页</a></li>
+                <li class="index"><a href="/index">首页</a></li>
                 <li class="qc"><a href="#">服务</a></li>
                 <li class="qc"><a href="#">趣事</a></li>
                 <li class="qc last"><a href="#">大包装</a></li>
@@ -121,7 +121,7 @@
             <div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
                 <ul class="am-slides">
                     <li class="banner1">
-                        <a href="introduction.html"><img src="/images/ad5.jpg"/></a>
+                        <a><img src="/images/ad5.jpg"/></a>
                     </li>
                     <li class="banner2">
                         <a><img src="/images/ad6.jpg"/></a>
@@ -342,7 +342,7 @@
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>
                                     </div>
-                                    <a href="/server/${item.order.id}/detail" target="_blank" class="readmore">马上抢单</a>
+                                    <a href="/server/${item.order.id}/detail" class="readmore">马上抢单</a>
                                 </ul>
                                 <p class="autor"><span>发布者：<a href="/server/${item.order.senderid}/userinfo">${item.senderName}</a> </span>
                                     <span>发布时间：${item.order.sendtime}</span>

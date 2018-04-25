@@ -40,4 +40,5 @@ http://www.springframework.org/schema/task
 	<dubbo:service interface="com.helpserver.service.OrderTypeService" ref="orderTypeServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.OrderService" ref="orderServiceImpl" timeout="300000"/>
 	<dubbo:service interface="com.helpserver.service.MoneyService" ref="moneyServiceImpl" timeout="300000"/>
+	<dubbo:service interface="com.helpserver.service.AcceptOrderService" ref="acceptOrderServiceImpl" timeout="300000"/>
 </beans>

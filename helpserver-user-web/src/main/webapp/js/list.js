@@ -148,7 +148,7 @@ $(document).ready(function() {
 	})
 	//数量减少操作
 	$("#min1").click(function() {
-		t1.val(parseInt(t.val()) - 1);
+		t1.val(parseInt(t1.val()) - 1);
 		if (parseInt(t1.val()) == 1) {
 			$('#min1').attr('disabled', true);
 		}

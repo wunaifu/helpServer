@@ -64,4 +64,5 @@
 	<dubbo:reference interface="com.helpserver.service.OrderTypeService" id="orderTypeService" />
 	<dubbo:reference interface="com.helpserver.service.OrderService" id="orderService" />
 	<dubbo:reference interface="com.helpserver.service.MoneyService" id="moneyService" />
+	<dubbo:reference interface="com.helpserver.service.AcceptOrderService" id="acceptOrderService" />
 </beans>

@@ -229,18 +229,18 @@
                                 <a href="javascript:;" title="关闭" class="close">×</a>
                             </div>
                             <div class="theme-popbod dform">
-                                <form class="theme-signin" name="loginform" action="" method="post">
+                                <form id="form" class="theme-signin" name="loginform" action="/accept/doadd" method="post" onsubmit="return checkAddAccept()">
 
                                     <div class="theme-signin-left">
 
                                         <div class="theme-options">
                                             <div class="cart-title">租用类型</div>
-                                            <ul>
+                                            <ul >
                                                 <c:if test="${orderUserDto.order.daynumber>0}">
-                                                    <li class="sku-line selected">日租￥${orderUserDto.order.daymoney}.00<i></i></li>
+                                                    <div><input id="myRadio1" type="radio" value="1" name="type" checked>日租￥${orderUserDto.order.daymoney}.00<i></i></div>
                                                 </c:if>
                                                 <c:if test="${orderUserDto.order.monthnumber>0}">
-                                                    <li class="sku-line">月租￥${orderUserDto.order.monthmoney}.00<i></i></li>
+                                                    <div><input id="myRadio2" type="radio" value="2" name="type">月租￥${orderUserDto.order.monthmoney}.00<i></i></div>
                                                 </c:if>
                                             </ul>
                                         </div>
@@ -248,9 +248,9 @@
                                             <div class="cart-title number">数量</div>
                     <dd>
                         <input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
-                        <input id="text_box" name="" type="text" value="1" style="width:30px;" />
+                        <input id="text_box" name="amount" type="text" value="1" style="width:30px;" />
                         <input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
-                        <span id="Stock" class="tb-hidden">库存<span class="stock">${orderUserDto.order.amount}</span>件</span>
+                        <span id="Stock" class="tb-hidden">库存<span class="stock">${orderUserDto.order.outamount}/${orderUserDto.order.amount}</span>件</span>
                     </dd>
 
             </div>
@@ -258,16 +258,31 @@
                 <div class="cart-title number">周期</div>
                 <dd>
                     <input id="min1" class="am-btn am-btn-default" name="" type="button" value="-" />
-                    <input id="text_box1" name="" type="text" value="1" style="width:30px;" />
+                    <input id="text_box1" name="useTime" type="text" value="1" style="width:30px;" />
                     <input id="add1" class="am-btn am-btn-default" name="" type="button" value="+" />
-                    <span id="Stock" class="tb-hidden">租用<span class="stock">天/月</span></span>
+                    <span id="Stock" class="tb-hidden">可租用<span class="stock">
+                        <c:choose>
+                            <c:when test="${orderUserDto.order.daynumber>0 && orderUserDto.order.monthnumber>0}">
+                                ${orderUserDto.order.daynumber}天或者${orderUserDto.order.monthmoney}月
+                            </c:when>
+                            <c:when test="${orderUserDto.order.daynumber>0 && orderUserDto.order.monthnumber<1}">
+                                ${orderUserDto.order.daynumber}天
+                            </c:when>
+                            <c:otherwise>
+                                ${orderUserDto.order.monthmoney}月
+                            </c:otherwise>
+                        </c:choose>
+                    </span></span>
                 </dd>
 
             </div>
             <div class="clear"></div>
-
+            <input value="${orderUserDto.order.id}" name="orderId" style="visibility: hidden">
+            <input id="outamount"  value="${orderUserDto.order.amount - orderUserDto.order.outamount}" style="visibility: hidden">
+            <input id="daynumber1" value="${orderUserDto.order.daynumber}" style="visibility: hidden">
+            <input id="monthnumber1" value="${orderUserDto.order.monthnumber}" style="visibility: hidden">
             <div class="btn-op">
-                <div class="btn am-btn am-btn-warning">确认</div>
+                <input class="btn am-btn am-btn-warning" value="确定抢单" type="submit">
                 <div class="btn close am-btn am-btn-warning">取消</div>
             </div>
         </div>
@@ -278,7 +293,7 @@
             <div class="text-info">
                 <span class="J_Price price-now"><c:if test="${orderUserDto.order.daynumber>0}">¥${orderUserDto.order.daymoney}.00/天&nbsp;</c:if>
                      <c:if test="${orderUserDto.order.monthnumber>0}">¥${orderUserDto.order.monthmoney}.00/月</c:if></span>
-                <span id="Stock" class="tb-hidden">库存<span class="stock">${orderUserDto.order.amount}</span>件</span>
+                <span id="Stock" class="tb-hidden">库存<span class="stock">${orderUserDto.order.outamount}/${orderUserDto.order.amount}</span>件</span>
             </div>
         </div>
 
@@ -294,7 +309,7 @@
     <div class="hot">
         <dt class="tb-metatit">资源地址</dt>
         <div class="gold-list">
-            <p style="font-size: smaller;">${orderUserDto.order.address}</p>
+            <a href="/server/detail/${orderUserDto.order.id}/map"><p style="font-size: smaller;">${orderUserDto.order.address}</p></a>
         </div>
     </div>
     <div class="clear"></div>
@@ -309,12 +324,12 @@
     </div>
     <li>
         <div class="clearfix tb-btn tb-btn-buy theme-login">
-            <a id="LikBuy" title="点此按钮到下一步确认购买信息" href="#">立即购买</a>
+            <%--<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="#">立即购买</a>--%>
         </div>
     </li>
     <li>
         <div class="clearfix tb-btn tb-btn-basket theme-login">
-            <a id="LikBasket" title="加入购物车" href="#"><i></i>加入购物车</a>
+            <a id="LikBasket" title="立即抢单" href="#" onclick="$('#form').submit()"><i></i>立即抢单</a>
         </div>
     </li>
 </div>
@@ -345,11 +360,11 @@
                 </li>
                 <li>
                     <a href="#">
-                        <span class="index-needs-dt-txt">全部评价</span></a>
+                        <span class="index-needs-dt-txt">抢单列表</span></a>
                 </li>
                 <li>
                     <a href="#">
-                        <span class="index-needs-dt-txt">猜你喜欢</span></a>
+                        <span class="index-needs-dt-txt">全部评价</span></a>
                 </li>
             </ul>
 
@@ -359,32 +374,59 @@
                     <div class="J_Brand">
 
                         <div class="attr-list-hd tm-clear">
-                            <h4>产品参数：</h4></div>
+                            <h4>相关信息：</h4></div>
                         <div class="clear"></div>
                         <ul id="J_AttrUL">
-                            <li title="">产品类型:&nbsp;烘炒类</li>
-                            <li title="">原料产地:&nbsp;巴基斯坦</li>
-                            <li title="">产地:&nbsp;湖北省武汉市</li>
-                            <li title="">配料表:&nbsp;进口松子、食用盐</li>
-                            <li title="">产品规格:&nbsp;210g</li>
-                            <li title="">保质期:&nbsp;180天</li>
-                            <li title="">产品标准号:&nbsp;GB/T 22165</li>
-                            <li title="">生产许可证编号：&nbsp;QS4201 1801 0226</li>
-                            <li title="">储存方法：&nbsp;请放置于常温、阴凉、通风、干燥处保存 </li>
-                            <li title="">食用方法：&nbsp;开袋去壳即食</li>
+                            <li title="">资源类型:</b>&nbsp;${orderUserDto.orderTypeName}</li>
+                            <li title="">联系人:</b>&nbsp;${orderUserDto.order.callname}</li>
+                            <li title="">联系方式：</b>&nbsp;${orderUserDto.order.callphone}</li>
+                            <li title="">发布时间：</b>&nbsp;${orderUserDto.order.sendtime}</li>
+                            <li title="">详情备注：</b>&nbsp;${orderUserDto.order.orderdetail}</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
 
                     <div class="details">
                         <div class="attr-list-hd after-market-hd">
-                            <h4>商品细节</h4>
+                            <h4>资源详情介绍</h4>
                         </div>
                         <div class="twlistNews">
                             <img src="/resources/img/${orderUserDto.order.infopicture1}" />
                             <img src="/resources/img/${orderUserDto.order.infopicture2}" />
                         </div>
                     </div>
+                    <div class="clear"></div>
+
+                </div>
+
+                <div class="am-tab-panel am-fade">
+                    <div class="like">
+                        <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+                            <li>
+                                <div class="i-pic limit">
+                                    <img src="/images/imgsearch1.jpg" />
+                                    <p>【良品铺子_开口松子】零食坚果特产炒货
+                                        <span>东北红松子奶油味</span></p>
+                                    <p class="price fl">
+                                        <b>¥</b>
+                                        <strong>298.00</strong>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+
+                    <!--分页 -->
+                    <ul class="am-pagination am-pagination-right">
+                        <li class="am-disabled"><a href="#">&laquo;</a></li>
+                        <li class="am-active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
                     <div class="clear"></div>
 
                 </div>
@@ -535,37 +577,6 @@
 
                 </div>
 
-                <div class="am-tab-panel am-fade">
-                    <div class="like">
-                        <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
-                            <li>
-                                <div class="i-pic limit">
-                                    <img src="/images/imgsearch1.jpg" />
-                                    <p>【良品铺子_开口松子】零食坚果特产炒货
-                                        <span>东北红松子奶油味</span></p>
-                                    <p class="price fl">
-                                        <b>¥</b>
-                                        <strong>298.00</strong>
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="clear"></div>
-
-                    <!--分页 -->
-                    <ul class="am-pagination am-pagination-right">
-                        <li class="am-disabled"><a href="#">&laquo;</a></li>
-                        <li class="am-active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                    <div class="clear"></div>
-
-                </div>
 
             </div>
 
@@ -741,5 +752,44 @@
 </div>--%>
 
 </body>
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
+<script>
+    function checkAddAccept() {
 
+        var outamount = $("#outamount").val();
+        var daynumber1 = $("#daynumber1").val();
+        var monthnumber1 = $("#monthnumber1").val();
+        var amount = $("#text_box").val();
+        var useTime = $("#text_box1").val();
+
+        if(parseInt(amount)<1){
+            $.myToast("租借数量要大于0");
+            return false;
+        }
+        if(parseInt(useTime)<1){
+            $.myToast("租借天数要大于0");
+            return false;
+        }
+
+        if(parseInt(outamount)<parseInt(amount)){
+            $.myToast("租借数量大于可供出借数量");
+            return false;
+        }
+        if ($("#myRadio1").attr("checked")) {
+            if(parseInt(daynumber1)<parseInt(useTime)){
+                $.myToast("租借天数大于可供出借天数");
+                return false;
+            }
+        }
+        if ($("#myRadio2").attr("checked")) {
+            if(parseInt(monthnumber1)<parseInt(useTime)){
+                $.myToast("租借月数大于可供出借月数");
+                return false;
+            }
+        }
+
+    }
+
+</script>
 </html>
