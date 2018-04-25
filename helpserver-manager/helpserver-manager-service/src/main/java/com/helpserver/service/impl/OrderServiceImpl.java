@@ -95,11 +95,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.selectByPrimaryKey(id);
     }
 
-    @Override
-    public List<Orderinfo> getOrderList() {
-        return null;
-    }
-
     /**
      * 两种状态的订单列表
      * @param state1

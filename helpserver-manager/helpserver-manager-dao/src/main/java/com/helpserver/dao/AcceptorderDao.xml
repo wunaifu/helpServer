@@ -5,10 +5,18 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="accepterId" property="accepterid" jdbcType="INTEGER" />
     <result column="orderId" property="orderid" jdbcType="INTEGER" />
-    <result column="acceptTime" property="accepttime" jdbcType="VARCHAR" />
+    <result column="moneyType" property="moneytype" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="getType" property="gettype" jdbcType="INTEGER" />
+    <result column="acceptState" property="acceptstate" jdbcType="INTEGER" />
+    <result column="dateState" property="datestate" jdbcType="INTEGER" />
     <result column="backReason" property="backreason" jdbcType="VARCHAR" />
     <result column="backTime" property="backtime" jdbcType="VARCHAR" />
-    <result column="acceptState" property="acceptstate" jdbcType="INTEGER" />
+    <result column="acceptTime" property="accepttime" jdbcType="VARCHAR" />
+    <result column="sureTime" property="suretime" jdbcType="VARCHAR" />
+    <result column="finishTime" property="finishtime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +78,8 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, accepterId, orderId, acceptTime, backReason, backTime, acceptState
+      id, accepterId, orderId, moneyType, money, number, getType, acceptState, dateState, 
+      backReason, backTime, acceptTime, sureTime, finishTime, updateTime
     </if>
     <if test="fields != null" >
       ${fields}
@@ -95,7 +104,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,accepterId,orderId,acceptTime,backReason,backTime,acceptState
+    id,accepterId,orderId,moneyType,money,number,getType,acceptState,dateState,backReason,backTime,acceptTime,sureTime,finishTime,updateTime
     from acceptorder
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -111,11 +120,17 @@
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Acceptorder" >
     insert into acceptorder (id, accepterId, orderId, 
-      acceptTime, backReason, backTime, 
-      acceptState)
+      moneyType, money, number, 
+      getType, acceptState, dateState, 
+      backReason, backTime, acceptTime, 
+      sureTime, finishTime, updateTime
+      )
     values (#{id,jdbcType=INTEGER}, #{accepterid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
-      #{accepttime,jdbcType=VARCHAR}, #{backreason,jdbcType=VARCHAR}, #{backtime,jdbcType=VARCHAR}, 
-      #{acceptstate,jdbcType=INTEGER})
+      #{moneytype,jdbcType=INTEGER}, #{money,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
+      #{gettype,jdbcType=INTEGER}, #{acceptstate,jdbcType=INTEGER}, #{datestate,jdbcType=INTEGER}, 
+      #{backreason,jdbcType=VARCHAR}, #{backtime,jdbcType=VARCHAR}, #{accepttime,jdbcType=VARCHAR}, 
+      #{suretime,jdbcType=VARCHAR}, #{finishtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Acceptorder" >
     insert into acceptorder
@@ -129,8 +144,23 @@
       <if test="orderid != null" >
         orderId,
       </if>
-      <if test="accepttime != null" >
-        acceptTime,
+      <if test="moneytype != null" >
+        moneyType,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="gettype != null" >
+        getType,
+      </if>
+      <if test="acceptstate != null" >
+        acceptState,
+      </if>
+      <if test="datestate != null" >
+        dateState,
       </if>
       <if test="backreason != null" >
         backReason,
@@ -138,8 +168,17 @@
       <if test="backtime != null" >
         backTime,
       </if>
-      <if test="acceptstate != null" >
-        acceptState,
+      <if test="accepttime != null" >
+        acceptTime,
+      </if>
+      <if test="suretime != null" >
+        sureTime,
+      </if>
+      <if test="finishtime != null" >
+        finishTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -152,8 +191,23 @@
       <if test="orderid != null" >
         #{orderid,jdbcType=INTEGER},
       </if>
-      <if test="accepttime != null" >
-        #{accepttime,jdbcType=VARCHAR},
+      <if test="moneytype != null" >
+        #{moneytype,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="gettype != null" >
+        #{gettype,jdbcType=INTEGER},
+      </if>
+      <if test="acceptstate != null" >
+        #{acceptstate,jdbcType=INTEGER},
+      </if>
+      <if test="datestate != null" >
+        #{datestate,jdbcType=INTEGER},
       </if>
       <if test="backreason != null" >
         #{backreason,jdbcType=VARCHAR},
@@ -161,8 +215,17 @@
       <if test="backtime != null" >
         #{backtime,jdbcType=VARCHAR},
       </if>
-      <if test="acceptstate != null" >
-        #{acceptstate,jdbcType=INTEGER},
+      <if test="accepttime != null" >
+        #{accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="suretime != null" >
+        #{suretime,jdbcType=VARCHAR},
+      </if>
+      <if test="finishtime != null" >
+        #{finishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -184,8 +247,23 @@
       <if test="record.orderid != null" >
         orderId = #{record.orderid,jdbcType=INTEGER},
       </if>
-      <if test="record.accepttime != null" >
-        acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      <if test="record.moneytype != null" >
+        moneyType = #{record.moneytype,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.gettype != null" >
+        getType = #{record.gettype,jdbcType=INTEGER},
+      </if>
+      <if test="record.acceptstate != null" >
+        acceptState = #{record.acceptstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.datestate != null" >
+        dateState = #{record.datestate,jdbcType=INTEGER},
       </if>
       <if test="record.backreason != null" >
         backReason = #{record.backreason,jdbcType=VARCHAR},
@@ -193,8 +271,17 @@
       <if test="record.backtime != null" >
         backTime = #{record.backtime,jdbcType=VARCHAR},
       </if>
-      <if test="record.acceptstate != null" >
-        acceptState = #{record.acceptstate,jdbcType=INTEGER},
+      <if test="record.accepttime != null" >
+        acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suretime != null" >
+        sureTime = #{record.suretime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishtime != null" >
+        finishTime = #{record.finishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -206,10 +293,18 @@
     set id = #{record.id,jdbcType=INTEGER},
       accepterId = #{record.accepterid,jdbcType=INTEGER},
       orderId = #{record.orderid,jdbcType=INTEGER},
-      acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      moneyType = #{record.moneytype,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=INTEGER},
+      getType = #{record.gettype,jdbcType=INTEGER},
+      acceptState = #{record.acceptstate,jdbcType=INTEGER},
+      dateState = #{record.datestate,jdbcType=INTEGER},
       backReason = #{record.backreason,jdbcType=VARCHAR},
       backTime = #{record.backtime,jdbcType=VARCHAR},
-      acceptState = #{record.acceptstate,jdbcType=INTEGER}
+      acceptTime = #{record.accepttime,jdbcType=VARCHAR},
+      sureTime = #{record.suretime,jdbcType=VARCHAR},
+      finishTime = #{record.finishtime,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -223,8 +318,23 @@
       <if test="orderid != null" >
         orderId = #{orderid,jdbcType=INTEGER},
       </if>
-      <if test="accepttime != null" >
-        acceptTime = #{accepttime,jdbcType=VARCHAR},
+      <if test="moneytype != null" >
+        moneyType = #{moneytype,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="gettype != null" >
+        getType = #{gettype,jdbcType=INTEGER},
+      </if>
+      <if test="acceptstate != null" >
+        acceptState = #{acceptstate,jdbcType=INTEGER},
+      </if>
+      <if test="datestate != null" >
+        dateState = #{datestate,jdbcType=INTEGER},
       </if>
       <if test="backreason != null" >
         backReason = #{backreason,jdbcType=VARCHAR},
@@ -232,8 +342,17 @@
       <if test="backtime != null" >
         backTime = #{backtime,jdbcType=VARCHAR},
       </if>
-      <if test="acceptstate != null" >
-        acceptState = #{acceptstate,jdbcType=INTEGER},
+      <if test="accepttime != null" >
+        acceptTime = #{accepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="suretime != null" >
+        sureTime = #{suretime,jdbcType=VARCHAR},
+      </if>
+      <if test="finishtime != null" >
+        finishTime = #{finishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -242,10 +361,18 @@
     update acceptorder
     set accepterId = #{accepterid,jdbcType=INTEGER},
       orderId = #{orderid,jdbcType=INTEGER},
-      acceptTime = #{accepttime,jdbcType=VARCHAR},
+      moneyType = #{moneytype,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      getType = #{gettype,jdbcType=INTEGER},
+      acceptState = #{acceptstate,jdbcType=INTEGER},
+      dateState = #{datestate,jdbcType=INTEGER},
       backReason = #{backreason,jdbcType=VARCHAR},
       backTime = #{backtime,jdbcType=VARCHAR},
-      acceptState = #{acceptstate,jdbcType=INTEGER}
+      acceptTime = #{accepttime,jdbcType=VARCHAR},
+      sureTime = #{suretime,jdbcType=VARCHAR},
+      finishTime = #{finishtime,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

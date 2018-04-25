@@ -7,12 +7,18 @@
     <result column="typeId" property="typeid" jdbcType="INTEGER" />
     <result column="moneyAmount" property="moneyamount" jdbcType="INTEGER" />
     <result column="foodName" property="foodname" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="outAmount" property="outamount" jdbcType="INTEGER" />
+    <result column="dayMoney" property="daymoney" jdbcType="INTEGER" />
+    <result column="monthMoney" property="monthmoney" jdbcType="INTEGER" />
     <result column="startTime" property="starttime" jdbcType="VARCHAR" />
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="orderDetail" property="orderdetail" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="pointInfo" property="pointinfo" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
     <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
     <result column="repealTime" property="repealtime" jdbcType="VARCHAR" />
     <result column="repealReason" property="repealreason" jdbcType="VARCHAR" />
@@ -22,9 +28,10 @@
     <result column="seeAmount" property="seeamount" jdbcType="INTEGER" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
     <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
-    <result column="lng" property="lng" jdbcType="VARCHAR" />
-    <result column="lat" property="lat" jdbcType="VARCHAR" />
-    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="dayNumber" property="daynumber" jdbcType="INTEGER" />
+    <result column="monthNumber" property="monthnumber" jdbcType="INTEGER" />
+    <result column="infopicture1" property="infopicture1" jdbcType="VARCHAR" />
+    <result column="infopicture2" property="infopicture2" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,9 +93,10 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, senderId, typeId, moneyAmount, foodName, startTime, endTime, orderDetail, city, 
-      address, pointInfo, sendTime, repealTime, repealReason, orderState, callName, callPhone, 
-      seeAmount, picture, updateTime, lng, lat, amount
+      id, senderId, typeId, moneyAmount, foodName, amount, outAmount, dayMoney, monthMoney, 
+      startTime, endTime, orderDetail, city, address, pointInfo, lng, lat, sendTime, repealTime, 
+      repealReason, orderState, callName, callPhone, seeAmount, picture, updateTime, dayNumber, 
+      monthNumber, infopicture1, infopicture2
     </if>
     <if test="fields != null" >
       ${fields}
@@ -113,7 +121,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,senderId,typeId,moneyAmount,foodName,startTime,endTime,orderDetail,city,address,pointInfo,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture,updateTime,lng,lat,amount
+    id,senderId,typeId,moneyAmount,foodName,amount,outAmount,dayMoney,monthMoney,startTime,endTime,orderDetail,city,address,pointInfo,lng,lat,sendTime,repealTime,repealReason,orderState,callName,callPhone,seeAmount,picture,updateTime,dayNumber,monthNumber,infopicture1,infopicture2
     from orderinfo
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -129,21 +137,27 @@
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Orderinfo" >
     insert into orderinfo (id, senderId, typeId, 
-      moneyAmount, foodName, startTime, 
-      endTime, orderDetail, city, 
-      address, pointInfo, sendTime, 
+      moneyAmount, foodName, amount, 
+      outAmount, dayMoney, monthMoney, 
+      startTime, endTime, orderDetail, 
+      city, address, pointInfo, 
+      lng, lat, sendTime, 
       repealTime, repealReason, orderState, 
       callName, callPhone, seeAmount, 
-      picture, updateTime, lng, 
-      lat, amount)
+      picture, updateTime, dayNumber, 
+      monthNumber, infopicture1, infopicture2
+      )
     values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
-      #{moneyamount,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
-      #{endtime,jdbcType=VARCHAR}, #{orderdetail,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{pointinfo,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, 
+      #{moneyamount,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{outamount,jdbcType=INTEGER}, #{daymoney,jdbcType=INTEGER}, #{monthmoney,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{orderdetail,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{pointinfo,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, 
       #{repealtime,jdbcType=VARCHAR}, #{repealreason,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, 
       #{callname,jdbcType=VARCHAR}, #{callphone,jdbcType=VARCHAR}, #{seeamount,jdbcType=INTEGER}, 
-      #{picture,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, 
-      #{lat,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER})
+      #{picture,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{daynumber,jdbcType=INTEGER}, 
+      #{monthnumber,jdbcType=INTEGER}, #{infopicture1,jdbcType=VARCHAR}, #{infopicture2,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.helpserver.pojo.Orderinfo" >
     insert into orderinfo
@@ -163,6 +177,18 @@
       <if test="foodname != null" >
         foodName,
       </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="outamount != null" >
+        outAmount,
+      </if>
+      <if test="daymoney != null" >
+        dayMoney,
+      </if>
+      <if test="monthmoney != null" >
+        monthMoney,
+      </if>
       <if test="starttime != null" >
         startTime,
       </if>
@@ -180,6 +206,12 @@
       </if>
       <if test="pointinfo != null" >
         pointInfo,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
       </if>
       <if test="sendtime != null" >
         sendTime,
@@ -208,14 +240,17 @@
       <if test="updatetime != null" >
         updateTime,
       </if>
-      <if test="lng != null" >
-        lng,
+      <if test="daynumber != null" >
+        dayNumber,
       </if>
-      <if test="lat != null" >
-        lat,
+      <if test="monthnumber != null" >
+        monthNumber,
       </if>
-      <if test="amount != null" >
-        amount,
+      <if test="infopicture1 != null" >
+        infopicture1,
+      </if>
+      <if test="infopicture2 != null" >
+        infopicture2,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -234,6 +269,18 @@
       <if test="foodname != null" >
         #{foodname,jdbcType=VARCHAR},
       </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="outamount != null" >
+        #{outamount,jdbcType=INTEGER},
+      </if>
+      <if test="daymoney != null" >
+        #{daymoney,jdbcType=INTEGER},
+      </if>
+      <if test="monthmoney != null" >
+        #{monthmoney,jdbcType=INTEGER},
+      </if>
       <if test="starttime != null" >
         #{starttime,jdbcType=VARCHAR},
       </if>
@@ -251,6 +298,12 @@
       </if>
       <if test="pointinfo != null" >
         #{pointinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
       </if>
       <if test="sendtime != null" >
         #{sendtime,jdbcType=VARCHAR},
@@ -279,14 +332,17 @@
       <if test="updatetime != null" >
         #{updatetime,jdbcType=VARCHAR},
       </if>
-      <if test="lng != null" >
-        #{lng,jdbcType=VARCHAR},
+      <if test="daynumber != null" >
+        #{daynumber,jdbcType=INTEGER},
       </if>
-      <if test="lat != null" >
-        #{lat,jdbcType=VARCHAR},
+      <if test="monthnumber != null" >
+        #{monthnumber,jdbcType=INTEGER},
       </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=INTEGER},
+      <if test="infopicture1 != null" >
+        #{infopicture1,jdbcType=VARCHAR},
+      </if>
+      <if test="infopicture2 != null" >
+        #{infopicture2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -314,6 +370,18 @@
       <if test="record.foodname != null" >
         foodName = #{record.foodname,jdbcType=VARCHAR},
       </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.outamount != null" >
+        outAmount = #{record.outamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.daymoney != null" >
+        dayMoney = #{record.daymoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthmoney != null" >
+        monthMoney = #{record.monthmoney,jdbcType=INTEGER},
+      </if>
       <if test="record.starttime != null" >
         startTime = #{record.starttime,jdbcType=VARCHAR},
       </if>
@@ -331,6 +399,12 @@
       </if>
       <if test="record.pointinfo != null" >
         pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lng != null" >
+        lng = #{record.lng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
       </if>
       <if test="record.sendtime != null" >
         sendTime = #{record.sendtime,jdbcType=VARCHAR},
@@ -359,14 +433,17 @@
       <if test="record.updatetime != null" >
         updateTime = #{record.updatetime,jdbcType=VARCHAR},
       </if>
-      <if test="record.lng != null" >
-        lng = #{record.lng,jdbcType=VARCHAR},
+      <if test="record.daynumber != null" >
+        dayNumber = #{record.daynumber,jdbcType=INTEGER},
       </if>
-      <if test="record.lat != null" >
-        lat = #{record.lat,jdbcType=VARCHAR},
+      <if test="record.monthnumber != null" >
+        monthNumber = #{record.monthnumber,jdbcType=INTEGER},
       </if>
-      <if test="record.amount != null" >
-        amount = #{record.amount,jdbcType=INTEGER},
+      <if test="record.infopicture1 != null" >
+        infopicture1 = #{record.infopicture1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infopicture2 != null" >
+        infopicture2 = #{record.infopicture2,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -380,12 +457,18 @@
       typeId = #{record.typeid,jdbcType=INTEGER},
       moneyAmount = #{record.moneyamount,jdbcType=INTEGER},
       foodName = #{record.foodname,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=INTEGER},
+      outAmount = #{record.outamount,jdbcType=INTEGER},
+      dayMoney = #{record.daymoney,jdbcType=INTEGER},
+      monthMoney = #{record.monthmoney,jdbcType=INTEGER},
       startTime = #{record.starttime,jdbcType=VARCHAR},
       endTime = #{record.endtime,jdbcType=VARCHAR},
       orderDetail = #{record.orderdetail,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
       pointInfo = #{record.pointinfo,jdbcType=VARCHAR},
+      lng = #{record.lng,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
       sendTime = #{record.sendtime,jdbcType=VARCHAR},
       repealTime = #{record.repealtime,jdbcType=VARCHAR},
       repealReason = #{record.repealreason,jdbcType=VARCHAR},
@@ -395,9 +478,10 @@
       seeAmount = #{record.seeamount,jdbcType=INTEGER},
       picture = #{record.picture,jdbcType=VARCHAR},
       updateTime = #{record.updatetime,jdbcType=VARCHAR},
-      lng = #{record.lng,jdbcType=VARCHAR},
-      lat = #{record.lat,jdbcType=VARCHAR},
-      amount = #{record.amount,jdbcType=INTEGER}
+      dayNumber = #{record.daynumber,jdbcType=INTEGER},
+      monthNumber = #{record.monthnumber,jdbcType=INTEGER},
+      infopicture1 = #{record.infopicture1,jdbcType=VARCHAR},
+      infopicture2 = #{record.infopicture2,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -417,6 +501,18 @@
       <if test="foodname != null" >
         foodName = #{foodname,jdbcType=VARCHAR},
       </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="outamount != null" >
+        outAmount = #{outamount,jdbcType=INTEGER},
+      </if>
+      <if test="daymoney != null" >
+        dayMoney = #{daymoney,jdbcType=INTEGER},
+      </if>
+      <if test="monthmoney != null" >
+        monthMoney = #{monthmoney,jdbcType=INTEGER},
+      </if>
       <if test="starttime != null" >
         startTime = #{starttime,jdbcType=VARCHAR},
       </if>
@@ -434,6 +530,12 @@
       </if>
       <if test="pointinfo != null" >
         pointInfo = #{pointinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
       </if>
       <if test="sendtime != null" >
         sendTime = #{sendtime,jdbcType=VARCHAR},
@@ -462,14 +564,17 @@
       <if test="updatetime != null" >
         updateTime = #{updatetime,jdbcType=VARCHAR},
       </if>
-      <if test="lng != null" >
-        lng = #{lng,jdbcType=VARCHAR},
+      <if test="daynumber != null" >
+        dayNumber = #{daynumber,jdbcType=INTEGER},
       </if>
-      <if test="lat != null" >
-        lat = #{lat,jdbcType=VARCHAR},
+      <if test="monthnumber != null" >
+        monthNumber = #{monthnumber,jdbcType=INTEGER},
       </if>
-      <if test="amount != null" >
-        amount = #{amount,jdbcType=INTEGER},
+      <if test="infopicture1 != null" >
+        infopicture1 = #{infopicture1,jdbcType=VARCHAR},
+      </if>
+      <if test="infopicture2 != null" >
+        infopicture2 = #{infopicture2,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -480,12 +585,18 @@
       typeId = #{typeid,jdbcType=INTEGER},
       moneyAmount = #{moneyamount,jdbcType=INTEGER},
       foodName = #{foodname,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      outAmount = #{outamount,jdbcType=INTEGER},
+      dayMoney = #{daymoney,jdbcType=INTEGER},
+      monthMoney = #{monthmoney,jdbcType=INTEGER},
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
       orderDetail = #{orderdetail,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       pointInfo = #{pointinfo,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
       sendTime = #{sendtime,jdbcType=VARCHAR},
       repealTime = #{repealtime,jdbcType=VARCHAR},
       repealReason = #{repealreason,jdbcType=VARCHAR},
@@ -495,9 +606,10 @@
       seeAmount = #{seeamount,jdbcType=INTEGER},
       picture = #{picture,jdbcType=VARCHAR},
       updateTime = #{updatetime,jdbcType=VARCHAR},
-      lng = #{lng,jdbcType=VARCHAR},
-      lat = #{lat,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=INTEGER}
+      dayNumber = #{daynumber,jdbcType=INTEGER},
+      monthNumber = #{monthnumber,jdbcType=INTEGER},
+      infopicture1 = #{infopicture1,jdbcType=VARCHAR},
+      infopicture2 = #{infopicture2,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

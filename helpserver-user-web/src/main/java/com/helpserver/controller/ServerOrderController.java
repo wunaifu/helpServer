@@ -181,11 +181,6 @@ public class ServerOrderController {
         return "server_detailmap";
     }
 
-    @RequestMapping("/info")
-    public String serverInfo(HttpServletRequest request, Model model) {
-        return "server_info";
-    }
-
     /**
      * 资源服务搜索
      * @param request

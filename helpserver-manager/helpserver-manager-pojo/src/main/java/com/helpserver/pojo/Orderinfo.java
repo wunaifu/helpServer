@@ -14,12 +14,12 @@ public class Orderinfo implements Serializable {
     private Integer senderid;
 
     /**
-     * 发布类型id（零活、跑腿）
+     * 发布类型id（汽车、房子、电器等）
      */
     private Integer typeid;
 
     /**
-     * 服务费用
+     * 服务费用、押金
      */
     private Integer moneyamount;
 
@@ -27,6 +27,26 @@ public class Orderinfo implements Serializable {
      * 资源名字
      */
     private String foodname;
+
+    /**
+     * 库存数量
+     */
+    private Integer amount;
+
+    /**
+     * 已出借数量
+     */
+    private Integer outamount;
+
+    /**
+     * 日租金
+     */
+    private Integer daymoney;
+
+    /**
+     * 月租金
+     */
+    private Integer monthmoney;
 
     /**
      * 可使用开始时间
@@ -49,7 +69,7 @@ public class Orderinfo implements Serializable {
     private String city;
 
     /**
-     * 地址
+     * 详细地址
      */
     private String address;
 
@@ -57,6 +77,16 @@ public class Orderinfo implements Serializable {
      * 详细坐标
      */
     private String pointinfo;
+
+    /**
+     * 经度
+     */
+    private String lng;
+
+    /**
+     * 纬度
+     */
+    private String lat;
 
     /**
      * 发布时间
@@ -104,19 +134,24 @@ public class Orderinfo implements Serializable {
     private String updatetime;
 
     /**
-     * 经度
+     * 可租用天数
      */
-    private String lng;
+    private Integer daynumber;
 
     /**
-     * 纬度
+     * 可租用月数
      */
-    private String lat;
+    private Integer monthnumber;
 
     /**
-     * 数量
+     * 详情图片1
      */
-    private Integer amount;
+    private String infopicture1;
+
+    /**
+     * 详情图片2
+     */
+    private String infopicture2;
 
     private static final long serialVersionUID = 1L;
 
@@ -158,6 +193,38 @@ public class Orderinfo implements Serializable {
 
     public void setFoodname(String foodname) {
         this.foodname = foodname == null ? null : foodname.trim();
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Integer getOutamount() {
+        return outamount;
+    }
+
+    public void setOutamount(Integer outamount) {
+        this.outamount = outamount;
+    }
+
+    public Integer getDaymoney() {
+        return daymoney;
+    }
+
+    public void setDaymoney(Integer daymoney) {
+        this.daymoney = daymoney;
+    }
+
+    public Integer getMonthmoney() {
+        return monthmoney;
+    }
+
+    public void setMonthmoney(Integer monthmoney) {
+        this.monthmoney = monthmoney;
     }
 
     public String getStarttime() {
@@ -206,6 +273,22 @@ public class Orderinfo implements Serializable {
 
     public void setPointinfo(String pointinfo) {
         this.pointinfo = pointinfo == null ? null : pointinfo.trim();
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
     }
 
     public String getSendtime() {
@@ -280,28 +363,36 @@ public class Orderinfo implements Serializable {
         this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 
-    public String getLng() {
-        return lng;
+    public Integer getDaynumber() {
+        return daynumber;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng == null ? null : lng.trim();
+    public void setDaynumber(Integer daynumber) {
+        this.daynumber = daynumber;
     }
 
-    public String getLat() {
-        return lat;
+    public Integer getMonthnumber() {
+        return monthnumber;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat == null ? null : lat.trim();
+    public void setMonthnumber(Integer monthnumber) {
+        this.monthnumber = monthnumber;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public String getInfopicture1() {
+        return infopicture1;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setInfopicture1(String infopicture1) {
+        this.infopicture1 = infopicture1 == null ? null : infopicture1.trim();
+    }
+
+    public String getInfopicture2() {
+        return infopicture2;
+    }
+
+    public void setInfopicture2(String infopicture2) {
+        this.infopicture2 = infopicture2 == null ? null : infopicture2.trim();
     }
 
     @Override
@@ -315,12 +406,18 @@ public class Orderinfo implements Serializable {
         sb.append(", typeid=").append(typeid);
         sb.append(", moneyamount=").append(moneyamount);
         sb.append(", foodname=").append(foodname);
+        sb.append(", amount=").append(amount);
+        sb.append(", outamount=").append(outamount);
+        sb.append(", daymoney=").append(daymoney);
+        sb.append(", monthmoney=").append(monthmoney);
         sb.append(", starttime=").append(starttime);
         sb.append(", endtime=").append(endtime);
         sb.append(", orderdetail=").append(orderdetail);
         sb.append(", city=").append(city);
         sb.append(", address=").append(address);
         sb.append(", pointinfo=").append(pointinfo);
+        sb.append(", lng=").append(lng);
+        sb.append(", lat=").append(lat);
         sb.append(", sendtime=").append(sendtime);
         sb.append(", repealtime=").append(repealtime);
         sb.append(", repealreason=").append(repealreason);
@@ -330,9 +427,10 @@ public class Orderinfo implements Serializable {
         sb.append(", seeamount=").append(seeamount);
         sb.append(", picture=").append(picture);
         sb.append(", updatetime=").append(updatetime);
-        sb.append(", lng=").append(lng);
-        sb.append(", lat=").append(lat);
-        sb.append(", amount=").append(amount);
+        sb.append(", daynumber=").append(daynumber);
+        sb.append(", monthnumber=").append(monthnumber);
+        sb.append(", infopicture1=").append(infopicture1);
+        sb.append(", infopicture2=").append(infopicture2);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

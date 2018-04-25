@@ -43,7 +43,7 @@
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="#" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%></a>
+                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%></a>
                             <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
                             </a>
                             <a href="/logout" target="_top">退出登录</a>
@@ -127,7 +127,7 @@
                 <div>
                     <p style="float:left;width: auto;color: #818482">
                         <input style="visibility: hidden" value="${moneyInfo}" id="moneyInfo">
-                        发布资源服务需要扣除20余额的保障金，您当前的余额为<b style="color: black">[${moneyInfo}￥]</b>,请确保余额充足，余额会在订单服务完成后平台会自动归还。
+                        发布资源服务需要扣除10余额的保证金，您当前的余额为<b style="color: black">[${moneyInfo}￥]</b>,请确保余额充足，余额会在服务完成后平台会自动归还。
                     </p>
                 </div>
                 <!--个人信息 -->
@@ -153,16 +153,39 @@
                                 </div>
                             </div>
                         </div>
-                        <%--<div class="am-form-group">--%>
-                            <%--<label for="checkMoney" class="am-form-label">押金数额</label>--%>
-                            <%--<div class="am-form-content">--%>
-                                <%--<input type="text" readonly="readonly" id="checkMoney" name="checkMoney" placeholder="该订单发布时需要扣除的押金数"--%>
-                                       <%--maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" value="20" required>--%>
-                                <%--<small>该订单发布时需要扣除发布者的保障金，在订单结束时会归还。</small>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
                         <div class="am-form-group">
-                            <label for="city" class="am-form-label">区域城市</label>
+                            <label for="name" class="am-form-label">资源名字</label>
+                            <div class="am-form-content">
+                                <input type="text" id="name" name="name" placeholder="长度不能超过20个汉字"
+                                maxlength="20" required>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group" style="height: auto;">
+                            <label for="detail" class="am-form-label">详情备注</label>
+                            <div class="am-form-content">
+                                <textarea type="text" id="detail" name="detail" placeholder="长度不能超过120个汉字"
+                                          maxlength="120" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="money" class="am-form-label">费用(￥)</label>
+                            <div class="am-form-content">
+                                <input type="text" id="money" name="money" placeholder="使用资源需要的服务费"
+                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="amount" class="am-form-label">资源数量</label>
+                            <div class="am-form-content">
+                                <input type="text" id="amount" name="amount" placeholder="资源数量"
+                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="city" class="am-form-label">所在城市</label>
                             <div class="am-form-content birth">
                                 <div class="birth-select2">
                                     <select data-am-selected id="city" name="city">
@@ -183,76 +206,37 @@
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="name" class="am-form-label">资源名字</label>
-                            <div class="am-form-content">
-                                <input type="text" id="name" name="name" placeholder="长度不能超过20个汉字"
-                                maxlength="20" required>
-                            </div>
-                        </div>
-                        <div class="am-form-group">
-                            <label for="amount" class="am-form-label">资源库存</label>
-                            <div class="am-form-content">
-                                <input type="text" id="amount" name="amount" placeholder="资源库存"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
-                            </div>
-                        </div>
-                        <div class="am-form-group">
                             <label for="address" class="am-form-label">资源位置</label>
                             <div class="am-form-content">
-                                <input type="text" id="address" name="address" placeholder="例：江门市蓬江区仓后街五邑大学"
+                                <input type="text" id="address" name="address" placeholder="资源的详细地址位置"
                                        maxlength="80" required>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label  class="am-form-label">资源定位</label>
+                            <label  class="am-form-label">精细定位</label>
                             <div class="am-form-content">
-                                <p style="align-content: center"><a href="/server/map"><i class="am-icon-map-marker"></i>去定位</a></p>
+                                <p style="align-content: center"><a href="/server/map">去定位</a></p>
                             </div>
                         </div>
+
                         <div class="am-form-group">
-                            <label for="money" class="am-form-label">押金￥</label>
+                            <label for="startTime" class="am-form-label">初始时间</label>
                             <div class="am-form-content">
-                                <input type="text" id="money" name="money" placeholder="接单者需要扣除的押金"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                                <input type="datetime-local" id="startTime" name="startTime" placeholder="资源可使用的初始时间"
+                                         required value="${nowTime}T00:00:01">
+                                <small>资源可使用时间范围的开始时间</small>
                             </div>
                         </div>
+
                         <div class="am-form-group">
-                            <label for="dayMoney" class="am-form-label">日租金￥</label>
+                            <label for="endTime" class="am-form-label">结束时间</label>
                             <div class="am-form-content">
-                                <input type="text" id="dayMoney" name="dayMoney" placeholder="每日租金"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                                <input type="datetime-local"  id="endTime" value="${nowTime}T23:59:59" name="endTime" placeholder="资源可使用的结束时间"
+                                        required>
+                                <small>资源可使用时间范围的结束时间，即归还的最终时间</small>
                             </div>
                         </div>
-                        <div class="am-form-group">
-                            <label for="dayNumber" class="am-form-label">可租天数</label>
-                            <div class="am-form-content">
-                                <input type="text" id="dayNumber" name="dayNumber" placeholder="若不可按天租用，可租天数为0即可" value="0"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
-                                <small>若不可按天租用，可租天数为0即可</small>
-                            </div>
-                        </div>
-                        <div class="am-form-group">
-                            <label for="monthMoney" class="am-form-label">月租金￥</label>
-                            <div class="am-form-content">
-                                <input type="text" id="monthMoney" name="monthMoney" placeholder="每月租金"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
-                            </div>
-                        </div>
-                        <div class="am-form-group">
-                            <label for="monthNumber" class="am-form-label">可租月数</label>
-                            <div class="am-form-content">
-                                <input type="text" id="monthNumber" name="monthNumber" placeholder="若不可按月租用，可租月数为0即可" value="0"
-                                       maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
-                                <small>若不可按月租用，可租月数为0即可</small>
-                            </div>
-                        </div>
-                        <div class="am-form-group" style="height: auto;">
-                            <label for="detail" class="am-form-label">详情备注</label>
-                            <div class="am-form-content">
-                                <textarea type="text" id="detail" name="detail" placeholder="长度不能超过120个汉字"
-                                          maxlength="120" rows="4" required></textarea>
-                            </div>
-                        </div>
+
                         <div class="am-form-group">
                             <label for="username" class="am-form-label">联系人</label>
                             <div class="am-form-content">
@@ -266,6 +250,11 @@
                                        onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
+                        <%--<input style="visibility: hidden" id="orderState" name="orderState" value="0">--%>
+
+                        <%--<div class="info-btn">--%>
+                            <%--<div class="am-btn am-btn-danger">保存修改</div>--%>
+                        <%--</div>--%>
                         <div class="authenticationPic">
                             <p class="title">上传资源图片</p>
                             <p class="tip">请按要求上传资源图片</p>
@@ -276,37 +265,9 @@
                                                name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
                                         <img src="/images/cardbg.jpg" id="show1">
                                         <div class="cardText"><i class="am-icon-plus"></i>
-                                            <p>资源图片</p>
+                                            <p>资源照片</p>
                                         </div>
-                                        <p class="titleText">图片</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="authenticationPic">
-                            <p class="title">上传资源详情介绍图片</p>
-                            <p class="tip">请按要求上传资源详情介绍图片</p>
-                            <ul class="cardlist">
-                                <li>
-                                    <div class="cardPic">
-                                        <input id="file2" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
-                                               name="file" onchange="c2()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                        <img src="/images/cardbg.jpg" id="show2">
-                                        <div class="cardText"><i class="am-icon-plus"></i>
-                                            <p>详情图片1</p>
-                                        </div>
-                                        <p class="titleText">图片1</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="cardPic">
-                                        <input id="file3" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
-                                               name="file" onchange="c3()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                        <img src="/images/cardbg.jpg" id="show3">
-                                        <div class="cardText"><i class="am-icon-plus"></i>
-                                            <p>详情图片2</p>
-                                        </div>
-                                        <p class="titleText">图片2</p>
+                                        <p class="titleText">照片</p>
                                     </div>
                                 </li>
                             </ul>
@@ -344,7 +305,7 @@
 
     </aside>
 </div>
-<%--<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>--%>
+<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
@@ -357,27 +318,11 @@
             document.getElementById('show1').src = this.result;
         };
     }
-    function c2() {
-        var r = new FileReader();
-        f = document.getElementById('file2').files[0];
-        r.readAsDataURL(f);
-        r.onload = function (e) {
-            document.getElementById('show2').src = this.result;
-        };
-    }
-    function c3() {
-        var r = new FileReader();
-        f = document.getElementById('file3').files[0];
-        r.readAsDataURL(f);
-        r.onload = function (e) {
-            document.getElementById('show3').src = this.result;
-        };
-    }
-
     function checkData() {
         var moneyInfo = $("#moneyInfo").val().replace(" ", "");
-        if (parseInt(moneyInfo) < 20) {
-            $.myToast("余额不足，不可发布订单");
+        if (parseInt(moneyInfo) < 10) {
+            $.myToast("余额不足，请充值");
+//            $("#money").focus();
             return false;
         }
         return true;
@@ -385,8 +330,10 @@
 
     function init() {
         var moneyInfo = $("#moneyInfo").val().replace(" ", "");
-        if (parseInt(moneyInfo) < 20) {
-            $.myToast("余额不足，不可发布订单");
+        var startTime = $("#startTime").val().replace(" ", "");
+        var endTime = $("#endTime").val().replace(" ", "");
+        if (parseInt(moneyInfo) < 10) {
+            $.myToast("余额不足，请充值");
         }
 
     }
