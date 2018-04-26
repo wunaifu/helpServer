@@ -9,6 +9,7 @@ public class AcceptOrderUserDto implements Serializable {
     int senderId;
     String sendUserName;
     String acceptUserName;
+    String acceptUserIcon;
     String orderGoodsName;
     Acceptorder acceptorder;
 
@@ -50,5 +51,13 @@ public class AcceptOrderUserDto implements Serializable {
 
     public void setAcceptorder(Acceptorder acceptorder) {
         this.acceptorder = acceptorder;
+    }
+
+    public String getAcceptUserIcon() {
+        return acceptUserIcon;
+    }
+
+    public void setAcceptUserIcon(String acceptUserIcon) {
+        this.acceptUserIcon = acceptUserIcon;
     }
 }

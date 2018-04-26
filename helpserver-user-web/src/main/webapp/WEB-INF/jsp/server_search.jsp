@@ -230,7 +230,7 @@
                                         <c:if test="${item.order.monthnumber>0}">
                                             <span style="margin: 0px 0px 0px 10px;">月租费：<b style="color: #ff4d2d">${item.order.monthmoney}￥</b></span>
                                         </c:if>
-                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.order.amount}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.order.amount-item.order.outamount}/${item.order.amount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">${item.order.moneyamount}￥</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>

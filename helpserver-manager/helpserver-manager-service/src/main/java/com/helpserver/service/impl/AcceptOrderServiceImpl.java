@@ -38,30 +38,33 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
 
     /**
      * 添加资源服务
-     * 1、添加资源
-     * 2、扣除余额保障金
+     * 1、添加抢单表
+     * 2、扣除余额押金
      * 3、添加收支历史
-     * @param order
+     * @param acceptorder
      * @return
      */
     @Transactional
     @Override
-    public String insertOrder(Orderinfo order) {
+    public String insertAcceptOrder(Acceptorder acceptorder) {
+        int permissionMoney=acceptorder.getDatestate();//服务押金
+        int userId = acceptorder.getAccepterid();
+        acceptorder.setDatestate(null);
         try {
-            //1、添加资源
-            if (orderDao.insertSelective(order) == 1) {
+            //1、添加抢单表
+            if (acceptOrderDao.insertSelective(acceptorder) == 1) {
                 //2、减少余额基本表的余额总数
-                Money money = moneyService.getMoney(order.getSenderid());
+                Money money = moneyService.getMoney(userId);
                 Money moneyInfoAdd = new Money();
                 moneyInfoAdd.setId(money.getId());
-                moneyInfoAdd.setAmount(money.getAmount() - CommonsUtil.sendOrderPutMoney);
+                moneyInfoAdd.setAmount(money.getAmount() - permissionMoney);
                 if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
                     //3、添加收支历史
                     Moneyhistory moneyhistory = new Moneyhistory();
-                    moneyhistory.setUserid(order.getSenderid());
-                    moneyhistory.setInfo(CommonsUtil.moneyOrderMoney);
-                    moneyhistory.setAmount(CommonsUtil.sendOrderPutMoney);
-                    moneyhistory.setTime(order.getSendtime());
+                    moneyhistory.setUserid(userId);
+                    moneyhistory.setInfo(CommonsUtil.moneyOrderPermissionMoney);
+                    moneyhistory.setAmount(permissionMoney);
+                    moneyhistory.setTime(acceptorder.getAccepttime());
                     moneyhistory.setState(0);
                     if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {
                         return "insert_success";
@@ -82,5 +85,29 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         }
     }
 
-
+    /**
+     * 通过订单id获取预抢单
+     * @param orderId
+     * @return
+     */
+    @Override
+    public List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(int orderId) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andOrderidEqualTo(orderId);
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = new ArrayList<>();
+        for (Acceptorder acceptOrder : acceptorderList) {
+            AcceptOrderUserDto acceptOrderUserDto = new AcceptOrderUserDto();
+            User accepter = userDao.selectByPrimaryKey(acceptOrder.getAccepterid());
+            if (accepter != null) {
+                acceptOrderUserDto.setAcceptUserName(accepter.getName());
+                acceptOrderUserDto.setAcceptUserIcon(accepter.getHeadicon());
+            }
+            acceptOrderUserDto.setAcceptorder(acceptOrder);
+            acceptOrderUserDtoList.add(acceptOrderUserDto);
+        }
+        return acceptOrderUserDtoList;
+    }
 }

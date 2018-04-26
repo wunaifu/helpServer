@@ -2,10 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.*;
-import com.helpserver.service.MoneyService;
-import com.helpserver.service.OrderService;
-import com.helpserver.service.OrderTypeService;
-import com.helpserver.service.UserService;
+import com.helpserver.service.*;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.TimeUtil;
@@ -43,6 +40,8 @@ public class ServerOrderController {
     MoneyService moneyService;
     @Autowired
     UserService userService;
+    @Autowired
+    AcceptOrderService acceptOrderService;
 
     /**
      * 去往添加资源服务页面
@@ -178,7 +177,12 @@ public class ServerOrderController {
 //        if (orderUserDto.getOrder().getAccepterid() == nowUser.getUserid()) {
 //            orderUserDto.getOrder().setAccepterid(-1);
 //        }
+        Money money = moneyService.getMoney(nowUser.getUserid());
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
         model.addAttribute("orderUserDto", orderUserDto);
+        model.addAttribute("acceptOrderUserDtoList", acceptOrderUserDtoList);
+        model.addAttribute("mymoney",money.getAmount());
+        model.addAttribute("nowUser",nowUser);
         return "server_detail";
     }
 

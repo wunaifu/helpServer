@@ -2,10 +2,7 @@ package com.helpserver.controller;
 
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.*;
-import com.helpserver.service.MoneyService;
-import com.helpserver.service.OrderService;
-import com.helpserver.service.OrderTypeService;
-import com.helpserver.service.UserService;
+import com.helpserver.service.*;
 import com.helpserver.util.UserSessionSetUtils;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.TimeUtil;
@@ -43,6 +40,8 @@ public class AcceptOrderController {
     MoneyService moneyService;
     @Autowired
     UserService userService;
+    @Autowired
+    AcceptOrderService acceptOrderService;
 
     /**
      * 去往添加资源服务页面
@@ -56,14 +55,41 @@ public class AcceptOrderController {
             return "page_403";
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        String orderId = request.getParameter("orderId");
-        String type = request.getParameter("type");
-        String amount = request.getParameter("amount");
-        String useTime = request.getParameter("useTime");
-        System.out.println("type=="+type);
-        System.out.println("amount=="+amount);
-        System.out.println("useTime=="+useTime);
-        return "redirect:/index";
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        Orderinfo orderinfo = orderService.getOrderById(orderId);
+        int userId = nowUser.getUserid();
+        if (userId == orderinfo.getSenderid()) {
+            model.addAttribute("message", "用户不能抢自己发布的资源服务");
+            return "page_400";
+        }
+        int type = Integer.parseInt(request.getParameter("type"));
+        int amount = Integer.parseInt(request.getParameter("amount"));
+        int useTime = Integer.parseInt(request.getParameter("useTime"));
+        Acceptorder acceptorder = new Acceptorder();
+        acceptorder.setAccepterid(userId);
+        acceptorder.setOrderid(orderId);
+        if (type == 1) {
+            //日租
+            acceptorder.setMoneytype(0);
+            acceptorder.setMoney(orderinfo.getDaymoney());
+        }else {
+            //月租
+            acceptorder.setMoneytype(1);
+            acceptorder.setMoney(orderinfo.getMonthmoney());
+        }
+        acceptorder.setNumber(amount);
+        acceptorder.setGettype(useTime);//租用时间
+        acceptorder.setAcceptstate(1);
+        String date = TimeUtil.dateToString(new Date());
+        acceptorder.setAccepttime(date);
+        acceptorder.setDatestate(orderinfo.getMoneyamount());//暂时存放押金
+        String result = acceptOrderService.insertAcceptOrder(acceptorder);
+        if (result.equals("insert_success")) {
+            model.addAttribute("message", "资源服务订单预抢成功，等待对方确认。");
+            return "pageaccept_success";
+        }
+        model.addAttribute("message", "资源服务订单预抢失败，请稍后再试！");
+        return "page_400";
     }
 
 }

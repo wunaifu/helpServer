@@ -210,8 +210,8 @@
                     </li>
                     <li class="tm-ind-item tm-ind-reviewCount canClick tm-line3">
                         <div class="tm-indcon">
-                            <a href="/server/detail/${orderUserDto.order.id}/map">
-                                <span class="tm-label">资源定位</span><span class="tm-count">></span></a>
+                            <a href="/server/${orderUserDto.order.senderid}/userinfo">
+                                <span class="tm-label">资源主人：</span><span class="tm-count">${orderUserDto.senderName}</span></a>
                         </div>
                     </li>
                 </ul>
@@ -281,6 +281,8 @@
             <input id="outamount"  value="${orderUserDto.order.amount - orderUserDto.order.outamount}" style="visibility: hidden">
             <input id="daynumber1" value="${orderUserDto.order.daynumber}" style="visibility: hidden">
             <input id="monthnumber1" value="${orderUserDto.order.monthnumber}" style="visibility: hidden">
+            <input id="mymoney" value="${mymoney}" style="visibility: hidden">
+            <input id="moneyamount" value="${orderUserDto.order.moneyamount}" style="visibility: hidden">
             <div class="btn-op">
                 <input class="btn am-btn am-btn-warning" value="确定抢单" type="submit">
                 <div class="btn close am-btn am-btn-warning">取消</div>
@@ -356,7 +358,7 @@
             <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
                 <li class="am-active">
                     <a href="#">
-                        <span class="index-needs-dt-txt">宝贝详情</span></a>
+                        <span class="index-needs-dt-txt">资源详情</span></a>
                 </li>
                 <li>
                     <a href="#">
@@ -400,21 +402,132 @@
                 </div>
 
                 <div class="am-tab-panel am-fade">
-                    <div class="like">
-                        <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
-                            <li>
-                                <div class="i-pic limit">
-                                    <img src="/images/imgsearch1.jpg" />
-                                    <p>【良品铺子_开口松子】零食坚果特产炒货
-                                        <span>东北红松子奶油味</span></p>
-                                    <p class="price fl">
-                                        <b>¥</b>
-                                        <strong>298.00</strong>
-                                    </p>
+
+                    <%--<div class="actor-new">
+                        <div class="rate">
+                            <strong>100<span>%</span></strong><br> <span>好评度</span>
+                        </div>
+                        <dl>
+                            <dt>买家印象</dt>
+                            <dd class="p-bfc">
+                                <q class="comm-tags"><span>味道不错</span><em>(2177)</em></q>
+                                <q class="comm-tags"><span>颗粒饱满</span><em>(1860)</em></q>
+                                <q class="comm-tags"><span>口感好</span><em>(1823)</em></q>
+                                <q class="comm-tags"><span>商品不错</span><em>(1689)</em></q>
+                                <q class="comm-tags"><span>香脆可口</span><em>(1488)</em></q>
+                                <q class="comm-tags"><span>个个开口</span><em>(1392)</em></q>
+                                <q class="comm-tags"><span>价格便宜</span><em>(1119)</em></q>
+                                <q class="comm-tags"><span>特价买的</span><em>(865)</em></q>
+                                <q class="comm-tags"><span>皮很薄</span><em>(831)</em></q>
+                            </dd>
+                        </dl>
+                    </div>--%>
+                    <div class="clear"></div>
+                    <div class="tb-r-filter-bar">
+                        <%--<ul class=" tb-taglist am-avg-sm-4">
+                            <li class="tb-taglist-li tb-taglist-li-current">
+                                <div class="comment-info">
+                                    <span>全部评价</span>
+                                    <span class="tb-tbcr-num">(32)</span>
                                 </div>
                             </li>
-                        </ul>
+
+                            <li class="tb-taglist-li tb-taglist-li-1">
+                                <div class="comment-info">
+                                    <span>好评</span>
+                                    <span class="tb-tbcr-num">(32)</span>
+                                </div>
+                            </li>
+
+                            <li class="tb-taglist-li tb-taglist-li-0">
+                                <div class="comment-info">
+                                    <span>中评</span>
+                                    <span class="tb-tbcr-num">(32)</span>
+                                </div>
+                            </li>
+
+                            <li class="tb-taglist-li tb-taglist-li--1">
+                                <div class="comment-info">
+                                    <span>差评</span>
+                                    <span class="tb-tbcr-num">(32)</span>
+                                </div>
+                            </li>
+                        </ul>--%>
                     </div>
+                    <div class="clear"></div>
+
+                    <ul class="am-comments-list am-comments-list-flip">
+                        <c:choose>
+                            <c:when test="${acceptOrderUserDtoList.size()>0}">
+                                <c:forEach items="${acceptOrderUserDtoList}" var="item">
+                                    <li class="am-comment">
+                                        <!-- 评论容器 -->
+                                        <c:choose>
+                                            <c:when test="${nowUser.userid==orderUserDto.order.senderid}">
+                                                <a href="/server/${item.acceptorder.accepterid}/userinfo">
+                                                    <img class="am-comment-avatar" src="/resources/img/${item.acceptUserIcon}" />
+                                                    <!-- 评论者头像 -->
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a>
+                                                    <img class="am-comment-avatar" src="/resources/img/${item.acceptUserIcon}" />
+                                                    <!-- 评论者头像 -->
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+
+
+                                        <div class="am-comment-main">
+                                            <!-- 评论内容容器 -->
+                                            <header class="am-comment-hd">
+                                                <!--<h3 class="am-comment-title">评论标题</h3>-->
+                                                <div class="am-comment-meta">
+                                                    <!-- 评论元数据 -->
+                                                    <a class="am-comment-author">b***1 (匿名)</a>
+                                                    <!-- 评论者 -->
+                                                    抢单于
+                                                    <time datetime="">${item.acceptorder.accepttime}</time>
+                                                </div>
+                                            </header>
+
+                                            <div class="am-comment-bd">
+                                                <div class="tb-rev-item " data-id="255776406962">
+                                                    <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                        <c:choose>
+                                                            <c:when test="${item.acceptorder.acceptstate==1}">
+                                                                状态：抢单中
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==2}">
+                                                                状态：资源租用中
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==3}">
+                                                                状态：已完成
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                状态：已取消
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </div>
+                                                    <div class="tb-r-act-bar">
+                                                        颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- 评论内容 -->
+                                        </div>
+                                    </li>
+                                </c:forEach>
+
+                            </c:when>
+                            <c:otherwise>
+                                <h1 align="center">未有人抢单</h1>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </ul>
+
                     <div class="clear"></div>
 
                     <!--分页 -->
@@ -428,6 +541,10 @@
                         <li><a href="#">&raquo;</a></li>
                     </ul>
                     <div class="clear"></div>
+
+                    <%--<div class="tb-reviewsft">--%>
+                        <%--<div class="tb-rate-alert type-attention">购买前请查看该商品的 <a href="#" target="_blank">购物保障</a>，明确您的售后保障权益。</div>--%>
+                    <%--</div>--%>
 
                 </div>
 
@@ -762,7 +879,13 @@
         var monthnumber1 = $("#monthnumber1").val();
         var amount = $("#text_box").val();
         var useTime = $("#text_box1").val();
+        var mymoney = $("#mymoney").val();
+        var moneyamount = $("#moneyamount").val();
 
+        if(parseInt(moneyamount)>parseInt(mymoney)){
+            $.myToast("可用余额不足以抵扣押金");
+            return false;
+        }
         if(parseInt(amount)<1){
             $.myToast("租借数量要大于0");
             return false;
