@@ -11,7 +11,7 @@ function addEle(ele,value){
 }
 function removeEle(ele){
     ele.find("option").remove();
-    var optionStar="<option value="+"请选择"+">"+"请选择"+"</option>";
+    var optionStar="<option value="+"请选择"+">"+"市"+"</option>";
     ele.append(optionStar);
 }
 var provinceText,cityText,cityItem;

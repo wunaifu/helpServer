@@ -47,7 +47,7 @@
     <ul class="message-l">
         <div class="topMessage">
             <div class="menu-hd">
-                <a target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
+                <a href="/map" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
                 </a>
                 <a href="/index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
                 </a>
@@ -80,7 +80,7 @@
 
 <div class="nav white">
     <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
-        <a ><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker"
+        <a  href="/map"><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker"
                                                                 style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
         </a></div>
     <div class="logoBig">
@@ -237,10 +237,10 @@
                                             <div class="cart-title">租用类型</div>
                                             <ul >
                                                 <c:if test="${orderUserDto.order.daynumber>0}">
-                                                    <div><input id="myRadio1" type="radio" value="1" name="type" checked>日租￥${orderUserDto.order.daymoney}.00<i></i></div>
+                                                    <div><input id="myRadio1" type="radio" value="1" name="type" required>日租￥${orderUserDto.order.daymoney}.00<i></i></div>
                                                 </c:if>
                                                 <c:if test="${orderUserDto.order.monthnumber>0}">
-                                                    <div><input id="myRadio2" type="radio" value="2" name="type">月租￥${orderUserDto.order.monthmoney}.00<i></i></div>
+                                                    <div><input id="myRadio2" type="radio" value="2" name="type" required>月租￥${orderUserDto.order.monthmoney}.00<i></i></div>
                                                 </c:if>
                                             </ul>
                                         </div>
@@ -248,7 +248,7 @@
                                             <div class="cart-title number">数量</div>
                     <dd>
                         <input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
-                        <input id="text_box" name="amount" type="text" value="1" style="width:30px;" />
+                        <input id="text_box" name="amount" type="text" value="0" style="width:30px;" />
                         <input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
                         <span id="Stock" class="tb-hidden">库存<span class="stock">${orderUserDto.order.outamount}/${orderUserDto.order.amount}</span>件</span>
                     </dd>
@@ -258,7 +258,7 @@
                 <div class="cart-title number">周期</div>
                 <dd>
                     <input id="min1" class="am-btn am-btn-default" name="" type="button" value="-" />
-                    <input id="text_box1" name="useTime" type="text" value="1" style="width:30px;" />
+                    <input id="text_box1" name="useTime" type="text" value="0" style="width:30px;" />
                     <input id="add1" class="am-btn am-btn-default" name="" type="button" value="+" />
                     <span id="Stock" class="tb-hidden">可租用<span class="stock">
                         <c:choose>

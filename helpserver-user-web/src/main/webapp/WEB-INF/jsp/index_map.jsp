@@ -115,11 +115,12 @@
                 <div class="clear "></div>
                 <div class="blogs" style="padding: 30px;font-size: 18px;" align="center">
                     <form action="finishmap" method="post" onsubmit="return isChooseCity();">
+                        <h1 align="center">请选择城市</h1>
                         <select name="province" id="province">
-                            <option value="请选择">请选择</option>
+                            <option value="请选择">省</option>
                         </select>
                         <select name="locationmap" id="city">
-                            <option value="请选择">请选择</option>
+                            <option value="请选择">市</option>
                         </select>
                         <input type="submit" value="确定"/>
                     </form>
