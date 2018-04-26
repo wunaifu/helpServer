@@ -22,20 +22,26 @@ DROP TABLE IF EXISTS `acceptorder`;
 
 CREATE TABLE `acceptorder` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '接单表id',
-  `accepterId` int(11) DEFAULT NULL COMMENT '接单者id',
-  `orderId` int(11) DEFAULT NULL COMMENT '订单id',
-  `acceptTime` varchar(32) DEFAULT NULL COMMENT '接单时间',
-  `backReason` varchar(50) DEFAULT NULL COMMENT '退单理由',
-  `backTime` varchar(32) DEFAULT NULL COMMENT '退单时间（为空未取消，不空接单中）',
+  `accepterId` int(11) NOT NULL COMMENT '接单者id',
+  `orderId` int(11) NOT NULL COMMENT '订单id',
+  `moneyType` int(11) DEFAULT '0' COMMENT '计费方式（0日租，1月租）',
+  `money` int(11) DEFAULT '0' COMMENT '周期内租金（日租金，月租金）',
+  `number` int(11) DEFAULT '0' COMMENT '租用数量',
+  `getType` int(11) DEFAULT '0' COMMENT '租用周期',
   `acceptState` int(11) NOT NULL DEFAULT '1' COMMENT '状态（1抢单中，0取消，2接单中，3已完成，4发布方取消）',
+  `dateState` int(11) DEFAULT NULL COMMENT '租用状态（1正常，0超期，2',
+  `backReason` varchar(50) DEFAULT NULL COMMENT '退单理由',
+  `backTime` varchar(32) DEFAULT NULL COMMENT '退单时间',
+  `acceptTime` varchar(32) DEFAULT NULL COMMENT '抢单时间',
+  `sureTime` varchar(32) DEFAULT NULL COMMENT '确认订单时间',
+  `finishTime` varchar(32) DEFAULT NULL COMMENT '订单完成时间',
+  `updateTime` varchar(32) DEFAULT NULL COMMENT '状态更新时间',
   PRIMARY KEY (`id`),
   KEY `accepterId` (`accepterId`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `acceptorder_ibfk_1` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `acceptorder` */
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `bigtype` */
 
@@ -46,11 +52,7 @@ CREATE TABLE `bigtype` (
   `typeName` varchar(20) DEFAULT NULL COMMENT '订单大类型的名字',
   `createTime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-/*Data for the table `bigtype` */
-
-insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'交通工具','2018-04-20 20:15:53'),(2,'租房建筑','2018-04-20 20:16:07'),(3,'衣料服装','2018-04-20 20:16:18'),(4,'家居用品','2018-04-20 20:16:38'),(5,'其他','2018-04-20 20:17:13');
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `collectorder` */
 
@@ -68,8 +70,6 @@ CREATE TABLE `collectorder` (
   CONSTRAINT `collectorder_ibfk_2` FOREIGN KEY (`collectorId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `collectorder` */
-
 /*Table structure for table `feedback` */
 
 DROP TABLE IF EXISTS `feedback`;
@@ -86,8 +86,6 @@ CREATE TABLE `feedback` (
   CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `feedback` */
-
 /*Table structure for table `gold` */
 
 DROP TABLE IF EXISTS `gold`;
@@ -102,11 +100,7 @@ CREATE TABLE `gold` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-/*Data for the table `gold` */
-
-insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-04-15 19:48:36',0,0),(2,2,71,'2018-04-15 19:51:45',1,160),(3,3,10,'2018-04-15 19:52:03',0,0),(4,4,10,'2018-04-15 19:52:21',0,0),(5,5,10,'2018-04-15 19:52:38',0,0),(6,6,10,'2018-04-15 19:52:53',0,0),(7,7,10,'2018-04-15 19:53:11',0,0),(8,8,10,'2018-04-15 19:53:26',0,0),(9,9,10,'2018-04-15 19:53:45',0,0),(10,10,10,'2018-04-15 19:54:01',0,0),(11,11,10,'2018-04-15 19:54:52',0,0),(12,12,10,'2018-04-15 19:55:11',0,0);
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `goldadd` */
 
@@ -122,11 +116,7 @@ CREATE TABLE `goldadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-/*Data for the table `goldadd` */
-
-insert  into `goldadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,3,'2018-04-16 18:50:44','2/2880f731-33a4-4471-a321-07561ea0128b.png','2018-04-16 19:06:33'),(3,2,2,'2018-04-16 19:55:01',NULL,'2018-04-16 19:55:01'),(4,2,1,'2018-04-16 19:59:23',NULL,'2018-04-16 19:59:23'),(5,2,10,'2018-04-16 21:09:18','2/467c502e-d623-4b18-b21a-270cf18a21c0.png','2018-04-16 21:09:55');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `goldhistory` */
 
@@ -142,11 +132,7 @@ CREATE TABLE `goldhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-
-/*Data for the table `goldhistory` */
-
-insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-04-15 19:48:36',1),(2,2,10,'注册','2018-04-15 19:51:45',1),(3,3,10,'注册','2018-04-15 19:52:03',1),(4,4,10,'注册','2018-04-15 19:52:21',1),(5,5,10,'注册','2018-04-15 19:52:38',1),(6,6,10,'注册','2018-04-15 19:52:53',1),(7,7,10,'注册','2018-04-15 19:53:11',1),(8,8,10,'注册','2018-04-15 19:53:26',1),(9,9,10,'注册','2018-04-15 19:53:45',1),(10,10,10,'注册','2018-04-15 19:54:01',1),(11,11,10,'注册','2018-04-15 19:54:52',1),(12,12,10,'注册','2018-04-15 19:55:11',1),(13,2,1,'每日签到','2018-04-15 20:01:45',1),(14,2,30,'支付宝充值','2018-04-16 19:06:33',1),(16,2,20,'余额充值','2018-04-16 19:55:01',1),(17,2,10,'余额充值','2018-04-16 19:59:23',1),(20,2,100,'支付宝充值','2018-04-16 21:09:55',1),(21,2,100,'金币提现','2018-04-16 21:10:32',0);
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `identity` */
 
@@ -166,11 +152,7 @@ CREATE TABLE `identity` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `identity` */
-
-insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,2,'吴乃福','1231545623115','2/bd07aace-0895-446b-99ed-074587af2216.png','2/00f155aa-8e36-442c-8b5c-8247232468cb.png','2018-04-23 11:18:40','2018-04-23 11:21:14','认证通过',1);
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `money` */
 
@@ -186,11 +168,7 @@ CREATE TABLE `money` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `money_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-/*Data for the table `money` */
-
-insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-15 19:48:36',0,0),(2,2,1,'2018-04-15 19:51:45',40,6),(3,3,30,'2018-04-15 19:52:03',100,0),(4,4,0,'2018-04-15 19:52:21',0,0),(5,5,0,'2018-04-15 19:52:38',0,0),(6,6,0,'2018-04-15 19:52:53',0,0),(7,7,0,'2018-04-15 19:53:11',0,0),(8,8,0,'2018-04-15 19:53:26',0,0),(9,9,0,'2018-04-15 19:53:45',0,0),(10,10,0,'2018-04-15 19:54:01',0,0),(11,11,0,'2018-04-15 19:54:52',0,0),(12,12,0,'2018-04-15 19:55:11',0,0);
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `moneyadd` */
 
@@ -206,11 +184,7 @@ CREATE TABLE `moneyadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-/*Data for the table `moneyadd` */
-
-insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,10,'2018-04-16 11:48:07','2/9652b128-d4c3-4f06-a571-8400e4c00757.png','2018-04-16 14:55:15'),(2,2,30,'2018-04-23 11:38:05','2/304ef6c3-e01d-4dcc-b23e-a1b91a283f40.png','2018-04-23 11:39:00'),(3,3,100,'2018-04-23 15:39:16','3/c5936655-5195-420a-b3d0-15403840b6bd.png','2018-04-23 15:39:33');
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `moneyget` */
 
@@ -227,11 +201,7 @@ CREATE TABLE `moneyget` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyget_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `moneyget` */
-
-insert  into `moneyget`(`id`,`userId`,`amount`,`time`,`payaccount`,`accountname`,`getTime`) values (1,2,5,'2018-04-17 11:51:31','12312312','福','2018-04-17 14:20:39'),(2,2,1,'2018-04-17 14:21:33','2134','18219111621','2018-04-17 14:21:52');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `moneyhistory` */
 
@@ -247,11 +217,7 @@ CREATE TABLE `moneyhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-
-/*Data for the table `moneyhistory` */
-
-insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,10,'余额充值','2018-04-16 14:55:15',1),(2,2,2,'充值金币','2018-04-16 19:55:01',0),(3,2,1,'充值金币','2018-04-16 19:59:23',0),(6,2,10,'金币提现','2018-04-16 21:10:32',1),(7,2,5,'余额提现','2018-04-17 14:20:39',0),(8,2,1,'余额提现','2018-04-17 14:21:52',0),(9,2,10,'服务保障金','2018-04-23 10:53:30',0),(10,2,30,'余额充值','2018-04-23 11:39:00',1),(11,2,10,'服务保障金','2018-04-23 11:40:12',0),(12,2,10,'服务保障金','2018-04-23 11:41:53',0),(13,2,10,'服务保障金','2018-04-23 15:35:47',0),(14,3,100,'余额充值','2018-04-23 15:39:33',1),(15,3,10,'服务保障金','2018-04-23 15:40:19',0),(16,3,10,'服务保障金','2018-04-23 15:43:15',0),(17,3,10,'服务保障金','2018-04-23 15:51:15',0),(18,3,10,'服务保障金','2018-04-24 17:30:59',0),(19,3,10,'服务保障金','2018-04-24 18:29:06',0),(20,3,10,'服务保障金','2018-04-24 18:58:44',0),(21,3,10,'服务保障金','2018-04-24 19:01:16',0);
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `news` */
 
@@ -265,7 +231,26 @@ CREATE TABLE `news` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `news` */
+/*Table structure for table `ordercomment` */
+
+DROP TABLE IF EXISTS `ordercomment`;
+
+CREATE TABLE `ordercomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '接单者评论发布者id',
+  `orderId` int(11) NOT NULL COMMENT '订单表id',
+  `myId` int(11) NOT NULL COMMENT '评论者id',
+  `hisId` int(11) NOT NULL COMMENT '被评论者id',
+  `score` int(11) DEFAULT NULL COMMENT '评分（1-5）',
+  `content` varchar(80) DEFAULT NULL COMMENT '评论',
+  `time` varchar(32) DEFAULT NULL COMMENT '评论时间',
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `myId` (`myId`),
+  KEY `hisId` (`hisId`),
+  CONSTRAINT `ordercomment_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`),
+  CONSTRAINT `ordercomment_ibfk_2` FOREIGN KEY (`myId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `orderinfo` */
 
@@ -274,15 +259,21 @@ DROP TABLE IF EXISTS `orderinfo`;
 CREATE TABLE `orderinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `senderId` int(11) NOT NULL DEFAULT '0' COMMENT '发布者id',
-  `typeId` int(11) NOT NULL DEFAULT '0' COMMENT '发布类型id（零活、跑腿）',
-  `moneyAmount` int(11) DEFAULT '0' COMMENT '服务费用',
+  `typeId` int(11) NOT NULL DEFAULT '0' COMMENT '发布类型id（汽车、房子、电器等）',
+  `moneyAmount` int(11) DEFAULT '0' COMMENT '服务费用、押金',
   `foodName` varchar(50) DEFAULT NULL COMMENT '资源名字',
+  `amount` int(11) DEFAULT NULL COMMENT '库存数量',
+  `outAmount` int(11) DEFAULT '0' COMMENT '已出借数量',
+  `dayMoney` int(11) DEFAULT NULL COMMENT '日租金',
+  `monthMoney` int(11) DEFAULT NULL COMMENT '月租金',
   `startTime` varchar(32) DEFAULT NULL COMMENT '可使用开始时间',
   `endTime` varchar(32) DEFAULT NULL COMMENT '可使用结束时间',
   `orderDetail` varchar(150) DEFAULT NULL COMMENT '服务详情、备注',
   `city` varchar(30) DEFAULT NULL COMMENT '地级市',
-  `address` varchar(100) DEFAULT NULL COMMENT '地址',
+  `address` varchar(100) DEFAULT NULL COMMENT '详细地址',
   `pointInfo` varchar(150) DEFAULT NULL COMMENT '详细坐标',
+  `lng` varchar(30) DEFAULT NULL COMMENT '经度',
+  `lat` varchar(30) DEFAULT NULL COMMENT '纬度',
   `sendTime` varchar(32) DEFAULT NULL COMMENT '发布时间',
   `repealTime` varchar(32) DEFAULT NULL COMMENT '撤单时间',
   `repealReason` varchar(50) DEFAULT NULL COMMENT '撤单原因',
@@ -292,19 +283,16 @@ CREATE TABLE `orderinfo` (
   `seeAmount` int(11) DEFAULT '0' COMMENT '浏览数',
   `picture` varchar(150) DEFAULT NULL COMMENT '资源图片',
   `updateTime` varchar(32) DEFAULT NULL COMMENT '更新状态时间',
-  `lng` varchar(30) DEFAULT NULL COMMENT '经度',
-  `lat` varchar(30) DEFAULT NULL COMMENT '纬度',
-  `amount` int(11) DEFAULT NULL COMMENT '数量',
+  `dayNumber` int(11) DEFAULT '0' COMMENT '可租用天数',
+  `monthNumber` int(11) DEFAULT '0' COMMENT '可租用月数',
+  `infopicture1` varchar(150) DEFAULT NULL COMMENT '详情图片1',
+  `infopicture2` varchar(150) DEFAULT NULL COMMENT '详情图片2',
   PRIMARY KEY (`id`),
   KEY `senderId` (`senderId`),
   KEY `typeId` (`typeId`),
   CONSTRAINT `orderinfo_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
   CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-
-/*Data for the table `orderinfo` */
-
-insert  into `orderinfo`(`id`,`senderId`,`typeId`,`moneyAmount`,`foodName`,`startTime`,`endTime`,`orderDetail`,`city`,`address`,`pointInfo`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`lng`,`lat`,`amount`) values (10,2,4,20,'山地自行车','18/04/23/10:53','18/04/23/10:53','稍等哈','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 10:53:30',NULL,NULL,1,'吴先生','18219111626',0,NULL,NULL,'113.266935','22.545448',NULL),(11,2,2,50,'男装摩托车','18/04/23/11:40','18/04/23/11:40','阿达','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 11:40:12',NULL,NULL,1,'2','2',0,NULL,NULL,'113.266935','22.545448',NULL),(12,2,1,12,'白色汽车','18/04/23/11:41','18/04/23/11:41','123','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 11:41:53',NULL,NULL,1,'2','2',0,'2/5c2442ce-cf3a-49b7-874c-6453f0efccdd.png',NULL,'113.266935','22.545448',NULL),(13,2,1,11,'11','18/04/23/15:35','18/04/23/15:35','11','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:35:47',NULL,NULL,1,'1','1',0,'2/1ad98696-0403-4c83-b12f-7742aa0ae3e5.jpg',NULL,'113.266935','22.545448',NULL),(14,3,1,1,'1','18/04/23/15:40','18/04/23/15:40','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:40:19',NULL,NULL,1,'1','1',0,'3/12a4f53b-564d-4cd6-9819-a7adfcfc99cd.png',NULL,'113.266935','22.545448',NULL),(15,3,1,1,'1','18/04/23/15:43','18/04/25/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:43:15',NULL,NULL,1,'1','1',0,NULL,NULL,'113.266935','22.545448',NULL),(16,3,1,4,'4','18/04/25/00:00','18/04/30/23:59','4','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-23 15:51:15',NULL,NULL,1,'4','4',0,NULL,NULL,'113.266935','22.545448',NULL),(17,3,4,1,'afds','18/04/25/00:00','18/04/28/23:59','afds','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 17:30:59',NULL,NULL,1,'12','2112',0,'3/fa402474-1da2-4146-bae3-3a68c390cec2.jpg',NULL,'113.267007','22.543353',2),(18,3,1,1,'1','18/04/24/00:00','18/04/24/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 18:29:06',NULL,NULL,1,'1','1',0,NULL,NULL,'113.114423','22.557105',1),(19,3,4,23,'自行车','18/04/26/00:00','18/04/28/23:59','阿斯顿发放的','中山市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 18:58:44',NULL,NULL,1,'吴','18219111626',0,'3/f3063184-371a-439a-b944-2148456beb86.jpg',NULL,'113.266935','22.545448',2),(20,3,1,1,'1','18/04/24/00:00','18/04/24/23:59','1','广州市','中山市中山市长星光电科技有限公司','中山市中山市长星光电科技有限公司','2018-04-24 19:01:16',NULL,NULL,1,'1','1',0,NULL,NULL,'113.266935','22.545448',1);
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ordertype` */
 
@@ -319,11 +307,7 @@ CREATE TABLE `ordertype` (
   PRIMARY KEY (`id`),
   KEY `bigtypeId` (`bigtypeId`),
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-/*Data for the table `ordertype` */
-
-insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'汽车',1,'2018-04-20 20:19:18'),(2,1,'摩托车',1,'2018-04-20 20:19:28'),(3,1,'电车',1,'2018-04-20 20:19:32'),(4,1,'自行车',1,'2018-04-20 20:19:40'),(5,1,'其他',1,'2018-04-20 20:19:45');
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `payaccount` */
 
@@ -336,9 +320,26 @@ CREATE TABLE `payaccount` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `payaccount` */
+/*Table structure for table `sendercomment` */
 
-insert  into `payaccount`(`id`,`time`,`payphoto`) values (1,'2018-04-15 19:50:55','da2c8b73-8136-4577-85f9-8c154ec1490a.jpg');
+DROP TABLE IF EXISTS `sendercomment`;
+
+CREATE TABLE `sendercomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '发布者评论接单者id',
+  `orderId` int(11) NOT NULL COMMENT '订单表id',
+  `senderId` int(11) NOT NULL COMMENT '发布者id',
+  `accepterId` int(11) NOT NULL COMMENT '接单者id',
+  `score` int(11) DEFAULT NULL COMMENT '评分（1-5）',
+  `content` varchar(80) DEFAULT NULL COMMENT '评论',
+  `time` varchar(32) DEFAULT NULL COMMENT '评论时间',
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `senderId` (`senderId`),
+  KEY `accepterId` (`accepterId`),
+  CONSTRAINT `sendercomment_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`),
+  CONSTRAINT `sendercomment_ibfk_2` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `sendercomment_ibfk_3` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user` */
 
@@ -361,11 +362,7 @@ CREATE TABLE `user` (
   `permission` int(11) NOT NULL DEFAULT '0' COMMENT '权限（0普通用户，1可接单用户，2被禁用用户）',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-/*Data for the table `user` */
-
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-04-15 19:48:36',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','张三','18219111621','1',0,1,'1','2/b57ad510-90fb-4f83-b7f4-3a6947421c0e.jpg','2018-04-15 19:51:45',NULL,NULL,1),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:03',NULL,NULL,0),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:21',NULL,NULL,0),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','18219111624','18219111624',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:38',NULL,NULL,0),(6,'18219111625','ea289daceb77cafc67ab21a64b9c77dd','18219111625','18219111625',NULL,0,1,NULL,'icon001.png','2018-04-15 19:52:53',NULL,NULL,0),(7,'18219111626','ea289daceb77cafc67ab21a64b9c77dd','18219111626','18219111626',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:11',NULL,NULL,0),(8,'18219111627','ea289daceb77cafc67ab21a64b9c77dd','18219111627','18219111627',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:26',NULL,NULL,0),(9,'18219111628','ea289daceb77cafc67ab21a64b9c77dd','18219111628','18219111628',NULL,0,1,NULL,'icon001.png','2018-04-15 19:53:45',NULL,NULL,0),(10,'18219111629','ea289daceb77cafc67ab21a64b9c77dd','18219111629','18219111629',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:01',NULL,NULL,0),(11,'18219111630','ea289daceb77cafc67ab21a64b9c77dd','18219111630','18219111630',NULL,0,1,NULL,'icon001.png','2018-04-15 19:54:52',NULL,NULL,0),(12,'18219111631','ea289daceb77cafc67ab21a64b9c77dd','18219111631','18219111631',NULL,0,1,NULL,'icon001.png','2018-04-15 19:55:11',NULL,NULL,0);
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

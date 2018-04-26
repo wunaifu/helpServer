@@ -131,7 +131,7 @@
             <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="fl"><a href="/index" style="color: #0a628f">首页</a>>搜索关键字 /
+                    <span class="fl"><%--<a href="/index" style="color: #0a628f">首页</a>>--%>搜索关键字 /
                     <small><b style="color: #ff4d2d">${search} </b></small></span>
                     <span class="total fl">搜索到<strong class="num">${orderUserDtoList.size()}</strong>件相关资源</span>
                 </p>
@@ -277,7 +277,7 @@
 
 <!--引导 -->
 <div class="navCir">
-    <li class="active"><a href="/index"><i class="am-icon-home "></i>首页</a></li>
+    <li><a href="/index"><i class="am-icon-home "></i>首页</a></li>
     <li><a href="/index_type"><i class="am-icon-list"></i>分类</a></li>
     <li><a href="/index_myorder"><i class="am-icon-shopping-basket"></i>订单</a></li>
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>

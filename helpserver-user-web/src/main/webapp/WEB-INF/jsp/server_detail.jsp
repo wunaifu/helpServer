@@ -263,13 +263,13 @@
                     <span id="Stock" class="tb-hidden">可租用<span class="stock">
                         <c:choose>
                             <c:when test="${orderUserDto.order.daynumber>0 && orderUserDto.order.monthnumber>0}">
-                                ${orderUserDto.order.daynumber}天或者${orderUserDto.order.monthmoney}月
+                                ${orderUserDto.order.daynumber}天或者${orderUserDto.order.monthnumber}月
                             </c:when>
                             <c:when test="${orderUserDto.order.daynumber>0 && orderUserDto.order.monthnumber<1}">
                                 ${orderUserDto.order.daynumber}天
                             </c:when>
                             <c:otherwise>
-                                ${orderUserDto.order.monthmoney}月
+                                ${orderUserDto.order.monthnumber}月
                             </c:otherwise>
                         </c:choose>
                     </span></span>
@@ -284,7 +284,14 @@
             <input id="mymoney" value="${mymoney}" style="visibility: hidden">
             <input id="moneyamount" value="${orderUserDto.order.moneyamount}" style="visibility: hidden">
             <div class="btn-op">
-                <input class="btn am-btn am-btn-warning" value="确定抢单" type="submit">
+                <c:choose>
+                    <c:when test="${nowUser.permission==1}">
+                        <input class="btn am-btn am-btn-warning" value="确定抢单" type="submit">
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn am-btn am-btn-warning" href="/user/idcard" >先去实名认证</a>
+                    </c:otherwise>
+                </c:choose>
                 <div class="btn close am-btn am-btn-warning">取消</div>
             </div>
         </div>
@@ -331,7 +338,14 @@
     </li>
     <li>
         <div class="clearfix tb-btn tb-btn-basket theme-login">
-            <a id="LikBasket" title="立即抢单" href="#" onclick="$('#form').submit()"><i></i>立即抢单</a>
+            <c:choose>
+            <c:when test="${nowUser.permission==1}">
+                <a id="LikBasket" title="立即抢单" href="#" onclick="$('#form').submit()"><i></i>立即抢单</a>
+            </c:when>
+            <c:otherwise>
+                <a title="未实名认证不能抢单" href="/user/idcard"><i></i>先去实名认证</a>
+            </c:otherwise>
+            </c:choose>
         </div>
     </li>
 </div>
