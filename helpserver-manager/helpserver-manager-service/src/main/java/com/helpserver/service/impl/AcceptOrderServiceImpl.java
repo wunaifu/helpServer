@@ -110,4 +110,38 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         }
         return acceptOrderUserDtoList;
     }
+
+    /**
+     * 通过userId获取已抢订单
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoListByUserId(int userId) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andAccepteridEqualTo(userId);
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = new ArrayList<>();
+        for (Acceptorder acceptOrder : acceptorderList) {
+            OrderAcceptDto orderAcceptDto = new OrderAcceptDto();
+            User accepter = userDao.selectByPrimaryKey(acceptOrder.getAccepterid());
+            if (accepter != null) {
+                orderAcceptDto.setAcceptUserName(accepter.getName());
+                orderAcceptDto.setAcceptUserIcon(accepter.getHeadicon());
+            }
+            Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptOrder.getOrderid());
+            User sender = userDao.selectByPrimaryKey(orderinfo.getSenderid());
+            if (sender != null) {
+                orderAcceptDto.setSenderId(sender.getUserid());
+                orderAcceptDto.setSendUserName(sender.getName());
+                orderAcceptDto.setSendUserIcon(sender.getHeadicon());
+            }
+            orderAcceptDto.setOrderinfo(orderinfo);
+            orderAcceptDto.setAcceptorder(acceptOrder);
+            orderAcceptDtoList.add(orderAcceptDto);
+        }
+        return orderAcceptDtoList;
+    }
 }

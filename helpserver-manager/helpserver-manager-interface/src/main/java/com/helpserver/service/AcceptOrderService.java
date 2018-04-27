@@ -1,9 +1,6 @@
 package com.helpserver.service;
 
-import com.helpserver.pojo.AcceptOrderUserDto;
-import com.helpserver.pojo.Acceptorder;
-import com.helpserver.pojo.OrderUserDto;
-import com.helpserver.pojo.Orderinfo;
+import com.helpserver.pojo.*;
 
 import java.util.List;
 
@@ -15,5 +12,7 @@ public interface AcceptOrderService {
     String insertAcceptOrder(Acceptorder acceptorder);
 
     List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(int orderId);
+
+    List<OrderAcceptDto> getOrderAcceptDtoListByUserId(int userId);
 
 }

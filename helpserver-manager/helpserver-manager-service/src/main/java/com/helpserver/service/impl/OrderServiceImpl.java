@@ -277,4 +277,43 @@ public class OrderServiceImpl implements OrderService {
         return acceptOrderUserDtoList;
     }
 
+    /**
+     * 通过发布状态和发布者id获取资源订单情况
+     * @param state
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListByStateAndSendUserId(int state, int userId) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andOrderstateEqualTo(state);
+        criteria.andSenderidEqualTo(userId);
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        if (orderList == null) {
+            return null;
+        }
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
+
+    /**
+     * 通过发布者id获取资源订单情况
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListBySendUserId(int userId) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andSenderidEqualTo(userId);
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        if (orderList == null) {
+            return null;
+        }
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
 }

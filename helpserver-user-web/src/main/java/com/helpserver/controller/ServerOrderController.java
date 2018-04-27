@@ -298,4 +298,41 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,"success");
     }
 
+
+    /**
+     * 我发布的资源服务
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/list")
+    public String serverMySend(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
+        orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
+        model.addAttribute("orderUserDtoList", orderUserDtoList);
+        return "server_mysend_list";
+    }
+
+    /**
+     * 我抢的资源服务
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/myaccept/list")
+    public String serverMyAccept(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+
+        model.addAttribute("orderAcceptDtoList", orderAcceptDtoList);
+        return "server_myaccept_list";
+    }
+
 }

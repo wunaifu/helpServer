@@ -25,6 +25,10 @@ public interface OrderService {
 
     List<OrderUserDto> getOrderUserDtoListByStateAndSearch(int state,String search);
 
+    List<OrderUserDto> getOrderUserDtoListByStateAndSendUserId(int state,int userId);
+
+    List<OrderUserDto> getOrderUserDtoListBySendUserId(int userId);
+
     List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList);
 
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order);

@@ -218,8 +218,8 @@
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
                     <li><a href="/server/add">发服务</a></li>
-                    <li><a href="#">已发布</a></li>
-                    <li> <a href="#">已接单</a></li>
+                    <li><a href="/server/mysend/list">已发布</a></li>
+                    <li> <a href="/server/myaccept/list">已接单</a></li>
                     <li> <a href="#">待评价</a></li>
                     <li> <a href="#">已完成</a></li>
                 </ul>
