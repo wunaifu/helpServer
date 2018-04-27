@@ -43,6 +43,10 @@ CREATE TABLE `acceptorder` (
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+/*Data for the table `acceptorder` */
+
+insert  into `acceptorder`(`id`,`accepterId`,`orderId`,`moneyType`,`money`,`number`,`getType`,`acceptState`,`dateState`,`backReason`,`backTime`,`acceptTime`,`sureTime`,`finishTime`,`updateTime`) values (1,3,2,0,2,1,10,1,NULL,NULL,NULL,'2018-04-26 21:51:54',NULL,NULL,NULL),(2,3,1,1,10,1,1,1,NULL,NULL,NULL,'2018-04-26 21:53:32',NULL,NULL,NULL),(3,6,2,1,30,1,2,1,NULL,NULL,NULL,'2018-04-26 21:57:21',NULL,NULL,NULL),(4,6,1,1,10,1,1,1,NULL,NULL,NULL,'2018-04-26 21:57:43',NULL,NULL,NULL);
+
 /*Table structure for table `bigtype` */
 
 DROP TABLE IF EXISTS `bigtype`;
@@ -53,6 +57,10 @@ CREATE TABLE `bigtype` (
   `createTime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `bigtype` */
+
+insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'交通出行','2018-04-26 20:47:18'),(2,'租房建筑','2018-04-26 20:47:40'),(3,'家庭用品','2018-04-26 20:48:03'),(4,'其他','2018-04-26 20:48:13');
 
 /*Table structure for table `collectorder` */
 
@@ -70,6 +78,8 @@ CREATE TABLE `collectorder` (
   CONSTRAINT `collectorder_ibfk_2` FOREIGN KEY (`collectorId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `collectorder` */
+
 /*Table structure for table `feedback` */
 
 DROP TABLE IF EXISTS `feedback`;
@@ -85,6 +95,8 @@ CREATE TABLE `feedback` (
   KEY `userId` (`userId`),
   CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `feedback` */
 
 /*Table structure for table `gold` */
 
@@ -102,6 +114,10 @@ CREATE TABLE `gold` (
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
+/*Data for the table `gold` */
+
+insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-04-26 20:46:27',0,0),(2,2,11,'2018-04-26 20:51:10',1,0),(3,3,11,'2018-04-26 20:51:27',1,0),(4,4,11,'2018-04-26 20:51:44',1,0),(5,5,11,'2018-04-26 20:52:03',1,0),(6,6,11,'2018-04-26 20:52:20',1,0),(7,7,10,'2018-04-26 20:52:35',0,0),(8,8,11,'2018-04-26 20:52:55',1,0),(9,9,10,'2018-04-26 20:53:14',0,0),(10,10,10,'2018-04-26 20:53:34',0,0);
+
 /*Table structure for table `goldadd` */
 
 DROP TABLE IF EXISTS `goldadd`;
@@ -118,6 +134,8 @@ CREATE TABLE `goldadd` (
   CONSTRAINT `goldadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `goldadd` */
+
 /*Table structure for table `goldhistory` */
 
 DROP TABLE IF EXISTS `goldhistory`;
@@ -133,6 +151,10 @@ CREATE TABLE `goldhistory` (
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+/*Data for the table `goldhistory` */
+
+insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-04-26 20:46:27',1),(2,2,10,'注册','2018-04-26 20:51:10',1),(3,3,10,'注册','2018-04-26 20:51:27',1),(4,4,10,'注册','2018-04-26 20:51:44',1),(5,5,10,'注册','2018-04-26 20:52:03',1),(6,6,10,'注册','2018-04-26 20:52:20',1),(7,7,10,'注册','2018-04-26 20:52:35',1),(8,8,10,'注册','2018-04-26 20:52:55',1),(9,9,10,'注册','2018-04-26 20:53:14',1),(10,10,10,'注册','2018-04-26 20:53:34',1),(11,2,1,'每日签到','2018-04-26 20:53:47',1),(12,4,1,'每日签到','2018-04-26 20:56:44',1),(13,5,1,'每日签到','2018-04-26 20:57:09',1),(14,3,1,'每日签到','2018-04-26 21:33:44',1),(15,8,1,'每日签到','2018-04-26 21:43:04',1),(16,6,1,'每日签到','2018-04-26 21:55:05',1);
 
 /*Table structure for table `identity` */
 
@@ -154,6 +176,10 @@ CREATE TABLE `identity` (
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+/*Data for the table `identity` */
+
+insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,5,'宋姐按','123123123123','5/200428a0-ae06-46d5-9bff-dd3d84968599.png','5/1d1d6299-0b98-417c-b3b5-cff88be8dce2.png','2018-04-26 21:06:12','2018-04-26 21:51:16','认证通过',1),(2,3,'宋江','9023407248923','3/f709bce2-207e-4d07-a811-1812f199715a.png','3/737957f8-d82a-41db-82c7-72b90f3d5262.png','2018-04-26 21:34:18','2018-04-26 21:51:13','认证通过',1),(3,6,'李江','12312312312312','6/801a37ed-1d4c-46de-b6f4-ddd0be756411.png','6/176afc60-06c3-47c9-afd5-9b58c1a78c3b.png','2018-04-26 21:56:32','2018-04-26 21:56:38','认证通过',1);
+
 /*Table structure for table `money` */
 
 DROP TABLE IF EXISTS `money`;
@@ -170,6 +196,10 @@ CREATE TABLE `money` (
   CONSTRAINT `money_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
+/*Data for the table `money` */
+
+insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-04-26 20:46:27',0,0),(2,2,300,'2018-04-26 20:51:10',300,0),(3,3,170,'2018-04-26 20:51:27',400,0),(4,4,250,'2018-04-26 20:51:44',250,0),(5,5,80,'2018-04-26 20:52:03',100,0),(6,6,70,'2018-04-26 20:52:20',300,0),(7,7,0,'2018-04-26 20:52:35',0,0),(8,8,280,'2018-04-26 20:52:55',300,0),(9,9,0,'2018-04-26 20:53:14',0,0),(10,10,0,'2018-04-26 20:53:34',0,0);
+
 /*Table structure for table `moneyadd` */
 
 DROP TABLE IF EXISTS `moneyadd`;
@@ -185,6 +215,10 @@ CREATE TABLE `moneyadd` (
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+/*Data for the table `moneyadd` */
+
+insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,300,'2018-04-26 20:55:28','2/454eb79a-383b-4c54-b5cb-1c08dbc9742d.png','2018-04-26 21:16:57'),(2,3,200,'2018-04-26 20:56:10','3/e66d34cc-20df-492a-9cd7-7adaf33cd57a.png','2018-04-26 21:17:06'),(3,4,250,'2018-04-26 20:56:38','4/4e64512b-dab0-4276-8fa4-08e85fc26f42.png','2018-04-26 21:17:09'),(4,5,100,'2018-04-26 20:57:05','5/fb2959c9-cce6-4a49-a855-e3bd5b635899.png','2018-04-26 21:17:11'),(5,8,300,'2018-04-26 21:43:22','8/1928a36f-2aa2-4a7e-8c4f-c0d53baa1d53.png','2018-04-26 21:43:34'),(6,3,200,'2018-04-26 21:52:55','3/a2465275-4a2c-42b0-ab4c-dd65d96f5aad.png','2018-04-26 21:53:19'),(7,6,300,'2018-04-26 21:55:02','6/882b720c-7621-451e-b1ca-28ca5259c504.png','2018-04-26 21:55:54');
 
 /*Table structure for table `moneyget` */
 
@@ -203,6 +237,8 @@ CREATE TABLE `moneyget` (
   CONSTRAINT `moneyget_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `moneyget` */
+
 /*Table structure for table `moneyhistory` */
 
 DROP TABLE IF EXISTS `moneyhistory`;
@@ -219,6 +255,10 @@ CREATE TABLE `moneyhistory` (
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
+/*Data for the table `moneyhistory` */
+
+insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,300,'余额充值','2018-04-26 21:16:57',1),(2,3,200,'余额充值','2018-04-26 21:17:06',1),(3,4,250,'余额充值','2018-04-26 21:17:09',1),(4,5,100,'余额充值','2018-04-26 21:17:11',1),(5,5,20,'服务保障金','2018-04-26 21:24:51',0),(6,8,300,'余额充值','2018-04-26 21:43:34',1),(7,8,20,'服务保障金','2018-04-26 21:47:09',0),(8,3,200,'服务押金','2018-04-26 21:51:54',0),(9,3,200,'余额充值','2018-04-26 21:53:19',1),(10,3,30,'服务押金','2018-04-26 21:53:32',0),(11,6,300,'余额充值','2018-04-26 21:55:54',1),(12,6,200,'服务押金','2018-04-26 21:57:21',0),(13,6,30,'服务押金','2018-04-26 21:57:43',0);
+
 /*Table structure for table `news` */
 
 DROP TABLE IF EXISTS `news`;
@@ -230,6 +270,8 @@ CREATE TABLE `news` (
   `time` varchar(35) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `news` */
 
 /*Table structure for table `ordercomment` */
 
@@ -251,6 +293,8 @@ CREATE TABLE `ordercomment` (
   CONSTRAINT `ordercomment_ibfk_2` FOREIGN KEY (`myId`) REFERENCES `user` (`userId`),
   CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `ordercomment` */
 
 /*Table structure for table `orderinfo` */
 
@@ -294,6 +338,10 @@ CREATE TABLE `orderinfo` (
   CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+/*Data for the table `orderinfo` */
+
+insert  into `orderinfo`(`id`,`senderId`,`typeId`,`moneyAmount`,`foodName`,`amount`,`outAmount`,`dayMoney`,`monthMoney`,`startTime`,`endTime`,`orderDetail`,`city`,`address`,`pointInfo`,`lng`,`lat`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`dayNumber`,`monthNumber`,`infopicture1`,`infopicture2`) values (1,5,6,30,'2升电饭煲',1,0,2,10,NULL,NULL,'强力电饭煲，煮的饭香','江门市','江门市蓬江区五邑大学','江门市蓬江区五邑大学','113.090704','22.59913','2018-04-26 21:24:51',NULL,NULL,1,'宋先生','18215485455',0,'5/1bbed3f7-6e55-45b1-b28d-250dc3185793.jpg',NULL,30,3,'5/3f38e3c9-bd87-4ae5-b018-f83dc2703d57.jpg','5/925385f5-8b95-4728-abd4-71a1179b55e1.jpg'),(2,8,4,200,'蓝色山地车',1,0,2,30,NULL,NULL,'原价1200的山地，骑得很舒服，可调速','中山市','中山横栏镇横栏中学','中山市市辖区横栏中学-公交车站','113.260788','22.538678','2018-04-26 21:47:09',NULL,NULL,1,'张小姐','1548484545',0,'8/9d8dffbc-d9f3-4e8b-9737-303893a5c248.jpg',NULL,30,6,'8/c255a604-ee79-4ee4-8146-ae3c05e20517.jpg','8/eb092c6d-894e-4db3-adfa-b6951b8364f8.jpg');
+
 /*Table structure for table `ordertype` */
 
 DROP TABLE IF EXISTS `ordertype`;
@@ -309,6 +357,10 @@ CREATE TABLE `ordertype` (
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
+/*Data for the table `ordertype` */
+
+insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'汽车',1,'2018-04-26 20:48:23'),(2,1,'摩托车',1,'2018-04-26 20:48:33'),(3,1,'电车',1,'2018-04-26 20:48:39'),(4,1,'自行车',1,'2018-04-26 20:48:44'),(5,2,'租房',1,'2018-04-26 20:49:12'),(6,3,'电饭煲',1,'2018-04-26 20:49:46'),(7,3,'电视',1,'2018-04-26 20:49:57'),(8,3,'冰箱',1,'2018-04-26 20:50:15'),(9,4,'其他',1,'2018-04-26 20:50:24');
+
 /*Table structure for table `payaccount` */
 
 DROP TABLE IF EXISTS `payaccount`;
@@ -319,6 +371,10 @@ CREATE TABLE `payaccount` (
   `payphoto` varchar(200) DEFAULT NULL COMMENT '收款码',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `payaccount` */
+
+insert  into `payaccount`(`id`,`time`,`payphoto`) values (1,'2018-04-26 20:55:03','34982d30-e6a3-4780-8cd5-c0b083253e48.jpg');
 
 /*Table structure for table `sendercomment` */
 
@@ -340,6 +396,8 @@ CREATE TABLE `sendercomment` (
   CONSTRAINT `sendercomment_ibfk_2` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
   CONSTRAINT `sendercomment_ibfk_3` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sendercomment` */
 
 /*Table structure for table `user` */
 
@@ -363,6 +421,10 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `user` */
+
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2018-04-26 20:46:27',NULL,NULL,-1),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','李闻','李闻','中山',0,1,'我是谁','icon001.png','2018-04-26 20:51:10',NULL,NULL,0),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','宋江','宋江','江门蓬江',30,1,'家教','3/ba24c5bd-3780-45a4-a02c-533ab22c3d74.jpg','2018-04-26 20:51:27',NULL,NULL,1),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','18219111623','18219111623',NULL,0,1,NULL,'icon001.png','2018-04-26 20:51:44',NULL,NULL,0),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','宋姐按','宋姐岸','广东湛江',20,1,'你好','5/7e08eec9-55e2-491f-9ef9-a4f6d81c8a58.jpg','2018-04-26 20:52:03',NULL,NULL,1),(6,'18219111625','ea289daceb77cafc67ab21a64b9c77dd','李江','李江','12',0,1,'21','6/1a4238f7-adbb-48a4-a58f-5f2fc38cfd03.jpg','2018-04-26 20:52:20',NULL,NULL,1),(7,'18219111626','ea289daceb77cafc67ab21a64b9c77dd','18219111626','18219111626',NULL,0,1,NULL,'icon001.png','2018-04-26 20:52:35',NULL,NULL,0),(8,'18219111627','ea289daceb77cafc67ab21a64b9c77dd','张万金','张万金','啥地方',0,1,'12','8/eb092c6d-894e-4db3-adfa-b6951b8364f8.jpg','2018-04-26 20:52:55',NULL,NULL,0),(9,'18219111628','ea289daceb77cafc67ab21a64b9c77dd','18219111628','18219111628',NULL,0,1,NULL,'icon001.png','2018-04-26 20:53:14',NULL,NULL,0),(10,'18219111629','ea289daceb77cafc67ab21a64b9c77dd','18219111629','18219111629',NULL,0,1,NULL,'icon001.png','2018-04-26 20:53:34',NULL,NULL,0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
