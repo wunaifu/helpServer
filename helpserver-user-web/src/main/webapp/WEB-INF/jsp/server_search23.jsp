@@ -39,6 +39,9 @@
         if (request.getSession().getAttribute("nowUser") != null) {
             nowUser = (NowUser) request.getSession().getAttribute("nowUser");
         }
+//        request.setCharacterEncoding("UTF-8");
+//        String search = (String) request.getAttribute("search");
+//        //search = new String(search.getBytes("ISO-8859-1"),"UTF-8");
     %>
 </head>
 
@@ -132,7 +135,7 @@
             <ul class="select">
                 <p class="title font-normal">
                     <span class="fl"><%--<a href="/index" style="color: #0a628f">首页</a>>--%>搜索关键字 /
-                    <small><b style="color: #ff4d2d" id="searchStr">${search}</b></small></span>
+                    <small><b style="color: #ff4d2d" id="searchStr">${search} </b></small></span>
                     <span class="total fl">搜索到<strong class="num">${pagerList.totalRecord}</strong>件相关资源</span>
                 </p>
                 <div class="clear"></div>
@@ -209,7 +212,7 @@
                     <%--<strong >搜索关键字</strong> /--%>
                     <%--<small><b style="color: #ff4d2d"><%=search%></b></small>--%>
                 </div>
-                <div id="list_tbody">
+                <%--<div id="list_tbody"></div>--%>
                 <c:choose>
                     <c:when test="${pagerList.dataList.size()>0}">
                         <c:forEach items="${pagerList.dataList}" var="item" varStatus="status">
@@ -251,11 +254,11 @@
                         <h1 align="center">未有资源服务订单</h1>
                     </c:otherwise>
                 </c:choose>
-                </div>
+
             </div>
             <div class="clear "></div>
             <!--分页 -->
-            <div id="list_nav">
+            <%--<div id="list_nav"></div>--%>
             <%--<ul class="am-pagination am-pagination-left">
                 <li class="am-disabled"><a href="#">&laquo;</a></li>
                 <li class="am-active"><a href="#">1</a></li>
@@ -276,9 +279,9 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li><a onclick="click_pageNum(1)">首页</a></li>
+                        <li><a href="/server/search?search=${search}&pageNum=1">首页</a></li>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.currentPage-1})">
+                            <a href="/server/search?search=${search}&pageNum=${pagerList.currentPage-1}">
                                 <span>«</span>
                             </a>
                         </li>
@@ -297,7 +300,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a onclick="click_pageNum(${k})">${k}</a>
+                                <a href="/server/search?search=${search}&pageNum=${k}">${k}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -313,17 +316,16 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.currentPage+1})">
+                            <a href="/server/search?search=${search}&pageNum=${pagerList.currentPage+1}">
                                 <span >»</span>
                             </a>
                         </li>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.totalPage})">尾页</a>
+                            <a href="/server/search?search=${search}&pageNum=${pagerList.totalPage}">尾页</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
-            </div>
         </div>
         <div class="clear "></div>
     </div>

@@ -1,9 +1,11 @@
 package com.helpserver.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.helpserver.dto.NowUser;
 import com.helpserver.pojo.*;
 import com.helpserver.service.*;
 import com.helpserver.util.UserSessionSetUtils;
+import com.helpserver.utils.Pager;
 import com.helpserver.utils.ResponseUtils;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,15 +231,21 @@ public class ServerOrderController {
             return "page_403";
         }
         String search = request.getParameter("search");
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
 //        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
         List<OrderUserDto> orderUserDtoList = new ArrayList<>();
         orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
-        if (orderUserDtoList.size()<1) {
-            orderUserDtoList = orderService.getOrderUserDtoListByState(1);
-        }
+//        if (orderUserDtoList.size()<1) {
+//            orderUserDtoList = orderService.getOrderUserDtoListByState(1);
+//        }
+        Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
+        System.out.println("pager============="+pager.toString());
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
-        model.addAttribute("orderUserDtoList", orderUserDtoList);
+        model.addAttribute("pagerList", pager);
         model.addAttribute("search", search);
         return "server_search";
     }
@@ -333,6 +341,28 @@ public class ServerOrderController {
 
         model.addAttribute("orderAcceptDtoList", orderAcceptDtoList);
         return "server_myaccept_list";
+    }
+
+
+    @RequestMapping(value = "/searchjson")
+    public void serverSearchListJson(HttpServletRequest request, HttpServletResponse response) {
+        String search = request.getParameter("search");
+        try {
+            search = URLDecoder.decode(search, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("search============="+search);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
+        orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
+        Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
+        System.out.println("pager============="+pager.toString());
+        String result = JSON.toJSONString(pager);
+        ResponseUtils.renderJson(response,result);
     }
 
 }
