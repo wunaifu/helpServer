@@ -316,4 +316,24 @@ public class OrderServiceImpl implements OrderService {
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
     }
+
+    /**
+     * 通过发布者id和关键字获取资源订单情况
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListBySendUserIdAndSearch(int userId, String search) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andSenderidEqualTo(userId);
+        criteria.andFoodnameLike("%"+search+"%");
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        if (orderList == null) {
+            return null;
+        }
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
 }

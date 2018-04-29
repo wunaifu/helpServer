@@ -252,6 +252,32 @@ public class ServerOrderController {
     }
 
     /**
+     * 搜索结果分页
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/searchjson")
+    public void serverSearchListJson(HttpServletRequest request, HttpServletResponse response) {
+        String search = request.getParameter("search");
+        try {
+            search = URLDecoder.decode(search, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("search============="+search);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
+        orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
+        Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
+        System.out.println("pager============="+pager.toString());
+        String result = JSON.toJSONString(pager);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
      * 查看用户的信息
      * @param userId
      * @param request
@@ -307,27 +333,8 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,"success");
     }
 
-
     /**
-     * 我发布的资源服务
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping("/mysend/list")
-    public String serverMySend(HttpServletRequest request, ModelMap model) {
-        if (!UserSessionSetUtils.isUserLogin(request)) {
-            return "page_403";
-        }
-        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
-        orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
-        model.addAttribute("orderUserDtoList", orderUserDtoList);
-        return "server_mysend_list";
-    }
-
-    /**
-     * 我抢的资源服务
+     * 我抢的资源服务列表
      * @param request
      * @param model
      * @return
@@ -342,32 +349,6 @@ public class ServerOrderController {
 
         model.addAttribute("orderAcceptDtoList", orderAcceptDtoList);
         return "server_myaccept_list";
-    }
-
-    /**
-     * 搜索结果分页
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "/searchjson")
-    public void serverSearchListJson(HttpServletRequest request, HttpServletResponse response) {
-        String search = request.getParameter("search");
-        try {
-            search = URLDecoder.decode(search, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        System.out.println("search============="+search);
-        int pageNum = 1;
-        if (request.getParameter("pageNum") != null) {
-            pageNum = Integer.parseInt(request.getParameter("pageNum"));
-        }
-        List<OrderUserDto> orderUserDtoList = new ArrayList<>();
-        orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
-        Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
-        System.out.println("pager============="+pager.toString());
-        String result = JSON.toJSONString(pager);
-        ResponseUtils.renderJson(response,result);
     }
 
     /**
@@ -390,4 +371,121 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,result);
     }
 
+//start mysendServer -------------------------------我发布的资源服务列表-------------------------------------------------
+    /**
+     * 我发布的资源服务列表
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/list")
+    public String serverMySend(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
+        Pager<OrderUserDto> pagerList = new Pager<>(1, 10, orderUserDtoList);
+        model.addAttribute("pagerList", pagerList);
+        return "server_mysend_list";
+    }
+
+    /**
+     * 我发布的资源服务列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/mysend/listjson")
+    public void serverMySendListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 我发布的资源服务详情
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/detail")
+    public String serverMySendDetail(@PathVariable("orderId") int orderId,HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+//        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+//        Money money = moneyService.getMoney(nowUser.getUserid());
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(1, 10, acceptOrderUserDtoList);
+        model.addAttribute("orderUserDto", orderUserDto);
+        model.addAttribute("pagerAccept", pagerAccept);
+        return "server_mysend_detail";
+    }
+
+    /**
+     * 我发布的资源服务搜索
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/search")
+    public String serverMysendSearch(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String search = request.getParameter("search");
+        int pageNum = 1;
+//        if (request.getParameter("pageNum") != null) {
+//            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+//        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserIdAndSearch(nowUser.getUserid(),search);
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
+        model.addAttribute("pagerList", pagerList);
+        model.addAttribute("search", search);
+        return "server_mysend_search";
+    }
+
+    /**
+     * 我发布的资源服务搜索结果分页
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/mysend/searchjson")
+    public void serverMysendSearchListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        String search = request.getParameter("search");
+        try {
+            search = URLDecoder.decode(search, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserIdAndSearch(nowUser.getUserid(),search);
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+
+//end mysendServer -------------------------------我发布的资源服务列表----------------------------------------------------
 }

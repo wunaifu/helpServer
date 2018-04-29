@@ -29,6 +29,8 @@ public interface OrderService {
 
     List<OrderUserDto> getOrderUserDtoListBySendUserId(int userId);
 
+    List<OrderUserDto> getOrderUserDtoListBySendUserIdAndSearch(int userId, String search);
+
     List<OrderUserDto> getOrderUserDtoListByOrderList(List<Orderinfo> orderList);
 
     public OrderUserDto getOrderUserDtoByOrder(Orderinfo order);
