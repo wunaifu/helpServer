@@ -181,8 +181,9 @@ public class ServerOrderController {
 //        }
         Money money = moneyService.getMoney(nowUser.getUserid());
         List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(1, 10, acceptOrderUserDtoList);
         model.addAttribute("orderUserDto", orderUserDto);
-        model.addAttribute("acceptOrderUserDtoList", acceptOrderUserDtoList);
+        model.addAttribute("pagerAccept", pagerAccept);
         model.addAttribute("mymoney",money.getAmount());
         model.addAttribute("nowUser",nowUser);
         return "server_detail";
@@ -236,7 +237,7 @@ public class ServerOrderController {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
 //        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
+//        List<OrderTypeDto> orderTypeDtoList = orderTypeService.getOrderTypeDtoList(1);
         List<OrderUserDto> orderUserDtoList = new ArrayList<>();
         orderUserDtoList = orderService.getOrderUserDtoListByStateAndSearch(1, search);
 //        if (orderUserDtoList.size()<1) {
@@ -244,7 +245,7 @@ public class ServerOrderController {
 //        }
         Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
         System.out.println("pager============="+pager.toString());
-        model.addAttribute("orderTypeDtoList", orderTypeDtoList);
+//        model.addAttribute("orderTypeDtoList", orderTypeDtoList);
         model.addAttribute("pagerList", pager);
         model.addAttribute("search", search);
         return "server_search";
@@ -343,7 +344,11 @@ public class ServerOrderController {
         return "server_myaccept_list";
     }
 
-
+    /**
+     * 搜索结果分页
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "/searchjson")
     public void serverSearchListJson(HttpServletRequest request, HttpServletResponse response) {
         String search = request.getParameter("search");
@@ -362,6 +367,26 @@ public class ServerOrderController {
         Pager<OrderUserDto> pager = new Pager<>(pageNum, 10, orderUserDtoList);
         System.out.println("pager============="+pager.toString());
         String result = JSON.toJSONString(pager);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 资源服务抢单列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/acceptlist")
+    public void serverAcceptListDetail(HttpServletRequest request, HttpServletResponse response) {
+        int orderId=Integer.parseInt(request.getParameter("orderId"));
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+        System.out.println("pagerAccept============="+pagerAccept.toString());
+        String result = JSON.toJSONString(pagerAccept);
         ResponseUtils.renderJson(response,result);
     }
 

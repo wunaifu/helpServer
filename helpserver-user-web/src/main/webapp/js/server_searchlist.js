@@ -30,10 +30,6 @@ function click_pageNum(pageNum){
 			}else{
 				$("#list_tbody").text("");
 				$.each(list,function(i,item){
-					var sex = item.sex;
-					if(item.sex=="男女"){
-						sex = "不限";
-					}
 					var tr_str = '<div class="blogs">'
 						+'<h3><a href="/server/'+item.order.id+'/detail" style="color: #0a628f">资源名字：'+item.order.foodname+'</a></h3>'
 						+'<figure><a href="/server/'+item.order.senderid+'/userinfo">'
@@ -56,7 +52,8 @@ function click_pageNum(pageNum){
 						+(item.order.amount-item.order.outamount)+'/'+item.order.amount+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">'+item.order.moneyamount+'￥</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">'+item.order.city+'</b></span>'
-						+'<span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">'+item.order.address+'</b></span>'
+						+'<span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/'+item.order.id+'/map" style="color: #ff4d2d">'
+						+item.order.address+'</a></span>'
 						+'</div>'
 						+'<a href="/server/'+item.order.id+'/detail" class="readmore">马上抢单</a>'
 						+'</ul>'
@@ -81,7 +78,7 @@ function add_nav(pageNum,totalPage){
 	if(pageNum==1||totalPage==0){
 		nav_str+='<li class="am-disabled"><a>首页</a></li> <li class="am-disabled"> <a > <span >«</span> </a> </li>';
 	}else{
-	nav_str+='<li><a onclick="click_pageNum(1)">首页</a></li><li> <a onclick="click_pageNum('+(pageNum-1)+'"> <span>«</span> </a> </li>';
+	nav_str+='<li><a onclick="click_pageNum(1)">首页</a></li><li> <a onclick="click_pageNum('+(pageNum-1)+')"> <span>«</span> </a> </li>';
 	}
 	var k=1;
 	for(;k<=totalPage;k++) {

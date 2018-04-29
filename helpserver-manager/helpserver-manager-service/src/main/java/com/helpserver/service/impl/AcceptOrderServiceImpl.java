@@ -104,6 +104,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
             if (accepter != null) {
                 acceptOrderUserDto.setAcceptUserName(accepter.getName());
                 acceptOrderUserDto.setAcceptUserIcon(accepter.getHeadicon());
+                acceptOrderUserDto.setAcceptUserCredit(accepter.getCredit());
             }
             acceptOrderUserDto.setAcceptorder(acceptOrder);
             acceptOrderUserDtoList.add(acceptOrderUserDto);
@@ -130,6 +131,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
             if (accepter != null) {
                 orderAcceptDto.setAcceptUserName(accepter.getName());
                 orderAcceptDto.setAcceptUserIcon(accepter.getHeadicon());
+                orderAcceptDto.setAcceptUserCredit(accepter.getCredit());
             }
             Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptOrder.getOrderid());
             User sender = userDao.selectByPrimaryKey(orderinfo.getSenderid());
@@ -137,6 +139,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
                 orderAcceptDto.setSenderId(sender.getUserid());
                 orderAcceptDto.setSendUserName(sender.getName());
                 orderAcceptDto.setSendUserIcon(sender.getHeadicon());
+                orderAcceptDto.setSendUserCredit(sender.getCredit());
             }
             orderAcceptDto.setOrderinfo(orderinfo);
             orderAcceptDto.setAcceptorder(acceptOrder);

@@ -9,9 +9,11 @@ public class OrderAcceptDto implements Serializable {
     int senderId;
     String sendUserName;
     String sendUserIcon;
+    String sendUserCredit;
 
     String acceptUserName;
     String acceptUserIcon;
+    String acceptUserCredit;
 
     Acceptorder acceptorder;
     Orderinfo orderinfo;
@@ -70,5 +72,21 @@ public class OrderAcceptDto implements Serializable {
 
     public void setOrderinfo(Orderinfo orderinfo) {
         this.orderinfo = orderinfo;
+    }
+
+    public String getSendUserCredit() {
+        return sendUserCredit;
+    }
+
+    public void setSendUserCredit(String sendUserCredit) {
+        this.sendUserCredit = sendUserCredit;
+    }
+
+    public String getAcceptUserCredit() {
+        return acceptUserCredit;
+    }
+
+    public void setAcceptUserCredit(String acceptUserCredit) {
+        this.acceptUserCredit = acceptUserCredit;
     }
 }

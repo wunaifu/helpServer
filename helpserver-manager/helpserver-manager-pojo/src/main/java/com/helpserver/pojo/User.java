@@ -73,6 +73,11 @@ public class User implements Serializable {
      */
     private Integer permission;
 
+    /**
+     * 信誉积分统计
+     */
+    private String credit;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserid() {
@@ -187,6 +192,14 @@ public class User implements Serializable {
         this.permission = permission;
     }
 
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit == null ? null : credit.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -195,7 +208,7 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", userid=").append(userid);
         sb.append(", phone=").append(phone);
-        sb.append(", password=").append("***");
+        sb.append(", password=").append(password);
         sb.append(", name=").append(name);
         sb.append(", nickname=").append(nickname);
         sb.append(", address=").append(address);
@@ -207,6 +220,7 @@ public class User implements Serializable {
         sb.append(", bantime=").append(bantime);
         sb.append(", payaccount=").append(payaccount);
         sb.append(", permission=").append(permission);
+        sb.append(", credit=").append(credit);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

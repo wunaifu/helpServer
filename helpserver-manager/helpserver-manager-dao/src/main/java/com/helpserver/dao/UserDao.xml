@@ -16,6 +16,7 @@
     <result column="banTime" property="bantime" jdbcType="VARCHAR" />
     <result column="payAccount" property="payaccount" jdbcType="VARCHAR" />
     <result column="permission" property="permission" jdbcType="INTEGER" />
+    <result column="credit" property="credit" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,7 @@
   <sql id="Base_Column_List" >
     <if test="fields == null" >
       userId, phone, password, name, nickname, address, age, sex, userInfo, headicon, registerTime, 
-      banTime, payAccount, permission
+      banTime, payAccount, permission, credit
     </if>
     <if test="fields != null" >
       ${fields}
@@ -103,7 +104,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    userId,phone,password,name,nickname,address,age,sex,userInfo,headicon,registerTime,banTime,payAccount,permission
+    userId,phone,password,name,nickname,address,age,sex,userInfo,headicon,registerTime,banTime,payAccount,permission,credit
     from user
     where userId = #{userid,jdbcType=INTEGER}
   </select>
@@ -122,14 +123,16 @@
       name, nickname, address, 
       age, sex, userInfo, 
       headicon, registerTime, banTime, 
-      payAccount, permission)
+      payAccount, permission, credit
+      )
     values (#{userid,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{userinfo,jdbcType=VARCHAR}, 
       #{headicon,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR}, #{bantime,jdbcType=VARCHAR}, 
-      #{payaccount,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER})
+      #{payaccount,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER}, #{credit,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.helpserver.pojo.User" useGeneratedKeys="true" keyProperty="userid">
+  <insert id="insertSelective" parameterType="com.helpserver.pojo.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -174,6 +177,9 @@
       <if test="permission != null" >
         permission,
       </if>
+      <if test="credit != null" >
+        credit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -217,6 +223,9 @@
       </if>
       <if test="permission != null" >
         #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -271,6 +280,9 @@
       <if test="record.permission != null" >
         permission = #{record.permission,jdbcType=INTEGER},
       </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -291,7 +303,8 @@
       registerTime = #{record.registertime,jdbcType=VARCHAR},
       banTime = #{record.bantime,jdbcType=VARCHAR},
       payAccount = #{record.payaccount,jdbcType=VARCHAR},
-      permission = #{record.permission,jdbcType=INTEGER}
+      permission = #{record.permission,jdbcType=INTEGER},
+      credit = #{record.credit,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -338,6 +351,9 @@
       <if test="permission != null" >
         permission = #{permission,jdbcType=INTEGER},
       </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
     </set>
     where userId = #{userid,jdbcType=INTEGER}
   </update>
@@ -355,7 +371,8 @@
       registerTime = #{registertime,jdbcType=VARCHAR},
       banTime = #{bantime,jdbcType=VARCHAR},
       payAccount = #{payaccount,jdbcType=VARCHAR},
-      permission = #{permission,jdbcType=INTEGER}
+      permission = #{permission,jdbcType=INTEGER},
+      credit = #{credit,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>

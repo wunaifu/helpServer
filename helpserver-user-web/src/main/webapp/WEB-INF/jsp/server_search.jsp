@@ -144,14 +144,14 @@
                     <%--</dl>--%>
                 <%--</li>--%>
                 <%--<div class="clear"></div>--%>
-                <c:choose>
+               <%-- <c:choose>
                     <c:when test="${orderTypeDtoList.size()>0}">
                         <c:forEach items="${orderTypeDtoList}" var="item" varStatus="status">
                             <li class="select-list">
                                 <dl id="select2">
                                     <dt class="am-badge am-round">${item.bigtype.typename}</dt>
                                     <div class="dd-conent">
-                                        <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
+                                        &lt;%&ndash;<dd class="select-all selected"><a href="#">全部</a></dd>&ndash;%&gt;
                                         <c:choose>
                                             <c:when test="${item.ordertypeList.size()>0}">
                                                 <c:forEach items="${item.ordertypeList}" var="itemtype">
@@ -178,7 +178,7 @@
                             </dl>
                         </li>
                     </c:otherwise>
-                </c:choose>
+                </c:choose>--%>
             </ul>
             <div class="clear"></div>
         </div>
@@ -234,7 +234,7 @@
                                         <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.order.amount-item.order.outamount}/${item.order.amount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">${item.order.moneyamount}￥</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/${item.order.id}/map" style="color: #ff4d2d">${item.order.address}</a></span>
                                     </div>
                                     <a href="/server/${item.order.id}/detail" class="readmore">马上抢单</a>
                                 </ul>
