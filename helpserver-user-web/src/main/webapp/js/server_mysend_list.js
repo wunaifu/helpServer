@@ -45,14 +45,15 @@ function click_pageNum(pageNum){
 						+'</p>'
 						+'</a>'
 						+'<div class="autor1">'
-						+'<span>类型：<b style="color: #ff4d2d">'+item.orderTypeName+'</b></span>'
-						+'<c:if test="'+item.order.daynumber+'>0">'
-						+'<span style="margin: 0px 0px 0px 10px;">日租费：<b style="color: #ff4d2d">￥'+item.order.daymoney+'</b></span>'
-						+'</c:if>'
-						+'<c:if test="'+item.order.monthnumber+'>0">'
-						+'<span style="margin: 0px 0px 0px 10px;">月租费：<b style="color: #ff4d2d">￥'+item.order.monthmoney+'</b></span>'
-						+'</c:if>'
-						+'<span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">'+(item.order.amount-item.order.outamount)+'/'+item.order.amount+'</b></span>'
+						+'<span>类型：<b style="color: #ff4d2d">'+item.orderTypeName+'</b></span>';
+					if(item.order.daynumber>0){
+						tr_str+='<span style="margin: 0px 0px 0px 10px;">日租费：<b style="color: #ff4d2d">￥'+item.order.daymoney+'</b></span>';
+					}
+					if(item.order.monthnumber>0){
+						tr_str+='<span style="margin: 0px 0px 0px 10px;">月租费：<b style="color: #ff4d2d">￥'+item.order.monthmoney+'</b></span>';
+					}
+					tr_str+='<span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">'
+						+(item.order.amount-item.order.outamount)+'/'+item.order.amount+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥'+item.order.moneyamount+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">'+item.order.city+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">'+item.order.address+'</b></span>'
@@ -61,26 +62,20 @@ function click_pageNum(pageNum){
 						+'<a href="/server/mysend/'+item.order.id+'/detail" class="readmore" style="margin-right: 10px;">修改信息</a>'
 						+'<a href="/server/mysend/'+item.order.id+'/detail" class="readmore" style="margin-right: 10px;">查看详情</a>'
 						+'</ul>'
-						+'<p class="autor">'
-						+'<c:choose>'
-						+'<c:when test="'+item.order.orderstate+'==1">'
-						+'<span>状态:<a>发布中</a></span>'
-						+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
-						+'</c:when>'
-						+'<c:when test="'+item.order.orderstate+'==-1">'
-						+'<span>状态:<a>已禁用</a></span>'
-						+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
-						+'<span>&nbsp;禁用时间:'+item.order.updatetime+'</span>'
-						+'</c:when>'
-						+'<c:otherwise>'
-						+'<span>状态:<a>已下架</a></span>'
-						+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
-						+'<span>&nbsp;下架时间:'+item.order.updatetime+'</span>'
-						+'</c:otherwise>'
-						+'</c:choose>'
-						+'</p>'
-						+'<hr />'
-						+'</div>';
+						+'<p class="autor">';
+					if(item.order.orderstate==1){
+						tr_str+='<span>状态:<a>发布中</a></span>'
+							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>';
+					}else if(item.order.orderstate==-1){
+						tr_str+='<span>状态:<a>已禁用</a></span>'
+							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
+							+'<span>&nbsp;禁用时间:'+item.order.updatetime+'</span>';
+					}else{
+						tr_str+='<span>状态:<a>已下架</a></span>'
+							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
+							+'<span>&nbsp;下架时间:'+item.order.updatetime+'</span>';
+					}
+					tr_str+='</p><hr /></div>';
 					$("#list_tbody").append(tr_str);
 				});
 				$("#list_nav").text("");

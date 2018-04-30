@@ -229,7 +229,7 @@
 <div class="pay">
     <div class="pay-opt">
         <a href="/index"><span class="am-icon-home am-icon-fw">首页</span></a>
-        <a><span class="am-icon-heart am-icon-fw"></span></a>
+        <a><span class="am-icon-heart am-icon-fw">修改</span></a>
 
     </div>
     <li>
@@ -239,7 +239,7 @@
     </li>
     <li>
         <div class="clearfix tb-btn tb-btn-basket">
-            <a title="去修改信息" href="#" ><i></i>修改信息</a>
+            <a title="去查看抢单列表" href="/server/mysend/${orderUserDto.order.id}/acceptlist" ><i></i>抢单列表</a>
         </div>
     </li>
 </div>

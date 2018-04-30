@@ -33,7 +33,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/server_mysend_list.js"></script>
+    <%--<script type="text/javascript" src="/js/server_myaccept_list.js"></script>--%>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -89,8 +89,8 @@
 
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
-            <form action="/server/mysend/search"  method="post">
-                <input id="searchInput" name="search" type="text" placeholder="搜索我发布的资源服务" autocomplete="off" required>
+            <form action="#"  method="post">
+                <input id="searchInput" name="search" type="text" placeholder="搜索我预定的资源服务" autocomplete="off" required>
                 <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
             </form>
         </div>
@@ -123,12 +123,19 @@
 <div class="am-g am-g-fixed">
     <div class="am-u-sm-12 am-u-md-12">
         <div class="theme-popover">
+            <%--<div class="searchAbout">--%>
+                <%--<span class="font-pale">相关搜索：</span>--%>
+                <%--<a title="坚果" href="#">坚果</a>--%>
+                <%--<a title="瓜子" href="#">瓜子</a>--%>
+                <%--<a title="鸡腿" href="#">豆干</a>--%>
 
+            <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="total fl">你一共发布了<strong class="num">${pagerList.totalRecord}</strong>条资源服务</span>
+                    <span class="total fl">该订单一共有<strong class="num">${pagerList.totalRecord}</strong>个资源服务预抢单</span>
                 </p>
                 <div class="clear"></div>
+
             </ul>
             <div class="clear"></div>
         </div>
@@ -140,7 +147,7 @@
             <!--<hr />-->
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2>
-                    <p style="float:left;">已发布资源服务</p>
+                    <p style="float:left;">资源互助服务</p>
                 </h2>
                 <div class="clear "></div>
                 <div style="font-size: 15px;margin: 10px 0 10px 5px;padding: 5px;">
@@ -154,47 +161,77 @@
                     <c:when test="${pagerList.dataList.size()>0}">
                         <c:forEach items="${pagerList.dataList}" var="item" varStatus="status">
                             <div class="blogs">
-                                <h3><a href="/server/mysend/${item.order.id}/detail" style="color: #0a628f">资源名字：${item.order.foodname}</a></h3>
-                                <figure><a href="/server/${item.order.senderid}/userinfo">
-                                    <img style="width: 72px;height: 72px;" src="/resources/img/${item.senderIcon}"></a>
+                                <h3><a href="/server/${item.acceptorder.accepterid}/userinfo" style="color: #0a628f">抢单者：${item.acceptUserName}</a></h3>
+                                抢单时间：${item.acceptorder.accepttime}
+                                <figure><a href="/server/${item.acceptorder.accepterid}/userinfo">
+                                    <img style="width: 72px;height: 72px;" src="/resources/img/${item.acceptUserIcon}"></a>
                                 </figure>
                                 <ul>
-                                    <a href="/server/mysend/${item.order.id}/detail">
-                                        <p>资源详情：<b style="color: #000000">${item.order.orderdetail}</b>
-                                        </p>
-                                    </a>
+                                    <%--<a href="/server/${item.orderId}/detail">--%>
+                                        <%--<p>资源详情：<b style="color: #000000">${item.orderdetail}</b></p>--%>
+                                    <%--</a>--%>
                                     <div class="autor1">
-                                        <span>类型：<b style="color: #ff4d2d">${item.orderTypeName}</b></span>
-                                        <c:if test="${item.order.daynumber>0}">
-                                            <span style="margin: 0px 0px 0px 10px;">日租费：<b style="color: #ff4d2d">￥${item.order.daymoney}</b></span>
-                                        </c:if>
-                                        <c:if test="${item.order.monthnumber>0}">
-                                            <span style="margin: 0px 0px 0px 10px;">月租费：<b style="color: #ff4d2d">￥${item.order.monthmoney}</b></span>
-                                        </c:if>
-                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.order.amount-item.order.outamount}/${item.order.amount}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${item.order.moneyamount}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>
+                                        <span>信誉分：<b style="color: #ff4d2d">${item.acceptUserCredit}</b></span>
+                                        <c:choose>
+                                            <c:when test="${item.acceptorder.moneytype==0}">
+                                                <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">日租￥${item.acceptorder.money}</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.gettype}天</b></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">月租￥${item.acceptorder.money}</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.gettype}月</b></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <span style="margin: 0px 0px 0px 10px;">租用数量：<b style="color: #ff4d2d">${item.acceptorder.number}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">预计费用：<b style="color: #ff4d2d">
+                                            ￥${item.acceptorder.number*item.acceptorder.money*item.acceptorder.gettype}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${orderinfo.amount-orderinfo.outamount}/${orderinfo.amount}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${orderinfo.moneyamount}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${orderinfo.city}</b></span>
+                                        <c:choose>
+                                            <c:when test="${item.acceptorder.datestate==0}">
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">正常使用</b></span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
-                                    <a href="/server/mysend/${item.order.id}/detail" class="readmore">立即下架</a>
-                                    <a href="/server/mysend/${item.order.id}/detail" class="readmore" style="margin-right: 10px;">修改信息</a>
-                                    <a href="/server/mysend/${item.order.id}/acceptlist" class="readmore" style="margin-right: 10px;">抢单列表</a>
+                                    <c:choose>
+                                        <c:when test="${item.acceptorder.acceptstate==1}">
+                                            <a href="#" onclick="agreeAccept(1,${item.acceptorder.id})" class="readmore">通过抢单</a>
+                                            <a href="#" onclick="agreeAccept(0,${item.acceptorder.id})" class="readmore" style="margin-right: 10px;">拒绝抢单</a>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==2}">
+                                            <a href="#" class="readmore">催还物品</a>
+                                        </c:when>
+                                        <c:otherwise>
+
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </ul>
                                 <p class="autor">
                                     <c:choose>
-                                        <c:when test="${item.order.orderstate==1}">
-                                            <span>状态:<a>发布中</a></span>
-                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
+                                        <c:when test="${item.acceptorder.acceptstate==0}">
+                                            <span>状态：<a>已取消</a></span>
+                                            <span>&nbsp;取消时间：${item.acceptorder.backtime}</span>
                                         </c:when>
-                                        <c:when test="${item.order.orderstate==-1}">
-                                            <span>状态:<a>已禁用</a></span>
-                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
-                                            <span>&nbsp;禁用时间:${item.order.updatetime}</span>
+                                        <c:when test="${item.acceptorder.acceptstate==1}">
+                                            <span>状态：<a>待通过</a></span>
+                                            <span>&nbsp;抢单时间：${item.acceptorder.accepttime}</span>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==2}">
+                                            <span>状态：<a>租用中</a></span>
+                                            <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==4}">
+                                            <span>状态：<a>已下架</a></span>
+                                            <span>&nbsp;下架时间：${orderinfo.repealtime}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span>状态:<a>已下架</a></span>
-                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
-                                            <span>&nbsp;下架时间:${item.order.updatetime}</span>
+                                            <span>状态：<a>已归还</a></span>
+                                            <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </p>
@@ -203,10 +240,10 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <h1 align="center">未发布资源服务订单</h1>
+                        <h1 align="center">未预定资源服务订单</h1>
                     </c:otherwise>
                 </c:choose>
-                </div>
+            </div>
             </div>
             <div class="clear "></div>
             <!--分页 -->
@@ -293,6 +330,30 @@
 <!--菜单 -->
 <script>
     window.jQuery || document.write('<script src="basic/js/jquery-1.9.min.js"><\/script>');
+
+    function agreeAccept(state, acceptId) {
+        var url = "/server/mysend/listjson?state="+state+"&acceptId="+acceptId;
+        $.ajax({
+            type : "POST",
+            url: url,
+            contentType : "application/json;charset=utf-8",
+            dataType : "json",
+            error : function() {
+                alert("请求失败，请重试！");
+            },
+            success:function (data) {
+                if(data==null) {
+                    window.location.href="/page_403";
+                }
+                console.log(data);
+                if(list.length==0){
+
+                }else{
+
+                }
+            }
+        });
+    }
 </script>
 <script type="text/javascript " src="/basic/js/quick_links.js "></script>
 </body>

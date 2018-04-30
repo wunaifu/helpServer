@@ -124,8 +124,52 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         criteria.andAccepteridEqualTo(userId);
         acceptorderExample.setOrderByClause("acceptTime desc");
         List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = this.getOrderAcceptDtoListByAcceptOrderList(acceptorderList);
+        return orderAcceptDtoList;
+    }
+
+    /**
+     * 通过orderId获取已抢订单
+     * @param orderId
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoListByOrderId(int orderId) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andOrderidEqualTo(orderId);
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = this.getOrderAcceptDtoListByAcceptOrderList(acceptorderList);
+        return orderAcceptDtoList;
+    }
+
+    /**
+     * 通过userId和关键字获取已抢订单
+     * @param userId
+     * @param search
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoListByUserIdAndSearch(int userId, String search) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andAccepteridEqualTo(userId);
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = this.getOrderAcceptDtoListByAcceptOrderList(acceptorderList);
+        return orderAcceptDtoList;
+    }
+
+    /**
+     * 通过接单列表获取接单列表及其他有关信息
+     * @param acceptOrderList
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoListByAcceptOrderList(List<Acceptorder> acceptOrderList) {
         List<OrderAcceptDto> orderAcceptDtoList = new ArrayList<>();
-        for (Acceptorder acceptOrder : acceptorderList) {
+        for (Acceptorder acceptOrder : acceptOrderList) {
             OrderAcceptDto orderAcceptDto = new OrderAcceptDto();
             User accepter = userDao.selectByPrimaryKey(acceptOrder.getAccepterid());
             if (accepter != null) {
@@ -141,7 +185,17 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
                 orderAcceptDto.setSendUserIcon(sender.getHeadicon());
                 orderAcceptDto.setSendUserCredit(sender.getCredit());
             }
-            orderAcceptDto.setOrderinfo(orderinfo);
+            if (orderinfo != null) {
+                orderAcceptDto.setOrderId(orderinfo.getId());
+                orderAcceptDto.setFoodname(orderinfo.getFoodname());
+                orderAcceptDto.setOrderdetail(orderinfo.getOrderdetail());
+                orderAcceptDto.setCity(orderinfo.getCity());
+                orderAcceptDto.setAddress(orderinfo.getAddress());
+                orderAcceptDto.setAmount(orderinfo.getAmount());
+                orderAcceptDto.setOutamount(orderinfo.getOutamount());
+                orderAcceptDto.setMoneyamount(orderinfo.getMoneyamount());
+                orderAcceptDto.setRepealtime(orderinfo.getRepealtime());
+            }
             orderAcceptDto.setAcceptorder(acceptOrder);
             orderAcceptDtoList.add(orderAcceptDto);
         }
