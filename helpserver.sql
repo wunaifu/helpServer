@@ -29,7 +29,7 @@ CREATE TABLE `acceptorder` (
   `number` int(11) DEFAULT '0' COMMENT '租用数量',
   `getType` int(11) DEFAULT '0' COMMENT '租用周期',
   `acceptState` int(11) NOT NULL DEFAULT '1' COMMENT '状态（1抢单中，0取消，2接单中，3已完成，4发布方取消）',
-  `dateState` int(11) DEFAULT NULL COMMENT '租用状态（1正常，0超期，2',
+  `dateState` int(11) DEFAULT '1' COMMENT '租用状态（1正常，0超期，2',
   `backReason` varchar(50) DEFAULT NULL COMMENT '退单理由',
   `backTime` varchar(32) DEFAULT NULL COMMENT '退单时间0',
   `acceptTime` varchar(32) DEFAULT NULL COMMENT '抢单时间1',
