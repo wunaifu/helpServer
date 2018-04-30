@@ -333,6 +333,8 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,"success");
     }
 
+//start mysendServer -------------------------------我预定的资源服务列表-------------------------------------------------
+
     /**
      * 我抢的资源服务列表
      * @param request
@@ -346,10 +348,37 @@ public class ServerOrderController {
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
-
-        model.addAttribute("orderAcceptDtoList", orderAcceptDtoList);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(1, 10, orderAcceptDtoList);
+        model.addAttribute("pagerList", pagerList);
         return "server_myaccept_list";
     }
+
+    /**
+     * 我发布的资源服务列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/myaccept/listjson")
+    public void serverMyAcceptListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+
+
+//end mysendServer -------------------------------我预定的资源服务列表-------------------------------------------------
 
     /**
      * 资源服务抢单列表分页

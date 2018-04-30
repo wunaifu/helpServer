@@ -33,6 +33,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="/js/server_myaccept_list.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -131,25 +132,13 @@
             <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="fl"><%--<a href="/index" style="color: #0a628f">首页</a>>--%>搜索关键字 /
-                    <small><b style="color: #ff4d2d"></b></small></span>
-                    <span class="total fl">搜索到<strong class="num"></strong>件相关资源</span>
+                    <span class="total fl">你一共预定了<strong class="num">${pagerList.totalRecord}</strong>条资源服务</span>
                 </p>
                 <div class="clear"></div>
 
             </ul>
             <div class="clear"></div>
         </div>
-        <%--<div class="search-content">--%>
-            <%--<div class="sort">--%>
-                <%--<li class="first"><a title="综合">综合排序</a></li>--%>
-                <%--<li><a title="销量">销量排序</a></li>--%>
-                <%--<li><a title="价格">价格优先</a></li>--%>
-                <%--<li class="big"><a title="评价" href="#">评价为主</a></li>--%>
-            <%--</div>--%>
-            <%--<div class="clear"></div>--%>
-
-        <%--</div>--%>
 <div class="shopMainbg">
     <div class="shopMain" id="shopmain">
         <!--热门活动 -->
@@ -167,33 +156,35 @@
                     <%--<strong >搜索关键字</strong> /--%>
                     <%--<small><b style="color: #ff4d2d">${search}</b></small>--%>
                 </div>
+                <div id="list_tbody">
                 <c:choose>
-                    <c:when test="${orderAcceptDtoList.size()>0}">
-                        <c:forEach items="${orderAcceptDtoList}" var="item" varStatus="status">
+                    <c:when test="${pagerList.dataList.size()>0}">
+                        <c:forEach items="${pagerList.dataList}" var="item" varStatus="status">
                             <div class="blogs">
                                 <h3><a href="" style="color: #0a628f">资源名字：${item.orderinfo.foodname}</a></h3>
+                                抢单时间：${item.acceptorder.accepttime}
                                 <figure><a href="/server/${item.orderinfo.senderid}/userinfo">
                                     <img style="width: 72px;height: 72px;" src="/resources/img/${item.sendUserIcon}"></a>
                                 </figure>
                                 <ul>
                                     <a href="/server/${item.orderinfo.id}/detail">
-                                        <p>资源详情：<b style="color: #000000">${item.orderinfo.orderdetail}</b>
-                                        </p>
+                                        <p>资源详情：<b style="color: #000000">${item.orderinfo.orderdetail}</b></p>
                                     </a>
                                     <div class="autor1">
-
+                                        <span>发布者：<b style="color: #ff4d2d">${item.sendUserName}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">信誉分：<b style="color: #ff4d2d">${item.sendUserCredit}</b></span>
                                         <c:choose>
                                             <c:when test="${item.acceptorder.moneytype==0}">
-                                                <span>计费方式：<b style="color: #ff4d2d">日租￥${item.acceptorder.money}</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">日租￥${item.acceptorder.money}</b></span>
                                                 <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.number}天</b></span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span>计费方式：<b style="color: #ff4d2d">月租￥${item.acceptorder.money}</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">月租￥${item.acceptorder.money}</b></span>
                                                 <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.number}月</b></span>
                                             </c:otherwise>
                                         </c:choose>
                                         <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.orderinfo.amount-item.orderinfo.outamount}/${item.orderinfo.amount}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">${item.orderinfo.moneyamount}￥</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${item.orderinfo.moneyamount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.orderinfo.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/${item.orderinfo.id}/map" style="color: #ff4d2d">${item.orderinfo.address}</a></span>
                                     </div>
@@ -205,48 +196,108 @@
                                             <a href="#" class="readmore">结束租用</a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="#" class="readmore">再次抢单</a>
+                                            <a href="/server/${item.orderinfo.id}/detail" class="readmore">再次抢单</a>
                                         </c:otherwise>
                                     </c:choose>
 
                                 </ul>
                                 <p class="autor">
                                     <c:choose>
+                                        <c:when test="${item.acceptorder.acceptstate==0}">
+                                            <span>状态：<a>已取消</a></span>
+                                            <span>&nbsp;取消时间：${item.acceptorder.backtime}</span>
+                                        </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <span>状态：<a>待资源主确认</a></span>
+                                            <span>状态：<a>待通过</a></span>
+                                            <span>&nbsp;抢单时间：${item.acceptorder.accepttime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <span>状态：<a>资源租用中</a></span>
+                                            <span>状态：<a>租用中</a></span>
+                                            <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==4}">
+                                            <span>状态：<a>已下架</a></span>
+                                            <span>&nbsp;下架时间：${item.orderinfo.repealtime}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span>状态：<a>租用已结束</a></span>
+                                            <span>状态：<a>已结束</a></span>
+                                            <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
                                         </c:otherwise>
                                     </c:choose>
-                                    <span>&nbsp;发布时间：${item.acceptorder.accepttime}</span>
-                                        <%--<span>收藏（<a>459</a>）</span><span>浏览（<a>30</a>）</span>--%>
                                 </p>
                                 <hr />
-                                    <%--<div class="dateview">${item.orderinfo.sendtime}</div>--%>
                             </div>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <h1 align="center">未有资源服务订单</h1>
+                        <h1 align="center">未预定资源服务订单</h1>
                     </c:otherwise>
                 </c:choose>
-
+            </div>
             </div>
             <div class="clear "></div>
             <!--分页 -->
-            <ul class="am-pagination am-pagination-left">
-                <li class="am-disabled"><a href="#">&laquo;</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
+            <div id="list_nav">
+                <ul class="am-pagination am-pagination-left">
+                    <c:choose>
+                        <c:when test="${pagerList.currentPage==1||pagerList.totalPage==0}">
+                            <li class="am-disabled"><a>首页</a></li>
+                            <li class="am-disabled">
+                                <a >
+                                    <span >«</span>
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a onclick="click_pageNum(1)">首页</a></li>
+                            <li>
+                                <a onclick="click_pageNum(${pagerList.currentPage-1})">
+                                    <span>«</span>
+                                </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="k" begin="1" end="${pagerList.totalPage}">
+                        <c:choose>
+                            <c:when test="${k==(pagerList.currentPage-3) || k == (pagerList.currentPage + 3)}">
+                                <li><a>…</a></li>
+                            </c:when>
+                            <c:when test="${k==pagerList.currentPage}">
+                                <li class="am-active"><a>${k}<span class="sr-only"></span></a></li>
+                            </c:when>
+                            <c:when test="${k < pagerList.currentPage - 3 || k > pagerList.currentPage + 3}">
+
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a onclick="click_pageNum(${k})">${k}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${pagerList.currentPage == pagerList.totalPage || pagerList.totalPage == 0}">
+                            <li class="am-disabled">
+                                <a >
+                                    <span >»</span>
+                                </a>
+                            </li>
+                            <li class="am-disabled"><a>尾页</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a onclick="click_pageNum(${pagerList.currentPage+1})">
+                                    <span >»</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="click_pageNum(${pagerList.totalPage})">尾页</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
+            <div style="padding: 20px;"></div>
         </div>
         <div class="clear "></div>
     </div>
