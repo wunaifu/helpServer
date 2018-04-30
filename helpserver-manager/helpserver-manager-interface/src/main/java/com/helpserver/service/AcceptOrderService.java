@@ -11,6 +11,8 @@ public interface AcceptOrderService {
 
     String insertAcceptOrder(Acceptorder acceptorder);
 
+    Acceptorder getAcceptorderById(int acceptId);
+
     List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(int orderId);
 
     List<OrderAcceptDto> getOrderAcceptDtoListByUserId(int userId);

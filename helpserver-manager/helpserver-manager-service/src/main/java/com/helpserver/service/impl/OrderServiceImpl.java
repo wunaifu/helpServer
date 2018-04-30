@@ -6,11 +6,13 @@ import com.helpserver.service.MoneyService;
 import com.helpserver.service.OrderService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.MyThrowException;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,6 +81,70 @@ public class OrderServiceImpl implements OrderService {
         } catch (MyThrowException e) {
             System.out.println("e========================" + e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * 同意或者不同意抢单
+     * state==1时
+     * 1、更新订单表，修改已出借数量
+     * 2、更新抢单表，修改同意时间、状态
+     * state==0时
+     * 1、只更新抢单表，修改拒绝时间、状态
+     * @param state
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateAgreeAcceptAndOrder(int state, int acceptId) {
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //1、更新订单表，修改已出借数量
+            Orderinfo orderinfoUpdate = new Orderinfo();
+            orderinfoUpdate.setId(orderinfo.getId());
+            orderinfoUpdate.setOutamount(orderinfo.getOutamount() + acceptorder.getNumber());
+            if (orderDao.updateByPrimaryKeySelective(orderinfoUpdate) == 1) {
+                //2、更新抢单表，修改同意时间、状态
+                Acceptorder acceptorderUpdate = new Acceptorder();
+                acceptorderUpdate.setId(acceptId);
+                acceptorderUpdate.setSuretime(TimeUtil.dateToString(new Date()));
+                acceptorderUpdate.setAcceptstate(2);
+                if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                    return "update_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * state==0时
+     * 1、只更新抢单表，修改拒绝时间、状态
+     * @param state
+     * @param acceptId
+     * @return
+     */
+    @Override
+    public String updateDisagreeAccept(int state, int acceptId) {
+        Acceptorder acceptorderUpdate = new Acceptorder();
+        acceptorderUpdate.setId(acceptId);
+        acceptorderUpdate.setUpdatetime(TimeUtil.dateToString(new Date()));
+        acceptorderUpdate.setAcceptstate(2);
+        if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+            return "update_success";
+        } else {
+            //抛出异常
+            return "update_failure";
         }
     }
 

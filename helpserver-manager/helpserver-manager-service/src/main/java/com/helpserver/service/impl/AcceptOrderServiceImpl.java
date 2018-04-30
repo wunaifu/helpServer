@@ -36,6 +36,11 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     @Autowired
     MoneyhistoryDao moneyHistoryDao;
 
+    @Override
+    public Acceptorder getAcceptorderById(int acceptId) {
+        return acceptOrderDao.selectByPrimaryKey(acceptId);
+    }
+
     /**
      * 添加资源服务
      * 1、添加抢单表

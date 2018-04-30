@@ -621,9 +621,26 @@ public class ServerOrderController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
-        int acceptId=Integer.parseInt(request.getParameter("acceptId"));
-        int state=Integer.parseInt(request.getParameter("state"));
-
+        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        int state = Integer.parseInt(request.getParameter("state"));
+        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        String result;
+        //同意抢单或者不同意，更新订单订单表、抢单表
+        if (state == 1) {
+            result = orderService.updateAgreeAcceptAndOrder(1, acceptId);
+        } else {
+            //同意抢单或者不同意，更新订单订单表、抢单表
+            result = orderService.updateDisagreeAccept(0, acceptId);
+        }
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        Orderinfo orderinfo = orderService.getOrderById(acceptorder.getOrderid());
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderinfo.getId());
+//        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByOrderId(orderId);
+//        Pager<OrderAcceptDto> pagerList = new Pager<>(1, 10, orderAcceptDtoList);
+        Pager<AcceptOrderUserDto> pagerList = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+        System.out.println("pagerList============="+pagerList.toString());
+        model.addAttribute("pagerList", pagerList);
+        model.addAttribute("orderinfo", orderinfo);
         return "server_mysend_acceptlist";
     }
 

@@ -13,6 +13,10 @@ public interface OrderService {
 
     String insertOrder(Orderinfo orderinfo);
 
+    String updateAgreeAcceptAndOrder(int state,int acceptId);
+
+    String updateDisagreeAccept(int state,int acceptId);
+
     String deleteOrderById(int id);
 
     Orderinfo getOrderById(int id);

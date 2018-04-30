@@ -189,18 +189,21 @@
                                         <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${orderinfo.moneyamount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${orderinfo.city}</b></span>
                                         <c:choose>
-                                            <c:when test="${item.acceptorder.datestate==0}">
+                                            <c:when test="${item.acceptorder.datestate == 0 }">
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
+                                            </c:when>
+                                            <c:when test="${item.acceptorder.acceptstate==2 && item.acceptorder.datestate==1}">
                                                 <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">正常使用</b></span>
+
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
                                     <c:choose>
                                         <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <a href="#" onclick="agreeAccept(1,${item.acceptorder.id})" class="readmore">通过抢单</a>
-                                            <a href="#" onclick="agreeAccept(0,${item.acceptorder.id})" class="readmore" style="margin-right: 10px;">拒绝抢单</a>
+                                            <a href="#" onclick="agreeAccept(1,${item.acceptorder.id},${pagerList.currentPage})" class="readmore">通过抢单</a>
+                                            <a href="#" onclick="agreeAccept(0,${item.acceptorder.id},${pagerList.currentPage})" class="readmore" style="margin-right: 10px;">拒绝抢单</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
                                             <a href="#" class="readmore">催还物品</a>
@@ -331,8 +334,8 @@
 <script>
     window.jQuery || document.write('<script src="basic/js/jquery-1.9.min.js"><\/script>');
 
-    function agreeAccept(state, acceptId) {
-        var url = "/server/mysend/listjson?state="+state+"&acceptId="+acceptId;
+    function agreeAccept(state, acceptId,pageNum) {
+        var url = "/server/mysend/acceptlist/doagree?state="+state+"&acceptId="+acceptId+"&pageNum="+pageNum;
         $.ajax({
             type : "POST",
             url: url,
@@ -342,15 +345,7 @@
                 alert("请求失败，请重试！");
             },
             success:function (data) {
-                if(data==null) {
-                    window.location.href="/page_403";
-                }
                 console.log(data);
-                if(list.length==0){
-
-                }else{
-
-                }
             }
         });
     }
