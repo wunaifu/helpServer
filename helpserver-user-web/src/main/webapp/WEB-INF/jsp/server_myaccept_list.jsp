@@ -190,10 +190,15 @@
                                     </div>
                                     <c:choose>
                                         <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <a href="#" class="readmore">查看详情</a>
+                                            <a href="/server/${item.orderId}/detail" class="readmore">查看资源</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <a href="#" class="readmore">结束租用</a>
+                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})"
+                                               title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==3}">
+                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})"
+                                               title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="/server/${item.orderId}/detail" class="readmore">再次抢单</a>
@@ -203,6 +208,10 @@
                                 </ul>
                                 <p class="autor">
                                     <c:choose>
+                                        <c:when test="${item.acceptorder.acceptstate==-1}">
+                                            <span>状态：<a>被拒绝</a></span>
+                                            <span>&nbsp;拒绝时间：${item.acceptorder.backtime}</span>
+                                        </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==0}">
                                             <span>状态：<a>已取消</a></span>
                                             <span>&nbsp;取消时间：${item.acceptorder.backtime}</span>
@@ -212,15 +221,19 @@
                                             <span>&nbsp;抢单时间：${item.acceptorder.accepttime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <span>状态：<a>租用中</a></span>
+                                            <span>状态：<a>待获取资源</a></span>
                                             <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
                                         </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==3}">
+                                            <span>状态：<a>已获取租用中</a></span>
+                                            <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
+                                        </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <span>状态：<a>已下架</a></span>
-                                            <span>&nbsp;下架时间：${item.repealtime}</span>
+                                            <span>状态：<a>已归还</a></span>
+                                            <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span>状态：<a>已结束</a></span>
+                                            <span>状态：<a>待评价</a></span>
                                             <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
                                         </c:otherwise>
                                     </c:choose>
@@ -318,10 +331,34 @@
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>
 <!--菜单 -->
-<script>
-    window.jQuery || document.write('<script src="basic/js/jquery-1.9.min.js"><\/script>');
-</script>
+<script src="/js/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
+<script src="/js/alert.js"></script>
 <script type="text/javascript " src="/basic/js/quick_links.js "></script>
+<script>
+
+    function startMoney(acceptId,pageNum) {
+        var url = "/accept/"+acceptId+"/dogetgoods";
+        $.ajax({
+            type : "POST",
+            url: url,
+            contentType : "application/json;charset=utf-8",
+            dataType : "text",
+            error : function() {
+                $.myToast("请求失败，请重试！");
+            },
+            success : function (data) {
+                console.log(data);
+                if (data=="update_success") {
+                    $.myToast("确认租用物品，开始计费！");
+                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
+                }else{
+                    $.myToast("操作失败，请稍后再试！");
+                }
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

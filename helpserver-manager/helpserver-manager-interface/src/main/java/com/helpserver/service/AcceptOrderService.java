@@ -11,6 +11,8 @@ public interface AcceptOrderService {
 
     String insertAcceptOrder(Acceptorder acceptorder);
 
+    String updateAcceptOrderStateUpdateTime(Acceptorder acceptorder);
+
     Acceptorder getAcceptorderById(int acceptId);
 
     List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(int orderId);

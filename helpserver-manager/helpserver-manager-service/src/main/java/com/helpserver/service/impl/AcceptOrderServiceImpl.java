@@ -6,11 +6,13 @@ import com.helpserver.service.AcceptOrderService;
 import com.helpserver.service.MoneyService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.MyThrowException;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +41,18 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     @Override
     public Acceptorder getAcceptorderById(int acceptId) {
         return acceptOrderDao.selectByPrimaryKey(acceptId);
+    }
+
+    @Override
+    public String updateAcceptOrderStateUpdateTime(Acceptorder acceptorder) {
+        Acceptorder acceptorderUpdate = new Acceptorder();
+        acceptorderUpdate.setId(acceptorder.getId());
+        acceptorderUpdate.setAcceptstate(3);
+        acceptorderUpdate.setUpdatetime(TimeUtil.dateToString(new Date()));
+        if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+            return "update_success";
+        }
+        return "update_failure";
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.helpserver.service;
 
 import com.helpserver.pojo.AcceptOrderUserDto;
+import com.helpserver.pojo.Acceptorder;
 import com.helpserver.pojo.OrderUserDto;
 import com.helpserver.pojo.Orderinfo;
 
@@ -13,9 +14,9 @@ public interface OrderService {
 
     String insertOrder(Orderinfo orderinfo);
 
-    String updateAgreeAcceptAndOrder(int state,int acceptId);
+    String updateAgreeAcceptAndOrder(Acceptorder acceptorder, Orderinfo orderinfo);
 
-    String updateDisagreeAccept(int state,int acceptId);
+    String updateDisagreeAccept(Acceptorder acceptorder,Orderinfo orderinfo);
 
     String deleteOrderById(int id);
 
