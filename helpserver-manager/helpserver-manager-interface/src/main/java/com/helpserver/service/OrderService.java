@@ -16,6 +16,8 @@ public interface OrderService {
 
     String updateAgreeAcceptAndOrder(Acceptorder acceptorder, Orderinfo orderinfo);
 
+    String updateReturnGoods(int acceptId);
+
     String updateDisagreeAccept(Acceptorder acceptorder,Orderinfo orderinfo);
 
     String deleteOrderById(int id);

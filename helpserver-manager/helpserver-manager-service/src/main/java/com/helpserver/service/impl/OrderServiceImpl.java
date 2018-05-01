@@ -182,6 +182,47 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * 归还物品
+     * 1、更新抢单表状态及时间
+     * 2、更新订单表库存
+     * 3、订单者获取租用费用
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateReturnGoods(int acceptId) {
+        String date = TimeUtil.dateToString(new Date());
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //1、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setFinishtime(date);
+            acceptorderUpdate.setAcceptstate(4);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //2、更新订单表库存
+                Orderinfo orderinfoUpdate = new Orderinfo();
+                orderinfoUpdate.setId(orderinfo.getId());
+                orderinfoUpdate.setOutamount(orderinfo.getOutamount() - acceptorder.getNumber());
+                if (orderDao.updateByPrimaryKeySelective(orderinfoUpdate) == 1) {
+                    return "update_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
     @Override
     public String deleteOrderById(int id) {
         if (orderDao.deleteByPrimaryKey(id) == 1) {

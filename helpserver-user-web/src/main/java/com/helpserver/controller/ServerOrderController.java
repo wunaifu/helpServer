@@ -644,6 +644,25 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,result);
     }
 
+    /**
+     * 归还资源
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/{acceptId}/returngoods")
+    public void serverReturnGoods(@PathVariable("acceptId") int acceptId,
+            HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+//        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        //int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+
+        String result;
+        result = orderService.updateReturnGoods(acceptId);
+        ResponseUtils.renderJson(response,result);
+    }
 
 //end mysendServer -------------------------------我发布的资源服务列表----------------------------------------------------
 }

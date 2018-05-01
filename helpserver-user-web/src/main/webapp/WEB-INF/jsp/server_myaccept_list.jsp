@@ -187,6 +187,17 @@
                                         <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${item.moneyamount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/${item.orderId}/map" style="color: #ff4d2d">${item.address}</a></span>
+                                        <c:choose>
+                                            <c:when test="${item.acceptorder.datestate == 0 }">
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
+                                            </c:when>
+                                            <c:when test="${item.acceptorder.acceptstate==3 && item.acceptorder.datestate==1}">
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #12c34e">正常租用</b></span>
+                                            </c:when>
+                                            <c:otherwise>
+
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <c:choose>
                                         <c:when test="${item.acceptorder.acceptstate==1}">
@@ -197,7 +208,7 @@
                                                title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})"
+                                            <a href="#" onclick="returnGoods(${item.acceptorder.id},${pagerList.currentPage})"
                                                title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
                                         </c:when>
                                         <c:otherwise>
@@ -225,7 +236,7 @@
                                             <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <span>状态：<a>已获取租用中</a></span>
+                                            <span>状态：<a>租用中</a></span>
                                             <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
@@ -351,6 +362,28 @@
                 console.log(data);
                 if (data=="update_success") {
                     $.myToast("确认租用物品，开始计费！");
+                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
+                }else{
+                    $.myToast("操作失败，请稍后再试！");
+                }
+            }
+        });
+    }
+
+    function returnGoods(acceptId,pageNum) {
+        var url = "/server/"+acceptId+"/returngoods";
+        $.ajax({
+            type : "POST",
+            url: url,
+            contentType : "application/json;charset=utf-8",
+            dataType : "text",
+            error : function() {
+                $.myToast("请求失败，请重试！");
+            },
+            success : function (data) {
+                console.log(data);
+                if (data=="update_success") {
+                    $.myToast("归还租用物品成功！");
                     window.location.href="/server/myaccept/list?pageNum="+pageNum;
                 }else{
                     $.myToast("操作失败，请稍后再试！");

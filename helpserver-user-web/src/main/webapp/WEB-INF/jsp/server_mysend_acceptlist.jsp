@@ -192,8 +192,8 @@
                                             <c:when test="${item.acceptorder.datestate == 0 }">
                                                 <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
                                             </c:when>
-                                            <c:when test="${item.acceptorder.acceptstate==2 && item.acceptorder.datestate==1}">
-                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
+                                            <c:when test="${item.acceptorder.acceptstate==3 && item.acceptorder.datestate==1}">
+                                                <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #12c34e">正常租用</b></span>
                                             </c:when>
                                             <c:otherwise>
 
@@ -218,7 +218,7 @@
                                             <a href="#" onclick="startMoney(${item.acceptorder.id},${orderinfo.id},${pagerList.currentPage})" title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <a href="#" class="readmore">催还物品</a>
+                                            <%--<a href="#" class="readmore">催还物品</a>--%>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
                                             <a href="#" class="readmore">确认归还</a>
@@ -248,7 +248,7 @@
                                             <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <span>状态：<a>已获取租用中</a></span>
+                                            <span>状态：<a>租用中</a></span>
                                             <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
