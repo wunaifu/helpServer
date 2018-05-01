@@ -217,11 +217,8 @@
                                         <c:when test="${item.acceptorder.acceptstate==2}">
                                             <a href="#" onclick="startMoney(${item.acceptorder.id},${orderinfo.id},${pagerList.currentPage})" title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <%--<a href="#" class="readmore">催还物品</a>--%>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <a href="#" class="readmore">确认归还</a>
+                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                            <a href="#" class="readmore">去评价</a>
                                         </c:when>
                                         <c:otherwise>
 
@@ -252,8 +249,12 @@
                                             <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <span>状态：<a>已归还</a></span>
+                                            <span>状态：<a>已归还待付款</a></span>
                                             <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                            <span>状态：<a>已收款</a></span>
+                                            <span>&nbsp;收款时间：${item.acceptorder.backtime}</span>
                                         </c:when>
                                         <c:otherwise>
                                             <span>状态：<a>待评价</a></span>

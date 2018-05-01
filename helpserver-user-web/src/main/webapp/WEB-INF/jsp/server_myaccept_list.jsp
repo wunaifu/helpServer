@@ -199,20 +199,25 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
+                                    <a href="/server/${item.orderId}/detail" class="readmore">查看资源</a>
                                     <c:choose>
-                                        <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <a href="/server/${item.orderId}/detail" class="readmore">查看资源</a>
-                                        </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})"
+                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
                                                title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <a href="#" onclick="returnGoods(${item.acceptorder.id},${pagerList.currentPage})"
+                                            <a href="#" onclick="returnGoods(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
                                                title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
                                         </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==4}">
+                                            <a href="#" onclick="putMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
+                                               title="物品已归还，请前往付款" class="readmore">去付款</a>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                            <a href="#" class="readmore" style="margin-right: 10px;">去评价</a>
+                                        </c:when>
                                         <c:otherwise>
-                                            <a href="/server/${item.orderId}/detail" class="readmore">再次抢单</a>
+
                                         </c:otherwise>
                                     </c:choose>
 
@@ -240,7 +245,7 @@
                                             <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <span>状态：<a>已归还</a></span>
+                                            <span>状态：<a>已归还待付款</a></span>
                                             <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
                                         </c:when>
                                         <c:otherwise>
@@ -384,6 +389,28 @@
                 console.log(data);
                 if (data=="update_success") {
                     $.myToast("归还租用物品成功！");
+                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
+                }else{
+                    $.myToast("操作失败，请稍后再试！");
+                }
+            }
+        });
+    }
+
+    function putMoney(acceptId,pageNum) {
+        var url = "/server/"+acceptId+"/putmoney";
+        $.ajax({
+            type : "POST",
+            url: url,
+            contentType : "application/json;charset=utf-8",
+            dataType : "text",
+            error : function() {
+                $.myToast("请求失败，请重试！");
+            },
+            success : function (data) {
+                console.log(data);
+                if (data=="update_success") {
+                    $.myToast("付款成功，已归还押金并扣除租金及超期费用！");
                     window.location.href="/server/myaccept/list?pageNum="+pageNum;
                 }else{
                     $.myToast("操作失败，请稍后再试！");

@@ -18,6 +18,8 @@ public interface OrderService {
 
     String updateReturnGoods(int acceptId);
 
+    String updateOrderPutMoney(int acceptId);
+
     String updateDisagreeAccept(Acceptorder acceptorder,Orderinfo orderinfo);
 
     String deleteOrderById(int id);

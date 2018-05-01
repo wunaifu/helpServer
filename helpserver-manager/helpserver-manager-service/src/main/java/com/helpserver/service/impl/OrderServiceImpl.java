@@ -223,6 +223,76 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * 付款
+     * 1、获取订单表、抢单表
+     * 2、更新抢单表状态、付款时间
+     * 3、计算归还押金、扣除租金费用、超期费用
+     * 4、更新抢单者余额表
+     * 5、更新抢单者收支历史表
+     * 6、更新订单者余额表
+     * 7、更新订单者收支历史表
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateOrderPutMoney(int acceptId) {
+        String date = TimeUtil.dateToString(new Date());
+        //1、获取订单表、抢单表
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //2、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setBacktime(date);
+            acceptorderUpdate.setAcceptstate(5);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //3、计算归还押金、扣除租金费用、超期费用
+                int money = orderinfo.getMoneyamount();//押金
+                Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
+                Date nowTime = new Date();
+                int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+                System.out.println("daysNumber======" + daysNumber);
+                int needMoney = 0;//租金
+                if (acceptorder.getMoneytype() == 0) {
+                    //日租  租金=数量*日租金*天数
+                    needMoney = acceptorder.getNumber() * acceptorder.getMoney() * daysNumber;
+                    if (daysNumber > (acceptorder.getGettype() + 5)) {
+                        //超期5天以上的需要扣除超期的余额，每天*1
+                        //加上超期的
+                        needMoney += daysNumber-acceptorder.getGettype();
+                    }
+                } else {
+                    //月租 租金=数量*月租金*月数
+                    needMoney = acceptorder.getNumber() * acceptorder.getMoney() * acceptorder.getGettype();
+                    if (daysNumber > (acceptorder.getGettype() * 30 + 5)) {
+                        //超期5天以上的需要扣除超期的余额，每天*1
+                        //加上超期的
+                        needMoney += daysNumber - acceptorder.getGettype() * 30;
+                    }
+                }
+
+                //4、更新抢单者余额表
+
+                //5、更新抢单者收支历史表
+
+                //6、更新订单者余额表
+
+                //7、更新订单者收支历史表
+
+                return "update_success";
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
     @Override
     public String deleteOrderById(int id) {
         if (orderDao.deleteByPrimaryKey(id) == 1) {
