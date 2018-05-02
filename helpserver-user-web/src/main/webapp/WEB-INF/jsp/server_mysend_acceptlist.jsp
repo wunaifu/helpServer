@@ -33,7 +33,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/server_myaccept_list.js"></script>
+    <%--<script type="text/javascript" src="/js/server_myaccept_list.js"></script>--%>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -90,7 +90,7 @@
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
             <form action="#"  method="post">
-                <input id="searchInput" name="search" type="text" placeholder="搜索我预定的资源服务" autocomplete="off" required">
+                <input id="searchInput" name="search" type="text" placeholder="搜索我预定的资源服务" autocomplete="off" required>
                 <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
             </form>
         </div>
@@ -132,7 +132,7 @@
             <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="total fl">你一共预定了<strong class="num">${pagerList.totalRecord}</strong>条资源服务</span>
+                    <span class="total fl">物品${orderinfo.foodname}一共有<strong class="num">${pagerList.totalRecord}</strong>个资源服务预抢单</span>
                 </p>
                 <div class="clear"></div>
 
@@ -161,32 +161,33 @@
                     <c:when test="${pagerList.dataList.size()>0}">
                         <c:forEach items="${pagerList.dataList}" var="item" varStatus="status">
                             <div class="blogs">
-                                <h3><a href="/server/${item.orderId}/detail" style="color: #0a628f">资源名字：${item.foodname}</a></h3>
+                                <h3><a href="/server/${item.acceptorder.accepterid}/userinfo" style="color: #0a628f">抢单者：${item.acceptUserName}</a></h3>
                                 抢单时间：${item.acceptorder.accepttime}
-                                <figure><a href="/server/${item.senderId}/userinfo">
-                                    <img style="width: 72px;height: 72px;" src="/resources/img/${item.sendUserIcon}"></a>
+                                <figure><a href="/server/${item.acceptorder.accepterid}/userinfo">
+                                    <img style="width: 72px;height: 72px;" src="/resources/img/${item.acceptUserIcon}"></a>
                                 </figure>
                                 <ul>
-                                    <a href="/server/${item.orderId}/detail">
-                                        <p>资源详情：<b style="color: #000000">${item.orderdetail}</b></p>
-                                    </a>
+                                    <%--<a href="/server/${item.orderId}/detail">--%>
+                                        <%--<p>资源详情：<b style="color: #000000">${item.orderdetail}</b></p>--%>
+                                    <%--</a>--%>
                                     <div class="autor1">
-                                        <span>发布者：<a href="/server/${item.senderId}/userinfo" style="color: #ff4d2d">${item.sendUserName}</a></span>
-                                        <span style="margin: 0px 0px 0px 10px;">信誉分：<b style="color: #ff4d2d">${item.sendUserCredit}</b></span>
+                                        <span>信誉分：<b style="color: #ff4d2d">${item.acceptUserCredit}</b></span>
                                         <c:choose>
                                             <c:when test="${item.acceptorder.moneytype==0}">
                                                 <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">日租￥${item.acceptorder.money}</b></span>
-                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.number}天</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.gettype}天</b></span>
                                             </c:when>
                                             <c:otherwise>
                                                 <span style="margin: 0px 0px 0px 10px;">计费方式：<b style="color: #ff4d2d">月租￥${item.acceptorder.money}</b></span>
-                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.number}月</b></span>
+                                                <span style="margin: 0px 0px 0px 10px;">租用时间：<b style="color: #ff4d2d">${item.acceptorder.gettype}月</b></span>
                                             </c:otherwise>
                                         </c:choose>
-                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${item.amount-item.outamount}/${item.amount}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${item.moneyamount}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.city}</b></span>
-                                        <span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/${item.orderId}/map" style="color: #ff4d2d">${item.address}</a></span>
+                                        <span style="margin: 0px 0px 0px 10px;">租用数量：<b style="color: #ff4d2d">${item.acceptorder.number}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">预计费用：<b style="color: #ff4d2d">
+                                            ￥${item.acceptorder.number*item.acceptorder.money*item.acceptorder.gettype}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${orderinfo.amount-orderinfo.outamount}/${orderinfo.amount}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${orderinfo.moneyamount}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${orderinfo.city}</b></span>
                                         <c:choose>
                                             <c:when test="${item.acceptorder.datestate == 0 }">
                                                 <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
@@ -199,22 +200,25 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-                                    <a href="/server/${item.orderId}/detail" class="readmore">查看资源</a>
                                     <c:choose>
+                                        <c:when test="${item.acceptorder.acceptstate==-1}">
+                                            <a href="#" onclick="agreeAccept(1,${item.acceptorder.id},${item.acceptorder.number}
+                                                    ,${orderinfo.amount-orderinfo.outamount},${orderinfo.id},${pagerList.currentPage})"
+                                               class="readmore">通过抢单</a>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==1}">
+                                            <a href="#" onclick="agreeAccept(1,${item.acceptorder.id},${item.acceptorder.number}
+                                                    ,${orderinfo.amount-orderinfo.outamount},${orderinfo.id},${pagerList.currentPage})"
+                                               class="readmore">通过抢单</a>
+                                            <a href="#" onclick="agreeAccept(0,${item.acceptorder.id},${item.acceptorder.number}
+                                                    ,${orderinfo.amount-orderinfo.outamount},${orderinfo.id},${pagerList.currentPage})"
+                                               class="readmore" style="margin-right: 10px;">拒绝抢单</a>
+                                        </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <a href="#" onclick="returnGoods(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <a href="#" onclick="putMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="物品已归还，请前往付款" class="readmore">去付款</a>
+                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${orderinfo.id},${pagerList.currentPage})" title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==5}">
-                                            <a href="#" class="readmore" style="margin-right: 10px;">去评价</a>
+                                            <a href="#" class="readmore">去评价</a>
                                         </c:when>
                                         <c:otherwise>
 
@@ -247,6 +251,10 @@
                                         <c:when test="${item.acceptorder.acceptstate==4}">
                                             <span>状态：<a>已归还待付款</a></span>
                                             <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
+                                        </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                            <span>状态：<a>已收款</a></span>
+                                            <span>&nbsp;收款时间：${item.acceptorder.backtime}</span>
                                         </c:when>
                                         <c:otherwise>
                                             <span>状态：<a>待评价</a></span>
@@ -347,13 +355,43 @@
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>
 <!--菜单 -->
+
 <script src="/js/jquery-1.7.2.min.js"></script>
 <link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
 <script src="/js/alert.js"></script>
 <script type="text/javascript " src="/basic/js/quick_links.js "></script>
 <script>
+    function agreeAccept(state, acceptId,number,amount,orderId,pageNum) {
+        if(state=='1' && (parseInt(amount) < parseInt(number))) {
+            $.myToast("库存不足,无法同意该抢单");
+        }else{
+            var url = "/server/mysend/acceptlist/doagree?state="+state+"&acceptId="+acceptId;
+            $.ajax({
+                type : "POST",
+                url: url,
+                contentType : "application/json;charset=utf-8",
+                dataType : "text",
+                error : function() {
+                    $.myToast("请求失败，请重试！");
+                },
+                success : function (data) {
+                    console.log(data);
+                    if (data=="agree_success") {
+                        $.myToast("同意抢单成功！");
+                        window.location.href="/server/mysend/"+orderId+"/acceptlist?pageNum="+pageNum;
+                    } else if (data=="disagree_success") {
+                        $.myToast("拒绝抢单成功，押金已归还！");
+                        window.location.href="/server/mysend/"+orderId+"/acceptlist?pageNum="+pageNum;
+                    } else{
+                        $.myToast("操作失败，请稍后再试！");
 
-    function startMoney(acceptId,pageNum) {
+                    }
+                }
+            });
+        }
+    }
+
+    function startMoney(acceptId,orderId,pageNum) {
         var url = "/accept/"+acceptId+"/dogetgoods";
         $.ajax({
             type : "POST",
@@ -367,53 +405,10 @@
                 console.log(data);
                 if (data=="update_success") {
                     $.myToast("确认租用物品，开始计费！");
-                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
+                    window.location.href="/server/mysend/"+orderId+"/acceptlist?pageNum="+pageNum;
                 }else{
                     $.myToast("操作失败，请稍后再试！");
-                }
-            }
-        });
-    }
 
-    function returnGoods(acceptId,pageNum) {
-        var url = "/server/"+acceptId+"/returngoods";
-        $.ajax({
-            type : "POST",
-            url: url,
-            contentType : "application/json;charset=utf-8",
-            dataType : "text",
-            error : function() {
-                $.myToast("请求失败，请重试！");
-            },
-            success : function (data) {
-                console.log(data);
-                if (data=="update_success") {
-                    $.myToast("归还租用物品成功！");
-                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
-                }else{
-                    $.myToast("操作失败，请稍后再试！");
-                }
-            }
-        });
-    }
-
-    function putMoney(acceptId,pageNum) {
-        var url = "/server/"+acceptId+"/putmoney";
-        $.ajax({
-            type : "POST",
-            url: url,
-            contentType : "application/json;charset=utf-8",
-            dataType : "text",
-            error : function() {
-                $.myToast("请求失败，请重试！");
-            },
-            success : function (data) {
-                console.log(data);
-                if (data=="update_success") {
-                    $.myToast("付款成功，已归还押金并扣除租金及超期费用！");
-                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
-                }else{
-                    $.myToast("操作失败，请稍后再试！");
                 }
             }
         });

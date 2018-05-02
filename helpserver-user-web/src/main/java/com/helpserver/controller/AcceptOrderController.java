@@ -92,6 +92,23 @@ public class AcceptOrderController {
         return "page_400";
     }
 
-
+    /**
+     * 确认获取到资源，开始计费
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/{acceptId}/dogetgoods")
+    public void getGoodsAcceptServer(@PathVariable("acceptId") int acceptId,
+            HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+//        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+//        int userId = nowUser.getUserid();
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        String result = acceptOrderService.updateAcceptOrderStateUpdateTime(acceptorder);
+        ResponseUtils.renderJson(response,result);
+    }
 
 }

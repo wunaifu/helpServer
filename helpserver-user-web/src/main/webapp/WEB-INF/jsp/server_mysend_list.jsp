@@ -178,7 +178,7 @@
                                     </div>
                                     <a href="/server/mysend/${item.order.id}/detail" class="readmore">立即下架</a>
                                     <a href="/server/mysend/${item.order.id}/detail" class="readmore" style="margin-right: 10px;">修改信息</a>
-                                    <a href="/server/mysend/${item.order.id}/detail" class="readmore" style="margin-right: 10px;">查看详情</a>
+                                    <a href="/server/mysend/${item.order.id}/acceptlist" class="readmore" style="margin-right: 10px;">抢单列表</a>
                                 </ul>
                                 <p class="autor">
                                     <c:choose>

@@ -6,11 +6,13 @@ import com.helpserver.service.MoneyService;
 import com.helpserver.service.OrderService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.MyThrowException;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,6 +77,215 @@ public class OrderServiceImpl implements OrderService {
             } else {
                 //抛出异常
                 throw new MyThrowException("add_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 同意抢单
+     * state==1时
+     * 1、更新订单表，修改已出借数量
+     * 2、更新抢单表，修改同意时间、状态
+     * state==0时
+     * 1、只更新抢单表，修改拒绝时间、状态
+     * @param acceptorder
+     * @param orderinfo
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateAgreeAcceptAndOrder(Acceptorder acceptorder, Orderinfo orderinfo) {
+//        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+//        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //1、更新订单表，修改已出借数量
+            Orderinfo orderinfoUpdate = new Orderinfo();
+            orderinfoUpdate.setId(orderinfo.getId());
+            orderinfoUpdate.setOutamount(orderinfo.getOutamount() + acceptorder.getNumber());
+            if (orderDao.updateByPrimaryKeySelective(orderinfoUpdate) == 1) {
+                //2、更新抢单表，修改同意时间、状态
+                Acceptorder acceptorderUpdate = new Acceptorder();
+                acceptorderUpdate.setId(acceptorder.getId());
+                acceptorderUpdate.setSuretime(TimeUtil.dateToString(new Date()));
+                acceptorderUpdate.setAcceptstate(2);
+                if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                    return "agree_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**不同意抢单
+     * state==0时
+     * 1、抢单表，修改拒绝时间、状态
+     * 2、归还押金，修改余额表、收支历史表
+     * @param acceptorder
+     * @param orderinfo
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateDisagreeAccept(Acceptorder acceptorder, Orderinfo orderinfo) {
+//        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+//        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        String date = TimeUtil.dateToString(new Date());
+        int userId = acceptorder.getAccepterid();
+        int amount = orderinfo.getMoneyamount();
+        try {
+            //1、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setBacktime(date);
+            acceptorderUpdate.setAcceptstate(-1);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //2、增加余额基本表的余额总数，归还押金
+                Money money = moneyService.getMoney(userId);
+                Money moneyInfoAdd = new Money();
+                moneyInfoAdd.setId(money.getId());
+                moneyInfoAdd.setAmount(money.getAmount() + amount);
+                if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
+                    //3、添加收支历史
+                    Moneyhistory moneyhistory = new Moneyhistory();
+                    moneyhistory.setUserid(userId);
+                    moneyhistory.setInfo(CommonsUtil.moneyOrderPermissionMoneyBack);
+                    moneyhistory.setAmount(amount);
+                    moneyhistory.setTime(date);
+                    moneyhistory.setState(1);
+                    if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {
+                        return "disagree_success";
+                    } else {
+                        throw new MyThrowException("add_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 归还物品
+     * 1、更新抢单表状态及时间
+     * 2、更新订单表库存
+     * 3、订单者获取租用费用
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateReturnGoods(int acceptId) {
+        String date = TimeUtil.dateToString(new Date());
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //1、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setFinishtime(date);
+            acceptorderUpdate.setAcceptstate(4);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //2、更新订单表库存
+                Orderinfo orderinfoUpdate = new Orderinfo();
+                orderinfoUpdate.setId(orderinfo.getId());
+                orderinfoUpdate.setOutamount(orderinfo.getOutamount() - acceptorder.getNumber());
+                if (orderDao.updateByPrimaryKeySelective(orderinfoUpdate) == 1) {
+                    return "update_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 付款
+     * 1、获取订单表、抢单表
+     * 2、更新抢单表状态、付款时间
+     * 3、计算归还押金、扣除租金费用、超期费用
+     * 4、更新抢单者余额表
+     * 5、更新抢单者收支历史表
+     * 6、更新订单者余额表
+     * 7、更新订单者收支历史表
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateOrderPutMoney(int acceptId) {
+        String date = TimeUtil.dateToString(new Date());
+        //1、获取订单表、抢单表
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        try {
+            //2、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setBacktime(date);
+            acceptorderUpdate.setAcceptstate(5);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //3、计算归还押金、扣除租金费用、超期费用
+                int money = orderinfo.getMoneyamount();//押金
+                Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
+                Date nowTime = new Date();
+                int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+                System.out.println("daysNumber======" + daysNumber);
+                int needMoney = 0;//租金
+                if (acceptorder.getMoneytype() == 0) {
+                    //日租  租金=数量*日租金*天数
+                    needMoney = acceptorder.getNumber() * acceptorder.getMoney() * daysNumber;
+                    if (daysNumber > (acceptorder.getGettype() + 5)) {
+                        //超期5天以上的需要扣除超期的余额，每天*1
+                        //加上超期的
+                        needMoney += daysNumber-acceptorder.getGettype();
+                    }
+                } else {
+                    //月租 租金=数量*月租金*月数
+                    needMoney = acceptorder.getNumber() * acceptorder.getMoney() * acceptorder.getGettype();
+                    if (daysNumber > (acceptorder.getGettype() * 30 + 5)) {
+                        //超期5天以上的需要扣除超期的余额，每天*1
+                        //加上超期的
+                        needMoney += daysNumber - acceptorder.getGettype() * 30;
+                    }
+                }
+
+                //4、更新抢单者余额表
+
+                //5、更新抢单者收支历史表
+
+                //6、更新订单者余额表
+
+                //7、更新订单者收支历史表
+
+                return "update_success";
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
             }
         } catch (MyThrowException e) {
             System.out.println("e========================" + e.getMessage());

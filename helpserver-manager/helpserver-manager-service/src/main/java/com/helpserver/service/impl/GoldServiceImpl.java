@@ -253,8 +253,9 @@ public class GoldServiceImpl implements GoldService {
         criteria.andStateEqualTo(1);
         //获取到所有已签到的goldList
         List<Gold> goldList = goldDao.selectByExample(goldExample);
-        if (goldList != null && goldList.size() > 0) {
-            for (int i = 0; i < goldList.size(); i++) {
+        int size = goldList.size();
+        if (goldList != null && size > 0) {
+            for (int i = 0; i < size; i++) {
                 //更新每个已签到的goldList的state，置为0
                 Gold gold = new Gold();
                 gold.setId(goldList.get(i).getId());

@@ -136,10 +136,14 @@ public class DESUtils {
     }
 
     public static void main(String[] args) {
-        String src = "123456";
-        String enStr = DESUtils.getMD5Str(src);
-        System.out.println("加密后："+enStr);
-        System.out.println(TimeUtil.dateToStrNoS(new Date()));
+//        String src = "123456";
+//        String enStr = DESUtils.getMD5Str(src);
+//        System.out.println("加密后："+enStr);
+//        System.out.println(TimeUtil.dateToStrNoS(new Date()));
+        Date startTime = TimeUtil.stringToDate("2018-04-25 10:10:10");
+        Date nowTime = new Date();
+        int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+        System.out.println("daysNumber======" + daysNumber);
     }
 
 }

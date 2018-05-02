@@ -1,6 +1,7 @@
 package com.helpserver.service;
 
 import com.helpserver.pojo.AcceptOrderUserDto;
+import com.helpserver.pojo.Acceptorder;
 import com.helpserver.pojo.OrderUserDto;
 import com.helpserver.pojo.Orderinfo;
 
@@ -12,6 +13,14 @@ import java.util.List;
 public interface OrderService {
 
     String insertOrder(Orderinfo orderinfo);
+
+    String updateAgreeAcceptAndOrder(Acceptorder acceptorder, Orderinfo orderinfo);
+
+    String updateReturnGoods(int acceptId);
+
+    String updateOrderPutMoney(int acceptId);
+
+    String updateDisagreeAccept(Acceptorder acceptorder,Orderinfo orderinfo);
 
     String deleteOrderById(int id);
 

@@ -346,15 +346,19 @@ public class ServerOrderController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
-        Pager<OrderAcceptDto> pagerList = new Pager<>(1, 10, orderAcceptDtoList);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
         model.addAttribute("pagerList", pagerList);
         return "server_myaccept_list";
     }
 
     /**
-     * 我发布的资源服务列表分页
+     * 我预定的资源服务列表分页
      * @param request
      * @param response
      * @return
@@ -376,7 +380,54 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,result);
     }
 
+    /**
+     * 我预定的资源服务搜索
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/myaccept/search")
+    public String serverMyacceptSearch(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        String search = request.getParameter("search");
+        int pageNum = 1;
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserIdAndSearch(nowUser.getUserid(),search);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+        model.addAttribute("pagerList", pagerList);
+        model.addAttribute("search", search);
+        return "server_mysend_search";
+    }
 
+    /**
+     * 我预定的资源服务搜索结果分页
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/myaccept/searchjson")
+    public void serverMyacceptSearchListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        String search = request.getParameter("search");
+        try {
+            search = URLDecoder.decode(search, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserIdAndSearch(nowUser.getUserid(),search);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
 
 //end mysendServer -------------------------------我预定的资源服务列表-------------------------------------------------
 
@@ -515,6 +566,123 @@ public class ServerOrderController {
         ResponseUtils.renderJson(response,result);
     }
 
+    /**
+     * 我发布的资源服务抢单列表
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/acceptlist")
+    public String serverMySendAcceptList(@PathVariable("orderId") int orderId,
+            HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+//        int orderId=Integer.parseInt(request.getParameter("orderId"));
+        Orderinfo orderinfo = orderService.getOrderById(orderId);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+//        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByOrderId(orderId);
+//        Pager<OrderAcceptDto> pagerList = new Pager<>(1, 10, orderAcceptDtoList);
+        Pager<AcceptOrderUserDto> pagerList = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+        System.out.println("pagerList============="+pagerList.toString());
+        model.addAttribute("pagerList", pagerList);
+        model.addAttribute("orderinfo", orderinfo);
+        return "server_mysend_acceptlist";
+    }
+
+    /**
+     * 我发布的资源服务抢单列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/mysend/acceptlistjson")
+    public void serverMySendAcceptListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 通过资源服务抢单
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/mysend/acceptlist/doagree")
+    public void serverMySendAcceptListDoAgree(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        int state = Integer.parseInt(request.getParameter("state"));
+        //int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        Orderinfo orderinfo = orderService.getOrderById(acceptorder.getOrderid());
+        String result;
+        //同意抢单或者不同意，更新订单订单表、抢单表
+        if (state == 1) {
+            result = orderService.updateAgreeAcceptAndOrder(acceptorder, orderinfo);
+        } else {
+            //同意抢单或者不同意，更新订单订单表、抢单表
+            result = orderService.updateDisagreeAccept(acceptorder, orderinfo);
+        }
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 归还资源
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/{acceptId}/returngoods")
+    public void serverReturnGoods(@PathVariable("acceptId") int acceptId,
+            HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+//        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        //int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+
+        String result;
+        result = orderService.updateReturnGoods(acceptId);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 付款
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/{acceptId}/putmoney")
+    public void serverPutMoney(@PathVariable("acceptId") int acceptId,
+                                  HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+//        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        //int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+
+        String result;
+        result = orderService.updateOrderPutMoney(acceptId);
+        ResponseUtils.renderJson(response,result);
+    }
 
 //end mysendServer -------------------------------我发布的资源服务列表----------------------------------------------------
 }

@@ -11,12 +11,22 @@ public class OrderAcceptDto implements Serializable {
     String sendUserIcon;
     String sendUserCredit;
 
+    int orderId;
+    String foodname;
+    String orderdetail;
+    String city;
+    String address;
+    String repealtime;
+    int amount;
+    int outamount;
+    int moneyamount;
+
     String acceptUserName;
     String acceptUserIcon;
     String acceptUserCredit;
 
     Acceptorder acceptorder;
-    Orderinfo orderinfo;
+    //Orderinfo orderinfo;
 
     public int getSenderId() {
         return senderId;
@@ -42,6 +52,86 @@ public class OrderAcceptDto implements Serializable {
         this.sendUserIcon = sendUserIcon;
     }
 
+    public String getSendUserCredit() {
+        return sendUserCredit;
+    }
+
+    public void setSendUserCredit(String sendUserCredit) {
+        this.sendUserCredit = sendUserCredit;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getFoodname() {
+        return foodname;
+    }
+
+    public void setFoodname(String foodname) {
+        this.foodname = foodname;
+    }
+
+    public String getOrderdetail() {
+        return orderdetail;
+    }
+
+    public void setOrderdetail(String orderdetail) {
+        this.orderdetail = orderdetail;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRepealtime() {
+        return repealtime;
+    }
+
+    public void setRepealtime(String repealtime) {
+        this.repealtime = repealtime;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getOutamount() {
+        return outamount;
+    }
+
+    public void setOutamount(int outamount) {
+        this.outamount = outamount;
+    }
+
+    public int getMoneyamount() {
+        return moneyamount;
+    }
+
+    public void setMoneyamount(int moneyamount) {
+        this.moneyamount = moneyamount;
+    }
+
     public String getAcceptUserName() {
         return acceptUserName;
     }
@@ -58,35 +148,19 @@ public class OrderAcceptDto implements Serializable {
         this.acceptUserIcon = acceptUserIcon;
     }
 
-    public Acceptorder getAcceptorder() {
-        return acceptorder;
-    }
-
-    public void setAcceptorder(Acceptorder acceptorder) {
-        this.acceptorder = acceptorder;
-    }
-
-    public Orderinfo getOrderinfo() {
-        return orderinfo;
-    }
-
-    public void setOrderinfo(Orderinfo orderinfo) {
-        this.orderinfo = orderinfo;
-    }
-
-    public String getSendUserCredit() {
-        return sendUserCredit;
-    }
-
-    public void setSendUserCredit(String sendUserCredit) {
-        this.sendUserCredit = sendUserCredit;
-    }
-
     public String getAcceptUserCredit() {
         return acceptUserCredit;
     }
 
     public void setAcceptUserCredit(String acceptUserCredit) {
         this.acceptUserCredit = acceptUserCredit;
+    }
+
+    public Acceptorder getAcceptorder() {
+        return acceptorder;
+    }
+
+    public void setAcceptorder(Acceptorder acceptorder) {
+        this.acceptorder = acceptorder;
     }
 }
