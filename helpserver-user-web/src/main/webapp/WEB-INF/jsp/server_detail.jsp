@@ -330,7 +330,7 @@
 <div class="pay">
     <div class="pay-opt">
         <a href="/index"><span class="am-icon-home am-icon-fw">首页</span></a>
-        <a><span class="am-icon-heart am-icon-fw">收藏</span></a>
+        <a href="javascript:history.back();"><span class="am-icon-backward am-icon-fw">返回</span></a>
 
     </div>
     <li>
