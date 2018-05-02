@@ -218,7 +218,9 @@
                                             <a href="#" onclick="startMoney(${item.acceptorder.id},${orderinfo.id},${pagerList.currentPage})" title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==5}">
-                                            <a href="#" class="readmore">去评价</a>
+                                                <c:if test="${item.isOrNotComment==0}">
+                                                    <a href="/server/mysend/${item.acceptorder.id}/tocomment" class="readmore">去评价</a>
+                                                </c:if>
                                         </c:when>
                                         <c:otherwise>
 
@@ -257,7 +259,7 @@
                                             <span>&nbsp;收款时间：${item.acceptorder.backtime}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span>状态：<a>待评价</a></span>
+                                            <span>状态：<a>已完成</a></span>
                                             <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
                                         </c:otherwise>
                                     </c:choose>

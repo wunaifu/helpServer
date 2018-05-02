@@ -3,7 +3,7 @@
 <mapper namespace="com.helpserver.dao.OrdercommentDao" >
   <resultMap id="BaseResultMap" type="com.helpserver.pojo.Ordercomment" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="acceptId" property="acceptid" jdbcType="INTEGER" />
     <result column="myId" property="myid" jdbcType="INTEGER" />
     <result column="hisId" property="hisid" jdbcType="INTEGER" />
     <result column="score" property="score" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, orderId, myId, hisId, score, content, time
+      id, acceptId, myId, hisId, score, content, time
     </if>
     <if test="fields != null" >
       ${fields}
@@ -95,7 +95,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    id,orderId,myId,hisId,score,content,time
+    id,acceptId,myId,hisId,score,content,time
     from ordercomment
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -110,10 +110,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.helpserver.pojo.Ordercomment" >
-    insert into ordercomment (id, orderId, myId, 
+    insert into ordercomment (id, acceptId, myId, 
       hisId, score, content, 
       time)
-    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{myid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{acceptid,jdbcType=INTEGER}, #{myid,jdbcType=INTEGER}, 
       #{hisid,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
       #{time,jdbcType=VARCHAR})
   </insert>
@@ -123,8 +123,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="orderid != null" >
-        orderId,
+      <if test="acceptid != null" >
+        acceptId,
       </if>
       <if test="myid != null" >
         myId,
@@ -146,8 +146,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderid != null" >
-        #{orderid,jdbcType=INTEGER},
+      <if test="acceptid != null" >
+        #{acceptid,jdbcType=INTEGER},
       </if>
       <if test="myid != null" >
         #{myid,jdbcType=INTEGER},
@@ -178,8 +178,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderid != null" >
-        orderId = #{record.orderid,jdbcType=INTEGER},
+      <if test="record.acceptid != null" >
+        acceptId = #{record.acceptid,jdbcType=INTEGER},
       </if>
       <if test="record.myid != null" >
         myId = #{record.myid,jdbcType=INTEGER},
@@ -204,7 +204,7 @@
   <update id="updateByExample" parameterType="map" >
     update ordercomment
     set id = #{record.id,jdbcType=INTEGER},
-      orderId = #{record.orderid,jdbcType=INTEGER},
+      acceptId = #{record.acceptid,jdbcType=INTEGER},
       myId = #{record.myid,jdbcType=INTEGER},
       hisId = #{record.hisid,jdbcType=INTEGER},
       score = #{record.score,jdbcType=INTEGER},
@@ -217,8 +217,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.helpserver.pojo.Ordercomment" >
     update ordercomment
     <set >
-      <if test="orderid != null" >
-        orderId = #{orderid,jdbcType=INTEGER},
+      <if test="acceptid != null" >
+        acceptId = #{acceptid,jdbcType=INTEGER},
       </if>
       <if test="myid != null" >
         myId = #{myid,jdbcType=INTEGER},
@@ -240,7 +240,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.helpserver.pojo.Ordercomment" >
     update ordercomment
-    set orderId = #{orderid,jdbcType=INTEGER},
+    set acceptId = #{acceptid,jdbcType=INTEGER},
       myId = #{myid,jdbcType=INTEGER},
       hisId = #{hisid,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},

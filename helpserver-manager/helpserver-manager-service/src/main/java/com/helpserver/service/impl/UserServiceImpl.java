@@ -324,6 +324,7 @@ public class UserServiceImpl implements UserService {
                 user.setName(phone);
                 user.setNickname(phone);
                 user.setHeadicon("icon001.png");
+                user.setCredit("0");
                 int result = userDao.insertSelective(user);
                 int userId = user.getUserid();
                 if (result == 1) {
@@ -495,6 +496,7 @@ public class UserServiceImpl implements UserService {
                 user.setName("管理员");
                 user.setNickname("管理员");
                 user.setHeadicon("icon001.png");
+                user.setCredit("0");
                 int result = userDao.insertSelective(user);
                 int userId = user.getUserid();
                 if (result == 1) {

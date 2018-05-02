@@ -11,7 +11,7 @@ public class Ordercomment implements Serializable {
     /**
      * 订单表id
      */
-    private Integer orderid;
+    private Integer acceptid;
 
     /**
      * 评论者id
@@ -48,12 +48,12 @@ public class Ordercomment implements Serializable {
         this.id = id;
     }
 
-    public Integer getOrderid() {
-        return orderid;
+    public Integer getAcceptid() {
+        return acceptid;
     }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
+    public void setAcceptid(Integer acceptid) {
+        this.acceptid = acceptid;
     }
 
     public Integer getMyid() {
@@ -103,7 +103,7 @@ public class Ordercomment implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderid=").append(orderid);
+        sb.append(", acceptid=").append(acceptid);
         sb.append(", myid=").append(myid);
         sb.append(", hisid=").append(hisid);
         sb.append(", score=").append(score);

@@ -24,4 +24,6 @@ public interface AcceptOrderService {
     List<OrderAcceptDto> getOrderAcceptDtoListByUserIdAndSearch(int userId,String search);
 
     List<OrderAcceptDto> getOrderAcceptDtoListByAcceptOrderList(List<Acceptorder> acceptOrderList);
+
+    int checkIsOrNotComment(int acceptId,int userId);
 }

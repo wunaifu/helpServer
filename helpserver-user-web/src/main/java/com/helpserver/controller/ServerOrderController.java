@@ -681,7 +681,7 @@ public class ServerOrderController {
         //3、计算归还押金、扣除租金费用、超期费用
         int moneyYa = orderinfo.getMoneyamount();//押金
         Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
-        Date nowTime = new Date();
+        Date nowTime = TimeUtil.stringToDate(acceptorder.getFinishtime());
         int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
         if (daysNumber < 1) {
             daysNumber = 1;
@@ -738,6 +738,156 @@ public class ServerOrderController {
         String result;
         result = orderService.updateOrderPutMoney(acceptId);
         ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 抢单者前往评价页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/{acceptId}/tocomment")
+    public String serverToComment(@PathVariable("acceptId") int acceptId, HttpServletRequest request, Model model){
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(acceptorder.getOrderid());
+        //3、计算归还押金、扣除租金费用、超期费用
+        Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
+        Date nowTime = TimeUtil.stringToDate(acceptorder.getFinishtime());
+        int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+        if (daysNumber < 1) {
+            daysNumber = 1;
+        }
+        System.out.println("daysNumber======" + daysNumber);
+        int needMoney = 0;//租金
+        if (acceptorder.getMoneytype() == 0) {
+            //日租  租金=数量*日租金*天数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * daysNumber;
+            if (daysNumber > (acceptorder.getGettype() + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber-acceptorder.getGettype();
+            }
+        } else {
+            //月租 租金=数量*月租金*月数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * acceptorder.getGettype();
+            if (daysNumber > (acceptorder.getGettype() * 30 + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber - acceptorder.getGettype() * 30;
+            }
+        }
+        model.addAttribute("orderUserDto", orderUserDto);
+        model.addAttribute("needMoney", needMoney);
+        model.addAttribute("acceptorder", acceptorder);
+        return "server_myaccept_comment";
+    }
+
+    /**
+     * 抢单者评价
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/myaccept/comment")
+    public String serverMyAcceptComment(HttpServletRequest request, Model model){
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+
+        String content = request.getParameter("content");
+        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        int score = Integer.parseInt(request.getParameter("score"));
+        Ordercomment ordercomment = new Ordercomment();
+        ordercomment.setAcceptid(acceptId);
+        ordercomment.setContent(content);
+        ordercomment.setScore(score);
+        ordercomment.setMyid(nowUser.getUserid());
+        String result = orderService.insertMyAcceptOrderComment(ordercomment);
+        if (result.equals("insert_success")) {
+            model.addAttribute("message", "评论成功！");
+            return "pageuser_success";
+        }
+        model.addAttribute("message", "评论失败，请稍后再试！");
+        return "page_400";
+    }
+
+    /**
+     * 订单者前往评价页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{acceptId}/tocomment")
+    public String serverMysendToComment(@PathVariable("acceptId") int acceptId, HttpServletRequest request, Model model){
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(acceptorder.getOrderid());
+        //3、计算归还押金、扣除租金费用、超期费用
+        Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
+        Date nowTime = TimeUtil.stringToDate(acceptorder.getFinishtime());
+        int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+        if (daysNumber < 1) {
+            daysNumber = 1;
+        }
+        System.out.println("daysNumber======" + daysNumber);
+        int needMoney = 0;//租金
+        if (acceptorder.getMoneytype() == 0) {
+            //日租  租金=数量*日租金*天数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * daysNumber;
+            if (daysNumber > (acceptorder.getGettype() + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber-acceptorder.getGettype();
+            }
+        } else {
+            //月租 租金=数量*月租金*月数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * acceptorder.getGettype();
+            if (daysNumber > (acceptorder.getGettype() * 30 + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber - acceptorder.getGettype() * 30;
+            }
+        }
+        model.addAttribute("orderUserDto", orderUserDto);
+        model.addAttribute("needMoney", needMoney);
+        model.addAttribute("acceptorder", acceptorder);
+        return "server_mysend_comment";
+    }
+
+    /**
+     * 订单者评价
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/comment")
+    public String serverMysendComment(HttpServletRequest request, Model model){
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+
+        String content = request.getParameter("content");
+        int acceptId = Integer.parseInt(request.getParameter("acceptId"));
+        int score = Integer.parseInt(request.getParameter("score"));
+        Ordercomment ordercomment = new Ordercomment();
+        ordercomment.setAcceptid(acceptId);
+        ordercomment.setContent(content);
+        ordercomment.setScore(score);
+        ordercomment.setMyid(nowUser.getUserid());
+        String result = orderService.insertMySendOrderComment(ordercomment);
+        if (result.equals("insert_success")) {
+            model.addAttribute("message", "评论成功！");
+            return "pageuser_success";
+        }
+        model.addAttribute("message", "评论失败，请稍后再试！");
+        return "page_400";
     }
 
 //end mysendServer -------------------------------我发布的资源服务列表----------------------------------------------------

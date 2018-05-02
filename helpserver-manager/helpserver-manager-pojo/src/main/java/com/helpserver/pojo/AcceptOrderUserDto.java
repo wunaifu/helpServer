@@ -14,6 +14,16 @@ public class AcceptOrderUserDto implements Serializable {
     String orderGoodsName;
     Acceptorder acceptorder;
 
+    int isOrNotComment;
+
+    public int getIsOrNotComment() {
+        return isOrNotComment;
+    }
+
+    public void setIsOrNotComment(int isOrNotComment) {
+        this.isOrNotComment = isOrNotComment;
+    }
+
     public int getSenderId() {
         return senderId;
     }

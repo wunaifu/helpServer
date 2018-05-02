@@ -28,6 +28,16 @@ public class OrderAcceptDto implements Serializable {
     Acceptorder acceptorder;
     //Orderinfo orderinfo;
 
+    int isOrNotComment;
+
+    public int getIsOrNotComment() {
+        return isOrNotComment;
+    }
+
+    public void setIsOrNotComment(int isOrNotComment) {
+        this.isOrNotComment = isOrNotComment;
+    }
+
     public int getSenderId() {
         return senderId;
     }

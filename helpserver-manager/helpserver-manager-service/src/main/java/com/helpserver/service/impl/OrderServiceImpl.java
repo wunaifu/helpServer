@@ -37,6 +37,8 @@ public class OrderServiceImpl implements OrderService {
     MoneyDao moneyDao;
     @Autowired
     MoneyhistoryDao moneyHistoryDao;
+    @Autowired
+    OrdercommentDao ordercommentDao;
 
     /**
      * 添加资源服务
@@ -252,7 +254,7 @@ public class OrderServiceImpl implements OrderService {
                 //3、计算归还押金、扣除租金费用、超期费用
                 int moneyYa = orderinfo.getMoneyamount();//押金
                 Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
-                Date nowTime = new Date();
+                Date nowTime = TimeUtil.stringToDate(acceptorder.getFinishtime());
                 int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
                 if (daysNumber < 1) {
                     daysNumber = 1;
@@ -618,4 +620,181 @@ public class OrderServiceImpl implements OrderService {
         return orderUserDtoList;
     }
 
+    /**
+     * 抢单者评价
+     * 1、计算平均分
+     * 2、插入评价表
+     * 3、更新用户的平均分
+     * 4、是否双方都已评论，若已评论，更新抢单表状态
+     * @param ordercomment
+     * @return
+     */
+    @Transactional
+    @Override
+    public String insertMyAcceptOrderComment(Ordercomment ordercomment) {
+        String date = TimeUtil.dateToString(new Date());
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(ordercomment.getAcceptid());
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        User sender = userDao.selectByPrimaryKey(orderinfo.getSenderid());
+        ordercomment.setHisid(sender.getUserid());
+        ordercomment.setTime(date);
+        //1、计算平均分
+        OrdercommentExample ordercommentExample = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria = ordercommentExample.createCriteria();
+        criteria.andHisidEqualTo(sender.getUserid());
+        List<Ordercomment> ordercommentList = ordercommentDao.selectByExample(ordercommentExample);
+        int score = ordercomment.getScore();
+        if (ordercommentList.size() > 0) {
+            for (Ordercomment comment : ordercommentList) {
+                score += comment.getScore();
+            }
+        }
+        double s = score * 1.0 / (ordercommentList.size() + 1);
+
+        try {
+            //2、插入评价表
+            if (ordercommentDao.insertSelective(ordercomment) == 1) {
+                //3、更新用户的平均分
+                User userUpdate = new User();
+                userUpdate.setUserid(sender.getUserid());
+                userUpdate.setCredit(String.valueOf(s));
+                if (userDao.updateByPrimaryKeySelective(userUpdate) == 1) {
+                    //4、是否双方都已评论
+                    if (this.checkDoubleComment(ordercomment)) {
+                        //都已评论，更新抢单表状态
+                        //更新抢单表
+                        Acceptorder acceptorderUpdate = new Acceptorder();
+                        acceptorderUpdate.setId(acceptorder.getId());
+                        acceptorderUpdate.setAcceptstate(6);
+                        if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                            return "insert_success";
+                        }else {
+                            //抛出异常
+                            throw new MyThrowException("update_failure");
+                        }
+                    }
+                    return "insert_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 抢单者评价
+     * 1、计算平均分
+     * 2、插入评价表
+     * 3、更新用户的平均分
+     * 4、是否双方都已评论，若已评论，更新抢单表状态
+     * @param ordercomment
+     * @return
+     */
+    @Transactional
+    @Override
+    public String insertMySendOrderComment(Ordercomment ordercomment) {
+        String date = TimeUtil.dateToString(new Date());
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(ordercomment.getAcceptid());
+        User accept = userDao.selectByPrimaryKey(acceptorder.getAccepterid());
+        ordercomment.setHisid(accept.getUserid());
+        ordercomment.setTime(date);
+        //1、计算平均分
+        OrdercommentExample ordercommentExample = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria = ordercommentExample.createCriteria();
+        criteria.andHisidEqualTo(accept.getUserid());
+        List<Ordercomment> ordercommentList = ordercommentDao.selectByExample(ordercommentExample);
+        int score = ordercomment.getScore();
+        if (ordercommentList.size() > 0) {
+            for (Ordercomment comment : ordercommentList) {
+                score += comment.getScore();
+            }
+        }
+        double s = score * 1.0 / (ordercommentList.size() + 1);
+
+        try {
+            //2、插入评价表
+            if (ordercommentDao.insertSelective(ordercomment) == 1) {
+                //3、更新用户的平均分
+                User userUpdate = new User();
+                userUpdate.setUserid(accept.getUserid());
+                userUpdate.setCredit(String.valueOf(s));
+                if (userDao.updateByPrimaryKeySelective(userUpdate) == 1) {
+                    //4、是否双方都已评论
+                    if (this.checkDoubleComment(ordercomment)) {
+                        //都已评论，更新抢单表状态
+                        //更新抢单表
+                        Acceptorder acceptorderUpdate = new Acceptorder();
+                        acceptorderUpdate.setId(acceptorder.getId());
+                        acceptorderUpdate.setAcceptstate(6);
+                        if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                            return "insert_success";
+                        }else {
+                            //抛出异常
+                            throw new MyThrowException("update_failure");
+                        }
+                    }
+                    return "insert_success";
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 是否双方都已经评价了
+     * @param ordercomment
+     * @return
+     */
+    @Override
+    public boolean checkDoubleComment(Ordercomment ordercomment) {
+        OrdercommentExample ordercommentExample1 = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria1 = ordercommentExample1.createCriteria();
+        criteria1.andMyidEqualTo(ordercomment.getMyid());
+        criteria1.andAcceptidEqualTo(ordercomment.getAcceptid());
+        List<Ordercomment> ordercommentList1 = ordercommentDao.selectByExample(ordercommentExample1);
+
+        OrdercommentExample ordercommentExample2 = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria2 = ordercommentExample2.createCriteria();
+        criteria2.andMyidEqualTo(ordercomment.getHisid());
+        criteria2.andAcceptidEqualTo(ordercomment.getAcceptid());
+        List<Ordercomment> ordercommentList2 = ordercommentDao.selectByExample(ordercommentExample2);
+        if (ordercommentList1.size() > 0 && ordercommentList2.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 查看是否已评价
+     * @param acceptId
+     * @param userId
+     * @return
+     */
+    @Override
+    public int checkIsOrNotComment(int acceptId, int userId) {
+        OrdercommentExample ordercommentExample1 = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria1 = ordercommentExample1.createCriteria();
+        criteria1.andMyidEqualTo(userId);
+        criteria1.andAcceptidEqualTo(acceptId);
+        List<Ordercomment> ordercommentList1 = ordercommentDao.selectByExample(ordercommentExample1);
+        if (ordercommentList1.size() > 0) {
+            return 1;
+        }
+        return 0;
+    }
 }

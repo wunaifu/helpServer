@@ -214,7 +214,9 @@
                                                title="物品已归还，请前往付款" class="readmore">去付款</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==5}">
-                                            <a href="#" class="readmore" style="margin-right: 10px;">去评价</a>
+                                            <c:if test="${item.isOrNotComment==0}">
+                                                <a href="/server/${item.acceptorder.id}/tocomment" class="readmore" style="margin-right: 10px;">去评价</a>
+                                            </c:if>
                                         </c:when>
                                         <c:otherwise>
 
@@ -248,8 +250,19 @@
                                             <span>状态：<a>已归还待付款</a></span>
                                             <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
                                         </c:when>
+                                        <c:when test="${item.acceptorder.acceptstate==5}">
+                                            <c:choose>
+                                                <c:when test="${item.isOrNotComment==0}">
+                                                    <span>状态：<a>待评价</a></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span>状态：<a>已完成</a></span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
+                                        </c:when>
                                         <c:otherwise>
-                                            <span>状态：<a>待评价</a></span>
+                                            <span>状态：<a>已完成</a></span>
                                             <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
                                         </c:otherwise>
                                     </c:choose>

@@ -1,9 +1,6 @@
 package com.helpserver.service;
 
-import com.helpserver.pojo.AcceptOrderUserDto;
-import com.helpserver.pojo.Acceptorder;
-import com.helpserver.pojo.OrderUserDto;
-import com.helpserver.pojo.Orderinfo;
+import com.helpserver.pojo.*;
 
 import java.util.List;
 
@@ -47,4 +44,12 @@ public interface OrderService {
     public OrderUserDto getOrderUserDtoByOrderId(int orderId);
 
     public List<AcceptOrderUserDto> getAcceptOrderUserDtoListByOrderId(Orderinfo order);
+
+    String insertMyAcceptOrderComment(Ordercomment ordercomment);
+
+    String insertMySendOrderComment(Ordercomment ordercomment);
+
+    boolean checkDoubleComment(Ordercomment ordercomment);
+
+    int checkIsOrNotComment(int acceptId,int userId);
 }

@@ -37,6 +37,8 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     MoneyDao moneyDao;
     @Autowired
     MoneyhistoryDao moneyHistoryDao;
+    @Autowired
+    OrdercommentDao ordercommentDao;
 
     @Override
     public Acceptorder getAcceptorderById(int acceptId) {
@@ -115,6 +117,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
         criteria.andOrderidEqualTo(orderId);
         acceptorderExample.setOrderByClause("acceptTime desc");
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(orderId);
         List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
         List<AcceptOrderUserDto> acceptOrderUserDtoList = new ArrayList<>();
         for (Acceptorder acceptOrder : acceptorderList) {
@@ -125,6 +128,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
                 acceptOrderUserDto.setAcceptUserIcon(accepter.getHeadicon());
                 acceptOrderUserDto.setAcceptUserCredit(accepter.getCredit());
             }
+            acceptOrderUserDto.setIsOrNotComment(this.checkIsOrNotComment(acceptOrder.getId(),orderinfo.getSenderid()));
             acceptOrderUserDto.setAcceptorder(acceptOrder);
             acceptOrderUserDtoList.add(acceptOrderUserDto);
         }
@@ -215,9 +219,29 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
                 orderAcceptDto.setMoneyamount(orderinfo.getMoneyamount());
                 orderAcceptDto.setRepealtime(orderinfo.getRepealtime());
             }
+            orderAcceptDto.setIsOrNotComment(this.checkIsOrNotComment(acceptOrder.getId(),accepter.getUserid()));
             orderAcceptDto.setAcceptorder(acceptOrder);
             orderAcceptDtoList.add(orderAcceptDto);
         }
         return orderAcceptDtoList;
+    }
+
+    /**
+     * 查看是否已评价
+     * @param acceptId
+     * @param userId
+     * @return
+     */
+    @Override
+    public int checkIsOrNotComment(int acceptId, int userId) {
+        OrdercommentExample ordercommentExample1 = new OrdercommentExample();
+        OrdercommentExample.Criteria criteria1 = ordercommentExample1.createCriteria();
+        criteria1.andMyidEqualTo(userId);
+        criteria1.andAcceptidEqualTo(acceptId);
+        List<Ordercomment> ordercommentList1 = ordercommentDao.selectByExample(ordercommentExample1);
+        if (ordercommentList1.size() > 0) {
+            return 1;
+        }
+        return 0;
     }
 }
