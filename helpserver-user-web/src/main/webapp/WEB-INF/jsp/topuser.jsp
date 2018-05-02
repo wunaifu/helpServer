@@ -40,10 +40,10 @@
                     class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                 <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
         </div>
-        <div class="topMessage favorite">
-            <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-            </div>
-        </div>
+        <%--<div class="topMessage favorite">--%>
+            <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </ul>
 </div>
 

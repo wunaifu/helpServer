@@ -40,19 +40,9 @@
     </article>
 </header>
 <div class="nav-table">
-    <div class="long-title"><span class="all-goods">全部分类</span></div>
-    <div class="nav-cont">
-        <ul>
-            <li class="index"><a href="#">首页</a></li>
-            <li class="qc"><a href="#">服务</a></li>
-            <li class="qc"><a href="#">趣事</a></li>
-            <!--<li class="qc last"><a href="#">大包装</a></li>-->
-        </ul>
-        <div class="nav-extra">
-            <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-            <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-        </div>
-    </div>
+    <!--头 start-->
+    <jsp:include page="midtop.jsp"></jsp:include>
+    <!--头 end-->
 </div>
 <b class="line"></b>
 <div class="center">
@@ -175,13 +165,13 @@
                             <a class="i-load-more-item-shadow" href="order.html">全部订单</a>
                         </div>
                         <ul>
+                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>已下架</span></a></li>
+                            <li><a href="/server/mysend/list"><i><img src="/images/pay.png"/></i><span>发布中</span></a></li>
                             <li><a href="/server/add"><i><img src="/images/refund.png"/></i><span>发服务</span></a></li>
-                            <li><a href="/server/mysend/list"><i><img src="/images/pay.png"/></i><span>已发布</span></a></li>
-                            <li><a href="/server/myaccept/list"><i><img src="/images/send.png"/></i><span>已接单</span></a></li>
-                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>待评价</span></a></li>
-                            <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>已完成</span></a></li>
+                            <li><a href="/server/myaccept/list"><i><img src="/images/send.png"/></i><span>租用中</span></a></li>
+                            <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>租用完成</span></a></li>
                         </ul>
-                        <div class="orderContentBox">
+                        <%--<div class="orderContentBox">
                             <div class="orderContent">
                                 <div class="orderContentpic">
                                     <div class="imgBox">
@@ -229,7 +219,7 @@
 
                             </div>
                             <a href="javascript:void(0);" class="btnPay">抢单</a>
-                        </div>
+                        </div>--%>
                     </div>
                     <!--九宫格-->
                     <div class="user-squaredIcon">

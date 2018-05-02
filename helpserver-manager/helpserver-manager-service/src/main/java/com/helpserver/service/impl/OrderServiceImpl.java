@@ -40,6 +40,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrdercommentDao ordercommentDao;
 
+    @Override
+    public String updateOrder(Orderinfo orderinfo) {
+        if (orderDao.updateByPrimaryKeySelective(orderinfo) == 1) {
+            return "update_success";
+        }
+        return "update_failure";
+    }
+
     /**
      * 添加资源服务
      * 1、添加资源

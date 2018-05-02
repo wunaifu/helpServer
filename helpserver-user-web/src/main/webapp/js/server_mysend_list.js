@@ -58,9 +58,9 @@ function click_pageNum(pageNum){
 						+'<span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">'+item.order.city+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">'+item.order.address+'</b></span>'
 						+'</div>'
-						+'<a href="/server/mysend/'+item.order.id+'/detail" class="readmore">立即下架</a>'
-						+'<a href="/server/mysend/'+item.order.id+'/detail" class="readmore" style="margin-right: 10px;">修改信息</a>'
-						+'<a href="/server/mysend/'+item.order.id+'/detail" class="readmore" style="margin-right: 10px;">查看详情</a>'
+						+'<a href="/server/mysend/'+item.order.id+'/download" class="readmore">立即下架</a>'
+						+'<a href="/server/mysend/'+item.order.id+'/update" class="readmore" style="margin-right: 10px;">修改信息</a>'
+						+'<a href="/server/mysend/'+item.order.id+'/acceptlist" class="readmore" style="margin-right: 10px;">抢单列表</a>'
 						+'</ul>'
 						+'<p class="autor">';
 					if(item.order.orderstate==1){
@@ -68,12 +68,12 @@ function click_pageNum(pageNum){
 							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>';
 					}else if(item.order.orderstate==-1){
 						tr_str+='<span>状态:<a>已禁用</a></span>'
-							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
-							+'<span>&nbsp;禁用时间:'+item.order.updatetime+'</span>';
+							+'<span>&nbsp;禁用时间:'+item.order.updatetime+'</span>'
+							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>';
 					}else{
 						tr_str+='<span>状态:<a>已下架</a></span>'
-							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>'
-							+'<span>&nbsp;下架时间:'+item.order.updatetime+'</span>';
+							+'<span>&nbsp;下架时间:'+item.order.updatetime+'</span>'
+							+'<span>&nbsp;发布时间:'+item.order.sendtime+'</span>';
 					}
 					tr_str+='</p><hr /></div>';
 					$("#list_tbody").append(tr_str);

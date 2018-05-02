@@ -32,7 +32,7 @@
     }
 
 %>
-<body onload="init()">
+<body>
 <!--头 -->
 <header>
     <article>
@@ -63,10 +63,10 @@
                                 class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                             <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-                        </div>
-                    </div>
+                    <%--<div class="topMessage favorite">--%>
+                        <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
                 </ul>
             </div>
 
@@ -89,20 +89,9 @@
     </article>
 </header>
 <div class="nav-table">
-    <div class="long-title"><span class="all-goods">全部分类</span></div>
-    <div class="nav-cont">
-        <ul>
-            <li class="index"><a href="#">首页</a></li>
-            <li class="qc"><a href="#">闪购</a></li>
-            <li class="qc"><a href="#">限时抢</a></li>
-            <li class="qc"><a href="#">团购</a></li>
-            <li class="qc last"><a href="#">大包装</a></li>
-        </ul>
-        <div class="nav-extra">
-            <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-            <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-        </div>
-    </div>
+    <!--头 start-->
+    <jsp:include page="midtop.jsp"></jsp:include>
+    <!--头 end-->
 </div>
 <b class="line"></b>
 <div class="center">
@@ -122,46 +111,31 @@
 
                 <div>
                     <p style="float:left;width: auto;color: #818482">
-                        <input style="visibility: hidden" value="${moneyInfo}" id="moneyInfo">
-                        发布资源服务需要扣除20余额的保障金，您当前的余额为<b style="color: black">[${moneyInfo}￥]</b>,请确保余额充足，余额会在订单服务完成后平台会自动归还。
+                        修改发布的资源订单中
                     </p>
                 </div>
                 <!--个人信息 -->
                 <div class="info-main">
-                    <form class="am-form am-form-horizontal" enctype="multipart/form-data"  action="/server/doadd" method="post" onsubmit="return checkData()">
+                    <form class="am-form am-form-horizontal" enctype="multipart/form-data"
+                          action="/server/mysend/doupdate" method="post" onsubmit="return checkData()">
                         <div class="clearfix"></div>
+                        <input value="${orderUserDto.order.id}" hidden name="orderId">
                         <div class="am-form-group">
                             <label for="ordertype" class="am-form-label">类型</label>
                             <div class="am-form-content birth">
                                 <div class="birth-select2">
                                     <select data-am-selected id="ordertype" name="ordertype">
-                                        <c:choose>
-                                            <c:when test="${orderTypeList.size()>0}">
-                                                <c:forEach items="${orderTypeList}" var="item">
-                                                    <option value="${item.id}">${item.typename}</option>
-                                                </c:forEach>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="0">没有类型</option>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <option >${orderUserDto.orderTypeName}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <%--<div class="am-form-group">--%>
-                            <%--<label for="checkMoney" class="am-form-label">押金数额</label>--%>
-                            <%--<div class="am-form-content">--%>
-                                <%--<input type="text" readonly="readonly" id="checkMoney" name="checkMoney" placeholder="该订单发布时需要扣除的押金数"--%>
-                                       <%--maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" value="20" required>--%>
-                                <%--<small>该订单发布时需要扣除发布者的保障金，在订单结束时会归还。</small>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
                         <div class="am-form-group">
                             <label for="city" class="am-form-label">区域城市</label>
                             <div class="am-form-content birth">
                                 <div class="birth-select2">
                                     <select data-am-selected id="city" name="city">
+                                        <option value="${orderUserDto.order.city}">${orderUserDto.order.city}</option>
                                         <option value="广州市">广州</option>
                                         <option value="深圳市">深圳</option>
                                         <option value="江门市">江门</option>
@@ -181,28 +155,28 @@
                         <div class="am-form-group">
                             <label for="name" class="am-form-label">资源名字</label>
                             <div class="am-form-content">
-                                <input type="text" id="name" name="name" placeholder="长度不能超过20个汉字"
+                                <input type="text" id="name" name="name" placeholder="长度不能超过20个汉字" value="${orderUserDto.order.foodname}"
                                 maxlength="20" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="amount" class="am-form-label">资源库存</label>
                             <div class="am-form-content">
-                                <input type="text" id="amount" name="amount" placeholder="资源库存"
+                                <input type="text" id="amount" name="amount" placeholder="资源库存" value="${orderUserDto.order.amount}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="address" class="am-form-label">资源位置</label>
                             <div class="am-form-content">
-                                <input type="text" id="address" name="address" placeholder="例：江门市蓬江区仓后街五邑大学"
+                                <input type="text" id="address" name="address" placeholder="例：江门市蓬江区仓后街五邑大学" value="${orderUserDto.order.address}"
                                        maxlength="80" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label  class="am-form-label">资源定位</label>
                             <div class="am-form-content">
-                                <p ><a href="/server/map"><i class="am-icon-map-marker"></i>去定位</a></p>
+                                <p ><a href="/server/map"><i class="am-icon-map-marker"></i>改定位</a></p>
                                 <small>资源定位成功后，返回该页面继续填写</small>
                             </div>
                         </div>
@@ -210,6 +184,7 @@
                             <label for="money" class="am-form-label">押金￥</label>
                             <div class="am-form-content">
                                 <input type="text" id="money" name="money" placeholder="接单者需要扣除的押金<300￥"
+                                       value="${orderUserDto.order.moneyamount}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
@@ -217,13 +192,15 @@
                             <label for="dayMoney" class="am-form-label">日租金￥</label>
                             <div class="am-form-content">
                                 <input type="text" id="dayMoney" name="dayMoney" placeholder="每日租金"
+                                       value="${orderUserDto.order.daymoney}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="dayNumber" class="am-form-label">可租天数</label>
                             <div class="am-form-content">
-                                <input type="text" id="dayNumber" name="dayNumber" placeholder="若不可按天租用，可租天数为0即可" value="0"
+                                <input type="text" id="dayNumber" name="dayNumber" placeholder="若不可按天租用，可租天数为0即可"
+                                       value="${orderUserDto.order.daynumber}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                                 <small>若不可按天租用，可租天数为0即可</small>
                             </div>
@@ -232,13 +209,15 @@
                             <label for="monthMoney" class="am-form-label">月租金￥</label>
                             <div class="am-form-content">
                                 <input type="text" id="monthMoney" name="monthMoney" placeholder="每月租金"
+                                       value="${orderUserDto.order.monthmoney}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="monthNumber" class="am-form-label">可租月数</label>
                             <div class="am-form-content">
-                                <input type="text" id="monthNumber" name="monthNumber" placeholder="若不可按月租用，可租月数为0即可" value="0"
+                                <input type="text" id="monthNumber" name="monthNumber" placeholder="若不可按月租用，可租月数为0即可"
+                                       value="${orderUserDto.order.monthnumber}"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                                 <small>若不可按月租用，可租月数为0即可</small>
                             </div>
@@ -247,19 +226,21 @@
                             <label for="detail" class="am-form-label">详情备注</label>
                             <div class="am-form-content">
                                 <textarea type="text" id="detail" name="detail" placeholder="长度不能超过120个汉字"
-                                          maxlength="120" rows="4" required></textarea>
+                                          maxlength="120" rows="4" required>${orderUserDto.order.orderdetail}</textarea>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="username" class="am-form-label">联系人</label>
                             <div class="am-form-content">
-                                <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20" required>
+                                <input id="username" name="username" placeholder="服务联系人姓名/称呼" type="text" maxlength="20"
+                                       value="${orderUserDto.order.callname}" required>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <label for="userphone" class="am-form-label">联系电话</label>
                             <div class="am-form-content">
                                 <input id="userphone" name="userphone" placeholder="服务联系人的联系方式" type="text" maxlength="20"
+                                       value="${orderUserDto.order.callphone}"
                                        onkeyup="this.value=this.value.replace(/[^-0-9]/g,'')" required>
                             </div>
                         </div>
@@ -271,7 +252,7 @@
                                     <div class="cardPic">
                                         <input id="file1" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
                                                name="file" onchange="c1()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                        <img src="/images/cardbg.jpg" id="show1">
+                                        <img src="/resources/img/${orderUserDto.order.picture}" id="show1">
                                         <div class="cardText"><i class="am-icon-plus"></i>
                                             <p>资源图片</p>
                                         </div>
@@ -288,7 +269,7 @@
                                     <div class="cardPic">
                                         <input id="file2" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
                                                name="file" onchange="c2()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                        <img src="/images/cardbg.jpg" id="show2">
+                                        <img src="/resources/img/${orderUserDto.order.infopicture1}" id="show2">
                                         <div class="cardText"><i class="am-icon-plus"></i>
                                             <p>详情图片1</p>
                                         </div>
@@ -299,7 +280,7 @@
                                     <div class="cardPic">
                                         <input id="file3" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"
                                                name="file" onchange="c3()" accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG,">
-                                        <img src="/images/cardbg.jpg" id="show3">
+                                        <img src="/resources/img/${orderUserDto.order.infopicture2}" id="show3">
                                         <div class="cardText"><i class="am-icon-plus"></i>
                                             <p>详情图片2</p>
                                         </div>
@@ -309,7 +290,7 @@
                             </ul>
                         </div>
                         <div class="info-btn">
-                            <input value="确认发布" class="am-btn am-btn-danger" type="submit">
+                            <input value="确认修改" class="am-btn am-btn-danger" type="submit">
                         </div>
 
                     </form>
@@ -331,10 +312,10 @@
             <li class="person">
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
-                    <li><a href="/server/mysend/list">已发布</a></li>
-                    <li> <a href="/server/myaccept/list">已接单</a></li>
-                    <li> <a href="#">待评价</a></li>
-                    <li> <a href="#">已完成</a></li>
+                    <li><a href="/server/mysend/list">发布中</a></li>
+                    <li> <a href="/server/mysend/list">已下架</a></li>
+                    <li> <a href="/server/myaccept/list">租用中</a></li>
+                    <li> <a href="/server/myaccept/list">租用完成</a></li>
                 </ul>
             </li>
         </ul>
@@ -372,14 +353,9 @@
     }
 
     function checkData() {
-        var moneyInfo = $("#moneyInfo").val().replace(" ", "");
         var money = $("#money").val().replace(" ", "");
         var dayNumber = $("#dayNumber").val().replace(" ", "");
         var monthNumber = $("#monthNumber").val().replace(" ", "");
-        if (parseInt(moneyInfo) < 20) {
-            $.myToast("余额不足，不可发布订单");
-            return false;
-        }
         if (parseInt(dayNumber) <= 0 && parseInt(monthNumber) <= 0) {
             $.myToast("可租天数和月数不能同时为0");
             return false;
@@ -390,14 +366,6 @@
             return false;
         }
         return true;
-    }
-
-    function init() {
-        var moneyInfo = $("#moneyInfo").val().replace(" ", "");
-        if (parseInt(moneyInfo) < 20) {
-            $.myToast("余额不足，不可发布订单");
-        }
-
     }
 </script>
 </body>

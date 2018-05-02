@@ -164,6 +164,157 @@ public class ServerOrderController {
     }
 
     /**
+     * 去往修改资源服务页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/update")
+    public String updateServer(@PathVariable("orderId") int orderId,HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser= UserSessionSetUtils.getNowUser(request);
+        request.getSession().removeAttribute("nowUser");
+        nowUser.setGoodsLocation("");
+        nowUser.setGoodsLng("");
+        nowUser.setGoodsLat("");
+        request.getSession().setAttribute("nowUser", nowUser);
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+        //List<Ordertype> orderTypeList = orderTypeService.getOrdertypeListByState(1);
+        //Money money = moneyService.getMoney(nowUser.getUserid());
+        //model.addAttribute("orderTypeList", orderTypeList);
+        //model.addAttribute("nowTime", TimeUtil.dateToStrNoTime(new Date()));
+        model.addAttribute("orderUserDto",orderUserDto);
+        return "server_update";
+    }
+
+    /**
+     * 确认添加资源服务
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/doupdate")
+    public String doUpdateServer(@RequestParam(value = "file", required = false)
+                                      MultipartFile file[], HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        String sendTime = TimeUtil.dateToString(new Date());
+
+        Orderinfo orderinfo = new Orderinfo();
+        orderinfo.setId(Integer.parseInt(request.getParameter("orderId")));
+        orderinfo.setCity(request.getParameter("city"));
+        orderinfo.setFoodname(request.getParameter("name"));
+        orderinfo.setAmount(Integer.parseInt(request.getParameter("amount")));
+        orderinfo.setAddress(request.getParameter("address"));
+        orderinfo.setMoneyamount(Integer.parseInt(request.getParameter("money")));
+        orderinfo.setDaymoney(Integer.parseInt(request.getParameter("dayMoney")));
+        orderinfo.setDaynumber(Integer.parseInt(request.getParameter("dayNumber")));
+        orderinfo.setMonthmoney(Integer.parseInt(request.getParameter("monthMoney")));
+        orderinfo.setMonthnumber(Integer.parseInt(request.getParameter("monthNumber")));
+        orderinfo.setOrderdetail(request.getParameter("detail"));
+        orderinfo.setUpdatetime(sendTime);
+        orderinfo.setCallname(request.getParameter("username"));
+        orderinfo.setCallphone(request.getParameter("userphone"));
+        if ("".equals(nowUser.getGoodsLat())) {
+
+        } else {
+            orderinfo.setLng(nowUser.getGoodsLng());
+            orderinfo.setLat(nowUser.getGoodsLat());
+            orderinfo.setPointinfo(nowUser.getGoodsLocation());
+        }
+
+        String fileName1 = "";
+        String fileName2 = "";
+        String fileName3 = "";
+        try {
+            if (file != null) {
+                String picture1 = file[0].getOriginalFilename();
+                String picture2 = file[1].getOriginalFilename();
+                String picture3 = file[2].getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/" + nowUser.getUserid() + "/";
+                if (picture1.equals("")) {
+
+                }else {// 保存
+                    fileName1 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile1 = new File(filePath, fileName1); // 新建文件
+                    if (!targetFile1.exists()) { // 判断文件的路径是否存在
+                        targetFile1.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[0].transferTo(targetFile1); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName1 = nowUser.getUserid() + "/" + fileName1;
+                    orderinfo.setPicture(fileName1);
+                }
+                if (picture2.equals("")) {
+
+                }else {// 保存
+                    fileName2 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile2 = new File(filePath, fileName2); // 新建文件
+                    if (!targetFile2.exists()) { // 判断文件的路径是否存在
+                        targetFile2.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[1].transferTo(targetFile2); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName2 = nowUser.getUserid() + "/" + fileName2;
+                    orderinfo.setInfopicture1(fileName2);
+                }
+                if (picture3.equals("")) {
+
+                } else {// 保存
+                    fileName3 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile3 = new File(filePath, fileName3); // 新建文件
+                    if (!targetFile3.exists()) { // 判断文件的路径是否存在
+                        targetFile3.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[2].transferTo(targetFile3); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName3 = nowUser.getUserid() + "/" + fileName3;
+                    orderinfo.setInfopicture2(fileName3);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "传送失败，请重试！");
+            return "page_400";
+        }
+        String result = orderService.updateOrder(orderinfo);
+        if (result.equals("update_success")) {
+            model.addAttribute("message","更新资源服务成功！");
+            return "pageuser_success";
+        }
+        model.addAttribute("message","更新资源服务失败，请稍后再试");
+        return "page_400";
+    }
+
+    /**
+     * 下架资源
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/download")
+    public String downloadServer(@PathVariable("orderId") int orderId,HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        Orderinfo orderinfo = new Orderinfo();
+        orderinfo.setId(orderId);
+        orderinfo.setOrderstate(2);
+        orderinfo.setRepealtime(TimeUtil.dateToString(new Date()));
+        String result = orderService.updateOrder(orderinfo);
+        if (result.equals("update_success")) {
+            model.addAttribute("message","下架资源服务成功！");
+            return "pageuser_success";
+        }
+        model.addAttribute("message","下架资源服务失败，请稍后再试");
+        return "page_400";
+    }
+
+    /**
      * 资源服务详情
      * @param request
      * @param model
@@ -305,6 +456,12 @@ public class ServerOrderController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        NowUser nowUser= UserSessionSetUtils.getNowUser(request);
+        request.getSession().removeAttribute("nowUser");
+        nowUser.setGoodsLocation("");
+        nowUser.setGoodsLng("");
+        nowUser.setGoodsLat("");
+        request.getSession().setAttribute("nowUser", nowUser);
         return "server_goods_map";
     }
 
@@ -453,7 +610,7 @@ public class ServerOrderController {
 
 //start mysendServer -------------------------------我发布的资源服务列表-------------------------------------------------
     /**
-     * 我发布的资源服务列表
+     * 我发布的资源服务进行中列表
      * @param request
      * @param model
      * @return
@@ -464,14 +621,19 @@ public class ServerOrderController {
             return "page_403";
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
-        Pager<OrderUserDto> pagerList = new Pager<>(1, 10, orderUserDtoList);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        //我发布的进行中的列表 1进行中，2已下架
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndSendUserId(1,nowUser.getUserid());
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
         model.addAttribute("pagerList", pagerList);
         return "server_mysend_list";
     }
 
     /**
-     * 我发布的资源服务列表分页
+     * 我发布的资源服务进行中列表分页
      * @param request
      * @param response
      * @return
@@ -486,7 +648,8 @@ public class ServerOrderController {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserId(nowUser.getUserid());
+        //我发布的进行中的列表 1进行中，2已下架
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndSendUserId(1,nowUser.getUserid());
         Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
 //        System.out.println("pagerList============="+pagerList.toString());
         String result = JSON.toJSONString(pagerList);

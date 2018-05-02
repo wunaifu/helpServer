@@ -85,13 +85,9 @@
         <li><img src="/images/logobig.png"/></li>
     </div>
 
-    <div class="search-bar pr">
-        <a name="index_none_header_sysc" href="#"></a>
-        <form action="/server/mysend/search"  method="post">
-            <input id="searchInput" name="search" type="text" placeholder="搜索我发布的资源服务" autocomplete="off" required>
-            <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-        </form>
-    </div>
+    <!--搜索 start-->
+    <jsp:include page="search.jsp"></jsp:include>
+    <!--搜索 end-->
 </div>
 
 <div class="clear"></div>
@@ -99,20 +95,9 @@
 <div class="listMain">
     <!--分类-->
     <div class="nav-table">
-        <div class="long-title"><span class="all-goods">全部分类</span></div>
-        <div class="nav-cont">
-            <ul>
-                <li class="index"><a href="#">首页</a></li>
-                <li class="qc"><a href="#">闪购</a></li>
-                <li class="qc"><a href="#">限时抢</a></li>
-                <li class="qc"><a href="#">团购</a></li>
-                <li class="qc last"><a href="#">大包装</a></li>
-            </ul>
-            <div class="nav-extra">
-                <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-                <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-            </div>
-        </div>
+        <!--头 start-->
+        <jsp:include page="midtop.jsp"></jsp:include>
+        <!--头 end-->
     </div>
     <ol class="am-breadcrumb am-breadcrumb-slash">
         <li><a href="/index">首页</a></li>
@@ -229,12 +214,12 @@
 <div class="pay">
     <div class="pay-opt">
         <a href="/index"><span class="am-icon-home am-icon-fw">首页</span></a>
-        <a><span class="am-icon-heart am-icon-fw">修改</span></a>
+        <a href="/server/mysend/${orderUserDto.order.id}/update"><span class="am-icon-heart am-icon-fw">修改</span></a>
 
     </div>
     <li>
         <div class="clearfix tb-btn tb-btn-buy">
-            <a title="下架该资源" href="#">立即下架</a>
+            <a title="下架该资源" href="/server/mysend/${orderUserDto.order.id}/download">立即下架</a>
         </div>
     </li>
     <li>
@@ -362,7 +347,7 @@
                                                                     状态：已取消
                                                                 </div>
                                                                 <div class="tb-r-act-bar">
-                                                                    取消时间：${item.acceptorder.backTime}
+                                                                    取消时间：${item.acceptorder.backtime}
                                                                 </div>
                                                             </c:otherwise>
                                                         </c:choose>

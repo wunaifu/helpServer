@@ -101,6 +101,10 @@ public class PageController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             return "page_403";
         }
+        int pageNum=1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         String city = nowUser.getLocation();
         List<News> newsList = newsService.getNewsList();
@@ -111,10 +115,11 @@ public class PageController {
         if (orderUserDtoList.size()<1) {
             orderUserDtoList = orderService.getOrderUserDtoListByState(1);
         }
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum,10,orderUserDtoList);
         System.out.println("orderUserDtoList2="+orderUserDtoList.toString());
         model.addAttribute("newsList", newsList);
         model.addAttribute("orderTypeDtoList", orderTypeDtoList);
-        model.addAttribute("orderUserDtoList", orderUserDtoList);
+        model.addAttribute("pagerList", pagerList);
         return "index";
     }
 

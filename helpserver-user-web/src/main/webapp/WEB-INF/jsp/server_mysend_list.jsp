@@ -15,7 +15,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>首页</title>
+    <title>我发布的资源服务</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
@@ -72,10 +72,10 @@
                         class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                     <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
             </div>
-            <div class="topMessage favorite">
-                <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-                </div>
-            </div>
+            <%--<div class="topMessage favorite">--%>
+                <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </ul>
     </div>
 
@@ -87,13 +87,16 @@
             <li><img src="/images/logobig.png"/></li>
         </div>
 
-        <div class="search-bar pr">
-            <a name="index_none_header_sysc" href="#"></a>
-            <form action="/server/mysend/search"  method="post">
-                <input id="searchInput" name="search" type="text" placeholder="搜索我发布的资源服务" autocomplete="off" required>
-                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-            </form>
-        </div>
+        <!--搜索 start-->
+        <jsp:include page="search.jsp"></jsp:include>
+        <!--搜索 end-->
+        <%--<div class="search-bar pr">--%>
+            <%--<a name="index_none_header_sysc" href="#"></a>--%>
+            <%--<form action="/server/mysend/search"  method="post">--%>
+                <%--<input id="searchInput" name="search" type="text" placeholder="搜索我发布的资源服务" autocomplete="off" required>--%>
+                <%--<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">--%>
+            <%--</form>--%>
+        <%--</div>--%>
     </div>
 
     <!-- top end -->
@@ -103,19 +106,9 @@
 <div class="shopNav">
     <div class="slideall" style="height: auto;">
 
-        <div class="long-title"><span class="all-goods">全部分类</span></div>
-        <div class="nav-cont">
-            <ul>
-                <li class="index"><a href="home2.html">首页</a></li>
-                <li class="qc"><a href="#">服务</a></li>
-                <li class="qc"><a href="#">趣事</a></li>
-                <li class="qc last"><a href="#">大包装</a></li>
-            </ul>
-            <div class="nav-extra">
-                <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-                <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-            </div>
-        </div>
+        <!--头 start-->
+        <jsp:include page="midtop.jsp"></jsp:include>
+        <!--头 end-->
         <div class="clear"></div>
 
     </div>
@@ -176,8 +169,8 @@
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${item.order.city}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">地址：<b style="color: #ff4d2d">${item.order.address}</b></span>
                                     </div>
-                                    <a href="/server/mysend/${item.order.id}/detail" class="readmore">立即下架</a>
-                                    <a href="/server/mysend/${item.order.id}/detail" class="readmore" style="margin-right: 10px;">修改信息</a>
+                                    <a href="/server/mysend/${item.order.id}/download" class="readmore">立即下架</a>
+                                    <a href="/server/mysend/${item.order.id}/update" class="readmore" style="margin-right: 10px;">修改信息</a>
                                     <a href="/server/mysend/${item.order.id}/acceptlist" class="readmore" style="margin-right: 10px;">抢单列表</a>
                                 </ul>
                                 <p class="autor">
@@ -188,13 +181,13 @@
                                         </c:when>
                                         <c:when test="${item.order.orderstate==-1}">
                                             <span>状态:<a>已禁用</a></span>
-                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
                                             <span>&nbsp;禁用时间:${item.order.updatetime}</span>
+                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
                                         </c:when>
                                         <c:otherwise>
                                             <span>状态:<a>已下架</a></span>
-                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
                                             <span>&nbsp;下架时间:${item.order.updatetime}</span>
+                                            <span>&nbsp;发布时间:${item.order.sendtime}</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </p>

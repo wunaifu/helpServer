@@ -69,11 +69,11 @@
                         class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                     <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
             </div>
-            <div class="topMessage favorite">
-                <div class="menu-hd"><a href="#" target="_top"><i
-                        class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-                </div>
-            </div>
+            <%--<div class="topMessage favorite">--%>
+                <%--<div class="menu-hd"><a href="#" target="_top"><i--%>
+                        <%--class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </ul>
     </div>
 
@@ -86,13 +86,9 @@
             <li><img src="/images/logobig.png"/></li>
         </div>
 
-        <div class="search-bar pr">
-            <a name="index_none_header_sysc" href="#"></a>
-            <form action="/server/search" method="post">
-                <input id="searchInput" name="search" type="text" placeholder="搜索" autocomplete="off" required>
-                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-            </form>
-        </div>
+        <!--搜索 start-->
+        <jsp:include page="search.jsp"></jsp:include>
+        <!--搜索 end-->
     </div>
 
     <!-- top end -->
@@ -102,19 +98,9 @@
 <div class="shopNav">
     <div class="slideall" style="height: auto;">
 
-        <div class="long-title"><span class="all-goods">全部分类</span></div>
-        <div class="nav-cont">
-            <ul>
-                <li class="index"><a href="/index">首页</a></li>
-                <li class="qc"><a href="#">服务</a></li>
-                <li class="qc"><a href="#">趣事</a></li>
-                <li class="qc last"><a href="#">大包装</a></li>
-            </ul>
-            <div class="nav-extra">
-                <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-                <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-            </div>
-        </div>
+        <!--头 start-->
+        <jsp:include page="midtop.jsp"></jsp:include>
+        <!--头 end-->
 
         <div class="bannerTwo">
             <!--轮播 -->
@@ -256,17 +242,17 @@
                             <c:forEach items="${newsList}" var="newsitem" varStatus="status">
                                 <c:choose>
                                     <c:when test="${status.index==0}">
-                                        <li class="title-first"><a target="_blank"
+                                        <li class="title-first"><a
                                                                    href="#"><span>[公告]</span>${newsitem.title}</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li><a target="_blank" href="#"><span>[公告]</span>${newsitem.title}</a></li>
+                                        <li><a href="#"><span>[公告]</span>${newsitem.title}</a></li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            <li class="title-first"><a target="_blank" href="#"><span>[公告]</span>目前没有每日新鲜事</a></li>
+                            <li class="title-first"><a href="#"><span>[公告]</span>目前没有每日新鲜事</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -310,15 +296,15 @@
                 </h2>
                 <div class="clear "></div>
                 <div class="blogs">
-                    <h3>您缺少资源吗？这里有您需要资源服务，快来看一看吧。</h3>
+                    <h3>您缺少资源吗？这里有您需要资源服务，快来看一看，租用您需要的资源吧。</h3>
                     <ul>
                         <p>
                         </p>
                     </ul>
                 </div>
                 <c:choose>
-                    <c:when test="${orderUserDtoList.size()>0}">
-                        <c:forEach items="${orderUserDtoList}" var="item" varStatus="status">
+                    <c:when test="${pagerList.dataList.size()>0}">
+                        <c:forEach items="${pagerList.dataList}" var="item" varStatus="status">
                             <div class="blogs">
                                 <h3><a href="/server/${item.order.id}/detail" style="color: #0a628f">资源名字：${item.order.foodname}</a></h3>
                                 <figure><a href="/server/${item.order.senderid}/userinfo">
@@ -369,7 +355,66 @@
                 </div>
 
             </div>
+            <ul class="am-pagination am-pagination-left">
+                <c:choose>
+                    <c:when test="${pagerList.currentPage==1||pagerList.totalPage==0}">
+                        <li class="am-disabled"><a>首页</a></li>
+                        <li class="am-disabled">
+                            <a >
+                                <span >«</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="/index?pageNum=1">首页</a></li>
+                        <li>
+                            <a href="/index?pageNum=${pagerList.currentPage-1}">
+                                <span>«</span>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach var="k" begin="1" end="${pagerList.totalPage}">
+                    <c:choose>
+                        <c:when test="${k==(pagerList.currentPage-4) || k == (pagerList.currentPage + 4)}">
+                            <li><a>…</a></li>
+                        </c:when>
+                        <c:when test="${k==pagerList.currentPage}">
+                            <li class="am-active"><a>${k}<span class="sr-only"></span></a></li>
+                        </c:when>
+                        <c:when test="${k < pagerList.currentPage - 4 || k > pagerList.currentPage + 4}">
+
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="/index?pageNum=${k}">${k}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:choose>
+                    <c:when test="${pagerList.currentPage == pagerList.totalPage || pagerList.totalPage == 0}">
+                        <li class="am-disabled">
+                            <a >
+                                <span >»</span>
+                            </a>
+                        </li>
+                        <li class="am-disabled"><a>尾页</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <a href="/index?pageNum=${pagerList.currentPage+1}">
+                                <span >»</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/index?pageNum=${pagerList.totalPage}">尾页</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
             <div class="clear "></div>
+            <div style="padding: 25px;"></div>
         </div>
         <div class="clear "></div>
     </div>
@@ -390,7 +435,7 @@
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>
 <!--菜单 -->
-<div class=tip>
+<%--<div class=tip>
     <div id="sidebar">
         <div id="wrap">
             <div id="prof" class="item ">
@@ -549,7 +594,7 @@
             充值
         </div>
     </div>
-</div>
+</div>--%>
 <script>
     window.jQuery || document.write('<script src="/basic/js/jquery.min.js "><\/script>');
 </script>
