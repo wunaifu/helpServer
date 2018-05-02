@@ -665,6 +665,62 @@ public class ServerOrderController {
     }
 
     /**
+     * 前往付款页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/{acceptId}/{pageNum}/toputmoney")
+    public String serverToPutMoney(@PathVariable("acceptId") int acceptId,@PathVariable("pageNum") int pageNum
+            , HttpServletRequest request, Model model){
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        Orderinfo orderinfo = orderService.getOrderById(acceptorder.getOrderid());
+        //3、计算归还押金、扣除租金费用、超期费用
+        int moneyYa = orderinfo.getMoneyamount();//押金
+        Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
+        Date nowTime = new Date();
+        int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+        if (daysNumber < 1) {
+            daysNumber = 1;
+        }
+        System.out.println("daysNumber======" + daysNumber);
+        int needMoney = 0;//租金
+        if (acceptorder.getMoneytype() == 0) {
+            //日租  租金=数量*日租金*天数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * daysNumber;
+            if (daysNumber > (acceptorder.getGettype() + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber-acceptorder.getGettype();
+            }
+        } else {
+            //月租 租金=数量*月租金*月数
+            needMoney = acceptorder.getNumber() * acceptorder.getMoney() * acceptorder.getGettype();
+            if (daysNumber > (acceptorder.getGettype() * 30 + 5)) {
+                //超期5天以上的需要扣除超期的余额，每天*1
+                //加上超期的
+                needMoney += daysNumber - acceptorder.getGettype() * 30;
+            }
+        }
+        //平台获取的服务费，从租金里扣除，1%比例扣除，不够的
+        int systemMoney;
+        if (needMoney % 100 == 0) {
+            systemMoney = needMoney / 100;
+        } else {
+            systemMoney = needMoney / 100 + 1;
+        }
+        model.addAttribute("moneyYa", moneyYa);
+        model.addAttribute("needMoney", needMoney);
+        model.addAttribute("systemMoney", systemMoney);
+        model.addAttribute("acceptId", acceptId);
+        model.addAttribute("pageNum", pageNum);
+        return "server_pay";
+    }
+
+    /**
      * 付款
      * @param request
      * @param response

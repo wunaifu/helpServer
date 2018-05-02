@@ -210,7 +210,7 @@
                                                title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <a href="#" onclick="putMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
+                                            <a href="/server/${item.acceptorder.id}/${pagerList.currentPage}/toputmoney"  style="margin-right: 10px;"
                                                title="物品已归还，请前往付款" class="readmore">去付款</a>
                                         </c:when>
                                         <c:when test="${item.acceptorder.acceptstate==5}">

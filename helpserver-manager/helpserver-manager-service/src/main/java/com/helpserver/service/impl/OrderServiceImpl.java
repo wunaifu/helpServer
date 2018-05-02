@@ -250,10 +250,13 @@ public class OrderServiceImpl implements OrderService {
             acceptorderUpdate.setAcceptstate(5);
             if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
                 //3、计算归还押金、扣除租金费用、超期费用
-                int money = orderinfo.getMoneyamount();//押金
+                int moneyYa = orderinfo.getMoneyamount();//押金
                 Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
                 Date nowTime = new Date();
                 int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
+                if (daysNumber < 1) {
+                    daysNumber = 1;
+                }
                 System.out.println("daysNumber======" + daysNumber);
                 int needMoney = 0;//租金
                 if (acceptorder.getMoneytype() == 0) {
@@ -273,16 +276,82 @@ public class OrderServiceImpl implements OrderService {
                         needMoney += daysNumber - acceptorder.getGettype() * 30;
                     }
                 }
-
+                //平台获取的服务费，从租金里扣除，1%比例扣除，不够的
+                int systemMoney;
+                if (needMoney % 100 == 0) {
+                    systemMoney = needMoney / 100;
+                } else {
+                    systemMoney = needMoney / 100 + 1;
+                }
                 //4、更新抢单者余额表
-
-                //5、更新抢单者收支历史表
-
-                //6、更新订单者余额表
-
-                //7、更新订单者收支历史表
-
-                return "update_success";
+                Money money = moneyService.getMoney(acceptorder.getAccepterid());
+                Money moneyInfoAdd = new Money();
+                moneyInfoAdd.setId(money.getId());//退回押金扣除租金及超期费用
+                moneyInfoAdd.setAmount(money.getAmount() + moneyYa - needMoney);
+                if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
+                    //5、更新抢单者收支历史表，添加押金退回历史
+                    Moneyhistory moneyhistoryA1 = new Moneyhistory();
+                    moneyhistoryA1.setUserid(acceptorder.getAccepterid());
+                    moneyhistoryA1.setInfo(CommonsUtil.moneyOrderPermissionMoneyBack);
+                    moneyhistoryA1.setAmount(moneyYa);
+                    moneyhistoryA1.setTime(date);
+                    moneyhistoryA1.setState(1);
+                    if (moneyHistoryDao.insertSelective(moneyhistoryA1) == 1) {
+                        //5、更新抢单者收支历史表 添加扣除租金历史
+                        Moneyhistory moneyhistoryA2 = new Moneyhistory();
+                        moneyhistoryA2.setUserid(acceptorder.getAccepterid());
+                        moneyhistoryA2.setInfo(CommonsUtil.moneyOrderUseMoney);
+                        moneyhistoryA2.setAmount(needMoney);
+                        moneyhistoryA2.setTime(date);
+                        moneyhistoryA2.setState(0);
+                        if (moneyHistoryDao.insertSelective(moneyhistoryA2) == 1) {
+                            //6、更新订单者余额表
+                            Money moneyS = moneyService.getMoney(orderinfo.getSenderid());
+                            Money moneyInfoAddS = new Money();
+                            moneyInfoAddS.setId(moneyS.getId());//获得租金并扣除系统服务费用
+                            moneyInfoAddS.setAmount(moneyS.getAmount() + needMoney - systemMoney);
+                            if (moneyDao.updateByPrimaryKeySelective(moneyInfoAddS) == 1) {
+                                //7、更新订单者收支历史表，添加租金收支历史
+                                Moneyhistory moneyhistoryS1 = new Moneyhistory();
+                                moneyhistoryS1.setUserid(orderinfo.getSenderid());
+                                moneyhistoryS1.setInfo(CommonsUtil.moneyOrderUseMoney);
+                                moneyhistoryS1.setAmount(needMoney);
+                                moneyhistoryS1.setTime(date);
+                                moneyhistoryS1.setState(1);
+                                if (moneyHistoryDao.insertSelective(moneyhistoryS1) == 1) {
+                                    //5、更新抢单者收支历史表 添加扣除租金历史
+                                    Moneyhistory moneyhistoryS2 = new Moneyhistory();
+                                    moneyhistoryS2.setUserid(orderinfo.getSenderid());
+                                    moneyhistoryS2.setInfo(CommonsUtil.moneySystemGetMoney);
+                                    moneyhistoryS2.setAmount(systemMoney);
+                                    moneyhistoryS2.setTime(date);
+                                    moneyhistoryS2.setState(0);
+                                    if (moneyHistoryDao.insertSelective(moneyhistoryS2) == 1) {
+                                        return "update_success";
+                                    } else {
+                                        //抛出异常
+                                        throw new MyThrowException("update_failure");
+                                    }
+                                } else {
+                                    //抛出异常
+                                    throw new MyThrowException("update_failure");
+                                }
+                            } else {
+                                //抛出异常
+                                throw new MyThrowException("update_failure");
+                            }
+                        } else {
+                            //抛出异常
+                            throw new MyThrowException("update_failure");
+                        }
+                    } else {
+                        //抛出异常
+                        throw new MyThrowException("update_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
             } else {
                 //抛出异常
                 throw new MyThrowException("update_failure");
@@ -323,6 +392,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
     }
+
     /**
      * 一种状态的订单列表
      * @param state
@@ -547,4 +617,5 @@ public class OrderServiceImpl implements OrderService {
         List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
         return orderUserDtoList;
     }
+
 }
