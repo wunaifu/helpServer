@@ -165,7 +165,7 @@
                             <a class="i-load-more-item-shadow" href="order.html">全部订单</a>
                         </div>
                         <ul>
-                            <li><a href="order.html"><i><img src="/images/comment.png"/></i><span>已下架</span></a></li>
+                            <li><a href="/server/mysend/finishlist"><i><img src="/images/comment.png"/></i><span>已下架</span></a></li>
                             <li><a href="/server/mysend/list"><i><img src="/images/pay.png"/></i><span>发布中</span></a></li>
                             <li><a href="/server/add"><i><img src="/images/refund.png"/></i><span>发服务</span></a></li>
                             <li><a href="/server/myaccept/list"><i><img src="/images/send.png"/></i><span>租用中</span></a></li>

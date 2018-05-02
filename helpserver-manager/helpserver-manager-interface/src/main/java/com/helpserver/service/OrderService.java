@@ -11,7 +11,11 @@ public interface OrderService {
 
     String insertOrder(Orderinfo orderinfo);
 
+    String updateReUploadOrder(Orderinfo orderinfo);
+
     String updateOrder(Orderinfo orderinfo);
+
+    String updateDownloadOrder(Orderinfo orderinfo);
 
     String updateAgreeAcceptAndOrder(Acceptorder acceptorder, Orderinfo orderinfo);
 

@@ -190,7 +190,7 @@ public class ServerOrderController {
     }
 
     /**
-     * 确认添加资源服务
+     * 确认修改资源服务
      * @param request
      * @param model
      * @return
@@ -305,7 +305,7 @@ public class ServerOrderController {
         orderinfo.setId(orderId);
         orderinfo.setOrderstate(2);
         orderinfo.setRepealtime(TimeUtil.dateToString(new Date()));
-        String result = orderService.updateOrder(orderinfo);
+        String result = orderService.updateDownloadOrder(orderinfo);
         if (result.equals("update_success")) {
             model.addAttribute("message","下架资源服务成功！");
             return "pageuser_success";
@@ -680,7 +680,7 @@ public class ServerOrderController {
     }
 
     /**
-     * 我发布的资源服务详情
+     * 我发布的资源服务进行中详情
      * @param request
      * @param model
      * @return
@@ -1080,6 +1080,210 @@ public class ServerOrderController {
             return "pageuser_success";
         }
         model.addAttribute("message", "评论失败，请稍后再试！");
+        return "page_400";
+    }
+
+    /**
+     * 我发布的资源服务已下架列表
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/finishlist")
+    public String serverMySendFinishList(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        //我发布的进行中的列表 1进行中，2已下架
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndSendUserId(2,nowUser.getUserid());
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
+        model.addAttribute("pagerList", pagerList);
+        return "server_mysend_finishlist";
+    }
+
+    /**
+     * 我发布的资源服务已下架列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/mysend/finishlistjson")
+    public void serverMySendFinishListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        //我发布的进行中的列表 1进行中，2已下架
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByStateAndSendUserId(2,nowUser.getUserid());
+        Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 我发布的资源服务已下架详情
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/finishdetail")
+    public String serverMySendFinishDetail(@PathVariable("orderId") int orderId,HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+//        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+
+        List<Ordercomment> ordercommentList = orderService.getOrderCommentListByOrderId(orderId);
+        Pager<Ordercomment> pagerComment = new Pager<>(1, 10, ordercommentList);
+        model.addAttribute("orderUserDto", orderUserDto);
+        model.addAttribute("pagerAccept", pagerAccept);
+        model.addAttribute("pagerComment", pagerComment);
+        return "server_mysend_finishdetail";
+    }
+
+    /**
+     * 去往重新上架资源服务页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/{orderId}/upload")
+    public String updateUploadServer(@PathVariable("orderId") int orderId,HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser= UserSessionSetUtils.getNowUser(request);
+        request.getSession().removeAttribute("nowUser");
+        nowUser.setGoodsLocation("");
+        nowUser.setGoodsLng("");
+        nowUser.setGoodsLat("");
+        request.getSession().setAttribute("nowUser", nowUser);
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+        List<Ordertype> orderTypeList = orderTypeService.getOrdertypeListByState(1);
+        Money money = moneyService.getMoney(nowUser.getUserid());
+        model.addAttribute("moneyInfo", money.getAmount());
+        model.addAttribute("orderTypeList", orderTypeList);
+        //model.addAttribute("nowTime", TimeUtil.dateToStrNoTime(new Date()));
+        model.addAttribute("orderUserDto",orderUserDto);
+        return "server_reupload";
+    }
+
+    /**
+     * 确认重新上架资源服务
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mysend/doupload")
+    public String doUpdateUploadServer(@RequestParam(value = "file", required = false)
+                                         MultipartFile file[], HttpServletRequest request, Model model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        String sendTime = TimeUtil.dateToString(new Date());
+
+        Orderinfo orderinfo = new Orderinfo();
+        orderinfo.setId(Integer.parseInt(request.getParameter("orderId")));
+        orderinfo.setCity(request.getParameter("city"));
+        orderinfo.setFoodname(request.getParameter("name"));
+        orderinfo.setAmount(Integer.parseInt(request.getParameter("amount")));
+        orderinfo.setAddress(request.getParameter("address"));
+        orderinfo.setMoneyamount(Integer.parseInt(request.getParameter("money")));
+        orderinfo.setDaymoney(Integer.parseInt(request.getParameter("dayMoney")));
+        orderinfo.setDaynumber(Integer.parseInt(request.getParameter("dayNumber")));
+        orderinfo.setMonthmoney(Integer.parseInt(request.getParameter("monthMoney")));
+        orderinfo.setMonthnumber(Integer.parseInt(request.getParameter("monthNumber")));
+        orderinfo.setOrderdetail(request.getParameter("detail"));
+        orderinfo.setSendtime(sendTime);
+        orderinfo.setCallname(request.getParameter("username"));
+        orderinfo.setCallphone(request.getParameter("userphone"));
+        orderinfo.setOrderstate(1);
+        if ("".equals(nowUser.getGoodsLat())) {
+
+        } else {
+            orderinfo.setLng(nowUser.getGoodsLng());
+            orderinfo.setLat(nowUser.getGoodsLat());
+            orderinfo.setPointinfo(nowUser.getGoodsLocation());
+        }
+
+        String fileName1 = "";
+        String fileName2 = "";
+        String fileName3 = "";
+        try {
+            if (file != null) {
+                String picture1 = file[0].getOriginalFilename();
+                String picture2 = file[1].getOriginalFilename();
+                String picture3 = file[2].getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/img/" + nowUser.getUserid() + "/";
+                if (picture1.equals("")) {
+
+                }else {// 保存
+                    fileName1 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile1 = new File(filePath, fileName1); // 新建文件
+                    if (!targetFile1.exists()) { // 判断文件的路径是否存在
+                        targetFile1.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[0].transferTo(targetFile1); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName1 = nowUser.getUserid() + "/" + fileName1;
+                    orderinfo.setPicture(fileName1);
+                }
+                if (picture2.equals("")) {
+
+                }else {// 保存
+                    fileName2 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile2 = new File(filePath, fileName2); // 新建文件
+                    if (!targetFile2.exists()) { // 判断文件的路径是否存在
+                        targetFile2.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[1].transferTo(targetFile2); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName2 = nowUser.getUserid() + "/" + fileName2;
+                    orderinfo.setInfopicture1(fileName2);
+                }
+                if (picture3.equals("")) {
+
+                } else {// 保存
+                    fileName3 = UUID.randomUUID() + picture1.substring(picture1.lastIndexOf("."));
+                    File targetFile3 = new File(filePath, fileName3); // 新建文件
+                    if (!targetFile3.exists()) { // 判断文件的路径是否存在
+                        targetFile3.mkdirs(); // 如果文件不存在 在目录中创建文件夹 这里要注意mkdir()和mkdirs()的区别
+                    }
+                    file[2].transferTo(targetFile3); // 传送 失败就抛异常
+                    // 执行更新图片在服务器的地址
+                    fileName3 = nowUser.getUserid() + "/" + fileName3;
+                    orderinfo.setInfopicture2(fileName3);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "传送失败，请重试！");
+            return "page_400";
+        }
+        String result = orderService.updateReUploadOrder(orderinfo);
+        if (result.equals("update_success")) {
+            model.addAttribute("message","重新上架资源服务成功！");
+            return "pageuser_success";
+        }
+        model.addAttribute("message","重新上架资源服务失败，请稍后再试");
         return "page_400";
     }
 

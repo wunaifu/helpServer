@@ -23,7 +23,7 @@
             <ul>
                 <li><a href="/server/add">发服务</a></li>
                 <li><a href="/server/mysend/list">发布中</a></li>
-                <li> <a href="/server/mysend/list">已下架</a></li>
+                <li> <a href="/server/mysend/finishlist">已下架</a></li>
                 <li> <a href="/server/myaccept/list">租用中</a></li>
                 <li> <a href="/server/myaccept/list">租用完成</a></li>
             </ul>
