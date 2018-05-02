@@ -333,11 +333,34 @@ public class ServerOrderController {
         Money money = moneyService.getMoney(nowUser.getUserid());
         List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
         Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(1, 10, acceptOrderUserDtoList);
+
+        List<Ordercomment> ordercommentList = orderService.getOrderCommentListByOrderId(orderId);
+        Pager<Ordercomment> pagerComment = new Pager<>(1, 10, ordercommentList);
         model.addAttribute("orderUserDto", orderUserDto);
         model.addAttribute("pagerAccept", pagerAccept);
+        model.addAttribute("pagerComment", pagerComment);
         model.addAttribute("mymoney",money.getAmount());
         model.addAttribute("nowUser",nowUser);
         return "server_detail";
+    }
+
+    /**
+     * 资源服务详情评论列表分页
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/commentlist")
+    public void serverCommentListDetail(HttpServletRequest request, HttpServletResponse response) {
+        int orderId=Integer.parseInt(request.getParameter("orderId"));
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        List<Ordercomment> ordercommentList = orderService.getOrderCommentListByOrderId(orderId);
+        Pager<Ordercomment> pagerComment = new Pager<>(pageNum, 10, ordercommentList);
+        String result = JSON.toJSONString(pagerComment);
+        ResponseUtils.renderJson(response,result);
     }
 
     /**
@@ -668,12 +691,19 @@ public class ServerOrderController {
             return "page_403";
         }
 //        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
         OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
-//        Money money = moneyService.getMoney(nowUser.getUserid());
         List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
-        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(1, 10, acceptOrderUserDtoList);
+        Pager<AcceptOrderUserDto> pagerAccept = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+
+        List<Ordercomment> ordercommentList = orderService.getOrderCommentListByOrderId(orderId);
+        Pager<Ordercomment> pagerComment = new Pager<>(1, 10, ordercommentList);
         model.addAttribute("orderUserDto", orderUserDto);
         model.addAttribute("pagerAccept", pagerAccept);
+        model.addAttribute("pagerComment", pagerComment);
         return "server_mysend_detail";
     }
 
@@ -690,9 +720,9 @@ public class ServerOrderController {
         }
         String search = request.getParameter("search");
         int pageNum = 1;
-//        if (request.getParameter("pageNum") != null) {
-//            pageNum = Integer.parseInt(request.getParameter("pageNum"));
-//        }
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
         List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListBySendUserIdAndSearch(nowUser.getUserid(),search);
         Pager<OrderUserDto> pagerList = new Pager<>(pageNum, 10, orderUserDtoList);

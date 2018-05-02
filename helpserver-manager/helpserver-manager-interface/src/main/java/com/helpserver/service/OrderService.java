@@ -54,4 +54,6 @@ public interface OrderService {
     boolean checkDoubleComment(Ordercomment ordercomment);
 
     int checkIsOrNotComment(int acceptId,int userId);
+
+    List<Ordercomment> getOrderCommentListByOrderId(int orderId);
 }

@@ -315,39 +315,74 @@
                                                 <div class="am-comment-meta">
                                                     <a class="am-comment-author">b***1 (匿名)</a>
                                                     抢单于<time datetime="">${item.acceptorder.accepttime}</time>
-                                                    &nbsp;&nbsp;信誉分<b style="color: #ff4d2d">${item.acceptUserCredit}</b>
+                                                    &nbsp;&nbsp;评分<b style="color: #ff4d2d">${item.acceptUserCredit}</b>
                                                 </div>
                                             </header>
                                             <div class="am-comment-bd">
                                                 <div class="tb-rev-item " data-id="255776406962">
                                                         <c:choose>
-                                                            <c:when test="${item.acceptorder.acceptstate==1}">
+                                                            <c:when test="${item.acceptorder.acceptstate==-1}">
                                                                 <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-                                                                    状态：抢单中
-                                                                </div>
-                                                            </c:when>
-                                                            <c:when test="${item.acceptorder.acceptstate==2}">
-                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-                                                                    状态：资源租用中
+                                                                    状态：被拒绝
                                                                 </div>
                                                                 <div class="tb-r-act-bar">
-                                                                    开始租用时间：${item.acceptorder.suretime}
+                                                                    拒绝时间：${item.acceptorder.backtime}
                                                                 </div>
                                                             </c:when>
-                                                            <c:when test="${item.acceptorder.acceptstate==3}">
-                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-                                                                    状态：已完成
-                                                                </div>
-                                                                <div class="tb-r-act-bar">
-                                                                    开始租用时间：${item.acceptorder.suretime}&nbsp;&nbsp;完成时间：${item.acceptorder.finishtime}
-                                                                </div>
-                                                            </c:when>
-                                                            <c:otherwise>
+                                                            <c:when test="${item.acceptorder.acceptstate==0}">
                                                                 <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
                                                                     状态：已取消
                                                                 </div>
                                                                 <div class="tb-r-act-bar">
                                                                     取消时间：${item.acceptorder.backtime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==1}">
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：预抢中
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    预抢时间：${item.acceptorder.accepttime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==2}">
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：待获取资源
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    通过时间：${item.acceptorder.suretime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==3}">
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：租用中
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    获取时间：${item.acceptorder.updatetime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==4}">
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：已归还待付款
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    归还时间：${item.acceptorder.finishtime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:when test="${item.acceptorder.acceptstate==5}">
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：已付款
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    完成时间：${item.acceptorder.finishtime}
+                                                                </div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                    状态：已完成
+                                                                </div>
+                                                                <div class="tb-r-act-bar">
+                                                                    完成时间：${item.acceptorder.finishtime}
                                                                 </div>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -433,7 +468,7 @@
 
                 <div class="am-tab-panel am-fade">
 
-                    <div class="actor-new">
+                    <%--<div class="actor-new">
                         <div class="rate">
                             <strong>100<span>%</span></strong><br> <span>好评度</span>
                         </div>
@@ -451,94 +486,154 @@
                                 <q class="comm-tags"><span>皮很薄</span><em>(831)</em></q>
                             </dd>
                         </dl>
-                    </div>
+                    </div>--%>
                     <div class="clear"></div>
                     <div class="tb-r-filter-bar">
                         <ul class=" tb-taglist am-avg-sm-4">
                             <li class="tb-taglist-li tb-taglist-li-current">
                                 <div class="comment-info">
                                     <span>全部评价</span>
-                                    <span class="tb-tbcr-num">(32)</span>
+                                    <span class="tb-tbcr-num">(${pagerComment.totalRecord})</span>
                                 </div>
                             </li>
+                            <%--
+                                                        <li class="tb-taglist-li tb-taglist-li-1">
+                                                            <div class="comment-info">
+                                                                <span>好评</span>
+                                                                <span class="tb-tbcr-num">(32)</span>
+                                                            </div>
+                                                        </li>
 
-                            <li class="tb-taglist-li tb-taglist-li-1">
-                                <div class="comment-info">
-                                    <span>好评</span>
-                                    <span class="tb-tbcr-num">(32)</span>
-                                </div>
-                            </li>
+                                                        <li class="tb-taglist-li tb-taglist-li-0">
+                                                            <div class="comment-info">
+                                                                <span>中评</span>
+                                                                <span class="tb-tbcr-num">(32)</span>
+                                                            </div>
+                                                        </li>
 
-                            <li class="tb-taglist-li tb-taglist-li-0">
-                                <div class="comment-info">
-                                    <span>中评</span>
-                                    <span class="tb-tbcr-num">(32)</span>
-                                </div>
-                            </li>
-
-                            <li class="tb-taglist-li tb-taglist-li--1">
-                                <div class="comment-info">
-                                    <span>差评</span>
-                                    <span class="tb-tbcr-num">(32)</span>
-                                </div>
-                            </li>
+                                                        <li class="tb-taglist-li tb-taglist-li--1">
+                                                            <div class="comment-info">
+                                                                <span>差评</span>
+                                                                <span class="tb-tbcr-num">(32)</span>
+                                                            </div>
+                                                        </li>--%>
                         </ul>
                     </div>
                     <div class="clear"></div>
 
                     <ul class="am-comments-list am-comments-list-flip">
-                        <li class="am-comment">
-                            <!-- 评论容器 -->
-                            <a href="">
-                                <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
-                                <!-- 评论者头像 -->
-                            </a>
+                        <div id="list_tbody1">
+                            <c:choose>
+                                <c:when test="${pagerComment.dataList.size()>0}">
+                                    <c:forEach items="${pagerComment.dataList}" var="item">
+                                        <li class="am-comment">
+                                            <!-- 评论容器 -->
+                                            <a>
+                                                <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                                <!-- 评论者头像 -->
+                                            </a>
+                                            <div class="am-comment-main">
+                                                <!-- 评论内容容器 -->
+                                                <header class="am-comment-hd">
+                                                    <!--<h3 class="am-comment-title">评论标题</h3>-->
+                                                    <div class="am-comment-meta">
+                                                        <!-- 评论元数据 -->
+                                                        <a class="am-comment-author">b***1 (匿名)</a>
+                                                        <!-- 评论者 -->
+                                                        评论于
+                                                        <time datetime="">${item.time}</time>
+                                                    </div>
+                                                </header>
 
-                            <div class="am-comment-main">
-                                <!-- 评论内容容器 -->
-                                <header class="am-comment-hd">
-                                    <!--<h3 class="am-comment-title">评论标题</h3>-->
-                                    <div class="am-comment-meta">
-                                        <!-- 评论元数据 -->
-                                        <a href="#link-to-user" class="am-comment-author">b***1 (匿名)</a>
-                                        <!-- 评论者 -->
-                                        评论于
-                                        <time datetime="">2015年11月02日 17:46</time>
-                                    </div>
-                                </header>
+                                                <div class="am-comment-bd">
+                                                    <div class="tb-rev-item " data-id="255776406962">
+                                                        <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
+                                                                ${item.content}
+                                                        </div>
+                                                        <div class="tb-r-act-bar">
+                                                            评分：${item.score}
+                                                        </div>
+                                                    </div>
 
-                                <div class="am-comment-bd">
-                                    <div class="tb-rev-item " data-id="255776406962">
-                                        <div class="J_TbcRate_ReviewContent tb-tbcr-content ">
-                                            摸起来丝滑柔软，不厚，没色差，颜色好看！买这个衣服还接到诈骗电话，我很好奇他们是怎么知道我买了这件衣服，并且还知道我的电话的！
-                                        </div>
-                                        <div class="tb-r-act-bar">
-                                            颜色分类：柠檬黄&nbsp;&nbsp;尺码：S
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- 评论内容 -->
-                            </div>
-                        </li>
+                                                </div>
+                                                <!-- 评论内容 -->
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <h1 align="center">未有人评论</h1>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </ul>
 
                     <div class="clear"></div>
-
                     <!--分页 -->
-                    <ul class="am-pagination am-pagination-right">
-                        <li class="am-disabled"><a href="#">&laquo;</a></li>
-                        <li class="am-active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
+                    <div id="list_nav1">
+                        <ul class="am-pagination am-pagination-left">
+                            <c:choose>
+                                <c:when test="${pagerComment.currentPage==1||pagerComment.totalPage==0}">
+                                    <li class="am-disabled"><a>首页</a></li>
+                                    <li class="am-disabled">
+                                        <a >
+                                            <span >«</span>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a onclick="click_pageNum1(1)">首页</a></li>
+                                    <li>
+                                        <a onclick="click_pageNum1(${pagerComment.currentPage-1})">
+                                            <span>«</span>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:forEach var="k" begin="1" end="${pagerComment.totalPage}">
+                                <c:choose>
+                                    <c:when test="${k==(pagerComment.currentPage-4) || k == (pagerComment.currentPage + 4)}">
+                                        <li><a>…</a></li>
+                                    </c:when>
+                                    <c:when test="${k==pagerComment.currentPage}">
+                                        <li class="am-active"><a>${k}<span class="sr-only"></span></a></li>
+                                    </c:when>
+                                    <c:when test="${k < pagerComment.currentPage - 4 || k > pagerComment.currentPage + 4}">
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a onclick="click_pageNum1(${k})">${k}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${pagerComment.currentPage == pagerComment.totalPage || pagerComment.totalPage == 0}">
+                                    <li class="am-disabled">
+                                        <a >
+                                            <span >»</span>
+                                        </a>
+                                    </li>
+                                    <li class="am-disabled"><a>尾页</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li>
+                                        <a onclick="click_pageNum1(${pagerComment.currentPage+1})">
+                                            <span >»</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="click_pageNum1(${pagerComment.totalPage})">尾页</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
                     <div class="clear"></div>
 
                     <div class="tb-reviewsft">
-                        <div class="tb-rate-alert type-attention">购买前请查看该商品的 <a href="#" target="_blank">购物保障</a>，明确您的售后保障权益。</div>
+                        <%--<div class="tb-rate-alert type-attention">购买前请查看该商品的 <a href="#" target="_blank">购物保障</a>，明确您的售后保障权益。</div>--%>
                     </div>
 
                 </div>

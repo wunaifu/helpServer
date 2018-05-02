@@ -805,4 +805,25 @@ public class OrderServiceImpl implements OrderService {
         }
         return 0;
     }
+
+    @Override
+    public List<Ordercomment> getOrderCommentListByOrderId(int orderId) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andOrderidEqualTo(orderId);
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<Ordercomment> ordercommentList = new ArrayList<>();
+        for (Acceptorder acceptOrder : acceptorderList) {
+            OrdercommentExample ordercommentExample = new OrdercommentExample();
+            OrdercommentExample.Criteria criteria2 = ordercommentExample.createCriteria();
+            criteria2.andAcceptidEqualTo(acceptOrder.getId());
+            criteria2.andMyidEqualTo(acceptOrder.getAccepterid());
+            List<Ordercomment> ordercommentList1 = ordercommentDao.selectByExample(ordercommentExample);
+            if (ordercommentList1.size() > 0) {
+                ordercommentList.add(ordercommentList1.get(0));
+            }
+        }
+        return ordercommentList;
+    }
 }
