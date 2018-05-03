@@ -63,11 +63,13 @@
                                             <th class="manager-border2">发布人</th>
                                             <th class="manager-border2">资源名字</th>
                                             <th class="manager-border2">资源类型</th>
-                                            <th class="manager-border2">资源地点</th>
-                                            <th class="manager-border2">详细坐标</th>
-                                            <th class="manager-border2">服务费用</th>
+                                            <th class="manager-border2">资源区域</th>
+                                            <th class="manager-border2">详细地址</th>
+                                            <th class="manager-border2">服务押金</th>
+                                            <th class="manager-border2">日租</th>
+                                            <th class="manager-border2">月租</th>
                                             <th class="manager-border2">发布时间</th>
-                                            <th class="manager-border2">使用时间</th>
+                                            <th class="manager-border2">结束时间</th>
                                             <th class="manager-border2">订单状态</th>
                                             <th hidden></th>
                                         </tr>
@@ -79,14 +81,15 @@
                                                 <td class="manager-border2">${item.senderName}</td>
                                                 <td class="manager-border2">${item.order.foodname}</td>
                                                 <td class="manager-border2" style="font-size: 12px;">
-                                                ${item.bigTypeName}/${item.orderTypeName}</td>
-                                                <td class="manager-border2">${item.order.areainfo}</td>
-                                                <td class="manager-border2">${item.order.pointinfo}</td>
+                                                        ${item.bigTypeName}/${item.orderTypeName}</td>
+                                                <td class="manager-border2">${item.order.city}</td>
+                                                <td class="manager-border2">${item.order.address}</td>
                                                 <td class="manager-border2">${item.order.moneyamount}</td>
                                                 <td class="manager-border2">${item.order.sendtime}</td>
-                                                <td class="manager-border2">
-                                                        ${item.order.starttime}-${item.order.endtime}
-                                                </td>
+                                                <td class="manager-border2">${item.order.daymoney}</td>
+                                                <td class="manager-border2">${item.order.monthmoney}</td>
+                                                <td class="manager-border2">${item.order.sendtime}</td>
+                                                <td class="manager-border2">${item.order.repealtime}</td>
                                                     <c:choose>
                                                         <c:when test="${item.order.orderstate==4}">
                                                             <td class="manager-border2"><b>已取消</b></td>

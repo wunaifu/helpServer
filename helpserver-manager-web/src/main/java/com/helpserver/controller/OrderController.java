@@ -34,7 +34,7 @@ public class OrderController {
 
     /**
      * 订单进行中列表
-     * 1抢单进行中、2服务进行中
+     * 1抢单进行中
      * @param request
      * @return
      */
@@ -43,14 +43,14 @@ public class OrderController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoList(1,2);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByState(1);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
         return "order_going_list";
     }
 
     /**
      * 订单已结束列表
-     * 3已结束、4已取消
+     * 2已结束
      * @param request
      * @return
      */
@@ -59,7 +59,7 @@ public class OrderController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoList(3,4);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoList(0,2);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
         return "order_finish_list";
     }
