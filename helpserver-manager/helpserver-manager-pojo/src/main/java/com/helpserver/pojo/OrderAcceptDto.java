@@ -20,6 +20,7 @@ public class OrderAcceptDto implements Serializable {
     int amount;
     int outamount;
     int moneyamount;
+    String orderState;
 
     String acceptUserName;
     String acceptUserIcon;
@@ -29,6 +30,14 @@ public class OrderAcceptDto implements Serializable {
     //Orderinfo orderinfo;
 
     int isOrNotComment;
+
+    public String getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
 
     public int getIsOrNotComment() {
         return isOrNotComment;

@@ -778,10 +778,7 @@ public class ServerOrderController {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
         List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
-//        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByOrderId(orderId);
-//        Pager<OrderAcceptDto> pagerList = new Pager<>(1, 10, orderAcceptDtoList);
         Pager<AcceptOrderUserDto> pagerList = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
-        System.out.println("pagerList============="+pagerList.toString());
         model.addAttribute("pagerList", pagerList);
         model.addAttribute("orderinfo", orderinfo);
         return "server_mysend_acceptlist";
@@ -798,14 +795,15 @@ public class ServerOrderController {
         if (!UserSessionSetUtils.isUserLogin(request)) {
             ResponseUtils.renderJson(response,null);
         }
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
         int pageNum = 1;
         if (request.getParameter("pageNum") != null) {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
-        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+//        List<AcceptOrderUserDto> acceptOrderUserDtoList = acceptOrderService.getAcceptOrderUserDtoListByOrderId(orderId);
+//        Pager<AcceptOrderUserDto> pagerList = new Pager<>(pageNum, 10, acceptOrderUserDtoList);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByOrderId(orderId);
         Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
-//        System.out.println("pagerList============="+pagerList.toString());
         String result = JSON.toJSONString(pagerList);
         ResponseUtils.renderJson(response,result);
     }
@@ -1201,6 +1199,7 @@ public class ServerOrderController {
         String sendTime = TimeUtil.dateToString(new Date());
 
         Orderinfo orderinfo = new Orderinfo();
+        orderinfo.setSenderid(nowUser.getUserid());
         orderinfo.setId(Integer.parseInt(request.getParameter("orderId")));
         orderinfo.setCity(request.getParameter("city"));
         orderinfo.setFoodname(request.getParameter("name"));

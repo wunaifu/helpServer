@@ -60,29 +60,58 @@ function click_pageNum(pageNum){
 						+'<span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">'+item.city+'</b></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/'+item.orderId+'/map" style="color: #ff4d2d">'
 						+item.address+'</a></span>'
-						+'</div>';
-					if(item.acceptorder.acceptstate==1){
-						tr_str+='<a href="#" class="readmore">查看详情</a>';
-					}else if(item.acceptorder.acceptstate==2){
-						tr_str+='<a href="#" class="readmore">结束租用</a>';
+						+'<span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">'+item.orderState+'</b></span>';
+					if(item.acceptorder.datestate == 0){
+						tr_str+='<span style="margin: 0px 0px 0px 10px;">租用状态：<b style="color: #ff4d2d">已超期</b></span>';
+					}else if(item.acceptorder.acceptstate==3 && item.acceptorder.datestate==1){
+						tr_str+='<span style="margin: 0px 0px 0px 10px;">租用状态：<b style="color: #12c34e">正常租用</b></span>';
 					}else{
-						tr_str+='<a href="/server/'+item.orderId+'/detail" class="readmore">再次抢单</a>';
+
+					}
+					tr_str+='</div><a href="/server/'+item.orderId+'/detail" class="readmore">查看资源</a>';
+					if(item.acceptorder.acceptstate==2){
+						tr_str+='<a href="#" onclick="startMoney('+item.acceptorder.id+','+pagerList.currentPage+')" style="margin-right: 10px;"'
+							+'title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>';
+					}else if(item.acceptorder.acceptstate==3){
+						tr_str+='<a href="#" onclick="returnGoods('+item.acceptorder.id+','+pagerList.currentPage+')" style="margin-right: 10px;"'
+							+'title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>';
+					}else if(item.acceptorder.acceptstate==4){
+						tr_str+='<a href="#" onclick="startMoney('+item.acceptorder.id+','+pagerList.currentPage+')" style="margin-right: 10px;"'
+							+'title="物品已归还，请前往付款" class="readmore">去付款</a>';
+					}else if(item.acceptorder.acceptstate==5){
+						if(item.isOrNotComment==0){
+							tr_str+='<a href="/server/'+item.acceptorder.id+'/tocomment" class="readmore" style="margin-right: 10px;">去评价</a>';
+						}
+					}else{
+
 					}
 					tr_str+='</ul><p class="autor">';
-					if(item.acceptorder.acceptstate==0){
+					if(item.acceptorder.acceptstate==-1){
+						tr_str+='<span>状态：<a>被拒绝</a></span>'
+							+'<span>&nbsp;拒绝时间：'+item.acceptorder.backtime+'</span>';
+					}else if(item.acceptorder.acceptstate==0){
 						tr_str+='<span>状态：<a>已取消</a></span>'
 							+'<span>&nbsp;取消时间：'+item.acceptorder.backtime+'</span>';
 					}else if(item.acceptorder.acceptstate==1){
 						tr_str+='<span>状态：<a>待通过</a></span>'
 							+'<span>&nbsp;抢单时间：'+item.acceptorder.accepttime+'</span>';
 					}else if(item.acceptorder.acceptstate==2){
-						tr_str+='<span>状态：<a>租用中</a></span>'
+						tr_str+='<span>状态：<a>待获取资源</a></span>'
 							+'<span>&nbsp;通过时间：'+item.acceptorder.suretime+'</span>';
+					}else if(item.acceptorder.acceptstate==3){
+						tr_str+='<span>状态：<a>租用中</a></span>'
+							+'<span>&nbsp;获取时间：'+item.acceptorder.updatetime+'</span>';
 					}else if(item.acceptorder.acceptstate==4){
-						tr_str+='<span>状态：<a>已下架</a></span>'
-							+'<span>&nbsp;下架时间：'+item.repealtime+'</span>';
+						tr_str+='<span>状态：<a>已归还待付款</a></span>'
+							+'<span>&nbsp;归还时间：'+item.acceptorder.finishtime+'</span>';
+					}else if(item.acceptorder.acceptstate==5){
+						if(item.isOrNotComment==0){
+							tr_str+='<span>状态：<a>待评价</a></span>';
+						}else {
+							tr_str+='<span>状态：<a>已完成</a></span>';
+						}
 					}else{
-						tr_str+='<span>状态：<a>已结束</a></span>'
+						tr_str+='<span>状态：<a>已完成</a></span>'
 							+'<span>&nbsp;完成时间：'+item.acceptorder.finishtime+'</span>';
 					}
 					tr_str+='</p><hr /></div>';

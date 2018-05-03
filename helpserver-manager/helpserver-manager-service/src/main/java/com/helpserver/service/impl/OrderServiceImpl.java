@@ -59,21 +59,22 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public String updateDownloadOrder(Orderinfo order) {
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(order.getId());
         try {
             //1、更新资源订单
             if (orderDao.updateByPrimaryKeySelective(order) == 1) {
                 //2、更新余额，归还保障金
-                Money money = moneyService.getMoney(order.getSenderid());
+                Money money = moneyService.getMoney(orderinfo.getSenderid());
                 Money moneyInfoAdd = new Money();
                 moneyInfoAdd.setId(money.getId());
                 moneyInfoAdd.setAmount(money.getAmount() + CommonsUtil.sendOrderPutMoney);
                 if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
                     //3、添加收支历史，归还保障金
                     Moneyhistory moneyhistory = new Moneyhistory();
-                    moneyhistory.setUserid(order.getSenderid());
+                    moneyhistory.setUserid(orderinfo.getSenderid());
                     moneyhistory.setInfo(CommonsUtil.moneyOrderMoneyBack);
                     moneyhistory.setAmount(CommonsUtil.sendOrderPutMoney);
-                    moneyhistory.setTime(order.getSendtime());
+                    moneyhistory.setTime(order.getRepealtime());
                     moneyhistory.setState(1);
                     if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {
                         return "update_success";

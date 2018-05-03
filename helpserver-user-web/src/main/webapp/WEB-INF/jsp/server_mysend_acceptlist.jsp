@@ -33,7 +33,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <%--<script type="text/javascript" src="/js/server_myaccept_list.js"></script>--%>
+    <script type="text/javascript" src="/js/server_mysend_acceptlist.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -131,7 +131,7 @@
 
             <%--</div>--%>
             <ul class="select">
-                <p class="title font-normal">
+                <p class="title font-normal"><input id="orderIdStr" value="${orderinfo.id}" style="visibility: hidden"/>
                     <span class="total fl">物品${orderinfo.foodname}一共有<strong class="num">${pagerList.totalRecord}</strong>个资源服务预抢单</span>
                 </p>
                 <div class="clear"></div>
@@ -167,9 +167,6 @@
                                     <img style="width: 72px;height: 72px;" src="/resources/img/${item.acceptUserIcon}"></a>
                                 </figure>
                                 <ul>
-                                    <%--<a href="/server/${item.orderId}/detail">--%>
-                                        <%--<p>资源详情：<b style="color: #000000">${item.orderdetail}</b></p>--%>
-                                    <%--</a>--%>
                                     <div class="autor1">
                                         <span>信誉分：<b style="color: #ff4d2d">${item.acceptUserCredit}</b></span>
                                         <c:choose>
@@ -188,6 +185,18 @@
                                         <span style="margin: 0px 0px 0px 10px;">库存：<b style="color: #ff4d2d">${orderinfo.amount-orderinfo.outamount}/${orderinfo.amount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥${orderinfo.moneyamount}</b></span>
                                         <span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">${orderinfo.city}</b></span>
+                                        <c:choose>
+                                            <c:when test="${orderinfo.orderstate == 1 }">
+                                                <span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">发布中</b></span>
+                                            </c:when>
+                                            <c:when test="${orderinfo.orderstate == 1 }">
+                                                <span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">已下架</b></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">已禁止</b></span>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <c:choose>
                                             <c:when test="${item.acceptorder.datestate == 0 }">
                                                 <span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>
@@ -269,7 +278,7 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <h1 align="center">未预定资源服务订单</h1>
+                        <h1 align="center">未有预定资源服务订单</h1>
                     </c:otherwise>
                 </c:choose>
             </div>

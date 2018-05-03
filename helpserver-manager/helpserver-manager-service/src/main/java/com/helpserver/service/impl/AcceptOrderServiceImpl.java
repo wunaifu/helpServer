@@ -218,6 +218,13 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
                 orderAcceptDto.setOutamount(orderinfo.getOutamount());
                 orderAcceptDto.setMoneyamount(orderinfo.getMoneyamount());
                 orderAcceptDto.setRepealtime(orderinfo.getRepealtime());
+                if (orderinfo.getOrderstate() == 1) {
+                    orderAcceptDto.setOrderState("发布中");
+                } else if (orderinfo.getOrderstate() == 2) {
+                    orderAcceptDto.setOrderState("已下架");
+                } else {
+                    orderAcceptDto.setOrderState("已禁用");
+                }
             }
             orderAcceptDto.setIsOrNotComment(this.checkIsOrNotComment(acceptOrder.getId(),accepter.getUserid()));
             orderAcceptDto.setAcceptorder(acceptOrder);

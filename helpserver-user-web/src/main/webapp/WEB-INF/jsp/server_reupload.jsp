@@ -112,7 +112,6 @@
                 <div>
                     <p style="float:left;width: auto;color: #818482">
                         <input style="visibility: hidden" value="${moneyInfo}" id="moneyInfo">
-                        <input style="visibility: hidden" value="${orderUserDto.order.id}" name="orderId">
                         发布资源服务需要扣除20余额的保障金，您当前的余额为<b style="color: black">[${moneyInfo}￥]</b>,请确保余额充足，余额会在订单服务完成后平台会自动归还。
                     </p>
                 </div>
@@ -120,6 +119,7 @@
                 <div class="info-main">
                     <form class="am-form am-form-horizontal" enctype="multipart/form-data"  action="/server/mysend/doupload" method="post" onsubmit="return checkData()">
                         <div class="clearfix"></div>
+                        <input style="visibility: hidden" value="${orderUserDto.order.id}" name="orderId">
                         <div class="am-form-group">
                             <label for="ordertype" class="am-form-label">类型</label>
                             <div class="am-form-content birth">
@@ -309,7 +309,7 @@
                             </ul>
                         </div>
                         <div class="info-btn">
-                            <input value="确认发布" class="am-btn am-btn-danger" type="submit">
+                            <input value="确认上架" class="am-btn am-btn-danger" type="submit">
                         </div>
 
                     </form>
