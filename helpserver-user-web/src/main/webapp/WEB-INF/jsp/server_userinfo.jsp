@@ -49,7 +49,7 @@
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%></a>
+                            <a href="#" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%></a>
                             <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
                             </a>
                             <a href="/logout" target="_top">退出登录</a>

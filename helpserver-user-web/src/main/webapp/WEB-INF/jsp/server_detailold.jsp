@@ -49,7 +49,7 @@
                 <ul class="message-l">
                     <div class="topMessage">
                         <div class="menu-hd">
-                            <a href="#" target="_top">定位：<%=nowUser.getLocation()%>
+                            <a href="#" target="_top">定位：<i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
                             </a>
                             <a href="/index_user" target="_top" class="h"><%=nowUser.getName()%>
                             </a>

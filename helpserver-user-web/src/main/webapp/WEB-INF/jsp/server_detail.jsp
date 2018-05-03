@@ -69,11 +69,11 @@
                     class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                 <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
         </div>
-        <div class="topMessage favorite">
-            <div class="menu-hd"><a href="#" target="_top"><i
-                    class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-            </div>
-        </div>
+        <%--<div class="topMessage favorite">--%>
+            <%--<div class="menu-hd"><a href="#" target="_top"><i--%>
+                    <%--class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </ul>
 </div>
 
@@ -81,9 +81,8 @@
 
 <div class="nav white">
     <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
-        <a  href="/map"><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker"
-                                                                style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
-        </a></div>
+        <a href="/map"><i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%></a>
+    </div>
     <div class="logoBig">
         <li><img src="/images/logobig.png"/></li>
     </div>

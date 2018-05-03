@@ -78,9 +78,8 @@
 
 <div class="nav white">
     <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
-        <a  href="/map"><%--<img src="/images/logo1.png"/>--%><i class="am-icon-map-marker"
-                                                                style="color: #ff4d2d"></i><%=nowUser.getLocation()%>
-        </a></div>
+        <a href="/map"><i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%></a>
+    </div>
     <div class="logoBig">
         <li><img src="/images/logobig.png"/></li>
     </div>
