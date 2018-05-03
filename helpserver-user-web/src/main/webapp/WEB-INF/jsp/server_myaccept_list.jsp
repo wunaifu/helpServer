@@ -349,7 +349,7 @@
 <div class="navCir">
     <li><a href="/index"><i class="am-icon-home "></i>首页</a></li>
     <li><a href="/index_type"><i class="am-icon-list"></i>分类</a></li>
-    <li><a href="/index_myorder"><i class="am-icon-shopping-basket"></i>订单</a></li>
+    <%--<li><a href="/index_myorder"><i class="am-icon-shopping-basket"></i>订单</a></li>--%>
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>
 <!--菜单 -->
@@ -360,7 +360,7 @@
 <script>
 
     function cancelOrder(acceptId,pageNum) {
-        var url = "/accept/"+acceptId+"/docancel";
+        var url = "/server/accept/"+acceptId+"/docancel";
         $.ajax({
             type : "POST",
             url: url,
