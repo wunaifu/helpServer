@@ -37,9 +37,9 @@
         <div class="topMessage mini-cart">
             <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span><!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
         </div>
-        <div class="topMessage favorite">
-            <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a></div>
-        </div>
+        <%--<div class="topMessage favorite">--%>
+            <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a></div>--%>
+        <%--</div>--%>
     </ul>
 </div>
 
@@ -51,12 +51,9 @@
         <li><img src="/images/logobig.png" /></li>
     </div>
 
-    <div class="search-bar pr">
-        <a name="index_none_header_sysc" href="#"></a>
-        <form>
-            <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-            <input id="ai-topsearch" class="submit" value="搜索" index="1" type="submit"></form>
-    </div>
+    <!--头 start-->
+    <jsp:include page="search.jsp"></jsp:include>
+    <!--头 end-->
 </div>
 
 <div class="clear"></div>

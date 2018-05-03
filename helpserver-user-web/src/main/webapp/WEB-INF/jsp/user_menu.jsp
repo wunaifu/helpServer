@@ -25,7 +25,7 @@
                 <li><a href="/server/mysend/list">发布中</a></li>
                 <li> <a href="/server/mysend/finishlist">已下架</a></li>
                 <li> <a href="/server/myaccept/list">租用中</a></li>
-                <li> <a href="/server/myaccept/list">租用完成</a></li>
+                <li> <a href="/server/myaccept/finishlist">租用完成</a></li>
             </ul>
         </li>
         <li class="person">
@@ -40,19 +40,19 @@
             </ul>
         </li>
 
-        <li class="person">
-            <p><i class="am-icon-tags"></i>我的收藏</p>
-            <ul>
-                <li> <a href="collection.html">收藏</a></li>
-                <li> <a href="foot.html">足迹</a></li>
-            </ul>
-        </li>
+        <%--<li class="person">--%>
+            <%--<p><i class="am-icon-tags"></i>我的收藏</p>--%>
+            <%--<ul>--%>
+                <%--<li> <a href="collection.html">收藏</a></li>--%>
+                <%--<li> <a href="foot.html">足迹</a></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
 
         <li class="person">
             <p><i class="am-icon-qq"></i>在线客服</p>
             <ul>
                 <li> <a href="/user/feedback">意见反馈</a></li>
-                <li> <a href="#">我的消息</a></li>
+                <%--<li> <a href="#">我的消息</a></li>--%>
             </ul>
         </li>
     </ul>

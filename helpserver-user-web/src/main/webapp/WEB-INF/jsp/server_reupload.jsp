@@ -63,10 +63,10 @@
                                 class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                             <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-                        </div>
-                    </div>
+                    <%--<div class="topMessage favorite">--%>
+                        <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
                 </ul>
             </div>
 
@@ -331,10 +331,11 @@
             <li class="person">
                 <p><i class="am-icon-balance-scale"></i>我的服务</p>
                 <ul>
-                    <li><a href="/server/mysend/list">已发布</a></li>
-                    <li> <a href="/server/myaccept/list">已接单</a></li>
-                    <li> <a href="#">待评价</a></li>
-                    <li> <a href="#">已完成</a></li>
+                    <li><a href="/server/add">发服务</a></li>
+                    <li><a href="/server/mysend/list">发布中</a></li>
+                    <li> <a href="/server/mysend/finishlist">已下架</a></li>
+                    <li> <a href="/server/myaccept/list">租用中</a></li>
+                    <li> <a href="/server/myaccept/finishlist">租用完成</a></li>
                 </ul>
             </li>
         </ul>

@@ -69,10 +69,10 @@
                                 class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                             <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>
-                    <div class="topMessage favorite">
-                        <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>
-                        </div>
-                    </div>
+                    <%--<div class="topMessage favorite">--%>
+                        <%--<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
                 </ul>
             </div>
 
@@ -99,20 +99,9 @@
     </article>
 </header>
 <div class="nav-table">
-    <div class="long-title"><span class="all-goods">全部分类</span></div>
-    <div class="nav-cont">
-        <ul>
-            <li class="index"><a href="#">首页</a></li>
-            <li class="qc"><a href="#">闪购</a></li>
-            <li class="qc"><a href="#">限时抢</a></li>
-            <li class="qc"><a href="#">团购</a></li>
-            <li class="qc last"><a href="#">大包装</a></li>
-        </ul>
-        <div class="nav-extra">
-            <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-            <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-        </div>
-    </div>
+    <!--头 start-->
+    <jsp:include page="midtop.jsp"></jsp:include>
+    <!--头 end-->
 </div>
 <b class="line"></b>
 <div class="center">

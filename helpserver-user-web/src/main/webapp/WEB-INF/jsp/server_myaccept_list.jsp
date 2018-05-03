@@ -103,19 +103,9 @@
 <div class="shopNav">
     <div class="slideall" style="height: auto;">
 
-        <div class="long-title"><span class="all-goods">全部分类</span></div>
-        <div class="nav-cont">
-            <ul>
-                <li class="index"><a href="home2.html">首页</a></li>
-                <li class="qc"><a href="#">服务</a></li>
-                <li class="qc"><a href="#">趣事</a></li>
-                <li class="qc last"><a href="#">大包装</a></li>
-            </ul>
-            <div class="nav-extra">
-                <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
-                <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
-            </div>
-        </div>
+        <!--头 start-->
+        <jsp:include page="midtop.jsp"></jsp:include>
+        <!--头 end-->
         <div class="clear"></div>
 
     </div>
