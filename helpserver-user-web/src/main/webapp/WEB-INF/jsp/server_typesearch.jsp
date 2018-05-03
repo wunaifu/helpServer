@@ -15,7 +15,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>首页</title>
+    <title>类型搜索页面</title>
 
     <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
     <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
@@ -33,7 +33,6 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/server_searchlist.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -91,7 +90,7 @@
         <div class="search-bar pr">
             <a name="index_none_header_sysc" href="#"></a>
             <form action="/server/search"  method="post">
-                <input id="searchInput" name="search" type="text" placeholder="搜索" autocomplete="off" required value="${search}">
+                <input id="searchInput" name="search" type="text" placeholder="搜索" autocomplete="off" required>
                 <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
             </form>
         </div>
@@ -123,9 +122,9 @@
             <%--</div>--%>
             <ul class="select">
                 <p class="title font-normal">
-                    <span class="fl"><%--<a href="/index" style="color: #0a628f">首页</a>>--%>搜索关键字 /
-                    <small><b style="color: #ff4d2d" id="searchStr">${search}</b></small></span>
-                    <span class="total fl">搜索到<strong class="num">${pagerList.totalRecord}</strong>件相关资源</span>
+                    <span class="fl"><%--<a href="/index" style="color: #0a628f">首页</a>>--%>搜索类型 /
+                    <small><b style="color: #ff4d2d" id="searchStr">${ordertype.typename}</b></small></span>
+                    <span class="total fl">搜索到<strong class="num">${pagerList.totalRecord}</strong>件相关类型资源</span>
                 </p>
                 <div class="clear"></div>
                 <%--<li class="select-result">--%>
@@ -136,18 +135,18 @@
                     <%--</dl>--%>
                 <%--</li>--%>
                 <%--<div class="clear"></div>--%>
-               <%-- <c:choose>
+                <c:choose>
                     <c:when test="${orderTypeDtoList.size()>0}">
                         <c:forEach items="${orderTypeDtoList}" var="item" varStatus="status">
                             <li class="select-list">
                                 <dl id="select2">
                                     <dt class="am-badge am-round">${item.bigtype.typename}</dt>
                                     <div class="dd-conent">
-                                        &lt;%&ndash;<dd class="select-all selected"><a href="#">全部</a></dd>&ndash;%&gt;
+                                        <%--<dd class="select-all selected"><a href="#">全部</a></dd>--%>
                                         <c:choose>
                                             <c:when test="${item.ordertypeList.size()>0}">
                                                 <c:forEach items="${item.ordertypeList}" var="itemtype">
-                                                    <dd><a href="#">${itemtype.typename}</a></dd>
+                                                    <dd><a href="/type/server/${itemtype.id}/search">${itemtype.typename}</a></dd>
                                                 </c:forEach>
                                             </c:when>
                                             <c:otherwise>
@@ -170,7 +169,7 @@
                             </dl>
                         </li>
                     </c:otherwise>
-                </c:choose>--%>
+                </c:choose>
             </ul>
             <div class="clear"></div>
         </div>
@@ -248,15 +247,6 @@
             <div class="clear "></div>
             <!--分页 -->
             <div id="list_nav">
-            <%--<ul class="am-pagination am-pagination-left">
-                <li class="am-disabled"><a href="#">&laquo;</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>--%>
             <ul class="am-pagination am-pagination-left">
                 <c:choose>
                     <c:when test="${pagerList.currentPage==1||pagerList.totalPage==0}">
@@ -268,9 +258,9 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li><a onclick="click_pageNum(1)">首页</a></li>
+                        <li><a href="/type/server/${ordertype.id}/search?pageNum=1">首页</a></li>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.currentPage-1})">
+                            <a href="/type/server/${ordertype.id}/search?pageNum=${pagerList.currentPage-1}">
                                 <span>«</span>
                             </a>
                         </li>
@@ -289,7 +279,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a onclick="click_pageNum(${k})">${k}</a>
+                                <a href="/type/server/${ordertype.id}/search?pageNum=${k}">${k}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -305,12 +295,12 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.currentPage+1})">
+                            <a href="/type/server/${ordertype.id}/search?pageNum=${pagerList.currentPage+1}">
                                 <span >»</span>
                             </a>
                         </li>
                         <li>
-                            <a onclick="click_pageNum(${pagerList.totalPage})">尾页</a>
+                            <a href="/type/server/${ordertype.id}/search?pageNum=${pagerList.totalPage}">尾页</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -332,7 +322,7 @@
 <!--引导 -->
 <div class="navCir">
     <li><a href="/index"><i class="am-icon-home "></i>首页</a></li>
-    <li><a href="/index_type"><i class="am-icon-list"></i>分类</a></li>
+    <li class="active"><a href="/index_type"><i class="am-icon-list"></i>分类</a></li>
     <%--<li><a href="/index_myorder"><i class="am-icon-shopping-basket"></i>订单</a></li>--%>
     <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>

@@ -154,7 +154,7 @@
                                                                     <c:forEach items="${bigitem.ordertypeList}"
                                                                                var="typeitem" varStatus="status">
                                                                                 <dd><a title="${typeitem.typename}"
-                                                                                       href="#"><span>${typeitem.typename}</span></a>
+                                                                                       href="/type/server/${typeitem.id}/search"><span>${typeitem.typename}</span></a>
                                                                                 </dd>
                                                                     </c:forEach>
                                                                 </c:when>

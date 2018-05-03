@@ -62,4 +62,6 @@ public interface OrderService {
     int checkIsOrNotComment(int acceptId,int userId);
 
     List<Ordercomment> getOrderCommentListByOrderId(int orderId);
+
+    List<OrderUserDto> getOrderUserDtoListByTypeId(int typeId);
 }

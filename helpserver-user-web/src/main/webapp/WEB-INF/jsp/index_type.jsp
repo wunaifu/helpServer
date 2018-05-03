@@ -72,7 +72,7 @@
                                             <c:choose>
                                                 <c:when test="${bigitem.ordertypeList.size()>0}">
                                                     <c:forEach items="${bigitem.ordertypeList}" var="typeitem">
-                                                            <dd><a title="${typeitem.typename}" href="#"><span>${typeitem.typename}</span></a></dd>
+                                                            <dd><a title="${typeitem.typename}" href="/type/server/${typeitem.id}/search"><span>${typeitem.typename}</span></a></dd>
                                                     </c:forEach>
                                                 </c:when>
                                                 <c:otherwise>

@@ -971,4 +971,25 @@ public class OrderServiceImpl implements OrderService {
         }
         return ordercommentList;
     }
+
+    /**
+     * 通过typeId获取资源订单情况，进行中
+     * @param typeId
+     * @return
+     */
+    @Override
+    public List<OrderUserDto> getOrderUserDtoListByTypeId(int typeId) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andTypeidEqualTo(typeId);
+        criteria.andOrderstateEqualTo(1);
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        if (orderList == null) {
+            return null;
+        }
+        List<OrderUserDto> orderUserDtoList = this.getOrderUserDtoListByOrderList(orderList);
+        return orderUserDtoList;
+    }
+
 }
