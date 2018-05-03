@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">用户进行中订单列表</span>
-                        <div class="description">以下是用户的进行中的资源服务订单列表.</div>
+                        <span class="title">用户可租用列表</span>
+                        <div class="description">以下是用户的可租用资源服务列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -83,17 +83,16 @@
                                                     ${item.bigTypeName}/${item.orderTypeName}</td>
                                                     <td class="manager-border2">${item.order.city}</td>
                                                     <td class="manager-border2">${item.order.address}</td>
-                                                    <td class="manager-border2">${item.order.moneyamount}</td>
+                                                    <td class="manager-border2">￥${item.order.moneyamount}</td>
+                                                    <td class="manager-border2">￥${item.order.daymoney}</td>
+                                                    <td class="manager-border2">￥${item.order.monthmoney}</td>
                                                     <td class="manager-border2">${item.order.sendtime}</td>
-                                                    <td class="manager-border2">${item.order.daymoney}</td>
-                                                    <td class="manager-border2">${item.order.monthmoney}</td>
-                                                    <td class="manager-border2">${item.order.sendtime}</td>
-                                                    <td class="manager-border2"><b>服务进行中</b></td>
+                                                    <td class="manager-border2"><b>资源出租中</b></td>
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/user/goldlist/${item.order.senderid}/detail">
                                                             <span class="label label-default">用户信息</span></a>
                                                         <a href="/order/${item.order.id}/detail">
-                                                            <span class="label label-warning">服务详情</span></a>
+                                                            <span class="label label-warning">资源详情</span></a>
                                                         <a href="/order/${item.order.id}/asklist">
                                                             <span class="label label-default">抢单详情</span></a>
                                                     </td>

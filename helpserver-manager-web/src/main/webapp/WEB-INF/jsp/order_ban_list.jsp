@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">用户订单已被禁用列表</span>
-                        <div class="description">以下是用户的已被禁用的资源服务订单列表.</div>
+                        <span class="title">用户资源服务已被禁用列表</span>
+                        <div class="description">以下是用户的已被禁用的资源服务列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -81,27 +81,25 @@
                                                 <td class="manager-border2">${item.senderName}</td>
                                                 <td class="manager-border2">${item.order.foodname}</td>
                                                 <td class="manager-border2" style="font-size: 12px;">
-                                                ${item.bigTypeName}/${item.orderTypeName}</td>
-                                                <td class="manager-border2">${item.order.areainfo}</td>
-                                                <td class="manager-border2">${item.order.pointinfo}</td>
-                                                <td class="manager-border2">${item.order.moneyamount}</td>
+                                                        ${item.bigTypeName}/${item.orderTypeName}</td>
+                                                <td class="manager-border2">${item.order.city}</td>
+                                                <td class="manager-border2">${item.order.address}</td>
+                                                <td class="manager-border2">￥${item.order.moneyamount}</td>
+                                                <td class="manager-border2">￥${item.order.daymoney}</td>
+                                                <td class="manager-border2">￥${item.order.monthmoney}</td>
                                                 <td class="manager-border2">${item.order.sendtime}</td>
-                                                <%--<td class="manager-border2">--%>
-                                                        <%--${item.order.starttime}-${item.order.endtime}--%>
-                                                <%--</td>--%>
-                                                    <td class="manager-border2"><b>${item.order.updatetime}</b></td>
-                                                    <td class="manager-border2"><b>已禁止</b></td>
-                                                    <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/user/goldlist/${item.order.senderid}/detail">
-                                                            <span class="label label-default">用户信息</span></a>
-                                                        <a href="/order/${item.order.id}/detail">
-                                                            <span class="label label-warning">服务详情</span></a>
-                                                        <a href="/order/${item.order.id}/asklist">
-                                                            <span class="label label-default">抢单详情</span></a>
-                                                    </td>
-
-                                                </tr>
-                                            </c:forEach>
+                                                <td class="manager-border2">${item.order.updatetime}</td>
+                                                <td class="manager-border2"><b>已禁止</b></td>
+                                                <td class="manager-border2"  style="font-size: 17px">
+                                                    <a href="/user/goldlist/${item.order.senderid}/detail">
+                                                        <span class="label label-default">用户信息</span></a>
+                                                    <a href="/order/${item.order.id}/detail">
+                                                        <span class="label label-warning">资源详情</span></a>
+                                                    <a href="/order/${item.order.id}/asklist">
+                                                        <span class="label label-default">抢单详情</span></a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

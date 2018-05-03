@@ -66,56 +66,54 @@
                                                     <li class="list-group-item">用户：${orderUserDto.senderName}</li>
                                                     <li class="list-group-item">资源名字：${orderUserDto.order.foodname}</li>
                                                     <li class="list-group-item">资源类型：${orderUserDto.bigTypeName}/${orderUserDto.orderTypeName}</li>
-                                                    <li class="list-group-item">服务费用：${orderUserDto.order.moneyamount}</li>
+                                                    <li class="list-group-item">押金费用：￥${orderUserDto.order.moneyamount}</li>
+                                                    <li class="list-group-item">库存：
+                                                    ${orderUserDto.order.amount-orderUserDto.order.outamount}/${orderUserDto.order.amount}</li>
+                                                    <li class="list-group-item">日租：￥${orderUserDto.order.daymoney}</li>
+                                                    <li class="list-group-item">可租天数：${orderUserDto.order.daynumber}天</li>
+                                                    <li class="list-group-item">月租：￥${orderUserDto.order.monthmoney}</li>
+                                                    <li class="list-group-item">可租月数：${orderUserDto.order.monthnumber}月</li>
                                                     <li class="list-group-item">备注详情：${orderUserDto.order.orderdetail}</li>
-                                                    <li class="list-group-item">资源地点：${orderUserDto.order.foodname}</li>
-                                                    <li class="list-group-item">详细坐标：${orderUserDto.order.pointinfo}</li>
+                                                    <li class="list-group-item">区域：${orderUserDto.order.city}</li>
+                                                    <li class="list-group-item">资源地点：${orderUserDto.order.address}</li>
                                                     <li class="list-group-item">发布时间：${orderUserDto.order.sendtime}</li>
-                                                    <li class="list-group-item">使用时间：${orderUserDto.order.starttime}-${orderUserDto.order.endtime}</li>
                                                     <li class="list-group-item">联系电话：${orderUserDto.order.callname}</li>
                                                     <li class="list-group-item">联系人：${orderUserDto.order.callphone}</li>
                                                     <c:choose>
                                                         <c:when test="${orderUserDto.order.orderstate==1}">
-                                                            <li class="list-group-item">订单状态：抢单进行中</li>
+                                                            <li class="list-group-item">订单状态：资源出租中</li>
                                                         </c:when>
                                                         <c:when test="${orderUserDto.order.orderstate==2}">
-                                                            <li class="list-group-item">订单状态：服务进行中</li>
-                                                            <li class="list-group-item">抢单成功者：${orderUserDto.accepterName}</li>
-                                                            <li class="list-group-item">确认抢单者时间：${orderUserDto.order.updatetime}</li>
-                                                        </c:when>
-                                                        <c:when test="${orderUserDto.order.orderstate==3}">
-                                                            <li class="list-group-item">订单状态：已结束</li>
-                                                            <li class="list-group-item">抢单成功者：${orderUserDto.accepterName}</li>
-                                                            <li class="list-group-item">结束时间：${orderUserDto.order.updatetime}</li>
-                                                        </c:when>
-                                                        <c:when test="${orderUserDto.order.orderstate==4}">
-                                                            <li class="list-group-item">订单状态：已取消</li>
-                                                            <li class="list-group-item">撤单原因：${orderUserDto.order.repealreason}</li>
-                                                            <li class="list-group-item">撤单时间：${orderUserDto.order.repealtime}</li>
-                                                        </c:when>
-                                                        <c:when test="${orderUserDto.order.orderstate==-1}">
-                                                            <li class="list-group-item">订单状态：已禁用</li>
-                                                            <li class="list-group-item">禁用时间：${orderUserDto.order.updatetime}</li>
+                                                            <li class="list-group-item">订单状态：已下架</li>
+                                                            <li class="list-group-item">下架时间：${orderUserDto.order.updatetime}</li>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <li class="list-group-item">订单状态：草稿</li>
+                                                            <li class="list-group-item">订单状态：已禁用</li>
+                                                            <li class="list-group-item">禁用时间：${orderUserDto.order.updatetime}</li>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <li class="list-group-item" style="text-align: left">
-                                                        <span>资源图片:<img style="min-width: 210px;min-height: 320px;"
+                                                        <span>资源图片:<img style="min-width: 210px;min-height: 320px;max-width:680px;max-height:480px"
                                                                         src="http://localhost:8083/resources/img/${orderUserDto.order.picture}">
                                                         </span>
                                                     </li>
-                                                    <%--<c:if test="${moneyAddDto.moneyadd.gettime==null||moneyAddDto.moneyadd.gettime==''}">--%>
-                                                        <%--<li class="list-group-item">--%>
-                                                            <%--<a href="/money/agree/${moneyAddDto.moneyadd.id}">--%>
-                                                            <%--<span class="label label-success"--%>
-                                                                  <%--style="font-size: 14px;width: 120px;">通过充值</span></a>--%>
-                                                                <%--&lt;%&ndash;<a href="/gold/check/disagree/${goldAddDto.goldadd.id}">&ndash;%&gt;--%>
-                                                                <%--&lt;%&ndash;<span class="label label-danger"&ndash;%&gt;--%>
-                                                                <%--&lt;%&ndash;style="font-size: 14px;width: 120px;">不通过充值</span></a>&ndash;%&gt;--%>
-                                                        <%--</li>--%>
-                                                    <%--</c:if>--%>
+                                                    <li class="list-group-item" style="text-align: left">
+                                                        <span>详情图片1:<img style="min-width: 210px;min-height: 320px;max-width:680px;max-height:480px"
+                                                                        src="http://localhost:8083/resources/img/${orderUserDto.order.infopicture1}">
+                                                        </span>
+                                                    </li>
+                                                    <li class="list-group-item" style="text-align: left">
+                                                        <span>详情图片2:<img style="min-width: 210px;min-height: 320px;max-width:680px;max-height:480px"
+                                                                        src="http://localhost:8083/resources/img/${orderUserDto.order.infopicture2}">
+                                                        </span>
+                                                    </li>
+                                                    <c:if test="${orderUserDto.order.orderstate==1}">
+                                                        <li class="list-group-item">
+                                                            <a href="/order/${orderUserDto.order.id}/doban">
+                                                            <span class="label label-success"
+                                                                  style="font-size: 14px;width: 120px;">禁用资源</span></a>
+                                                        </li>
+                                                    </c:if>
 
                                                 </ul>
                                             </div>

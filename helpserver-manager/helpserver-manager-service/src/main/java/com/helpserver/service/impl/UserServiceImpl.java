@@ -326,8 +326,12 @@ public class UserServiceImpl implements UserService {
                 user.setHeadicon("icon001.png");
                 user.setCredit("0");
                 int result = userDao.insertSelective(user);
-                int userId = user.getUserid();
                 if (result == 1) {
+                    UserExample userExample1 = new UserExample();
+                    UserExample.Criteria criteria1 = userExample1.createCriteria();
+                    criteria1.andPhoneEqualTo(phone);
+                    List<User> userList1 = userDao.selectByExample(userExample1);
+                    int userId = userList1.get(0).getUserid();
                     //3.添加初始金币
                     Gold gold = new Gold();
                     gold.setUserid(userId);
@@ -498,10 +502,15 @@ public class UserServiceImpl implements UserService {
                 user.setHeadicon("icon001.png");
                 user.setCredit("0");
                 int result = userDao.insertSelective(user);
-                int userId = user.getUserid();
+
                 if (result == 1) {
+                    UserExample userExample1 = new UserExample();
+                    UserExample.Criteria criteria1 = userExample1.createCriteria();
+                    criteria1.andPhoneEqualTo(phone);
+                    List<User> userList1 = userDao.selectByExample(userExample1);
+                    int userId = userList1.get(0).getUserid();
                     Gold gold = new Gold();
-                    gold.setUserid(user.getUserid());
+                    gold.setUserid(userId);
                     gold.setTime(TimeUtil.dateToString(new Date()));
                     gold.setGoldamount(10);
                     gold.setState(0);

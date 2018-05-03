@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">用户订单已完成列表</span>
-                        <div class="description">以下是用户的已完成的资源服务订单列表.</div>
+                        <span class="title">用户资源已下架列表</span>
+                        <div class="description">以下是用户的已完成的资源服务列表.</div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -84,28 +84,20 @@
                                                         ${item.bigTypeName}/${item.orderTypeName}</td>
                                                 <td class="manager-border2">${item.order.city}</td>
                                                 <td class="manager-border2">${item.order.address}</td>
-                                                <td class="manager-border2">${item.order.moneyamount}</td>
+                                                <td class="manager-border2">￥${item.order.moneyamount}</td>
+                                                <td class="manager-border2">￥${item.order.daymoney}</td>
+                                                <td class="manager-border2">￥${item.order.monthmoney}</td>
                                                 <td class="manager-border2">${item.order.sendtime}</td>
-                                                <td class="manager-border2">${item.order.daymoney}</td>
-                                                <td class="manager-border2">${item.order.monthmoney}</td>
-                                                <td class="manager-border2">${item.order.sendtime}</td>
-                                                <td class="manager-border2">${item.order.repealtime}</td>
-                                                    <c:choose>
-                                                        <c:when test="${item.order.orderstate==4}">
-                                                            <td class="manager-border2"><b>已取消</b></td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td class="manager-border2"><b>已结束</b></td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <td class="manager-border2"  style="font-size: 17px">
-                                                        <a href="/user/goldlist/${item.order.senderid}/detail">
-                                                            <span class="label label-default">用户信息</span></a>
-                                                        <a href="/order/${item.order.id}/detail">
-                                                            <span class="label label-warning">服务详情</span></a>
-                                                        <a href="/order/${item.order.id}/asklist">
-                                                            <span class="label label-default">抢单详情</span></a>
-                                                    </td>
+                                                <td class="manager-border2">${item.order.updatetime}</td>
+                                                <td class="manager-border2"><b>已下架</b></td>
+                                                <td class="manager-border2"  style="font-size: 17px">
+                                                    <a href="/user/goldlist/${item.order.senderid}/detail">
+                                                        <span class="label label-default">用户信息</span></a>
+                                                    <a href="/order/${item.order.id}/detail">
+                                                        <span class="label label-warning">资源详情</span></a>
+                                                    <a href="/order/${item.order.id}/asklist">
+                                                        <span class="label label-default">抢单详情</span></a>
+                                                </td>
 
                                                 </tr>
                                             </c:forEach>

@@ -5,6 +5,7 @@ import com.helpserver.service.*;
 import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.ResponseUtils;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,7 +61,7 @@ public class OrderController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoList(0,2);
+        List<OrderUserDto> orderUserDtoList = orderService.getOrderUserDtoListByState(2);
         model.addAttribute("orderUserDtoList", orderUserDtoList);
         return "order_finish_list";
     }
@@ -93,6 +95,31 @@ public class OrderController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
+        OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
+        model.addAttribute("orderUserDto", orderUserDto);
+        return "order_detail";
+    }
+
+    /**
+     * 管理员禁用资源服务
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/{orderId}/doban")
+    public String orderDoban(@PathVariable("orderId") int orderId,
+                              HttpServletRequest request,Model model) throws Exception {
+        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
+            return "page_403";
+        }
+        String date = TimeUtil.dateToString(new Date());
+        Orderinfo order = orderService.getOrderById(orderId);
+        Orderinfo orderinfo = new Orderinfo();
+        orderinfo.setId(orderId);
+        orderinfo.setRepealtime(date);
+        orderinfo.setOrderstate(-1);
+        orderinfo.setUpdatetime(date);
+        String result = orderService.updateDownloadOrder(orderinfo);
         OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(orderId);
         model.addAttribute("orderUserDto", orderUserDto);
         return "order_detail";

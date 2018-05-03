@@ -89,7 +89,7 @@
                                                                 <li class="list-group-item">权限：普通用户</li>
                                                             </c:when>
                                                             <c:when test="${userinfo.permission==1}">
-                                                                <li class="list-group-item">权限：可接单用户</li>
+                                                                <li class="list-group-item">权限：已身份认证，可接单用户</li>
                                                             </c:when>
                                                             <c:when test="${userinfo.permission==-1}">
                                                                 <li class="list-group-item">权限：管理员</li>

@@ -63,7 +63,10 @@
                                             <th class="manager-border2">抢单者</th>
                                             <th class="manager-border2">资源拥有者</th>
                                             <th class="manager-border2">资源名字</th>
-                                            <th class="manager-border2">资源可使用时间</th>
+                                            <th class="manager-border2">计费方式</th>
+                                            <th class="manager-border2">租金</th>
+                                            <th class="manager-border2">租用周期</th>
+                                            <th class="manager-border2">租用数量</th>
                                             <th class="manager-border2">抢单时间</th>
                                             <th class="manager-border2">抢单状态</th>
                                             <th hidden></th>
@@ -76,33 +79,44 @@
                                                     <td class="manager-border2">${item.acceptUserName}</td>
                                                     <td class="manager-border2">${item.sendUserName}</td>
                                                     <td class="manager-border2">${item.orderGoodsName}</td>
-                                                    <td class="manager-border2">${order.starttime}-${order.endtime}</td>
+                                                    <td class="manager-border2">
+                                                        <c:choose>
+                                                            <c:when test="${item.acceptorder.moneytype==0}">按日租</c:when>
+                                                            <c:otherwise>按月租</c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td class="manager-border2">${item.acceptorder.money}</td>
+                                                    <td class="manager-border2">${item.acceptorder.gettype}</td>
+                                                    <td class="manager-border2">${item.acceptorder.number}</td>
                                                     <td class="manager-border2">${item.acceptorder.accepttime}</td>
                                                     <c:choose>
+                                                        <c:when test="${item.acceptorder.acceptstate==0}">
+                                                            <td class="manager-border2"><b>已取消</b></td>
+                                                        </c:when>
                                                         <c:when test="${item.acceptorder.acceptstate==1}">
-                                                            <td class="manager-border2"><b>抢单成功</b></td>
+                                                            <td class="manager-border2"><b>抢单中</b></td>
                                                         </c:when>
                                                         <c:when test="${item.acceptorder.acceptstate==2}">
-                                                            <td class="manager-border2"><b>已完成</b></td>
+                                                            <td class="manager-border2"><b>已通过</b></td>
                                                         </c:when>
                                                         <c:when test="${item.acceptorder.acceptstate==3}">
-                                                            <td class="manager-border2"><b>抢单已取消</b></td>
+                                                            <td class="manager-border2"><b>租用中</b></td>
                                                         </c:when>
                                                         <c:when test="${item.acceptorder.acceptstate==4}">
-                                                            <td class="manager-border2"><b>抢单失败</b></td>
+                                                            <td class="manager-border2"><b>已归还</b></td>
                                                         </c:when>
                                                         <c:when test="${item.acceptorder.acceptstate==5}">
-                                                            <td class="manager-border2"><b>发布方已取消</b></td>
+                                                            <td class="manager-border2"><b>已付款</b></td>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <td class="manager-border2"><b>抢单进行中</b></td>
+                                                            <td class="manager-border2"><b>已结束</b></td>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td class="manager-border2"  style="font-size: 17px">
                                                         <a href="/user/goldlist/${item.acceptorder.accepterid}/detail">
                                                             <span class="label label-default">抢单者信息</span></a>
                                                         <a href="/order/${order.id}/detail">
-                                                            <span class="label label-warning">服务详情</span></a>
+                                                            <span class="label label-warning">资源详情</span></a>
                                                     </td>
 
                                                 </tr>

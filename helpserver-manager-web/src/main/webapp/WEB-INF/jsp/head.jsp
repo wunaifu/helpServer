@@ -173,9 +173,9 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/ordertype/biglist">资源类型管理</a>
                                 </li>
-                                <li><a href="/order/listing">进行中资源服务列表</a>
+                                <li><a href="/order/listing">可租用资源服务列表</a>
                                 </li>
-                                <li><a href="/order/finishlist">已结束资源服务列表</a>
+                                <li><a href="/order/finishlist">已下架资源服务列表</a>
                                 </li>
                                 <li><a href="/order/banlist">已禁用资源服务列表</a>
                                 </li>
