@@ -1,14 +1,14 @@
 package com.helpserver.service.impl;
 
-import com.helpserver.service.BackServerService;
-import com.helpserver.service.GoldService;
-import com.helpserver.service.UserService;
+import com.helpserver.pojo.Orderinfo;
+import com.helpserver.service.*;
 import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wunaifu on 2018-02-07.
@@ -20,6 +20,10 @@ public class BackServerServiceImpl implements BackServerService{
     UserService userService;
     @Autowired
     GoldService goldService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    AcceptOrderService acceptOrderService;
 
     /**
      * 每天0点10秒时执行该方法，进行一些数据处理
@@ -32,8 +36,16 @@ public class BackServerServiceImpl implements BackServerService{
         System.out.println("0:00:10已到，系统要开始装逼了。。。。。。");
         //系统操作1、-------------------------------------------------
         //重置所有已签到的状态为未签到
-        System.out.println("当前时间："+ TimeUtil.dateToString(new Date())+"开始重置签到状态！");
+        Date date = new Date();
+        System.out.println("当前时间："+ TimeUtil.dateToString(date)+"开始重置签到状态！");
         goldService.updateAllUserGoldState();
-        System.out.println("当前时间："+ TimeUtil.dateToString(new Date())+"重置签到状态成功！");
+        Date date1 = new Date();
+        System.out.println("当前时间："+ TimeUtil.dateToString(date1)+"重置签到状态成功！");
+
+        //检查进行中的抢单是否已经超期
+        //开始检查
+        System.out.println("当前时间："+ TimeUtil.dateToString(new Date())+"开始是否检查超期！");
+        acceptOrderService.updateDateStateAcceptList();
+        System.out.println("当前时间："+ TimeUtil.dateToString(new Date())+"检查超期并处理完成！");
     }
 }

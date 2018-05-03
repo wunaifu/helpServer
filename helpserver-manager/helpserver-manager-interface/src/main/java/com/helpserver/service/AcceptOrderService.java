@@ -30,4 +30,8 @@ public interface AcceptOrderService {
     List<OrderAcceptDto> getOrderAcceptDtoListByAcceptOrderList(List<Acceptorder> acceptOrderList);
 
     int checkIsOrNotComment(int acceptId,int userId);
+
+    int updateDateStateByAcceptId(Acceptorder acceptorder);
+
+    String updateDateStateAcceptList();
 }

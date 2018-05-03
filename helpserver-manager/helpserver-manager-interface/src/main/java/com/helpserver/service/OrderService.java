@@ -64,4 +64,7 @@ public interface OrderService {
     List<Ordercomment> getOrderCommentListByOrderId(int orderId);
 
     List<OrderUserDto> getOrderUserDtoListByTypeId(int typeId);
+
+    List<Orderinfo> getOrderinfoListByState(int state);
+
 }

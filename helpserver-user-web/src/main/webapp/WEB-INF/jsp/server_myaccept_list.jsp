@@ -177,7 +177,7 @@
                                         <span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/${item.orderId}/map" style="color: #ff4d2d">${item.address}</a></span>
                                         <span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">${item.orderState}</b></span>
                                         <c:choose>
-                                            <c:when test="${item.acceptorder.datestate == 0 }">
+                                            <c:when test="${item.acceptorder.acceptstate==3 && item.acceptorder.datestate == 0 }">
                                                 <span style="margin: 0px 0px 0px 10px;">租用状态：<b style="color: #ff4d2d">已超期</b></span>
                                             </c:when>
                                             <c:when test="${item.acceptorder.acceptstate==3 && item.acceptorder.datestate==1}">

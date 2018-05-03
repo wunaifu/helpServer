@@ -57,7 +57,7 @@ function click_pageNum(pageNum) {
                         + '	<span style="margin: 0px 0px 0px 10px;">需要押金：<b style="color: #ff4d2d">￥'+item.moneyamount+'</b></span>'
                         + '<span style="margin: 0px 0px 0px 10px;">区域：<b style="color: #ff4d2d">'+item.city+'</b></span>'
                         +'<span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">'+item.orderState+'</b></span>';
-                    if (item.acceptorder.datestate == 0) {
+                    if (item.acceptorder.acceptstate == 3 && item.acceptorder.datestate == 0) {
                         tr_str += '	<span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #ff4d2d">已超期</b></span>';
                     } else if (item.acceptorder.acceptstate == 3 && item.acceptorder.datestate == 1) {
                         tr_str += '	<span style="margin: 0px 0px 0px 10px;">状态：<b style="color: #12c34e">正常租用</b></span>';

@@ -992,4 +992,15 @@ public class OrderServiceImpl implements OrderService {
         return orderUserDtoList;
     }
 
+    @Override
+    public List<Orderinfo> getOrderinfoListByState(int state) {
+        OrderinfoExample orderExample = new OrderinfoExample();
+        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andOrderstateEqualTo(state);
+        orderExample.setOrderByClause("sendTime desc");
+        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        return orderList;
+    }
+
+
 }

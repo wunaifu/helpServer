@@ -61,7 +61,7 @@ function click_pageNum(pageNum){
 						+'<span style="margin: 0px 0px 0px 10px;">地址：<a href="/server/detail/'+item.orderId+'/map" style="color: #ff4d2d">'
 						+item.address+'</a></span>'
 						+'<span style="margin: 0px 0px 0px 10px;">资源状态：<b style="color: #ff4d2d">'+item.orderState+'</b></span>';
-					if(item.acceptorder.datestate == 0){
+					if(item.acceptorder.acceptstate==3 && item.acceptorder.datestate == 0){
 						tr_str+='<span style="margin: 0px 0px 0px 10px;">租用状态：<b style="color: #ff4d2d">已超期</b></span>';
 					}else if(item.acceptorder.acceptstate==3 && item.acceptorder.datestate==1){
 						tr_str+='<span style="margin: 0px 0px 0px 10px;">租用状态：<b style="color: #12c34e">正常租用</b></span>';

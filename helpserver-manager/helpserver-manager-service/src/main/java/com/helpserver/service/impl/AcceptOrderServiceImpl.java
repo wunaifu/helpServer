@@ -287,4 +287,60 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         }
         return 0;
     }
+
+    @Override
+    public int updateDateStateByAcceptId(Acceptorder acceptorder) {
+        return acceptOrderDao.updateByPrimaryKeySelective(acceptorder);
+    }
+
+    @Override
+    public String updateDateStateAcceptList() {
+        Date date = new Date();
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andDatestateEqualTo(3);//获取租用进行中的订单
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+
+        for (Acceptorder accept : acceptorderList) {
+            int days = TimeUtil.getDatePoor(TimeUtil.stringToDate(accept.getSuretime()), date);
+            Acceptorder acceptUpdate = new Acceptorder();
+            acceptUpdate.setId(accept.getId());
+            if (accept.getMoneytype() == 0) {
+                if (days > accept.getGettype()) {
+                    //日租方式，超期，修改dataState为0
+                    if (accept.getDatestate() != 0) {
+                        acceptUpdate.setDatestate(0);
+                        this.updateDateStateByAcceptId(acceptUpdate);
+                    }
+                } else {
+                    //未超期，修改dataState为1
+                    if (accept.getDatestate() != 1) {
+                        acceptUpdate.setDatestate(1);
+                        this.updateDateStateByAcceptId(acceptUpdate);
+                    }
+                }
+            } else {
+                //月租方式，按30天算
+                int months = days / 30;
+                if (days % 30 != 0) {
+                    months++;
+                }
+                if (months > accept.getGettype()) {
+                    //月租方式，超期，修改dataState为0
+                    if (accept.getDatestate() != 0) {
+                        acceptUpdate.setDatestate(0);
+                        this.updateDateStateByAcceptId(acceptUpdate);
+                    }
+                } else {
+                    //未超期，修改dataState为1
+                    if (accept.getDatestate() != 1) {
+                        acceptUpdate.setDatestate(1);
+                        this.updateDateStateByAcceptId(acceptUpdate);
+                    }
+                }
+            }
+        }
+        return "finish";
+    }
 }
