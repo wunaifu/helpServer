@@ -286,6 +286,58 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * 取消抢单
+     * @param acceptId
+     * @return
+     */
+    @Transactional
+    @Override
+    public String updateCancelAccept(int acceptId) {
+        Acceptorder acceptorder = acceptOrderDao.selectByPrimaryKey(acceptId);
+        Orderinfo orderinfo = orderDao.selectByPrimaryKey(acceptorder.getOrderid());
+        String date = TimeUtil.dateToString(new Date());
+        int userId = acceptorder.getAccepterid();
+        int amount = orderinfo.getMoneyamount();
+        try {
+            //1、更新抢单表
+            Acceptorder acceptorderUpdate = new Acceptorder();
+            acceptorderUpdate.setId(acceptorder.getId());
+            acceptorderUpdate.setBacktime(date);
+            acceptorderUpdate.setAcceptstate(0);
+            if (acceptOrderDao.updateByPrimaryKeySelective(acceptorderUpdate) == 1) {
+                //2、增加余额基本表的余额总数，归还押金
+                Money money = moneyService.getMoney(userId);
+                Money moneyInfoAdd = new Money();
+                moneyInfoAdd.setId(money.getId());
+                moneyInfoAdd.setAmount(money.getAmount() + amount);
+                if (moneyDao.updateByPrimaryKeySelective(moneyInfoAdd) == 1) {
+                    //3、添加收支历史
+                    Moneyhistory moneyhistory = new Moneyhistory();
+                    moneyhistory.setUserid(userId);
+                    moneyhistory.setInfo(CommonsUtil.moneyOrderPermissionMoneyBack);
+                    moneyhistory.setAmount(amount);
+                    moneyhistory.setTime(date);
+                    moneyhistory.setState(1);
+                    if (moneyHistoryDao.insertSelective(moneyhistory) == 1) {
+                        return "update_success";
+                    } else {
+                        throw new MyThrowException("add_failure");
+                    }
+                } else {
+                    //抛出异常
+                    throw new MyThrowException("update_failure");
+                }
+            } else {
+                //抛出异常
+                throw new MyThrowException("update_failure");
+            }
+        } catch (MyThrowException e) {
+            System.out.println("e========================" + e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
      * 归还物品
      * 1、更新抢单表状态及时间
      * 2、更新订单表库存

@@ -19,6 +19,10 @@ public interface AcceptOrderService {
 
     List<OrderAcceptDto> getOrderAcceptDtoListByUserId(int userId);
 
+    List<OrderAcceptDto> getOrderAcceptDtoIngListByUserIdAndState(int userId,int state);
+
+    List<OrderAcceptDto> getOrderAcceptDtoFinishListByUserIdAndState(int userId,int state);
+
     List<OrderAcceptDto> getOrderAcceptDtoListByOrderId(int orderId);
 
     List<OrderAcceptDto> getOrderAcceptDtoListByUserIdAndSearch(int userId,String search);

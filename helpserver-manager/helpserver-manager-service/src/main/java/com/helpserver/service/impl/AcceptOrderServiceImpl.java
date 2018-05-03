@@ -152,6 +152,42 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     }
 
     /**
+     * 获取用户的进行中的抢单表
+     * @param userId
+     * @param state
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoIngListByUserIdAndState(int userId, int state) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andAccepteridEqualTo(userId);
+        criteria.andAcceptstateNotEqualTo(state);//不是已完成 状态6，状态是已经评价完，已结束
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = this.getOrderAcceptDtoListByAcceptOrderList(acceptorderList);
+        return orderAcceptDtoList;
+    }
+
+    /**
+     * 获取用户的已完成的抢单表
+     * @param userId
+     * @param state
+     * @return
+     */
+    @Override
+    public List<OrderAcceptDto> getOrderAcceptDtoFinishListByUserIdAndState(int userId, int state) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andAccepteridEqualTo(userId);
+        criteria.andAcceptstateEqualTo(state);//已完成 状态6，状态是已经评价完，已结束
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        List<Acceptorder> acceptorderList = acceptOrderDao.selectByExample(acceptorderExample);
+        List<OrderAcceptDto> orderAcceptDtoList = this.getOrderAcceptDtoListByAcceptOrderList(acceptorderList);
+        return orderAcceptDtoList;
+    }
+
+    /**
      * 通过orderId获取已抢订单
      * @param orderId
      * @return

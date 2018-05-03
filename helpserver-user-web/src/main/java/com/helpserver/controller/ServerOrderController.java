@@ -516,7 +516,7 @@ public class ServerOrderController {
 //start mysendServer -------------------------------我预定的资源服务列表-------------------------------------------------
 
     /**
-     * 我抢的资源服务列表
+     * 我抢的资源服务列表进行中
      * @param request
      * @param model
      * @return
@@ -531,14 +531,14 @@ public class ServerOrderController {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoIngListByUserIdAndState(nowUser.getUserid(),6);
         Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
         model.addAttribute("pagerList", pagerList);
         return "server_myaccept_list";
     }
 
     /**
-     * 我预定的资源服务列表分页
+     * 我预定的资源服务列表分页进行中
      * @param request
      * @param response
      * @return
@@ -553,7 +553,52 @@ public class ServerOrderController {
             pageNum = Integer.parseInt(request.getParameter("pageNum"));
         }
         NowUser nowUser = UserSessionSetUtils.getNowUser(request);
-        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoListByUserId(nowUser.getUserid());
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoIngListByUserIdAndState(nowUser.getUserid(),6);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+//        System.out.println("pagerList============="+pagerList.toString());
+        String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 我抢的资源服务列表进行中
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/myaccept/finishlist")
+    public String serverMyAcceptFinishlist(HttpServletRequest request, ModelMap model) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            return "page_403";
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoFinishListByUserIdAndState(nowUser.getUserid(),6);
+        Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
+        model.addAttribute("pagerList", pagerList);
+        return "server_myaccept_finishlist";
+    }
+
+    /**
+     * 我预定的资源服务列表分页进行中
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/myaccept/finishlistjson")
+    public void serverMyAcceptFinishListJson(HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
+        NowUser nowUser = UserSessionSetUtils.getNowUser(request);
+        List<OrderAcceptDto> orderAcceptDtoList = acceptOrderService.getOrderAcceptDtoFinishListByUserIdAndState(nowUser.getUserid(),6);
         Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
 //        System.out.println("pagerList============="+pagerList.toString());
         String result = JSON.toJSONString(pagerList);
@@ -606,6 +651,22 @@ public class ServerOrderController {
         Pager<OrderAcceptDto> pagerList = new Pager<>(pageNum, 10, orderAcceptDtoList);
 //        System.out.println("pagerList============="+pagerList.toString());
         String result = JSON.toJSONString(pagerList);
+        ResponseUtils.renderJson(response,result);
+    }
+
+    /**
+     * 取消资源服务抢单
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/accept/{acceptId}/docancel")
+    public void serverMySendAcceptListDoCancel(@PathVariable("acceptId") int acceptId,HttpServletRequest request, HttpServletResponse response) {
+        if (!UserSessionSetUtils.isUserLogin(request)) {
+            ResponseUtils.renderJson(response,null);
+        }
+        String result;
+        result = orderService.updateCancelAccept(acceptId);
         ResponseUtils.renderJson(response,result);
     }
 

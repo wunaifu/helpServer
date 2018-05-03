@@ -33,7 +33,7 @@
     <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="/basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/server_myaccept_list.js"></script>
+    <script type="text/javascript" src="/js/server_myaccept_finishlist.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -185,80 +185,16 @@
 
                                             </c:otherwise>
                                         </c:choose>
+                                        <span style="margin: 0px 0px 0px 10px;">通过时间：<b style="color: #ff4d2d">${item.acceptorder.suretime}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">获取时间：<b style="color: #ff4d2d">${item.acceptorder.updatetime}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">归还时间：<b style="color: #ff4d2d">${item.acceptorder.finishtime}</b></span>
+                                        <span style="margin: 0px 0px 0px 10px;">完成时间：<b style="color: #ff4d2d">${item.acceptorder.backtime}</b></span>
                                     </div>
                                     <a href="/server/${item.orderId}/detail" class="readmore">查看资源</a>
-                                    <c:choose>
-                                        <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <a href="#" onclick="cancelOrder(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="不需要该资源时，可以取消抢单" class="readmore">取消抢单</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <a href="#" onclick="cancelOrder(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="不需要该资源时，可以取消抢单" class="readmore">取消抢单</a>
-                                            <a href="#" onclick="startMoney(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="租用开始时则开始计算租用时间" class="readmore">开始计费</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <a href="#" onclick="returnGoods(${item.acceptorder.id},${pagerList.currentPage})" style="margin-right: 10px;"
-                                               title="物品使用完成时应及时归还，避免影响信誉分及多余扣费" class="readmore">归还物品</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <a href="/server/${item.acceptorder.id}/${pagerList.currentPage}/toputmoney"  style="margin-right: 10px;"
-                                               title="物品已归还，请前往付款" class="readmore">去付款</a>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==5}">
-                                            <c:if test="${item.isOrNotComment==0}">
-                                                <a href="/server/${item.acceptorder.id}/tocomment" class="readmore" style="margin-right: 10px;">去评价</a>
-                                            </c:if>
-                                        </c:when>
-                                        <c:otherwise>
-
-                                        </c:otherwise>
-                                    </c:choose>
-
                                 </ul>
                                 <p class="autor">
-                                    <c:choose>
-                                        <c:when test="${item.acceptorder.acceptstate==-1}">
-                                            <span>状态：<a>被拒绝</a></span>
-                                            <span>&nbsp;拒绝时间：${item.acceptorder.backtime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==0}">
-                                            <span>状态：<a>已取消</a></span>
-                                            <span>&nbsp;取消时间：${item.acceptorder.backtime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==1}">
-                                            <span>状态：<a>待通过</a></span>
-                                            <span>&nbsp;抢单时间：${item.acceptorder.accepttime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==2}">
-                                            <span>状态：<a>待获取资源</a></span>
-                                            <span>&nbsp;通过时间：${item.acceptorder.suretime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==3}">
-                                            <span>状态：<a>租用中</a></span>
-                                            <span>&nbsp;获取时间：${item.acceptorder.updatetime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==4}">
-                                            <span>状态：<a>已归还待付款</a></span>
-                                            <span>&nbsp;归还时间：${item.acceptorder.finishtime}</span>
-                                        </c:when>
-                                        <c:when test="${item.acceptorder.acceptstate==5}">
-                                            <c:choose>
-                                                <c:when test="${item.isOrNotComment==0}">
-                                                    <span>状态：<a>待评价</a></span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span>状态：<a>已完成</a></span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>状态：<a>已完成</a></span>
-                                            <span>&nbsp;完成时间：${item.acceptorder.finishtime}</span>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <span>状态：<a>已完成</a></span>
+                                    <span>&nbsp;抢单时间：${item.acceptorder.accepttime}</span>
                                 </p>
                                 <hr />
                             </div>
@@ -358,28 +294,6 @@
 <script src="/js/alert.js"></script>
 <script type="text/javascript " src="/basic/js/quick_links.js "></script>
 <script>
-
-    function cancelOrder(acceptId,pageNum) {
-        var url = "/accept/"+acceptId+"/docancel";
-        $.ajax({
-            type : "POST",
-            url: url,
-            contentType : "application/json;charset=utf-8",
-            dataType : "text",
-            error : function() {
-                $.myToast("请求失败，请重试！");
-            },
-            success : function (data) {
-                console.log(data);
-                if (data=="update_success") {
-                    $.myToast("已取消抢单！");
-                    window.location.href="/server/myaccept/list?pageNum="+pageNum;
-                }else{
-                    $.myToast("操作失败，请稍后再试！");
-                }
-            }
-        });
-    }
 
     function startMoney(acceptId,pageNum) {
         var url = "/accept/"+acceptId+"/dogetgoods";

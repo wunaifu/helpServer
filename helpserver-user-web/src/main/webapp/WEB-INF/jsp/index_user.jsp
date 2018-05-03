@@ -169,7 +169,7 @@
                             <li><a href="/server/mysend/list"><i><img src="/images/pay.png"/></i><span>发布中</span></a></li>
                             <li><a href="/server/add"><i><img src="/images/refund.png"/></i><span>发服务</span></a></li>
                             <li><a href="/server/myaccept/list"><i><img src="/images/send.png"/></i><span>租用中</span></a></li>
-                            <li><a href="order.html"><i><img src="/images/receive.png"/></i><span>租用完成</span></a></li>
+                            <li><a href="/server/myaccept/finishlist"><i><img src="/images/receive.png"/></i><span>租用完成</span></a></li>
                         </ul>
                         <%--<div class="orderContentBox">
                             <div class="orderContent">
