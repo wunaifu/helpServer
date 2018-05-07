@@ -144,6 +144,9 @@ public class DESUtils {
         Date nowTime = new Date();
         int daysNumber = TimeUtil.getDatePoor(nowTime, startTime);
         System.out.println("daysNumber======" + daysNumber);
+        String str1 = "2010-07-16 12:10:01";
+        long longstr1 = Long.valueOf(str1.replaceAll("[-\\s:]",""));
+        System.out.println(longstr1);
     }
 
 }

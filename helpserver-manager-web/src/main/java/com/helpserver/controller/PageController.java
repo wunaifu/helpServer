@@ -1,6 +1,8 @@
 package com.helpserver.controller;
 
 import com.helpserver.pojo.User;
+import com.helpserver.service.MoneyService;
+import com.helpserver.service.OrderService;
 import com.helpserver.service.UserService;
 import com.helpserver.util.ManagerSessionSetUtils;
 import com.helpserver.utils.MyThrowException;
@@ -22,6 +24,10 @@ public class PageController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    MoneyService moneyService;
 
 //    @RequestMapping(value = "/{page}")
 //    public String getUserByUserId(@PathVariable String page,HttpServletRequest request) throws Exception {

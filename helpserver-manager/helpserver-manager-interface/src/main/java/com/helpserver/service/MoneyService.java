@@ -39,6 +39,8 @@ public interface MoneyService {
 
     List<Moneyhistory> getMoneyHistoryListByUserId(int userId);
 
+    int getManagerGetMoney();
+
     List<MoneyUserDto> getMoneyUserDtoList();
 
     List<MoneyAddDto> getMoneyAddDtoListByGetTime(int getTimeState);

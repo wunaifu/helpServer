@@ -422,4 +422,22 @@ public class MoneyServiceImpl implements MoneyService {
         return moneyAddDto;
     }
 
+    /**
+     * 管理员统计平台为用户提供使用时所获得的服务费用
+     * @return
+     */
+    @Override
+    public int getManagerGetMoney() {
+        MoneyhistoryExample moneyhistoryExample = new MoneyhistoryExample();
+        MoneyhistoryExample.Criteria criteria = moneyhistoryExample.createCriteria();
+        criteria.andInfoEqualTo(CommonsUtil.moneySystemGetMoney);
+        List<Moneyhistory> moneyhistoryList = moneyHistoryDao.selectByExample(moneyhistoryExample);
+        int allmoney = 0;
+        for (Moneyhistory m : moneyhistoryList) {
+            allmoney += m.getAmount();
+            long longstr1 = Long.valueOf(m.getTime().replaceAll("[-\\s:]",""));
+            System.out.println(longstr1);
+        }
+        return allmoney;
+    }
 }
