@@ -1,5 +1,5 @@
 
-function initData() {
+$(document).ready(function() {
   var ctx1, data1, myLineChart1, options1;
   var ctx2, data2, myLineChart2, options2;
   var ctx3, data3, myLineChart3, options3;
@@ -80,6 +80,7 @@ function initData() {
         console.log(data);
 
         $.each(data,function(i,item){
+          //console.log(item.monthmen);
           initData1[i]=item.monthmen;
           initData2[i]=item.monthorders;
           initData3[i]=item.monthmoney;
@@ -139,4 +140,4 @@ function initData() {
   myLineChart1 = new Chart(ctx1).Line(data1, options1);
   myLineChart2 = new Chart(ctx2).Line(data2, options2);
   myLineChart3 = new Chart(ctx3).Line(data3, options3);
-}
+});

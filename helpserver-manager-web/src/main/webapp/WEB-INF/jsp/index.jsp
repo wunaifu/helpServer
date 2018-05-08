@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
 </head>
 
-<body class="flat-blue" onload="initData();">
+<body class="flat-blue">
     <div class="app-container">
         <div class="row content-container">
 
@@ -227,6 +227,7 @@
             <script type="text/javascript" src="/lib/js/ace/theme-github.js"></script>
             <!-- Javascript -->
             <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
             <script type="text/javascript" src="/js/myindex.js"></script>
 </body>
 
