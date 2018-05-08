@@ -1,5 +1,7 @@
 package com.helpserver.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.helpserver.pojo.Backdata;
 import com.helpserver.pojo.User;
 import com.helpserver.service.MoneyService;
 import com.helpserver.service.OrderService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by wunaifu on 2018/1/13.
@@ -54,13 +57,22 @@ public class PageController {
     }
 
     @RequestMapping("/index")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request,Model model) {
 
         System.out.println("phone==" + request.getSession().getAttribute("phone"));
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
+        List<Backdata> backdataList = moneyService.getBackDataList();
+        model.addAttribute("backdataList", backdataList);
         return "index";
+    }
+
+    @RequestMapping("/index/backdata")
+    public void indexBackData(HttpServletRequest request,HttpServletResponse response) {
+        List<Backdata> backdataList = moneyService.getBackDataList();
+        String result = JSON.toJSONString(backdataList);
+        ResponseUtils.renderJson(response,result);
     }
 
     @RequestMapping("/manager/index")

@@ -49,4 +49,6 @@ public interface MoneyService {
 
     MoneyAddDto getMoneyAddDtoByMoneyAddId(int addId);
 
+    List<Backdata> getBackDataList();
+
 }

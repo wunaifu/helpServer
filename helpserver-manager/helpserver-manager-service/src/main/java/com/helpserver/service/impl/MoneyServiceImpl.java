@@ -30,6 +30,8 @@ public class MoneyServiceImpl implements MoneyService {
     MoneygetDao moneyGetDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    BackdataDao backdataDao;
 
     @Override
     public boolean insertMoney(int userId) {
@@ -439,5 +441,23 @@ public class MoneyServiceImpl implements MoneyService {
             System.out.println(longstr1);
         }
         return allmoney;
+    }
+
+    /**
+     * 获取后台统计数据
+     * @return
+     */
+    @Override
+    public List<Backdata> getBackDataList() {
+        Date date = new Date();
+        int year = 2018;
+        BackdataExample backdataExample = new BackdataExample();
+        BackdataExample.Criteria criteria = backdataExample.createCriteria();
+        criteria.andYearEqualTo(year);
+        backdataExample.setOrderByClause("year desc");
+        backdataExample.setOrderByClause("month desc");
+        List<Backdata> backdataList = backdataDao.selectByExample(backdataExample);
+        System.out.println("year="+date.getYear()+" backDataList="+backdataList);
+        return backdataList;
     }
 }
