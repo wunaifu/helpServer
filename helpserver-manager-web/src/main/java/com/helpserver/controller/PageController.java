@@ -74,9 +74,12 @@ public class PageController {
         }
         List<Backdata> backdataList = moneyService.getBackDataList(year);
         List<Integer> yearList = moneyService.getBackDataYearList();
+        //yearList.add(2019);yearList.add(2020);yearList.add(2021);yearList.add(2021);yearList.add(2022);
         model.addAttribute("backdataList", backdataList);
         model.addAttribute("yearList", yearList);
         model.addAttribute("year", year);
+        model.addAttribute("yearNow", Integer.parseInt(TimeUtil.getYear(new Date())));
+        model.addAttribute("monthNow", Integer.parseInt(TimeUtil.getMonth(new Date())));
         model.addAttribute("month", month);
         return "index";
     }

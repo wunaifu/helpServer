@@ -42,15 +42,16 @@
             <!-- Main Content start-->
             <div class="container-fluid">
                 <div class="side-body padding-top">
+                    <h3>${yearNow}年${monthNow}月前的平台统计数据如下</h3>
                     <div class="row" style="float: left">
-                        <h2 style="margin-left:50px;">年份：
+                        <h2 style="margin-left:50px;"><a style="margin-right:10px;font-size: 25px;color: #b9b9b9">当前${yearNow}年${monthNow}月</a>
                             <c:forEach items="${yearList}" var="item">
                                 <c:choose>
                                     <c:when test="${item==year}">
-                                        <a style="margin-right:10px;font-size: 25px;color: #ffa91b">${item}</a>
+                                        <a style="margin-right:10px;font-size: 25px;color: #ffa91b">${item}年统计记录</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="/index?year=${item}" style="margin-right:10px;font-size: 25px;">${item}</a>
+                                        <a href="/index?year=${item}" style="margin-right:10px;font-size: 25px;">${item}年</a>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
