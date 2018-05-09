@@ -11,4 +11,8 @@ public interface BackServerService {
 
     public void backServerOne();
 
+    public void backServerTwo();
+
+    public void backServerThree();
+
 }

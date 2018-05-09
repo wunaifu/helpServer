@@ -55,8 +55,8 @@
 </head>
 <body>
 <div class="mianBox">
-	<img src="/img/yx403.png" alt=""  class="num403"/>
-	<div class="tipInfo tiao">
+	<img src="/img/yx403.png" alt=""  class="num403" style="height: 75%"/>
+	<div class="tipInfo tiao" style="height: 25%">
 		<div class="in">
 			<div class="textThis">
 				<!-- <h2>你没有权限访问此内容!!</h2>

@@ -147,6 +147,8 @@ public class DESUtils {
         String str1 = "2010-07-16 12:10:01";
         long longstr1 = Long.valueOf(str1.replaceAll("[-\\s:]",""));
         System.out.println(longstr1);
+
+        System.out.println(TimeUtil.getYear(nowTime)+"年"+TimeUtil.getMonth(nowTime)+"月"+TimeUtil.getDay(nowTime)+"日");
     }
 
 }

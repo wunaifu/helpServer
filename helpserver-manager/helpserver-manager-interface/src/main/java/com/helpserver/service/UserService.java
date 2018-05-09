@@ -49,4 +49,6 @@ public interface UserService {
 
     boolean updateUserPermission(int userId,int permission);
 
+    int getUserListByNotPermission(int permission);
+
 }

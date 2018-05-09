@@ -549,4 +549,18 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    /**
+     * 根据用户权限获取用户数据，并根据注册时间排序好
+     *
+     * @param permission
+     * @return
+     */
+    @Override
+    public int getUserListByNotPermission(int permission) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andPermissionNotEqualTo(permission);
+        return userDao.countByExample(userExample);
+    }
 }

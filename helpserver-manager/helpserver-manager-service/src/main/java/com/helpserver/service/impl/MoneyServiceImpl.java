@@ -2,7 +2,9 @@ package com.helpserver.service.impl;
 
 import com.helpserver.dao.*;
 import com.helpserver.pojo.*;
+import com.helpserver.service.AcceptOrderService;
 import com.helpserver.service.MoneyService;
+import com.helpserver.service.UserService;
 import com.helpserver.utils.CommonsUtil;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.TimeUtil;
@@ -32,6 +34,11 @@ public class MoneyServiceImpl implements MoneyService {
     UserDao userDao;
     @Autowired
     BackdataDao backdataDao;
+    @Autowired
+    AcceptOrderService acceptOrderService;
+    @Autowired
+    UserService userService;
+
 
     @Override
     public boolean insertMoney(int userId) {
@@ -424,6 +431,16 @@ public class MoneyServiceImpl implements MoneyService {
         return moneyAddDto;
     }
 
+    @Override
+    public List<Moneyhistory> getMoneyHistory() {
+        MoneyhistoryExample moneyhistoryExample = new MoneyhistoryExample();
+        MoneyhistoryExample.Criteria criteria = moneyhistoryExample.createCriteria();
+        criteria.andInfoEqualTo(CommonsUtil.moneySystemGetMoney);
+        criteria.andStateEqualTo(0);
+        List<Moneyhistory> moneyhistoryList = moneyHistoryDao.selectByExample(moneyhistoryExample);
+        return moneyhistoryList;
+    }
+
     /**
      * 管理员统计平台为用户提供使用时所获得的服务费用
      * @return
@@ -443,21 +460,131 @@ public class MoneyServiceImpl implements MoneyService {
         return allmoney;
     }
 
+
+
     /**
      * 获取后台统计数据
      * @return
      */
     @Override
-    public List<Backdata> getBackDataList() {
+    public List<Backdata> getBackDataList(int year) {
         Date date = new Date();
-        int year = 2018;
         BackdataExample backdataExample = new BackdataExample();
         BackdataExample.Criteria criteria = backdataExample.createCriteria();
         criteria.andYearEqualTo(year);
-        backdataExample.setOrderByClause("year desc");
-        backdataExample.setOrderByClause("month desc");
+        backdataExample.setOrderByClause("year asc");
+        backdataExample.setOrderByClause("month asc");
         List<Backdata> backdataList = backdataDao.selectByExample(backdataExample);
-        System.out.println("year="+date.getYear()+" backDataList="+backdataList);
+        System.out.println(TimeUtil.getYear(date)+"年"+TimeUtil.getMonth(date)+"月"+TimeUtil.getDay(date)+"日");
         return backdataList;
+    }
+
+    @Override
+    public List<Integer> getBackDataYearList() {
+        BackdataExample backdataExample = new BackdataExample();
+        backdataExample.setOrderByClause("year asc");
+        List<Backdata> backdataList = backdataDao.selectByExample(backdataExample);
+        List<Integer> list = new ArrayList<>();
+        int size = backdataList.size();
+        size = size / 12;
+        int year = 2018;
+        if (backdataList.size() > 0) {
+            year = backdataList.get(0).getYear();
+        }
+        for (int i = 0; i < size; i++) {
+            list.add(year);
+            year++;
+        }
+        return list;
+    }
+
+    /**
+     * 添加今年的初始数据
+     * @param year
+     * @return
+     */
+    @Override
+    public String addYearBackData(int year) {
+        for (int i = 1; i <= 12; i++) {
+            Backdata backdata = new Backdata();
+            backdata.setAllmen(0);
+            backdata.setAllmoney(0);
+            backdata.setAllorders(0);
+            backdata.setYear(year);
+            backdata.setMonth(i);
+            backdata.setTime(TimeUtil.dateToString(new Date()));
+            backdata.setMonthmen(0);
+            backdata.setMonthmoney(0);
+            backdata.setMonthorders(0);
+            backdataDao.insertSelective(backdata);
+        }
+        return null;
+    }
+
+    /**
+     * 更新上个月数据
+     * @return
+     */
+    @Override
+    public String updateMonthBackData(Date date) {
+
+        int year1 = Integer.parseInt(TimeUtil.getYear(date));
+        int month1 = Integer.parseInt(TimeUtil.getMonth(date));
+        int year = year1;
+        int month = month1;
+        //上个月
+        if (month1 == 1) {
+            year = year - 1;
+            month = 12;
+        }
+        //上上个月
+        int lastyear = year;
+        int lastmonth = month;
+        if (month == 1) {
+            lastyear = lastyear - 1;
+            lastmonth = 12;
+        }
+        //获取上上个月数据总结，如果为空则数据为0
+        BackdataExample lastExample = new BackdataExample();
+        BackdataExample.Criteria criteriaLast = lastExample.createCriteria();
+        criteriaLast.andYearEqualTo(lastyear);
+        criteriaLast.andMonthEqualTo(lastmonth);
+        List<Backdata> last = backdataDao.selectByExample(lastExample);
+        Backdata lastMontData = new Backdata();
+        if (last.size() < 1) {
+            lastMontData.setAllmen(0);
+            lastMontData.setAllmoney(0);
+            lastMontData.setAllorders(0);
+        } else {
+            lastMontData = last.get(0);
+        }
+        //获取上个月数据总结
+        BackdataExample backdataExample = new BackdataExample();
+        BackdataExample.Criteria criteria = backdataExample.createCriteria();
+        criteria.andYearEqualTo(year);
+        criteria.andMonthEqualTo(month);
+        List<Backdata> backdataList = backdataDao.selectByExample(backdataExample);
+        if (backdataList.size() > 0) {
+            List<Moneyhistory> moneyhistoryList = this.getMoneyHistory();
+            int moneyAll = 0;
+            int menAll = userService.getUserListByNotPermission(-1);
+            int ordersAll = acceptOrderService.getacceptOrderFinishListByState(5);
+            for (Moneyhistory m: moneyhistoryList) {
+                moneyAll += m.getAmount();
+            }
+
+            Backdata res = backdataList.get(0);
+            Backdata backdata = new Backdata();
+            backdata.setId(res.getId());
+            backdata.setAllmen(menAll);
+            backdata.setAllmoney(moneyAll);
+            backdata.setAllorders(ordersAll);
+            backdata.setTime(TimeUtil.dateToString(new Date()));
+            backdata.setMonthmen(menAll-lastMontData.getAllmen());
+            backdata.setMonthmoney(moneyAll-lastMontData.getAllmoney());
+            backdata.setMonthorders(ordersAll-lastMontData.getAllorders());
+            backdataDao.updateByPrimaryKeySelective(backdata);
+        }
+        return null;
     }
 }

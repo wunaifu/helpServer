@@ -112,7 +112,7 @@
                 if (data!=null) {
                     console.log(data);
                     if (data=="login_success"){
-                        window.location.href="/manager/index";
+                        window.location.href="/index";
 //                        alert("登录成功！");
                     }
                     if (data=="phone_error"){

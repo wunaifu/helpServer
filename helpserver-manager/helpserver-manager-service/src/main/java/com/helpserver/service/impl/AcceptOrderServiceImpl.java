@@ -343,4 +343,18 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
         }
         return "finish";
     }
+
+    /**
+     * 获取已完成的抢单表，已付款
+     * @param state
+     * @return
+     */
+    @Override
+    public int getacceptOrderFinishListByState(int state) {
+        AcceptorderExample acceptorderExample = new AcceptorderExample();
+        AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
+        criteria.andAcceptstateEqualTo(state);//已付款5
+        acceptorderExample.setOrderByClause("acceptTime desc");
+        return acceptOrderDao.countByExample(acceptorderExample);
+    }
 }

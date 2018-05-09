@@ -7,8 +7,10 @@ import com.helpserver.service.MoneyService;
 import com.helpserver.service.OrderService;
 import com.helpserver.service.UserService;
 import com.helpserver.util.ManagerSessionSetUtils;
+import com.helpserver.util.MyData;
 import com.helpserver.utils.MyThrowException;
 import com.helpserver.utils.ResponseUtils;
+import com.helpserver.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,25 +66,54 @@ public class PageController {
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
-        List<Backdata> backdataList = moneyService.getBackDataList();
+        int year = Integer.parseInt(TimeUtil.getYear(new Date()));
+        int month = Integer.parseInt(TimeUtil.getMonth(new Date()));
+        if (request.getParameter("year") != null) {
+            year = Integer.parseInt(request.getParameter("year"));
+        }
+        if (year != Integer.parseInt(TimeUtil.getYear(new Date()))) {
+            month = 12;
+        }
+        List<Backdata> backdataList = moneyService.getBackDataList(year);
+        List<Integer> yearList = moneyService.getBackDataYearList();
+        yearList.add(2019);
         model.addAttribute("backdataList", backdataList);
+        model.addAttribute("yearList", yearList);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
         return "index";
     }
 
     @RequestMapping("/index/backdata")
     public void indexBackData(HttpServletRequest request,HttpServletResponse response) {
-        List<Backdata> backdataList = moneyService.getBackDataList();
+        int year = Integer.parseInt(request.getParameter("year"));
+        List<Backdata> backdataList = moneyService.getBackDataList(year);
+        //MyData<Backdata> backdataMyData = new MyData<>(1, backdataList);
         String result = JSON.toJSONString(backdataList);
         ResponseUtils.renderJson(response,result);
     }
 
     @RequestMapping("/manager/index")
-    public String showIndex11(HttpServletRequest request) {
+    public String showIndex11(HttpServletRequest request,Model model) {
 
 //        System.out.println("phone=="+request.getSession().getAttribute("phone"));
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
+        int year = Integer.parseInt(TimeUtil.getYear(new Date()));
+        int month = Integer.parseInt(TimeUtil.getMonth(new Date()));
+        if (request.getParameter("year") != null) {
+            year = Integer.parseInt(request.getParameter("year"));
+        }
+        if (year != Integer.parseInt(TimeUtil.getYear(new Date()))) {
+            month = 12;
+        }
+        List<Backdata> backdataList = moneyService.getBackDataList(year);
+        List<Integer> yearList = moneyService.getBackDataYearList();
+        model.addAttribute("backdataList", backdataList);
+        model.addAttribute("yearList", yearList);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
         return "index";
     }
 

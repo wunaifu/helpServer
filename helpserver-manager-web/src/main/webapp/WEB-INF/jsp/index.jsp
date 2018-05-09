@@ -31,17 +31,32 @@
     <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
 </head>
 
-<body class="flat-blue">
+<body class="flat-blue" onload="initMyData(${year})">
     <div class="app-container">
         <div class="row content-container">
 
             <!-- 头部 start -->
             <jsp:include page="head.jsp"/>
             <!-- 头部 end -->
-			
+
             <!-- Main Content start-->
             <div class="container-fluid">
                 <div class="side-body padding-top">
+                    <div class="row" style="float: left">
+                        <h2>年份：<select style="margin-left:50px;width: 300px;font-size: 25px;">
+                            <option  href="/index?year=${year}">${year}</option>
+                            <c:forEach items="${yearList}" var="item">
+                                <c:choose>
+                                    <c:when test="${item==year}">
+                                    </c:when>
+                                    <c:otherwise><a href="/index?year=${item}"><option>${item}</option></a></c:otherwise>
+                                </c:choose>
+
+                            </c:forEach>
+                        </select></h2>
+
+                    </div>
+                    <div class="clearfix"></div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <a href="#">
@@ -54,10 +69,10 @@
                                                     <div class="title">0人</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">${backdataList.get(backdataList.size()).allmen}人</div>
+                                                    <div class="title">${backdataList.get(month-1).allmen}人</div>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <div class="sub-title">注册总人数</div>
+                                            <div class="sub-title">年注册总人数</div>
                                         </div>
                                         <div class="clear-both"></div>
                                     </div>
@@ -75,7 +90,7 @@
                                                     <div class="title">0单</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">${backdataList.get(backdataList.size()).allorders}单</div>
+                                                    <div class="title">${backdataList.get(month-1).allorders}单</div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="sub-title">订单成交总数</div>
@@ -96,7 +111,7 @@
                                                     <div class="title">￥0</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">￥${backdataList.get(backdataList.size()).allmoney}</div>
+                                                    <div class="title">￥${backdataList.get(month-1).allmoney}</div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="sub-title">平台总收入</div>
@@ -106,20 +121,6 @@
                                 </div>
                             </a>
                         </div>
-                        <%--<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">--%>
-                            <%--<a href="#">--%>
-                                <%--<div class="card blue summary-inline">--%>
-                                    <%--<div class="card-body">--%>
-                                        <%--<i class="icon fa fa-share-alt fa-4x"></i>--%>
-                                        <%--<div class="content">--%>
-                                            <%--<div class="title">16</div>--%>
-                                            <%--<div class="sub-title">Share</div>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="clear-both"></div>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</a>--%>
-                        <%--</div>--%>
                     </div>
                     <div class="row  no-margin-bottom" style="width: 100%">
                         <div class="col-sm-6 col-xs-12">
@@ -137,7 +138,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">注册总人数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(backdataList.size()).allmen}人</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-1).allmen}人</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -164,7 +165,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">订单成交总数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(backdataList.size()).allorders}单</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-1).allorders}单</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -191,7 +192,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">平台总收入</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">￥${backdataList.get(backdataList.size()).allmoney}</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">￥${backdataList.get(month-1).allmoney}</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -227,7 +228,6 @@
             <script type="text/javascript" src="/lib/js/ace/theme-github.js"></script>
             <!-- Javascript -->
             <script type="text/javascript" src="/js/app.js"></script>
-    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
             <script type="text/javascript" src="/js/myindex.js"></script>
 </body>
 

@@ -34,4 +34,6 @@ public interface AcceptOrderService {
     int updateDateStateByAcceptId(Acceptorder acceptorder);
 
     String updateDateStateAcceptList();
+
+    int getacceptOrderFinishListByState(int state);
 }

@@ -83,6 +83,18 @@ public class TimeUtil {
         return dateStr;
     }
 
+    public static String dateToStrYYYYMMDD(Date date){
+        String dateStr = "";
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
     public static Date stringToDate(String dateStr){
         Date date = new Date();
         //注意format的格式要与日期String的格式相匹配
@@ -228,5 +240,44 @@ public class TimeUtil {
         // long sec = diff % nd % nh % nm / ns;
         //return day + "天" + hour + "小时" + min + "分钟";
         return (int) day;
+    }
+
+    public static String getYear(Date date){
+        String dateStr = "";
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("yyyy");
+//        DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH/mm/ss");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
+    public static String getMonth(Date date){
+        String dateStr = "";
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("MM");
+//        DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH/mm/ss");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
+    public static String getDay(Date date){
+        String dateStr = "";
+        //format的格式可以任意
+        DateFormat sdf = new SimpleDateFormat("dd");
+//        DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH/mm/ss");
+        try {
+            dateStr = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
     }
 }

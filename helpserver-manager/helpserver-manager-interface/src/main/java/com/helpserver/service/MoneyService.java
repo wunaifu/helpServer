@@ -2,6 +2,7 @@ package com.helpserver.service;
 
 import com.helpserver.pojo.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +50,12 @@ public interface MoneyService {
 
     MoneyAddDto getMoneyAddDtoByMoneyAddId(int addId);
 
-    List<Backdata> getBackDataList();
+    List<Moneyhistory> getMoneyHistory();
+    List<Backdata> getBackDataList(int year);
+    List<Integer> getBackDataYearList();
+
+    String addYearBackData(int year);
+
+    String updateMonthBackData(Date date);
 
 }
