@@ -43,17 +43,18 @@
             <div class="container-fluid">
                 <div class="side-body padding-top">
                     <div class="row" style="float: left">
-                        <h2>年份：<select style="margin-left:50px;width: 300px;font-size: 25px;">
-                            <option  href="/index?year=${year}">${year}</option>
+                        <h2 style="margin-left:50px;">年份：
                             <c:forEach items="${yearList}" var="item">
                                 <c:choose>
                                     <c:when test="${item==year}">
+                                        <a style="margin-right:10px;font-size: 25px;color: #ffa91b">${item}</a>
                                     </c:when>
-                                    <c:otherwise><a href="/index?year=${item}"><option>${item}</option></a></c:otherwise>
+                                    <c:otherwise>
+                                        <a href="/index?year=${item}" style="margin-right:10px;font-size: 25px;">${item}</a>
+                                    </c:otherwise>
                                 </c:choose>
-
                             </c:forEach>
-                        </select></h2>
+                        </h2>
 
                     </div>
                     <div class="clearfix"></div>
@@ -69,7 +70,7 @@
                                                     <div class="title">0人</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">${backdataList.get(month-1).allmen}人</div>
+                                                    <div class="title">${backdataList.get(month-2).allmen}人</div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="sub-title">年注册总人数</div>
@@ -90,7 +91,7 @@
                                                     <div class="title">0单</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">${backdataList.get(month-1).allorders}单</div>
+                                                    <div class="title">${backdataList.get(month-2).allorders}单</div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="sub-title">订单成交总数</div>
@@ -111,7 +112,7 @@
                                                     <div class="title">￥0</div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="title">￥${backdataList.get(month-1).allmoney}</div>
+                                                    <div class="title">￥${backdataList.get(month-2).allmoney}</div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="sub-title">平台总收入</div>
@@ -122,7 +123,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row  no-margin-bottom" style="width: 100%">
+                    <div class="row  no-margin-bottom">
                         <div class="col-sm-6 col-xs-12">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -138,7 +139,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">注册总人数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-1).allmen}人</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-2).allmen}人</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -149,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row  no-margin-bottom" style="width: 100%">
+                    <div class="row  no-margin-bottom">
                         <div class="col-sm-6 col-xs-12">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -165,7 +166,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">订单成交总数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-1).allorders}单</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-2).allorders}单</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -176,7 +177,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row  no-margin-bottom" style="width: 100%">
+                    <div class="row  no-margin-bottom">
                         <div class="col-sm-6 col-xs-12">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -192,7 +193,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4 class="float-left no-margin font-weight-300">平台总收入</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">￥${backdataList.get(month-1).allmoney}</h2>
+                                                    <h2 class="float-right no-margin font-weight-300">￥${backdataList.get(month-2).allmoney}</h2>
                                                 </c:otherwise>
                                             </c:choose>
 

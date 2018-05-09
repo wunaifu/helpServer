@@ -63,9 +63,9 @@ function initMyData(year) {
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%>" +
     "<li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
   };
-  var initData1=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  var initData2=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  var initData3=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  var initData1=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var initData2=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var initData3=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   $.ajax({
     type : "POST",

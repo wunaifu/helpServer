@@ -61,8 +61,6 @@ public class PageController {
 
     @RequestMapping("/index")
     public String index(HttpServletRequest request,Model model) {
-
-        System.out.println("phone==" + request.getSession().getAttribute("phone"));
         if (!ManagerSessionSetUtils.isManagerLogin(request)) {
             return "page_403";
         }
@@ -76,7 +74,6 @@ public class PageController {
         }
         List<Backdata> backdataList = moneyService.getBackDataList(year);
         List<Integer> yearList = moneyService.getBackDataYearList();
-        yearList.add(2019);
         model.addAttribute("backdataList", backdataList);
         model.addAttribute("yearList", yearList);
         model.addAttribute("year", year);
@@ -92,31 +89,6 @@ public class PageController {
         String result = JSON.toJSONString(backdataList);
         ResponseUtils.renderJson(response,result);
     }
-
-    @RequestMapping("/manager/index")
-    public String showIndex11(HttpServletRequest request,Model model) {
-
-//        System.out.println("phone=="+request.getSession().getAttribute("phone"));
-        if (!ManagerSessionSetUtils.isManagerLogin(request)) {
-            return "page_403";
-        }
-        int year = Integer.parseInt(TimeUtil.getYear(new Date()));
-        int month = Integer.parseInt(TimeUtil.getMonth(new Date()));
-        if (request.getParameter("year") != null) {
-            year = Integer.parseInt(request.getParameter("year"));
-        }
-        if (year != Integer.parseInt(TimeUtil.getYear(new Date()))) {
-            month = 12;
-        }
-        List<Backdata> backdataList = moneyService.getBackDataList(year);
-        List<Integer> yearList = moneyService.getBackDataYearList();
-        model.addAttribute("backdataList", backdataList);
-        model.addAttribute("yearList", yearList);
-        model.addAttribute("year", year);
-        model.addAttribute("month", month);
-        return "index";
-    }
-
 
     /**
      * 管理员登录接口，返回登录信息，
