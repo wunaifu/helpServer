@@ -43,6 +43,24 @@ CREATE TABLE `acceptorder` (
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `backdata` */
+
+DROP TABLE IF EXISTS `backdata`;
+
+CREATE TABLE `backdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `allMoney` int(11) DEFAULT NULL COMMENT '总赚取的服务费',
+  `allMen` int(11) DEFAULT NULL COMMENT '总注册人数',
+  `allOrders` int(11) DEFAULT NULL COMMENT '总租借成交数',
+  `year` int(11) DEFAULT NULL COMMENT '统计年份',
+  `month` int(11) DEFAULT NULL COMMENT '统计月份',
+  `monthMoney` int(11) DEFAULT NULL COMMENT '统计月份赚取的服务费',
+  `monthMen` int(11) DEFAULT NULL COMMENT '月注册人数',
+  `monthOrders` int(11) DEFAULT NULL COMMENT '月租借成交数',
+  `time` varchar(32) DEFAULT NULL COMMENT '统计时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*Table structure for table `bigtype` */
 
 DROP TABLE IF EXISTS `bigtype`;
@@ -247,9 +265,9 @@ CREATE TABLE `ordercomment` (
   KEY `myId` (`myId`),
   KEY `hisId` (`hisId`),
   KEY `acceptId` (`acceptId`),
-  CONSTRAINT `ordercomment_ibfk_4` FOREIGN KEY (`acceptId`) REFERENCES `acceptorder` (`id`),
   CONSTRAINT `ordercomment_ibfk_2` FOREIGN KEY (`myId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`)
+  CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `ordercomment_ibfk_4` FOREIGN KEY (`acceptId`) REFERENCES `acceptorder` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `orderinfo` */
