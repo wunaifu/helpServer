@@ -41,9 +41,33 @@ CREATE TABLE `acceptorder` (
   KEY `orderId` (`orderId`),
   CONSTRAINT `acceptorder_ibfk_1` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`),
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `acceptorder` */
+
+insert  into `acceptorder`(`id`,`accepterId`,`orderId`,`moneyType`,`money`,`number`,`getType`,`acceptState`,`dateState`,`backReason`,`backTime`,`acceptTime`,`sureTime`,`finishTime`,`updateTime`) values (1,3,1,0,5,1,6,6,1,NULL,'2018-02-05 04:33:35','2018-02-01 04:17:43','2018-02-01 04:19:27','2018-02-05 04:33:10','2018-02-01 04:19:53'),(2,2,2,1,300,1,1,6,1,NULL,'2018-02-23 04:39:49','2018-02-01 04:29:19','2018-02-01 04:30:30','2018-02-23 04:39:34','2018-02-01 04:30:32'),(3,3,2,1,300,1,1,3,1,NULL,NULL,'2018-02-23 04:44:53','2018-02-23 04:45:18',NULL,'2018-02-23 04:45:20');
+
+/*Table structure for table `backdata` */
+
+DROP TABLE IF EXISTS `backdata`;
+
+CREATE TABLE `backdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `allMoney` int(11) DEFAULT NULL COMMENT '总赚取的服务费',
+  `allMen` int(11) DEFAULT NULL COMMENT '总注册人数',
+  `allOrders` int(11) DEFAULT NULL COMMENT '总租借成交数',
+  `year` int(11) DEFAULT NULL COMMENT '统计年份',
+  `month` int(11) DEFAULT NULL COMMENT '统计月份',
+  `monthMoney` int(11) DEFAULT NULL COMMENT '统计月份赚取的服务费',
+  `monthMen` int(11) DEFAULT NULL COMMENT '月注册人数',
+  `monthOrders` int(11) DEFAULT NULL COMMENT '月租借成交数',
+  `time` varchar(32) DEFAULT NULL COMMENT '统计时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+/*Data for the table `backdata` */
+
+insert  into `backdata`(`id`,`allMoney`,`allMen`,`allOrders`,`year`,`month`,`monthMoney`,`monthMen`,`monthOrders`,`time`) values (1,0,1,0,2018,1,0,1,0,'2018-01-01 00:00:10'),(2,4,4,2,2018,2,4,3,2,'2018-03-01 04:00:00'),(3,0,0,0,2018,3,0,0,0,'2018-01-01 00:00:10'),(4,0,0,0,2018,4,0,0,0,'2018-05-01 04:00:00'),(5,0,0,0,2018,5,0,0,0,'2018-01-01 00:00:10'),(6,0,0,0,2018,6,0,0,0,'2018-01-01 00:00:10'),(7,0,0,0,2018,7,0,0,0,'2018-01-01 00:00:10'),(8,0,0,0,2018,8,0,0,0,'2018-01-01 00:00:10'),(9,0,0,0,2018,9,0,0,0,'2018-01-01 00:00:10'),(10,0,0,0,2018,10,0,0,0,'2018-01-01 00:00:10'),(11,0,0,0,2018,11,0,0,0,'2018-01-01 00:00:10'),(12,0,0,0,2018,12,0,0,0,'2018-01-01 00:00:10');
 
 /*Table structure for table `bigtype` */
 
@@ -58,7 +82,7 @@ CREATE TABLE `bigtype` (
 
 /*Data for the table `bigtype` */
 
-insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'住房出行','2018-05-03 22:56:16'),(2,'生活用品','2018-05-03 22:56:34'),(3,'其他','2018-05-03 22:56:42');
+insert  into `bigtype`(`id`,`typeName`,`createTime`) values (1,'住房出行','2018-01-01 00:03:00'),(2,'生活用品','2018-01-01 00:03:16'),(3,'其他物品','2018-01-01 00:03:27');
 
 /*Table structure for table `collectorder` */
 
@@ -110,11 +134,11 @@ CREATE TABLE `gold` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `gold` */
 
-insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2018-05-03 22:54:22',0,0),(2,2,10,'2018-05-03 23:04:19',0,0),(3,3,10,'2018-05-03 23:04:36',0,0),(4,4,10,'2018-05-03 23:05:00',0,0),(5,5,10,'2018-05-03 23:05:25',0,0),(6,6,10,'2018-05-03 23:07:09',0,0),(7,7,10,'2018-05-03 23:07:36',0,0),(8,8,10,'2018-05-03 23:07:54',0,0),(9,9,10,'2018-05-03 23:08:08',0,0),(10,10,10,'2018-05-03 23:08:22',0,0),(11,11,10,'2018-05-03 23:08:37',0,0),(12,12,10,'2018-05-03 23:09:01',0,0),(13,13,10,'2018-05-03 23:09:15',0,0),(14,14,10,'2018-05-03 23:09:38',0,0),(15,15,10,'2018-05-03 23:09:53',0,0),(16,16,10,'2018-05-03 23:10:28',0,0),(17,17,10,'2018-05-03 23:10:44',0,0),(18,18,10,'2018-05-03 23:11:03',0,0),(19,19,10,'2018-05-03 23:11:18',0,0),(20,20,10,'2018-05-03 23:11:33',0,0),(21,21,10,'2018-05-03 23:11:52',0,0),(22,22,10,'2018-05-03 23:12:06',0,0),(23,23,10,'2018-05-03 23:12:30',0,0),(24,24,10,'2018-05-03 23:12:44',0,0),(25,25,10,'2018-05-03 23:12:57',0,0),(26,26,10,'2018-05-03 23:13:14',0,0),(27,27,10,'2018-05-03 23:13:29',0,0),(28,28,10,'2018-05-03 23:13:48',0,0),(29,29,10,'2018-05-03 23:14:01',0,0),(30,30,10,'2018-05-03 23:14:14',0,0),(31,31,10,'2018-05-03 23:14:29',0,0),(32,32,10,'2018-05-03 23:14:47',0,0);
+insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2017-12-31 08:47:10',0,0),(2,2,11,'2018-01-01 00:00:15',0,0),(3,3,10,'2018-02-01 04:02:10',0,0),(4,4,10,'2018-02-01 04:02:27',0,0),(5,5,10,'2018-02-01 04:02:43',0,0);
 
 /*Table structure for table `goldadd` */
 
@@ -148,11 +172,11 @@ CREATE TABLE `goldhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goldhistory` */
 
-insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2018-05-03 22:54:22',1),(2,2,10,'注册','2018-05-03 23:04:19',1),(3,3,10,'注册','2018-05-03 23:04:36',1),(4,4,10,'注册','2018-05-03 23:05:00',1),(5,5,10,'注册','2018-05-03 23:05:25',1),(6,6,10,'注册','2018-05-03 23:07:09',1),(7,7,10,'注册','2018-05-03 23:07:36',1),(8,8,10,'注册','2018-05-03 23:07:54',1),(9,9,10,'注册','2018-05-03 23:08:08',1),(10,10,10,'注册','2018-05-03 23:08:22',1),(11,11,10,'注册','2018-05-03 23:08:37',1),(12,12,10,'注册','2018-05-03 23:09:01',1),(13,13,10,'注册','2018-05-03 23:09:15',1),(14,14,10,'注册','2018-05-03 23:09:38',1),(15,15,10,'注册','2018-05-03 23:09:53',1),(16,16,10,'注册','2018-05-03 23:10:28',1),(17,17,10,'注册','2018-05-03 23:10:44',1),(18,18,10,'注册','2018-05-03 23:11:03',1),(19,19,10,'注册','2018-05-03 23:11:18',1),(20,20,10,'注册','2018-05-03 23:11:33',1),(21,21,10,'注册','2018-05-03 23:11:52',1),(22,22,10,'注册','2018-05-03 23:12:06',1),(23,23,10,'注册','2018-05-03 23:12:30',1),(24,24,10,'注册','2018-05-03 23:12:44',1),(25,25,10,'注册','2018-05-03 23:12:57',1),(26,26,10,'注册','2018-05-03 23:13:14',1),(27,27,10,'注册','2018-05-03 23:13:29',1),(28,28,10,'注册','2018-05-03 23:13:48',1),(29,29,10,'注册','2018-05-03 23:14:01',1),(30,30,10,'注册','2018-05-03 23:14:14',1),(31,31,10,'注册','2018-05-03 23:14:29',1),(32,32,10,'注册','2018-05-03 23:14:47',1);
+insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2017-12-31 08:47:10',1),(2,2,10,'注册','2018-01-01 00:00:15',1),(3,3,10,'注册','2018-02-01 04:02:10',1),(4,4,10,'注册','2018-02-01 04:02:27',1),(5,5,10,'注册','2018-02-01 04:02:43',1),(6,2,1,'每日签到','2018-02-01 04:11:20',1);
 
 /*Table structure for table `identity` */
 
@@ -172,9 +196,11 @@ CREATE TABLE `identity` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `identity` */
+
+insert  into `identity`(`id`,`userId`,`name`,`idcard`,`frontPhoto`,`backPhoto`,`askTime`,`checkTime`,`failureReason`,`checkState`) values (1,2,'吴乃福','2342431234143','2/8593d928-dc44-44d9-932e-d81b9251d4b7.png','2/5b5e6865-bc56-49ac-85ac-cdb896a45dcf.png','2018-02-01 04:12:17','2018-02-01 04:14:56','认证通过',1),(2,3,'张四喜','1234123412132','3/1eb59d0c-617d-417a-931b-755d0bd1f96b.png','3/06bc0df3-2b88-40e1-aadc-ebbdf76ed852.png','2018-02-01 04:14:46','2018-02-01 04:14:59','认证通过',1),(3,4,'李大钱','234234234234','4/edeae437-efc1-46b1-a99d-e10f19cba42a.png','4/9c8c01c2-d4bf-4418-95fe-53d0262c2175.png','2018-02-01 04:22:18','2018-02-23 04:42:21','认证通过',1);
 
 /*Table structure for table `money` */
 
@@ -190,11 +216,11 @@ CREATE TABLE `money` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `money_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `money` */
 
-insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2018-05-03 22:54:22',0,0),(2,2,0,'2018-05-03 23:04:19',0,0),(3,3,0,'2018-05-03 23:04:36',0,0),(4,4,0,'2018-05-03 23:05:00',0,0),(5,5,0,'2018-05-03 23:05:25',0,0),(6,6,0,'2018-05-03 23:07:09',0,0),(7,7,0,'2018-05-03 23:07:36',0,0),(8,8,0,'2018-05-03 23:07:54',0,0),(9,9,0,'2018-05-03 23:08:08',0,0),(10,10,0,'2018-05-03 23:08:22',0,0),(11,11,0,'2018-05-03 23:08:37',0,0),(12,12,0,'2018-05-03 23:09:01',0,0),(13,13,0,'2018-05-03 23:09:15',0,0),(14,14,0,'2018-05-03 23:09:38',0,0),(15,15,0,'2018-05-03 23:09:53',0,0),(16,16,0,'2018-05-03 23:10:28',0,0),(17,17,0,'2018-05-03 23:10:44',0,0),(18,18,0,'2018-05-03 23:11:03',0,0),(19,19,0,'2018-05-03 23:11:18',0,0),(20,20,0,'2018-05-03 23:11:33',0,0),(21,21,0,'2018-05-03 23:11:52',0,0),(22,22,0,'2018-05-03 23:12:06',0,0),(23,23,0,'2018-05-03 23:12:30',0,0),(24,24,0,'2018-05-03 23:12:44',0,0),(25,25,0,'2018-05-03 23:12:57',0,0),(26,26,0,'2018-05-03 23:13:14',0,0),(27,27,0,'2018-05-03 23:13:29',0,0),(28,28,0,'2018-05-03 23:13:48',0,0),(29,29,0,'2018-05-03 23:14:01',0,0),(30,30,0,'2018-05-03 23:14:14',0,0),(31,31,0,'2018-05-03 23:14:29',0,0),(32,32,0,'2018-05-03 23:14:47',0,0);
+insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2017-12-31 08:47:10',0,0),(2,2,199,'2018-01-01 00:00:15',500,0),(3,3,680,'2018-02-01 04:02:10',900,0),(4,4,1077,'2018-02-01 04:02:27',800,0),(5,5,0,'2018-02-01 04:02:43',0,0);
 
 /*Table structure for table `moneyadd` */
 
@@ -210,9 +236,11 @@ CREATE TABLE `moneyadd` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyadd` */
+
+insert  into `moneyadd`(`id`,`userId`,`addAmount`,`addTime`,`addPhoto`,`getTime`) values (1,2,500,'2018-02-01 04:07:04','2/4a34eea2-e4ed-451d-a26f-be95d4f2853d.png','2018-02-01 04:07:35'),(2,3,900,'2018-02-01 04:16:56','3/39d0551f-97c0-467c-8205-316951daa695.png','2018-02-01 04:17:09'),(3,4,800,'2018-02-01 04:20:43','4/9edab013-ce80-4df9-a56c-2d307fbf7584.png','2018-02-01 04:24:46');
 
 /*Table structure for table `moneyget` */
 
@@ -247,9 +275,11 @@ CREATE TABLE `moneyhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `moneyhistory` */
+
+insert  into `moneyhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,2,500,'余额充值','2018-02-01 04:07:35',1),(2,2,20,'服务保障金','2018-02-01 04:09:56',0),(3,3,900,'余额充值','2018-02-01 04:17:09',1),(4,3,50,'服务押金','2018-02-01 04:17:43',0),(5,4,800,'余额充值','2018-02-01 04:24:46',1),(6,4,20,'服务保障金','2018-02-01 04:28:25',0),(7,2,200,'服务押金','2018-02-01 04:29:19',0),(8,3,50,'押金归还','2018-02-05 04:33:35',1),(9,3,20,'服务租金','2018-02-05 04:33:35',0),(10,2,20,'服务租金','2018-02-05 04:33:35',1),(11,2,1,'平台使用费用','2018-02-05 04:33:35',0),(12,2,200,'押金归还','2018-02-23 04:39:49',1),(13,2,300,'服务租金','2018-02-23 04:39:49',0),(14,4,300,'服务租金','2018-02-23 04:39:49',1),(15,4,3,'平台使用费用','2018-02-23 04:39:49',0),(16,3,200,'服务押金','2018-02-23 04:44:53',0);
 
 /*Table structure for table `news` */
 
@@ -261,9 +291,11 @@ CREATE TABLE `news` (
   `content` varchar(220) NOT NULL COMMENT '内容',
   `time` varchar(35) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `news` */
+
+insert  into `news`(`id`,`title`,`content`,`time`) values (1,'恭喜平台迎来第一位用户','恭喜平台迎来第一位用户','2018-01-01 00:06:47'),(2,'谢谢各位用户的支持','谢谢各位用户的支持','2018-01-01 00:07:20'),(3,'恭喜***用户提现成功','恭喜***用户提现成功','2018-01-01 00:07:50'),(4,'恭喜***租借成功','恭喜***租借成功','2018-01-01 00:08:02'),(5,'恭喜***在平台赚取第一桶金','恭喜***在平台赚取第一桶金','2018-01-01 00:08:24');
 
 /*Table structure for table `ordercomment` */
 
@@ -284,9 +316,11 @@ CREATE TABLE `ordercomment` (
   CONSTRAINT `ordercomment_ibfk_2` FOREIGN KEY (`myId`) REFERENCES `user` (`userId`),
   CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`),
   CONSTRAINT `ordercomment_ibfk_4` FOREIGN KEY (`acceptId`) REFERENCES `acceptorder` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ordercomment` */
+
+insert  into `ordercomment`(`id`,`acceptId`,`myId`,`hisId`,`score`,`content`,`time`) values (1,1,2,3,5,'好评','2018-02-05 04:34:05'),(2,1,3,2,5,'车很好骑','2018-02-05 04:34:34'),(3,2,4,2,5,'好评','2018-02-23 04:40:38'),(4,2,2,4,5,'好评','2018-02-23 04:40:48');
 
 /*Table structure for table `orderinfo` */
 
@@ -328,9 +362,11 @@ CREATE TABLE `orderinfo` (
   KEY `typeId` (`typeId`),
   CONSTRAINT `orderinfo_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
   CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `orderinfo` */
+
+insert  into `orderinfo`(`id`,`senderId`,`typeId`,`moneyAmount`,`foodName`,`amount`,`outAmount`,`dayMoney`,`monthMoney`,`startTime`,`endTime`,`orderDetail`,`city`,`address`,`pointInfo`,`lng`,`lat`,`sendTime`,`repealTime`,`repealReason`,`orderState`,`callName`,`callPhone`,`seeAmount`,`picture`,`updateTime`,`dayNumber`,`monthNumber`,`infopicture1`,`infopicture2`) values (1,2,3,50,'蓝色山地车',2,0,5,100,NULL,NULL,'蓝色山地车，新车，原价1200，现在不骑，想租出去赚点租金','江门市','江门市蓬江区五邑大学玫瑰园宿舍','江门市蓬江区五邑大学-玫瑰园宿舍','113.092424','22.600614','2018-02-01 04:09:56',NULL,NULL,1,'吴先生','18219111626',0,'2/da362751-cfaf-4a64-9347-830e42e9278b.jpg','2018-02-01 04:18:46',30,6,'2/15fb4119-681b-4986-bcb6-bf2382c44af3.jpg','2/1e9c464a-1d1d-4804-b71e-3f5d4e0a17f5.jpg'),(2,4,1,200,'20平廉价房出租',1,1,0,300,NULL,NULL,'廉价商品房出租，有独立卫生间，采光好','江门市','蓬江区胜利路88号','江门市蓬江区胜利路117号','113.087751','22.587034','2018-02-01 04:28:25',NULL,NULL,1,'李先生','18219111626',0,'4/041fb8d4-40fc-4cfa-bfae-fcacf70223be.jpg',NULL,0,12,'4/78e9aaab-dcf0-42ce-9934-0c3b93fa7573.jpg','4/e0aa8501-ff57-4f74-92ac-25bb58d007dd.jpg');
 
 /*Table structure for table `ordertype` */
 
@@ -345,11 +381,11 @@ CREATE TABLE `ordertype` (
   PRIMARY KEY (`id`),
   KEY `bigtypeId` (`bigtypeId`),
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ordertype` */
 
-insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'租房',1,'2018-05-03 22:56:56'),(2,1,'汽车',1,'2018-05-03 22:57:04'),(3,1,'摩托车',1,'2018-05-03 22:57:12'),(4,1,'自行车',1,'2018-05-03 22:57:23'),(5,1,'滑板',1,'2018-05-03 22:57:50'),(6,2,'电视',1,'2018-05-03 22:58:12'),(7,2,'电饭煲',1,'2018-05-03 22:58:23'),(8,2,'冰箱',1,'2018-05-03 22:58:30'),(9,2,'沙发',1,'2018-05-03 22:58:39'),(10,2,'书本',1,'2018-05-03 22:58:52'),(11,2,'服装',1,'2018-05-03 22:59:49'),(12,3,'杂物',1,'2018-05-03 23:00:37'),(13,3,'其他',1,'2018-05-03 23:00:44');
+insert  into `ordertype`(`id`,`bigtypeId`,`typeName`,`state`,`createTime`) values (1,1,'租房',1,'2018-01-01 00:03:36'),(2,1,'汽车',1,'2018-01-01 00:03:42'),(3,1,'自行车',1,'2018-01-01 00:03:47'),(4,1,'摩托车',1,'2018-01-01 00:03:58'),(5,2,'电视',1,'2018-01-01 00:04:08'),(6,2,'衣服',1,'2018-01-01 00:04:15'),(7,2,'滑板',1,'2018-01-01 00:04:27'),(8,2,'风扇',1,'2018-01-01 00:05:03'),(9,2,'冰箱',1,'2018-01-01 00:05:13'),(10,2,'书本',1,'2018-01-01 00:05:22'),(11,3,'显示屏',1,'2018-01-01 00:06:10'),(12,3,'其他',1,'2018-01-01 00:06:18');
 
 /*Table structure for table `payaccount` */
 
@@ -364,7 +400,7 @@ CREATE TABLE `payaccount` (
 
 /*Data for the table `payaccount` */
 
-insert  into `payaccount`(`id`,`time`,`payphoto`) values (1,'2018-01-01 12:10:10','da2c8b73-8136-4577-85f9-8c154ec1490a.jpg');
+insert  into `payaccount`(`id`,`time`,`payphoto`) values (1,'2017-12-31 23:59:12','9202ca51-bc17-4106-b665-5f06f362df7e.jpg');
 
 /*Table structure for table `sendercomment` */
 
@@ -411,11 +447,11 @@ CREATE TABLE `user` (
   `credit` varchar(10) DEFAULT NULL COMMENT '信誉积分统计',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`,`credit`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员','江门',30,1,'我是一只小小鸟','icon001.png','2018-05-03 22:54:22',NULL,NULL,-1,'0'),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','李志强','李志强','中山沙溪',20,1,'我是一只小小鸟','icon001.png','2018-05-03 23:04:19',NULL,NULL,0,'0'),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','张青','张青','广州越秀',22,0,'我是一只小小鸟','icon001.png','2018-05-03 23:04:36',NULL,NULL,0,'0'),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','吴用','吴用','中山马安',18,1,'我是一只小小鸟','icon001.png','2018-05-03 23:05:00',NULL,NULL,0,'0'),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','罗振勇','罗振勇','中山小榄',24,1,'我是一只小小鸟','icon001.png','2018-05-03 23:05:25',NULL,NULL,0,'0'),(6,'18219111625','ea289daceb77cafc67ab21a64b9c77dd','荀志生','荀志生','江门蓬江',19,1,'我是一只小小鸟','icon001.png','2018-05-03 23:07:09',NULL,NULL,0,'0'),(7,'18219111626','ea289daceb77cafc67ab21a64b9c77dd','司马超群','司马超群','江门蓬江',25,1,'我是一只小小鸟','icon001.png','2018-05-03 23:07:36',NULL,NULL,0,'0'),(8,'18219111627','ea289daceb77cafc67ab21a64b9c77dd','李金江','李金江','江门新会',45,1,'我是一只小小鸟','icon001.png','2018-05-03 23:07:54',NULL,NULL,0,'0'),(9,'18219111628','ea289daceb77cafc67ab21a64b9c77dd','陈晓佳','陈晓佳','江门新会',12,1,'我是一只小小鸟','icon001.png','2018-05-03 23:08:08',NULL,NULL,0,'0'),(10,'18219111629','ea289daceb77cafc67ab21a64b9c77dd','蔡栋梁','蔡栋梁','江门蓬江',55,1,'我是一只小小鸟','icon001.png','2018-05-03 23:08:22',NULL,NULL,0,'0'),(11,'18219111630','ea289daceb77cafc67ab21a64b9c77dd','梁佳亮','梁佳亮','江门蓬江',32,1,'我是一只小小鸟','icon001.png','2018-05-03 23:08:37',NULL,NULL,0,'0'),(12,'18219111631','ea289daceb77cafc67ab21a64b9c77dd','罗嘉良','罗嘉良','江门蓬江',12,1,'我是一只小小鸟','icon001.png','2018-05-03 23:09:01',NULL,NULL,0,'0'),(13,'18219111632','ea289daceb77cafc67ab21a64b9c77dd','张家辉','张家辉','江门蓬江',31,1,'我是一只小小鸟','icon001.png','2018-05-03 23:09:15',NULL,NULL,0,'0'),(14,'18219111633','ea289daceb77cafc67ab21a64b9c77dd','林志聪','林志聪','江门蓬江',30,1,'我是一只小小鸟','icon001.png','2018-05-03 23:09:38',NULL,NULL,0,'0'),(15,'18219111634','ea289daceb77cafc67ab21a64b9c77dd','曾松','曾松','江门蓬江',25,1,'我是一只小小鸟','icon001.png','2018-05-03 23:09:53',NULL,NULL,0,'0'),(16,'18219111635','ea289daceb77cafc67ab21a64b9c77dd','何佳琪','何佳琪','江门蓬江',20,0,'我是一只小小鸟','icon001.png','2018-05-03 23:10:28',NULL,NULL,0,'0'),(17,'18219111636','ea289daceb77cafc67ab21a64b9c77dd','李强','李强','江门蓬江',24,1,'我是一只小小鸟','icon001.png','2018-05-03 23:10:44',NULL,NULL,0,'0'),(18,'18219111637','ea289daceb77cafc67ab21a64b9c77dd','张益达','张益达','江门蓬江',28,1,'我是一只小小鸟','icon001.png','2018-05-03 23:11:03',NULL,NULL,0,'0'),(19,'18219111638','ea289daceb77cafc67ab21a64b9c77dd','司徒阳','司徒阳','江门蓬江',52,1,'我是一只小小鸟','icon001.png','2018-05-03 23:11:18',NULL,NULL,0,'0'),(20,'18219111639','ea289daceb77cafc67ab21a64b9c77dd','令狐佳','令狐佳','江门蓬江',29,0,'我是一只小小鸟','icon001.png','2018-05-03 23:11:33',NULL,NULL,0,'0'),(21,'18219111640','ea289daceb77cafc67ab21a64b9c77dd','罗佳佳','罗佳佳','江门蓬江',31,0,'我是一只小小鸟','icon001.png','2018-05-03 23:11:52',NULL,NULL,0,'0'),(22,'18219111641','ea289daceb77cafc67ab21a64b9c77dd','张格吉','张格吉','江门蓬江',46,1,'我是一只小小鸟','icon001.png','2018-05-03 23:12:06',NULL,NULL,0,'0'),(23,'18219111642','ea289daceb77cafc67ab21a64b9c77dd','黄东','黄东','江门蓬江',37,1,'我是一只小小鸟','icon001.png','2018-05-03 23:12:30',NULL,NULL,0,'0'),(24,'18219111643','ea289daceb77cafc67ab21a64b9c77dd','李大招','李大招','江门蓬江',36,1,'我是一只小小鸟','icon001.png','2018-05-03 23:12:44',NULL,NULL,0,'0'),(25,'18219111644','ea289daceb77cafc67ab21a64b9c77dd','张东奇','张东奇','江门蓬江',31,1,'我是一只小小鸟','icon001.png','2018-05-03 23:12:57',NULL,NULL,0,'0'),(26,'18219111645','ea289daceb77cafc67ab21a64b9c77dd','白华','白华','江门蓬江',27,1,'我是一只小小鸟','icon001.png','2018-05-03 23:13:14',NULL,NULL,0,'0'),(27,'18219111646','ea289daceb77cafc67ab21a64b9c77dd','袁华','袁华','江门蓬江',23,1,'我是一只小小鸟','icon001.png','2018-05-03 23:13:29',NULL,NULL,0,'0'),(28,'18219111647','ea289daceb77cafc67ab21a64b9c77dd','张扬','张扬','江门蓬江',22,1,'我是一只小小鸟','icon001.png','2018-05-03 23:13:48',NULL,NULL,0,'0'),(29,'18219111648','ea289daceb77cafc67ab21a64b9c77dd','张大春','张大春','江门蓬江',22,1,'我是一只小小鸟','icon001.png','2018-05-03 23:14:01',NULL,NULL,0,'0'),(30,'18219111649','ea289daceb77cafc67ab21a64b9c77dd','李晓华','李晓华','江门蓬江',22,1,'我是一只小小鸟','icon001.png','2018-05-03 23:14:14',NULL,NULL,0,'0'),(31,'18219111620','ea289daceb77cafc67ab21a64b9c77dd','黄虹','黄虹','江门蓬江',22,1,'我是一只小小鸟','icon001.png','2018-05-03 23:14:29',NULL,NULL,0,'0'),(32,'18219111650','ea289daceb77cafc67ab21a64b9c77dd','李江','李江','江门蓬江',22,1,'我是一只小小鸟','icon001.png','2018-05-03 23:14:47',NULL,NULL,0,'0');
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`,`credit`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2017-12-31 08:47:10',NULL,NULL,-1,'0'),(2,'18219111621','ea289daceb77cafc67ab21a64b9c77dd','吴乃福','吴乃福','江门市蓬江区五邑大学玫瑰园宿舍',22,1,'学生','2/9556eec3-b0c8-4e92-a502-3b707ffeb103.png','2018-01-01 00:00:15',NULL,NULL,1,'5.0'),(3,'18219111622','ea289daceb77cafc67ab21a64b9c77dd','18219111622','18219111622',NULL,0,1,NULL,'icon001.png','2018-02-01 04:02:10',NULL,NULL,1,'5.0'),(4,'18219111623','ea289daceb77cafc67ab21a64b9c77dd','李大钱','李大钱','胜利路',23,1,'店家','4/4255d55b-3df4-4d5f-b938-d9f1c7650730.jpg','2018-02-01 04:02:27',NULL,NULL,1,'5.0'),(5,'18219111624','ea289daceb77cafc67ab21a64b9c77dd','18219111624','18219111624',NULL,0,1,NULL,'icon001.png','2018-02-01 04:02:43',NULL,NULL,0,'0');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
