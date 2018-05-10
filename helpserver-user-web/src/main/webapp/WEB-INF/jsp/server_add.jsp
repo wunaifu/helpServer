@@ -212,7 +212,7 @@
                         <div class="am-form-group">
                             <label for="dayNumber" class="am-form-label">可租天数</label>
                             <div class="am-form-content">
-                                <input type="text" id="dayNumber" name="dayNumber" placeholder="若不可按天租用，可租天数为0即可" value="0"
+                                <input type="text" id="dayNumber" name="dayNumber" placeholder="若不可按天租用，可租天数为0即可" value="30"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                                 <small>若不可按天租用，可租天数为0即可</small>
                             </div>
@@ -227,7 +227,7 @@
                         <div class="am-form-group">
                             <label for="monthNumber" class="am-form-label">可租月数</label>
                             <div class="am-form-content">
-                                <input type="text" id="monthNumber" name="monthNumber" placeholder="若不可按月租用，可租月数为0即可" value="0"
+                                <input type="text" id="monthNumber" name="monthNumber" placeholder="若不可按月租用，可租月数为0即可" value="12"
                                        maxlength="8" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" required>
                                 <small>若不可按月租用，可租月数为0即可</small>
                             </div>

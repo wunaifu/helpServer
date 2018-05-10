@@ -62,9 +62,14 @@ public class AcceptOrderController {
             model.addAttribute("message", "用户不能抢自己发布的资源服务");
             return "page_400";
         }
+        if (request.getParameter("type") == null || request.getParameter("amount") == null || request.getParameter("useTime") == null) {
+            model.addAttribute("message", "数据不能为空");
+            return "page_400";
+        }
         int type = Integer.parseInt(request.getParameter("type"));
         int amount = Integer.parseInt(request.getParameter("amount"));
         int useTime = Integer.parseInt(request.getParameter("useTime"));
+
         Acceptorder acceptorder = new Acceptorder();
         acceptorder.setAccepterid(userId);
         acceptorder.setOrderid(orderId);

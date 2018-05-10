@@ -568,7 +568,7 @@ public class MoneyServiceImpl implements MoneyService {
             List<Moneyhistory> moneyhistoryList = this.getMoneyHistory();
             int moneyAll = 0;
             int menAll = userService.getUserListByNotPermission(-1);
-            int ordersAll = acceptOrderService.getacceptOrderFinishListByState(5);
+            int ordersAll = acceptOrderService.getacceptOrderFinishListByState(5) + acceptOrderService.getacceptOrderFinishListByState(6);
             for (Moneyhistory m: moneyhistoryList) {
                 moneyAll += m.getAmount();
             }

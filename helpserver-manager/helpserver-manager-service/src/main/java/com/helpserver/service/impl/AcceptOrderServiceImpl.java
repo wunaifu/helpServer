@@ -345,7 +345,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     }
 
     /**
-     * 获取已完成的抢单表，已付款
+     * 获取已完成的抢单表，已付款,或已评价
      * @param state
      * @return
      */
@@ -353,7 +353,7 @@ public class AcceptOrderServiceImpl implements AcceptOrderService {
     public int getacceptOrderFinishListByState(int state) {
         AcceptorderExample acceptorderExample = new AcceptorderExample();
         AcceptorderExample.Criteria criteria = acceptorderExample.createCriteria();
-        criteria.andAcceptstateEqualTo(state);//已付款5
+        criteria.andAcceptstateEqualTo(state);//已付款5，已评价6
         acceptorderExample.setOrderByClause("acceptTime desc");
         return acceptOrderDao.countByExample(acceptorderExample);
     }
