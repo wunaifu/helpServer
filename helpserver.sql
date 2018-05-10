@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v11.24 (32 bit)
-MySQL - 5.5.51 : Database - helpserver
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 5.7.14 : Database - helpserver
 *********************************************************************
 */
 
@@ -43,6 +43,8 @@ CREATE TABLE `acceptorder` (
   CONSTRAINT `acceptorder_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orderinfo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `acceptorder` */
+
 /*Table structure for table `backdata` */
 
 DROP TABLE IF EXISTS `backdata`;
@@ -61,6 +63,8 @@ CREATE TABLE `backdata` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `backdata` */
+
 /*Table structure for table `bigtype` */
 
 DROP TABLE IF EXISTS `bigtype`;
@@ -71,6 +75,8 @@ CREATE TABLE `bigtype` (
   `createTime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `bigtype` */
 
 /*Table structure for table `collectorder` */
 
@@ -88,6 +94,8 @@ CREATE TABLE `collectorder` (
   CONSTRAINT `collectorder_ibfk_2` FOREIGN KEY (`collectorId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `collectorder` */
+
 /*Table structure for table `feedback` */
 
 DROP TABLE IF EXISTS `feedback`;
@@ -104,6 +112,8 @@ CREATE TABLE `feedback` (
   CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `feedback` */
+
 /*Table structure for table `gold` */
 
 DROP TABLE IF EXISTS `gold`;
@@ -118,7 +128,11 @@ CREATE TABLE `gold` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `gold_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `gold` */
+
+insert  into `gold`(`id`,`userId`,`goldAmount`,`time`,`state`,`payAmount`) values (1,1,10,'2017-12-31 08:47:10',0,0);
 
 /*Table structure for table `goldadd` */
 
@@ -136,6 +150,8 @@ CREATE TABLE `goldadd` (
   CONSTRAINT `goldadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `goldadd` */
+
 /*Table structure for table `goldhistory` */
 
 DROP TABLE IF EXISTS `goldhistory`;
@@ -150,7 +166,11 @@ CREATE TABLE `goldhistory` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `goldhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `goldhistory` */
+
+insert  into `goldhistory`(`id`,`userId`,`amount`,`info`,`time`,`state`) values (1,1,10,'注册','2017-12-31 08:47:10',1);
 
 /*Table structure for table `identity` */
 
@@ -172,6 +192,8 @@ CREATE TABLE `identity` (
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `identity` */
+
 /*Table structure for table `money` */
 
 DROP TABLE IF EXISTS `money`;
@@ -186,7 +208,11 @@ CREATE TABLE `money` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `money_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `money` */
+
+insert  into `money`(`id`,`userId`,`amount`,`time`,`payAmount`,`getAmount`) values (1,1,0,'2017-12-31 08:47:10',0,0);
 
 /*Table structure for table `moneyadd` */
 
@@ -203,6 +229,8 @@ CREATE TABLE `moneyadd` (
   KEY `userId` (`userId`),
   CONSTRAINT `moneyadd_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `moneyadd` */
 
 /*Table structure for table `moneyget` */
 
@@ -221,6 +249,8 @@ CREATE TABLE `moneyget` (
   CONSTRAINT `moneyget_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `moneyget` */
+
 /*Table structure for table `moneyhistory` */
 
 DROP TABLE IF EXISTS `moneyhistory`;
@@ -237,6 +267,8 @@ CREATE TABLE `moneyhistory` (
   CONSTRAINT `moneyhistory_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `moneyhistory` */
+
 /*Table structure for table `news` */
 
 DROP TABLE IF EXISTS `news`;
@@ -248,6 +280,8 @@ CREATE TABLE `news` (
   `time` varchar(35) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `news` */
 
 /*Table structure for table `ordercomment` */
 
@@ -269,6 +303,8 @@ CREATE TABLE `ordercomment` (
   CONSTRAINT `ordercomment_ibfk_3` FOREIGN KEY (`hisId`) REFERENCES `user` (`userId`),
   CONSTRAINT `ordercomment_ibfk_4` FOREIGN KEY (`acceptId`) REFERENCES `acceptorder` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `ordercomment` */
 
 /*Table structure for table `orderinfo` */
 
@@ -312,6 +348,8 @@ CREATE TABLE `orderinfo` (
   CONSTRAINT `orderinfo_ibfk_2` FOREIGN KEY (`typeId`) REFERENCES `ordertype` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `orderinfo` */
+
 /*Table structure for table `ordertype` */
 
 DROP TABLE IF EXISTS `ordertype`;
@@ -327,6 +365,8 @@ CREATE TABLE `ordertype` (
   CONSTRAINT `ordertype_ibfk_1` FOREIGN KEY (`bigtypeId`) REFERENCES `bigtype` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `ordertype` */
+
 /*Table structure for table `payaccount` */
 
 DROP TABLE IF EXISTS `payaccount`;
@@ -337,6 +377,8 @@ CREATE TABLE `payaccount` (
   `payphoto` varchar(200) DEFAULT NULL COMMENT '收款码',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `payaccount` */
 
 /*Table structure for table `sendercomment` */
 
@@ -358,6 +400,8 @@ CREATE TABLE `sendercomment` (
   CONSTRAINT `sendercomment_ibfk_2` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
   CONSTRAINT `sendercomment_ibfk_3` FOREIGN KEY (`accepterId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sendercomment` */
 
 /*Table structure for table `user` */
 
@@ -381,7 +425,11 @@ CREATE TABLE `user` (
   `credit` varchar(10) DEFAULT NULL COMMENT '信誉积分统计',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `user` */
+
+insert  into `user`(`userId`,`phone`,`password`,`name`,`nickname`,`address`,`age`,`sex`,`userInfo`,`headicon`,`registerTime`,`banTime`,`payAccount`,`permission`,`credit`) values (1,'13531097736','ea289daceb77cafc67ab21a64b9c77dd','管理员','管理员',NULL,0,1,NULL,'icon001.png','2017-12-31 08:47:10',NULL,NULL,-1,'0');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
