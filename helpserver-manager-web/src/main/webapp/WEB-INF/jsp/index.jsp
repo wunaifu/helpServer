@@ -134,13 +134,19 @@
                                         </div>
                                         <div class="card-body half-padding">
                                             <c:choose>
-                                                <c:when test="${backdataList.size()<1}">
-                                                    <h4 class="float-left no-margin font-weight-300">注册总人数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">0人</h2>
+                                                <c:when test="${year==yearNow}">
+                                                    <h4 class="float-left no-margin font-weight-300">${yearNow}年月统计分布图（截止至${monthNow-1}月底）</h4>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <h4 class="float-left no-margin font-weight-300">注册总人数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-2).allmen}人</h2>
+                                                    <h4 class="float-left no-margin font-weight-300">${year}年月统计分布图</h4>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${backdataList.size()<1}">
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计注册人数：0人</h2>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计注册人数：${backdataList.get(month-2).allmen}人</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -161,13 +167,19 @@
                                         </div>
                                         <div class="card-body half-padding">
                                             <c:choose>
-                                                <c:when test="${backdataList.size()<1}">
-                                                    <h4 class="float-left no-margin font-weight-300">订单成交总数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">0单</h2>
+                                                <c:when test="${year==yearNow}">
+                                                    <h4 class="float-left no-margin font-weight-300">${yearNow}年月统计分布图（截止至${monthNow-1}月底）</h4>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <h4 class="float-left no-margin font-weight-300">订单成交总数</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">${backdataList.get(month-2).allorders}单</h2>
+                                                    <h4 class="float-left no-margin font-weight-300">${year}年月统计分布图</h4>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${backdataList.size()<1}">
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计成交数：0单</h2>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计成交数：${backdataList.get(month-2).allorders}单</h2>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -188,13 +200,19 @@
                                         </div>
                                         <div class="card-body half-padding">
                                             <c:choose>
-                                                <c:when test="${backdataList.size()<1}">
-                                                    <h4 class="float-left no-margin font-weight-300">平台总收入</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">￥0</h2>
+                                                <c:when test="${year==yearNow}">
+                                                    <h4 class="float-left no-margin font-weight-300">${yearNow}年月统计分布图（截止至${monthNow-1}月底）</h4>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <h4 class="float-left no-margin font-weight-300">平台总收入</h4>
-                                                    <h2 class="float-right no-margin font-weight-300">￥${backdataList.get(month-2).allmoney}</h2>
+                                                    <h4 class="float-left no-margin font-weight-300">${year}年月统计分布图</h4>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${backdataList.size()<1}">
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计总收入：￥0</h2>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h2 class="float-right no-margin font-weight-300">${year}年最新统计总收入：￥${backdataList.get(month-2).allmoney}</h2>
                                                 </c:otherwise>
                                             </c:choose>
 

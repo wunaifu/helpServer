@@ -70,7 +70,7 @@ public class PageController {
             year = Integer.parseInt(request.getParameter("year"));
         }
         if (year != Integer.parseInt(TimeUtil.getYear(new Date()))) {
-            month = 12;
+            month = 13;
         }
         List<Backdata> backdataList = moneyService.getBackDataList(year);
         List<Integer> yearList = moneyService.getBackDataYearList();

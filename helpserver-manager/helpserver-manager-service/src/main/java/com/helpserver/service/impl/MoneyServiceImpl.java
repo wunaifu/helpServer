@@ -531,7 +531,7 @@ public class MoneyServiceImpl implements MoneyService {
         int year1 = Integer.parseInt(TimeUtil.getYear(date));
         int month1 = Integer.parseInt(TimeUtil.getMonth(date));
         int year = year1;
-        int month = month1;
+        int month = month1-1;
         //上个月
         if (month1 == 1) {
             year = year - 1;
@@ -539,7 +539,7 @@ public class MoneyServiceImpl implements MoneyService {
         }
         //上上个月
         int lastyear = year;
-        int lastmonth = month;
+        int lastmonth = month-1;
         if (month == 1) {
             lastyear = lastyear - 1;
             lastmonth = 12;
