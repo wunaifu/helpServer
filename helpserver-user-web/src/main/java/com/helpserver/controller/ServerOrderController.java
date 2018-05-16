@@ -1079,6 +1079,7 @@ public class ServerOrderController {
             return "page_403";
         }
         Acceptorder acceptorder = acceptOrderService.getAcceptorderById(acceptId);
+        User user = userService.selectByPrimaryKey(acceptorder.getAccepterid());
         OrderUserDto orderUserDto = orderService.getOrderUserDtoByOrderId(acceptorder.getOrderid());
         //3、计算归还押金、扣除租金费用、超期费用
         Date startTime = TimeUtil.stringToDate(acceptorder.getUpdatetime());
@@ -1109,6 +1110,7 @@ public class ServerOrderController {
         model.addAttribute("orderUserDto", orderUserDto);
         model.addAttribute("needMoney", needMoney);
         model.addAttribute("acceptorder", acceptorder);
+        model.addAttribute("accepterName", user.getName());
         return "server_mysend_comment";
     }
 

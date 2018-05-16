@@ -803,14 +803,15 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         double s = score * 1.0 / (ordercommentList.size() + 1);
-
+        String ss=String.valueOf(s).substring(0,3);
+        System.out.println(ss);
         try {
             //2、插入评价表
             if (ordercommentDao.insertSelective(ordercomment) == 1) {
                 //3、更新用户的平均分
                 User userUpdate = new User();
                 userUpdate.setUserid(sender.getUserid());
-                userUpdate.setCredit(String.valueOf(s));
+                userUpdate.setCredit(ss);
                 if (userDao.updateByPrimaryKeySelective(userUpdate) == 1) {
                     //4、是否双方都已评论
                     if (this.checkDoubleComment(ordercomment)) {
@@ -870,14 +871,15 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         double s = score * 1.0 / (ordercommentList.size() + 1);
-
+        String ss=String.valueOf(s).substring(0,3);
+        System.out.println(ss);
         try {
             //2、插入评价表
             if (ordercommentDao.insertSelective(ordercomment) == 1) {
                 //3、更新用户的平均分
                 User userUpdate = new User();
                 userUpdate.setUserid(accept.getUserid());
-                userUpdate.setCredit(String.valueOf(s));
+                userUpdate.setCredit(ss);
                 if (userDao.updateByPrimaryKeySelective(userUpdate) == 1) {
                     //4、是否双方都已评论
                     if (this.checkDoubleComment(ordercomment)) {

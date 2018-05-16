@@ -35,7 +35,7 @@
             <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
         </div>
         <div class="topMessage mini-cart">
-            <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span><!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
+            <div class="menu-hd"><a id="mc-menu-hd" href="/server/myaccept/list" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span><!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
         </div>
         <div class="topMessage favorite">
             <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>消息</span></a></div>
@@ -88,28 +88,7 @@
 </div>
 
 
-<div class="footer" >
-    <div class="footer-hd">
-        <p>
-            <a href="#">恒望科技</a>
-            <b>|</b>
-            <a href="#">商城首页</a>
-            <b>|</b>
-            <a href="#">支付宝</a>
-            <b>|</b>
-            <a href="#">物流</a>
-        </p>
-    </div>
-    <div class="footer-bd">
-        <p>
-            <a href="#">关于恒望</a>
-            <a href="#">合作伙伴</a>
-            <a href="#">联系我们</a>
-            <a href="#">网站地图</a>
-            <em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></em>
-        </p>
-    </div>
-</div>
+<jsp:include page="footer.jsp"></jsp:include>
 <script>
     var iTime = 8;
     var Account;

@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="info-little">
-                                        <span>租用者：${orderUserDto.accepterName}</span>
+                                        <span>租用者：${accepterName}</span>
                                     </div>
                                     <div class="item-price">
                                         <c:choose>

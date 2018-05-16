@@ -10,7 +10,7 @@
 <div class="nav-cont">
     <ul>
         <li class="index"><a href="/index">首页</a></li>
-        <li class="qc"><a href="/index_myorder">服务中心</a></li>
+        <li class="qc"><a href="/server/myaccept/list">我的订单</a></li>
         <li class="qc"><a href="/index_user">个人中心</a></li>
     </ul>
     <div class="nav-extra">
