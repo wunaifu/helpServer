@@ -45,12 +45,12 @@
 		<property name="exceptionMappings">
 			<props>
 				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">page_error_filesize</prop>
-				<!--<prop key="java.lang.NumberFormatException">page_error_number</prop>-->
-				<!--<prop key="java.lang.NullPointerException">page_500</prop>-->
-				<!--<prop key="java.lang.IndexOutOfBoundsException">page_500</prop>-->
-				<!--<prop key="java.lang.RuntimeException">page_500</prop>-->
-				<!--<prop key="com.helpserver.utils.MyThrowException">page_500</prop>-->
-				<!--<prop key="java.lang.Exception">page_500</prop>-->
+				<prop key="java.lang.NumberFormatException">page_error_number</prop>
+				<prop key="java.lang.NullPointerException">page_500</prop>
+				<prop key="java.lang.IndexOutOfBoundsException">page_500</prop>
+				<prop key="java.lang.RuntimeException">page_500</prop>
+				<prop key="com.helpserver.utils.MyThrowException">page_500</prop>
+				<prop key="java.lang.Exception">page_500</prop>
 			</props>
 		</property>
 	</bean>
