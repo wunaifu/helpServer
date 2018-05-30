@@ -59,7 +59,7 @@
                                 class="am-icon-user am-icon-fw"></i>个人中心</a></div>
                     </div>
                     <div class="topMessage mini-cart">
-                        <div class="menu-hd"><a id="mc-menu-hd" href="/index_myorder" target="_top"><i
+                        <div class="menu-hd"><a id="mc-menu-hd" href="/server/add" target="_top"><i
                                 class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                             <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
                     </div>

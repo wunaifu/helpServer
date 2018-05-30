@@ -9,9 +9,9 @@
 <div class="long-title"><span class="all-goods">全部分类</span></div>
 <div class="nav-cont">
     <ul>
-        <li class="index"><a href="/index">首页</a></li>
-        <li class="qc"><a href="/server/myaccept/list">我的订单</a></li>
-        <li class="qc"><a href="/index_user">个人中心</a></li>
+        <li class="index" style="width:100px"><a href="/index">首页</a></li>
+        <li class="qc" style="width:150px"><a href="/server/add">我的订单</a></li>
+        <li class="qc" style="width:150px"><a href="/index_user">个人中心</a></li>
     </ul>
     <div class="nav-extra">
         <%--<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利--%>

@@ -39,6 +39,8 @@ public class OrderServiceImpl implements OrderService {
     MoneyhistoryDao moneyHistoryDao;
     @Autowired
     OrdercommentDao ordercommentDao;
+    @Autowired
+    MyOrderinfoDao myOrderinfoDao;
 
     @Override
     public String updateOrder(Orderinfo orderinfo) {
@@ -595,12 +597,18 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderUserDto> getOrderUserDtoListByStateAndSearch(int state, String search) {
-        OrderinfoExample orderExample = new OrderinfoExample();
-        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
-        criteria.andOrderstateEqualTo(state);
-        criteria.andFoodnameLike("%"+search+"%");
-        orderExample.setOrderByClause("sendTime desc");
-        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+//        OrderinfoExample orderExample = new OrderinfoExample();
+//        OrderinfoExample.Criteria criteria = orderExample.createCriteria();
+//        criteria.andOrderstateEqualTo(state);
+//        criteria.andFoodnameLike("%"+search+"%");
+//        criteria.andAddressLike("%"+search+"%");
+//        criteria.andCityLike("%"+search+"%");
+//        criteria.andOrderdetailLike("%"+search+"%");
+//        orderExample.setOrderByClause("sendTime desc");
+//        List<Orderinfo> orderList = orderDao.selectByExample(orderExample);
+        List<Orderinfo> orderList = myOrderinfoDao.selectByStateAndSearch(state,"%"+search+"%");
+        System.out.println("我的orderList================"+orderList.toString());
+        System.out.println("state,search================"+state+" "+search);
         if (orderList == null) {
             return null;
         }

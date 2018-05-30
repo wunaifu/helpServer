@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.helpserver.dao.MyOrderinfoDao" >
+  <select id="selectByStateAndSearch" resultType="com.helpserver.pojo.Orderinfo" >
+    SELECT *
+    FROM orderinfo
+    WHERE orderState=#{state} AND (foodName LIKE #{search} OR orderDetail LIKE #{search} OR  address LIKE #{search} OR  city LIKE #{search})
+    ORDER BY sendTime DESC;
+  </select>
+</mapper>
