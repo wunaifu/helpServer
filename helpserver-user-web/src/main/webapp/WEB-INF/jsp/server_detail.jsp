@@ -419,8 +419,12 @@
                                 <c:forEach items="${pagerAccept.dataList}" var="item">
                                     <li class="am-comment">
                                         <!-- 评论容器 -->
-                                        <a href="/server/${item.acceptorder.accepterid}/userinfo">
-                                            <img class="am-comment-avatar" src="/resources/img/${item.acceptUserIcon}" /> </a>
+                                        <%--<a href="/server/${item.acceptorder.accepterid}/userinfo">--%>
+                                            <%--<img class="am-comment-avatar" src="/resources/img/${item.acceptUserIcon}" /> </a>--%>
+                                        <a>
+                                            <img class="am-comment-avatar" src="/images/hwbn40x40.jpg" />
+                                            <!-- 评论者头像 -->
+                                        </a>
                                         <div class="am-comment-main">
                                             <header class="am-comment-hd">
                                                 <div class="am-comment-meta">
