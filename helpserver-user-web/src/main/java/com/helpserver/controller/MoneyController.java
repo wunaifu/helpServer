@@ -208,7 +208,16 @@ public class MoneyController {
         moneyget.setPayaccount(payaccount);
         moneyget.setAccountname(payName);
 
-        String result = moneyService.addMoneyGet(moneyget);
+        String result = null;
+        try {
+            result = moneyService.addMoneyGet(moneyget);
+        } catch (MyThrowException e) {
+            model.addAttribute("message", "余额提现请求失败，请稍后再试！MyThrowException");
+            return "page_400";
+        } catch (RuntimeException e) {
+            model.addAttribute("message", "余额提现请求失败，请稍后再试！RuntimeException");
+            return "page_400";
+        }
         if (result.equals("pay_success")) {
             model.addAttribute("message", "提现请求提交成功，管理员将在24小时内处理，请等待！");
             return "pageuser_success";
