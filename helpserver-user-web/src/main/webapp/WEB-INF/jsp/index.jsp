@@ -11,25 +11,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+    <%
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://"
+                + request.getServerName() + ":" + request.getServerPort()
+                + path + "/";
+    %>
+    <base href="<%=basePath%>"></base>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>首页</title>
 
-    <link href="/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
-    <link href="/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
+    <link href="AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
+    <link href="AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/basic/css/demo.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/personal.css" rel="stylesheet" type="text/css">
-    <link href="/css/vipstyle.css" rel="stylesheet" type="text/css">
-    <link href="/css/hmstyle.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/base.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/media.css" rel="stylesheet">
-    <script src="/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-    <script src="/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
-    <script src="/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <link href="basic/css/demo.css" rel="stylesheet" type="text/css"/>
+    <link href="css/personal.css" rel="stylesheet" type="text/css">
+    <link href="css/vipstyle.css" rel="stylesheet" type="text/css">
+    <link href="css/hmstyle.css" rel="stylesheet" type="text/css"/>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/media.css" rel="stylesheet">
+    <script src="AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
+    <script src="AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <%
         NowUser nowUser = new NowUser();
         if (request.getSession().getAttribute("nowUser") != null) {
@@ -48,24 +55,24 @@
         <ul class="message-l">
             <div class="topMessage">
                 <div class="menu-hd">
-                    <a href="/map" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
+                    <a href="map" target="_top">定位：<i class="am-icon-map-marker"></i><%=nowUser.getLocation()%>
                     </a>
-                    <a href="/index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
+                    <a href="index_user" target="_top" class="h" style="margin-left: 50px;"><%=nowUser.getName()%>
                     </a>
-                    <a href="/logout" target="_top">退出登录</a>
+                    <a href="logout" target="_top">退出登录</a>
                 </div>
             </div>
         </ul>
         <ul class="message-r">
             <div class="topMessage home">
-                <div class="menu-hd"><a href="/index" target="_top" class="h">平台首页</a></div>
+                <div class="menu-hd"><a href="index" target="_top" class="h">平台首页</a></div>
             </div>
             <div class="topMessage my-shangcheng">
-                <div class="menu-hd MyShangcheng"><a href="/index_user" target="_top"><i
+                <div class="menu-hd MyShangcheng"><a href="index_user" target="_top"><i
                         class="am-icon-user am-icon-fw"></i>个人中心</a></div>
             </div>
             <div class="topMessage mini-cart">
-                <div class="menu-hd"><a id="mc-menu-hd" href="/server/myaccept/list" target="_top"><i
+                <div class="menu-hd"><a id="mc-menu-hd" href="server/myaccept/list" target="_top"><i
                         class="am-icon-shopping-cart  am-icon-fw"></i><span>我的订单</span>
                     <!--<strong id="J_MiniCartNum" class="h">0</strong>--></a></div>
             </div>
@@ -81,10 +88,10 @@
 
     <div class="nav white">
         <div class="logo" style="margin-top:18px;font-size: 11px;width: 60px;">
-            <a href="/map"><i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%></a>
+            <a href="map"><i class="am-icon-map-marker" style="color: #ff4d2d"></i><%=nowUser.getLocation()%></a>
         </div>
         <div class="logoBig">
-            <li><img src="/images/logobig.png"/></li>
+            <li><img src="images/logobig.png"/></li>
         </div>
 
         <!--搜索 start-->
@@ -108,16 +115,16 @@
             <div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
                 <ul class="am-slides">
                     <li class="banner1">
-                        <a><img src="/images/ad5.jpg"/></a>
+                        <a><img src="images/ad5.jpg"/></a>
                     </li>
                     <li class="banner2">
-                        <a><img src="/images/ad6.jpg"/></a>
+                        <a><img src="images/ad6.jpg"/></a>
                     </li>
                     <li class="banner3">
-                        <a><img src="/images/ad7.jpg"/></a>
+                        <a><img src="images/ad7.jpg"/></a>
                     </li>
                     <li class="banner4">
-                        <a><img src="/images/ad8.jpg"/></a>
+                        <a><img src="images/ad8.jpg"/></a>
                     </li>
                 </ul>
             </div>
@@ -137,7 +144,7 @@
                                         <li>
                                             <div class="category-info">
                                                 <h3 class="category-name b-category-name"><i><img
-                                                        src="/images/cake.png"></i><a
+                                                        src="images/cake.png"></i><a
                                                         class="ml-22" title="${bigitem.bigtype.typename}">${bigitem.bigtype.typename}</a></h3>
                                                 <em>&gt;</em></div>
                                             <div class="menu-item menu-in top">
@@ -174,7 +181,7 @@
                                     <li>
                                         <div class="category-info">
                                             <h3 class="category-name b-category-name"><i><img
-                                                    src="/images/cake.png"></i><a
+                                                    src="images/cake.png"></i><a
                                                     class="ml-22" title="没有类型">没有类型</a></h3>
                                             <em>&gt;</em></div>
                                         <div class="menu-item menu-in top">
@@ -292,7 +299,7 @@
 
             <div class="bloglistindex" style="background-color: #f8f8f8;margin-bottom: 10px;">
                 <h2 style="padding: 1px;margin: 0 0;">
-                    <a href="/server/add"><p class="am-icon-angle-right" style="float:left;font-size: 14px;padding: 1px"><span>去发布资源服务</span></p></a>
+                    <a href="server/add"><p class="am-icon-angle-right" style="float:left;font-size: 14px;padding: 1px"><span>去发布资源服务</span></p></a>
                     <p style="float:right;font-size: 12px;">来看看您需要的资源</p>
                 </h2>
                 <div class="clear "></div>
@@ -367,9 +374,9 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/index?pageNum=1">首页</a></li>
+                        <li><a href="index?pageNum=1">首页</a></li>
                         <li>
-                            <a href="/index?pageNum=${pagerList.currentPage-1}">
+                            <a href="index?pageNum=${pagerList.currentPage-1}">
                                 <span>«</span>
                             </a>
                         </li>
@@ -388,7 +395,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a href="/index?pageNum=${k}">${k}</a>
+                                <a href="index?pageNum=${k}">${k}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -404,12 +411,12 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="/index?pageNum=${pagerList.currentPage+1}">
+                            <a href="index?pageNum=${pagerList.currentPage+1}">
                                 <span >»</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/index?pageNum=${pagerList.totalPage}">尾页</a>
+                            <a href="index?pageNum=${pagerList.totalPage}">尾页</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -431,15 +438,15 @@
 <!--引导 -->
 <div class="navCir">
     <li class="active"><a href="/index"><i class="am-icon-home "></i>首页</a></li>
-    <li><a href="/index_type"><i class="am-icon-list"></i>分类</a></li>
+    <li><a href="index_type"><i class="am-icon-list"></i>分类</a></li>
     <%--<li><a href="/index_myorder"><i class="am-icon-shopping-basket"></i>订单</a></li>--%>
-    <li><a href="/index_user"><i class="am-icon-user"></i>我的</a></li>
+    <li><a href="index_user"><i class="am-icon-user"></i>我的</a></li>
 </div>
 
 <script>
-    window.jQuery || document.write('<script src="/basic/js/jquery.min.js "><\/script>');
+    window.jQuery || document.write('<script src="basic/js/jquery.min.js "><\/script>');
 </script>
-<script type="text/javascript " src="/basic/js/quick_links.js "></script>
+<script type="text/javascript " src="basic/js/quick_links.js "></script>
 </body>
 
 </html>

@@ -29,7 +29,7 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<path>/</path>
+					<path>/helpserver-manager-service</path>
 					<port>8081</port>
 				</configuration>
 			</plugin>

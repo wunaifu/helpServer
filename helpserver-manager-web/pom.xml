@@ -114,7 +114,7 @@
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <configuration>
-          <path>/</path>
+          <path>/helpserver-manager-web</path>
           <port>8082</port>
         </configuration>
       </plugin>

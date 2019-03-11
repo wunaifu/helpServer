@@ -10,6 +10,13 @@
 <html>
 
 <head lang="en">
+    <%
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://"
+                + request.getServerName() + ":" + request.getServerPort()
+                + path + "/";
+    %>
+    <base href="<%=basePath%>"></base>
     <meta charset="UTF-8">
     <title>登录</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,22 +26,22 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
-    <link rel="stylesheet" href="/AmazeUI-2.4.2/assets/css/amazeui.css"/>
-    <link href="/css/dlstyle.css" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="AmazeUI-2.4.2/assets/css/amazeui.css"/>
+    <link href="css/dlstyle.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YUqCLjiE9ymXaCpOpZGU2sCZ6WXGHTGf"></script>
 </head>
 
 <body onload="dingwei();">
 
 <div class="login-boxtitle">
-    <a href="#"><img alt="logo" src="/images/logobig.png"/></a>
+    <a href="#"><img alt="logo" src="images/logobig.png"/></a>
 </div>
 
 <div class="login-banner">
     <div class="login-main">
-        <div class="login-banner-bg"><span></span><img src="/images/big.jpg"/></div>
+        <div class="login-banner-bg"><span></span><img src="images/big.jpg"/></div>
         <div class="login-box" style="padding: 20px;">
 
             <h3 class="title">登录服务平台</h3>
@@ -60,8 +67,8 @@
 
             <div class="login-links">
                 <label for="remember-me"><input id="remember-me" type="checkbox">记住密码</label>
-                <a href="/forgetpsw" class="am-fr">忘记密码</a>
-                <a href="/register" class="zcnext am-fr am-btn-default">注册</a>
+                <a href="forgetpsw" class="am-fr">忘记密码</a>
+                <a href="register" class="zcnext am-fr am-btn-default">注册</a>
                 <br/>
             </div>
             <div class="am-cf">
@@ -83,10 +90,10 @@
 <!--底部 start-->
 <jsp:include page="footer.jsp"></jsp:include>
 <!--底部 end-->
-<script src="/js/jquery.ajaxchimp.min.js"></script>
-<script src="/js/script.js"></script>
-<link rel="stylesheet" href="/css/alert.css"><!-- 弹窗  -->
-<script src="/js/alert.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="js/script.js"></script>
+<link rel="stylesheet" href="css/alert.css"><!-- 弹窗  -->
+<script src="js/alert.js"></script>
 <script>
     var myLocationHere;
     function dingwei() {
@@ -125,7 +132,7 @@
         }
         $.ajax({
             type : "POST",
-            url: "/user/dologin?phone=" + phone + "&password=" + password+ "&location=" +encodeURI(encodeURI(myLocationHere)),
+            url: "user/dologin?phone=" + phone + "&password=" + password+ "&location=" +encodeURI(encodeURI(myLocationHere)),
             contentType : "application/json;charset=utf-8",
             dataType : "text",
             error : function() {
@@ -136,7 +143,7 @@
                     console.log(data);
                     if (data=="login_success"){
                         $.myAlert('登录成功');
-                        window.location.href="/index";
+                        window.location.href="index";
                     }
                     if (data=="phone_error"){
                         $('#killPhoneMessage').hide().html('<label style="color: red">没有该手机账户!</label>').show(300);
